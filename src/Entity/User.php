@@ -17,11 +17,11 @@ class User implements UserInterface  {
    */
   private $username;
   /**
-   * @ORM\Column(type="string", length=128)
+   * @ORM\Column(type="string", length=128, unique=true) 
    */
   private $email;
   /**
-   * @ORM\Column(type="string", length=4096)
+   * @ORM\Column(type="string", length=4096, unique=true)
    */
   private $password;
   /**
