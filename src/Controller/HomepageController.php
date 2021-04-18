@@ -16,9 +16,17 @@ class HomepageController extends AbstractController
      * )
      */
     public function homepage()
-    {
-
+    {       
+        if ($this->getUser()) 
+        {
+        return $this->redirectToRoute('dashboard');
+             
+        } else 
+        {
         return $this->render('Homepage/homepage.html.twig', []);
+        }
+
+           
     }
 
 }

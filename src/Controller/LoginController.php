@@ -14,6 +14,12 @@ class LoginController extends AbstractController {
    * @Route("/login", name="login")
    */
   public function login(Request $request, AuthenticationUtils $authenticationUtils) : Response {
+
+     if ($this->getUser()) {
+        return $this->redirectToRoute('dashboard');
+             
+     }
+
     $errors = $authenticationUtils->getLastAuthenticationError();
     $lastUsername = $authenticationUtils->getLastUsername();
     return $this->render('User/login.html.twig', [
@@ -25,4 +31,8 @@ class LoginController extends AbstractController {
    * @Route("/logout", name="logout")
    */
   public function logout() : Response {}
+
+  
+  
 }
+  
