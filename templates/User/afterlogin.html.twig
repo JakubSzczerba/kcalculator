@@ -3,13 +3,20 @@
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="mt-5">Dodaj posiłek</h1>
+            <h1 class="mt-5">Zjedzone kcal / zapotrzebowanie kcal</h1>
+            <br>
+            <br>
+            <br>
             <div class="col-lg-6">
-                <form >
-                    <label for="username">Zacznij pisać</label>
-                    <input type="text" class="form-control"><br>
+                <form action="{{ path('uploadFood') }}" method="POST" class="form-horizontal">
+                    <label for="username">Szukaj produktu</label>
+                    <input type="text" name="search" class="form-control"><br>
                     <button type="submit" class="btn btn-success">Dodaj</button>
                 </form>
+            </div>
+            <div>
+                <h3 class="mt-5">Wybrany posiłek</h3>
+                
             </div>
         </div>
     </div>
