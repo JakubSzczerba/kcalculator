@@ -18,7 +18,8 @@ class ImageExtension extends AbstractExtension
 
     public function findFood()
     {
-        $host= 'localhost';
+
+    $host= 'localhost';
     $user= 'root';
     $pass= '';
     $dbname= 'foods';
@@ -38,7 +39,7 @@ class ImageExtension extends AbstractExtension
 
       echo "** Wartości na 100g produktu **<br>";
       echo "<br>";
-      echo "$row[0], $row[1] kcal  <br>";
+      echo "<h4><bold>$row[0], $row[1] kcal</bold></h4>  <br>";
      
       echo "Białko: $row[2]g<br>";
       echo "Tłuszcz: $row[3]g<br>";

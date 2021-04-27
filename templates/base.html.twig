@@ -19,10 +19,13 @@
                     <ul class="navbar-nav ml-auto">
                         {% if app.user %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('dashboard') }}">Widok</a>
+                                <a class="nav-link" href="{{ path('dashboard') }}">Tablica</a>
                             </li>
                             <li>
                                 <a class="nav-link" href="{{ path('daily') }}">Dziennik</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="{{ path('preferentions') }}">Preferencje</a>
                             </li>
                             <li>
                                 <a class="nav-link" href="{{ path('logout') }}">Wyloguj się</a>
