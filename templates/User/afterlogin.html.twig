@@ -11,11 +11,15 @@
                 <form action="{{ path('uploadFood') }}" method="POST" class="form-horizontal">
                     <label for="username">Szukaj produktu</label>
                     <input type="text" name="search" class="form-control"><br>
-                    <button type="submit" class="btn btn-success">Dodaj</button>
+                    <button type="submit" class="btn btn-success">Dodaj</button><br>                   
                 </form>
             </div>
-            <div>
-                <h3 class="mt-5">Wybrany posiłek</h3>
+            <div class="col-lg-6">
+                <form action="{{ path('uploadFood') }}" method="POST" class="form-horizontal">
+                    <h3 class="mt-5">Wybrany posiłek</h3>
+                    {{ findFood() }}
+
+                </form>
                 
             </div>
         </div>

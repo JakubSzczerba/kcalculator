@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 class DailyController extends AbstractController
 {
@@ -23,7 +25,7 @@ class DailyController extends AbstractController
 /**
    * @Route("/uploadFood", name="uploadFood")
    */
-  public function uploadFood()
+  public function findFood()
   {
     $host= 'localhost';
     $user= 'root';
@@ -42,24 +44,15 @@ class DailyController extends AbstractController
       $question = "SELECT Produkt, Energia, Białko, Tłuszcz, Węglowodany FROM tabkal WHERE Produkt = '$product'";
       $result = mysqli_query($conn, $question);
       $row = mysqli_fetch_row($result);
-
-      echo "Wartości na 100g produktu<br>";
-      echo "$row[0], $row[1] kcal  <br>";
-     
-      echo "Białko: $row[2]g<br>";
-      echo "Tłuszcz: $row[3]g<br>";
-      echo "Węglowodany: $row[4]g";
-      
+ 
       return $this->render('User/afterlogin.html.twig', []);
 
     } else {
-      echo"Wpisz nazwę produktu";
       return $this->render('User/afterlogin.html.twig', []);
     } 
-
-
 
   }
 
 
 }
+
