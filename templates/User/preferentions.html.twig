@@ -3,7 +3,33 @@
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="mt-5">Preferencje</h1><br>
+            <h1 class="mt-5">Preferencje</h1>
+            <div class="col-lg-6">
+                <form action="{{ path('kcal') }}" method="POST" class="form-horizontal">
+                    <label for="username"><h5>Wypełnij formularz, aby obliczyć zapotrzebowanie kaloryczne</h5></label>
+                    <br>
+                    
+                    <p>1) Podaj swoją płeć:</p>
+                        <input type="radio" name="Płeć" value="Mężczyzna">Mężczyzna
+                        <input type="radio" name="Płeć" value="Kobieta">Kobieta
+                    <br>
+                    <br>
+                    <label for="username">2) Wpisz wagę w kilogramach:</label>
+                    <input type="text" name="weight" class="form-control">
+                    <br>
+                    <label for="username">3) Wpisz wzrost w centymetrach:</label>
+                    <input type="text" name="height" class="form-control">
+                    <br>
+                    <label for="username">4) Podaj wiek:</label>
+                    <input type="text" name="age" class="form-control">
+                    <br>
+                    <p>5) Jaka jest Twoja aktywność fizyczna w ciągu tygodnia?</p>
+                        <input type="radio" name="activity1" value="low">Siedzący tryb życia, praca przy biurku. Jedyba aktywność to codzienne czynności domowe<br><br>
+                        <input type="radio" name="activity2" value="medium">Tryb życia o średniej aktywności fizczynej. Praca fizyczna, lub codziennie wykonywanie lekkich ćwiczeń fizycznych w czasie 1 godziny<br><br>
+                        <input type="radio" name="activity3" value="hard">Tryb życia o wysokiej aktywności fizczynej. Ciężka praca fizyczna, albo codzienny trening o wymiarze minimu 2 godzin z wysoką intesywnością<br>
+                        <br>
+                    <button type="submit" class="btn btn-success">Wyślij</button><br>                   
+                </form>
             
         </div>
     </div>

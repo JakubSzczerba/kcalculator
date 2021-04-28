@@ -15,11 +15,7 @@ class LoginController extends AbstractController {
    */
   public function login(Request $request, AuthenticationUtils $authenticationUtils) : Response {
 
-     if ($this->getUser()) {
-        return $this->redirectToRoute('dashboard');
-             
-     }
-
+    
     $errors = $authenticationUtils->getLastAuthenticationError();
     $lastUsername = $authenticationUtils->getLastUsername();
     return $this->render('User/login.html.twig', [
