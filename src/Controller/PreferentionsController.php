@@ -24,40 +24,43 @@ class PreferentionsController extends AbstractController
   public function kcal()
   { 
     $result = 0;
-    $man;
-    $woman;
-    $weight; 
-    $height; 
-    $age;
-    $low = $_POST['activity1']; // 1.45;
-    $medium = $_POST['activity2']; // 1.75;
-    $hard = $_POST['activity3']; // 2.0;
+    $sex;
+    $weight = $_POST['weight']; 
+    $height = $_POST['height']; 
+    $age = $_POST['age'];
+    //$low = $_POST['activity1']; // 1.45;
+    //$medium = $_POST['activity2']; // 1.75;
+    //$hard = $_POST['activity3']; // 2.0;
 
-    if (isset($man))
+    if ( isset($_POST['man']) || isset($_POST['woman']) )
     {
-      $result = (10*$weight) + (6.25*$height) - (5*$age) + 5 ;
-    }
-
-    elseif (isset($woman))
-    {
-      $result = (10*$weight) + (6.25*$height) - (5*$age) - 161 ;
-    }
+      if (isset($_POST['man']))
+      {
+        $result = (10*$weight) + (6.25*$height) - (5*$age) + 5 ;
+      } 
+      elseif (isset($_POST['woman']))
+      {
+        $result = (10*$weight) + (6.25*$height) - (5*$age) - 161 ;
+      }
     
-    if (isset($low))
-    {
-      $result = $result * 1.45;
     }
 
-    elseif (isset($medium))
+    if ( isset($_POST['activity1']) || isset($_POST['activity2']) || isset($_POST['activity3']) )
     {
-      $result = $result * 1.75;
+      if (isset($_POST['activity1']))
+      {
+        $result = $result * 1.45;
+      }
+      elseif (isset($_POST['activity2']))
+      {
+        $result = $result * 1.75;
+      }
+      elseif (isset($_POST['activity3']))
+      {
+        $result = $result * 2.0;
+      }  
     }
-
-    elseif (isset($hard))
-    {
-      $result = $result * 2.0;
-    }
-
+    settype($result, "integer");
     echo $result;
 
 

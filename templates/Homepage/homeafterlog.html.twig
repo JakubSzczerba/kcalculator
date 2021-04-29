@@ -4,7 +4,10 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="mt-5">Tutaj będą kalorie</h1><br>
-            <h3 class="mt-5">Zjedzone kcal / zapotrzebowanie kcal</h3><br>
+            <div class="col-lg-6">
+                <form action="{{ path('uploadFood') }}" method="POST" class="form-horizontal">
+                    <h3 class="mt-5">Zjedzone kcal / {{ kcal() }} </h3><br>
+            </div>
         </div>
     </div>
 {% endblock %}
