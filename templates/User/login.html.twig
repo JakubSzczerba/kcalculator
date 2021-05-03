@@ -7,12 +7,12 @@
     {% endif %}
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="mt-5">Login form</h1>
+            <h1 class="mt-5">Logowanie</h1>
             <div class="col-lg-6">
                 <form action="{{ path('login') }}" method="post" class="form-horizontal">
-                    <label for="username">Username:</label>
-                    <input type="text" name="_username" id="username" value="{{ username }}" class="form-control">
-                    <label for="password">Password</label>
+                    <label for="username">Login:</label>
+                    <input type="text" name="_username" id="username" value="{{ username }}" class="form-control"><br>
+                    <label for="password">Hasło:</label>
                     <input type="password" name="_password" id="password" class="form-control">
                     <br>
                     <button type="submit" class="btn btn-success">Login</button>

@@ -32,10 +32,13 @@
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('login') }}">Login</a>
+                                <a class="nav-link" href="{{ path('home') }}">Strona główna</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="{{ path('registration') }}">Sign Up</a>
+                                <a class="nav-link" href="{{ path('login') }}">Zaloguj się</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="{{ path('registration') }}">Zrejestruj się</a>
                             </li>
                         {% endif %}
                     </ul>
