@@ -24,7 +24,7 @@ class ImageExtension extends AbstractExtension
     $host= 'localhost';
     $user= 'root';
     $pass= '';
-    $dbname= 'foods';
+    $dbname= 'kcalculator';
     if(isset($_POST["search"]) && $_POST["search"] != "")
     {
       $conn = mysqli_connect($host, $user, $pass, $dbname);
