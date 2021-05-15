@@ -13,7 +13,7 @@ class User implements UserInterface  {
    */
   private $id;
   /**
-   * @ORM\Column(type="string", length=128)
+   * @ORM\Column(type="string", length=128, unique=true)
    */
   private $username;
   /**
