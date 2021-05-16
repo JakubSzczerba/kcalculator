@@ -15,14 +15,10 @@ class UserDaily
      */
     private $id;
      /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\UserPreferention")
-     * @var UserPreferention
+     * @ORM\OneToOne(targetEntity="App\Entity\DataTime")
+     * @var DataTime
      */
-    private $user_pref;
-    /**
-     * @ORM\Column(type="datetime") 
-     */
-    private $data;
+    private $datatime;
     /**
      * @ORM\Column(type="string") 
      */
