@@ -21,6 +21,8 @@ class DataTime
      */
     private $preferention;
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime") 
      */
     private $data;
