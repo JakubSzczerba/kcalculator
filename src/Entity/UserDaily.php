@@ -36,5 +36,58 @@ class UserDaily
      */
     private $przekaski;
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getSniadanie()
+    {
+        return $this->$sniadanie;
+    }
+
+    public function setSniadanie($sniadanie)
+    {
+        $this->sniadanie = $sniadanie;
+    }
+
+    public function getKolacja()
+    {
+        return $this->$koalcja;
+    }
+
+    public function setKolacja($koalcja)
+    {
+        $this->koalcja = $koalcja;
+    }
+
+    public function getPrzekaski()
+    {
+        return $this->$przekaski;
+    }
+
+    public function setPrzekaski($przekaski)
+    {
+        $this->przekaski = $przekaski;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

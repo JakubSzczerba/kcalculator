@@ -21,9 +21,34 @@ class DataTime
      */
     private $preferention;
     /**
-     * @ORM\Column(type="date") 
+     * @ORM\Column(type="datetime") 
      */
     private $data;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getData(): \DateTime
+    {
+        return $this->data;
+    }
+
+    public function setData(\DateTime $data): void
+    {
+        $this->data = $data;
+    }
+
+    public function getPreferention(): ?UserPreferention
+    {
+        return $this->preferention;
+    }
+
+    public function setPreferention(Post $preferention): void
+    {
+        $this->preferention = $preferention;
+    }
 
 
 

@@ -35,5 +35,76 @@ class UserPreferention
     private $kcal;
 
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getCel()
+    {
+        return $this->$cel;
+    }
+
+    public function setCel($cel)
+    {
+        $this->cel = $cel;
+    }
+
+    public function getWaga()
+    {
+        return $this->$waga;
+    }
+
+    public function setWaga($waga)
+    {
+        $this->waga = $waga;
+    }
+
+    public function getKcal()
+    {
+        return $this->$kcal;
+    }
+
+    public function setKcal($kcal)
+    {
+        $this->kcal = $kcal;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
