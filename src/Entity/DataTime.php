@@ -23,9 +23,15 @@ class DataTime
     /**
      * @var \DateTime
      * 
-     * @ORM\Column(type="datetime") 
+     * @ORM\Column(type="date") 
      */
     private $data;
+
+    public function __construct()
+    {
+        $this->data = new \DateTime();
+       
+    }
 
     public function getId()
     {
