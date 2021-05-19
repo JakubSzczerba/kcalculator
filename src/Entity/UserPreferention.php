@@ -13,6 +13,7 @@ class UserPreferention
    * @ORM\Column(type="integer")
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
+   * @ORM\OneToMany(targetEntity="App\Entity\DataTime", mappedBy="preferention")
    */
   private $id;
     /**

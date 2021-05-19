@@ -16,7 +16,7 @@ class DataTime
    */
   private $id;
   /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserPreferention")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserPreferention", inversedBy="id")
      * @var UserPreferention
      */
     private $preferention;
