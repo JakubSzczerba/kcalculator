@@ -30,7 +30,7 @@ class UserDaily
     /**
      * @ORM\Column(type="string") 
      */
-    private $koalcja;
+    private $kolacja;
     /**
      * @ORM\Column(type="string") 
      */
@@ -41,32 +41,42 @@ class UserDaily
         return $this->id;
     }
 
-    public function getSniadanie()
+    public function getSniadanie(): ?string
     {
-        return $this->$sniadanie;
+        return $this->sniadanie;
     }
 
-    public function setSniadanie($sniadanie)
+    public function setSniadanie($sniadanie): void
     {
         $this->sniadanie = $sniadanie;
     }
 
-    public function getKolacja()
+    public function getObiad(): ?string
     {
-        return $this->$koalcja;
+        return $this->obiad;
     }
 
-    public function setKolacja($koalcja)
+    public function setObiad($obiad): void
     {
-        $this->koalcja = $koalcja;
+        $this->obiad = $obiad;
     }
 
-    public function getPrzekaski()
+    public function getKolacja(): ?string
     {
-        return $this->$przekaski;
+        return $this->kolacja;
     }
 
-    public function setPrzekaski($przekaski)
+    public function setKolacja($kolacja): void
+    {
+        $this->kolacja = $kolacja;
+    }
+
+    public function getPrzekaski(): ?string
+    {
+        return $this->przekaski;
+    }
+
+    public function setPrzekaski($przekaski): void
     {
         $this->przekaski = $przekaski;
     }

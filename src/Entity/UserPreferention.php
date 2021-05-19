@@ -40,32 +40,32 @@ class UserPreferention
         return $this->id;
     }
 
-    public function getCel()
+    public function getCel(): ?string
     {
-        return $this->$cel;
+        return $this->cel;
     }
 
-    public function setCel($cel)
+    public function setCel($cel): void
     {
         $this->cel = $cel;
     }
 
-    public function getWaga()
+    public function getWaga(): ?string
     {
-        return $this->$waga;
+        return $this->waga;
     }
 
-    public function setWaga($waga)
+    public function setWaga($waga): void
     {
         $this->waga = $waga;
     }
 
-    public function getKcal()
+    public function getKcal(): ?string
     {
-        return $this->$kcal;
+        return $this->kcal;
     }
 
-    public function setKcal($kcal)
+    public function setKcal($kcal): void
     {
         $this->kcal = $kcal;
     }

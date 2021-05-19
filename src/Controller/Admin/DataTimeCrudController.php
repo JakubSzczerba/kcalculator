@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\DataTime;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+
 class DataTimeCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

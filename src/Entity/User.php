@@ -33,6 +33,12 @@ class User implements UserInterface  {
     $this->username = $username;
     $this->email = $email;
   }
+
+  public function getId()
+  {
+      return $this->id;
+  }
+
   public function getRoles() {
     return ['ROLE_USER'];
   }
