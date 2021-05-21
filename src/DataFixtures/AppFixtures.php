@@ -11,6 +11,7 @@ class AppFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
+        //$userpref = new UserPreferentionFixtures();
 
         $manager->flush();
     }
