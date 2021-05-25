@@ -27,16 +27,48 @@ class UserFixtures extends Fixture {
     $this->encoder = $encoder;
     $this->entityManager = $entityManager;
   }
-  /**
-   * @param ObjectManager $manager Object manager instance
-   *
-   * @return void
-   */
-  public function load(ObjectManager $manager) : void {
-    $user = new User('user', 'user@test.com');
-    $password = $this->encoder->encodePassword($user, 'secret');
-    $user->setPassword($password);
-    $this->entityManager->persist($user);
-    $this->entityManager->flush();
-  }
+  
+  public function load(ObjectManager $manager): void
+    {
+      $this->loadUsers($manager);
+    }
+
+    private function loadUsers(ObjectManager $manager): void
+    {
+        foreach ($this->getUserData() as [$username, $email, $password]) {
+            $user = new User();
+            $user->setUsername($username);
+            $user->setEmail($email);
+            $user->setPassword($this->encoder->encodePassword($user, $password));
+          
+
+            $manager->persist($user);
+            
+        }
+
+        $manager->flush();
+    }
+
+    private function getUserData(): array
+    {
+        return [
+            // $userData = [$username, $email, $password];
+            ['user1', 'user1@test.com', 'user'],
+            ['user2', 'user2@test.com', 'user'],
+            ['user3', 'user3@test.com', 'user'],
+        ];
+    }
+
+        
+
+    
+
+
+
+
+
+
+
+
+
 }
