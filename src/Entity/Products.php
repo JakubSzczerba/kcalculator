@@ -15,6 +15,11 @@ class Products
    */
   private $id;
   /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\UserDaily")
+     * @var UserDaily
+     */
+    private $daily;
+  /**
      * @ORM\Column(type="text") 
      */
     private $product;
