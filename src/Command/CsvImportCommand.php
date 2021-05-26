@@ -1,38 +1,56 @@
 <?php
 namespace App\Command;
-use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Finder\Finder;
 
-/**
- * Class CsvImportCommand
- * @package AppBundle\ConsoleCommand
- */
-class CsvImportCommand extends Command
+
+
+class CsvImportCommand extends ContainerAwareCommand
+
 {
-    /**
-     * Configure
-     * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
-     */
-    protected function configure()
+    // change these options about the file to read
+    private $csvParsingOptions = array(
+        'finder_in' => 'src/Data/',
+        'finder_name' => 'MOCK_DATA.csv',
+        'ignoreFirstLine' => true
+    );
+
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this
-            ->setName('csv:import')
-            ->setDescription('Imports the mock CSV data file')
-        ;
+        // use the parseCSV() function
+        $csv = $this->parseCSV();
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return void
+     * Parse a csv file
+     * 
+     * @return array
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    private function parseCSV()
     {
-        $io = new SymfonyStyle($input, $output);
+        $ignoreFirstLine = $this->csvParsingOptions['ignoreFirstLine'];
 
-        $io->success('Command exited cleanly!');
+        $finder = new Finder();
+        $finder->files()
+            ->in($this->csvParsingOptions['finder_in'])
+            ->name($this->csvParsingOptions['finder_name'])
+        ;
+        foreach ($finder as $file) { $csv = $file; }
+
+        $rows = array();
+        if (($handle = fopen($csv->getRealPath(), "r")) !== FALSE) {
+            $i = 0;
+            while (($data = fgetcsv($handle, null, ";")) !== FALSE) {
+                $i++;
+                if ($ignoreFirstLine && $i == 1) { continue; }
+                $rows[] = $data;
+            }
+            fclose($handle);
+        }
+
+        return $rows;
     }
 }
