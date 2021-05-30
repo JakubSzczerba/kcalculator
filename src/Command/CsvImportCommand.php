@@ -9,6 +9,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
+use League\Csv\Reader;
+use App\Data;
 
 
 
@@ -46,14 +48,25 @@ class CsvImportCommand extends Command
 
         $io->title('Attempting to import the feed');
 
-        $products = new Products();
-        $products->setProduct('Actimel, mleko jogurtowe');
-        $products->setEnergy('88');
-        $products->setProtein('3');
-        $products->setFat('2');
-        $products->setCarbo('16');
+        $reader = Reader::createFromPath('%kernel.root_dir%/../src/Data/MOCK_DATA.csv');
+        $results = $reader->fetchAssoc();
 
-        $this->em->persist($products);
+
+        foreach ($results as $row) {
+
+
+            $products = new Products();
+            $products->setProduct($row['product']);
+            $products->setEnergy($row['energy']);
+            $products->setProtein($row['protein']);
+            $products->setFat($row['fat']);
+            $products->setCarbo($row['carbo']);
+
+            $this->em->persist($products);
+
+
+        }
+
     
         $this->em->flush();
 
@@ -67,9 +80,5 @@ class CsvImportCommand extends Command
 
 
 
-    private function parseCSV()
-    {
-        
-
-    }
+   
 }
