@@ -1,6 +1,10 @@
 <?php
 namespace App\Command;
-use Symfony\Component\Console\Command\ContainerAwareCommand;
+use App\Entity\Products;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -8,49 +12,64 @@ use Symfony\Component\Finder\Finder;
 
 
 
-class CsvImportCommand extends ContainerAwareCommand
+class CsvImportCommand extends Command
 
 {
-    // change these options about the file to read
-    private $csvParsingOptions = array(
-        'finder_in' => 'src/Data/',
-        'finder_name' => 'MOCK_DATA.csv',
-        'ignoreFirstLine' => true
-    );
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        parent::__construct();
+
+        $this->em = $em;
+
+    }
+
+
+    protected function configure()
+    {
+        
+        $this->setName('csv:import');
+        $this->setDescription('Imports a mock CSV file');
+        
+
+    }
+   
+   
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // use the parseCSV() function
-        $csv = $this->parseCSV();
+        $io = new SymfonyStyle($input, $output);
+
+        $io->title('Attempting to import the feed');
+
+        $products = new Products();
+        $products->setProduct('Actimel, mleko jogurtowe');
+        $products->setEnergy('88');
+        $products->setProtein('3');
+        $products->setFat('2');
+        $products->setCarbo('16');
+
+        $this->em->persist($products);
+    
+        $this->em->flush();
+
+        $io->success('Everything went well');
     }
 
-    /**
-     * Parse a csv file
-     * 
-     * @return array
-     */
+    
+
+
+
+
+
+
     private function parseCSV()
     {
-        $ignoreFirstLine = $this->csvParsingOptions['ignoreFirstLine'];
+        
 
-        $finder = new Finder();
-        $finder->files()
-            ->in($this->csvParsingOptions['finder_in'])
-            ->name($this->csvParsingOptions['finder_name'])
-        ;
-        foreach ($finder as $file) { $csv = $file; }
-
-        $rows = array();
-        if (($handle = fopen($csv->getRealPath(), "r")) !== FALSE) {
-            $i = 0;
-            while (($data = fgetcsv($handle, null, ";")) !== FALSE) {
-                $i++;
-                if ($ignoreFirstLine && $i == 1) { continue; }
-                $rows[] = $data;
-            }
-            fclose($handle);
-        }
-
-        return $rows;
     }
 }
