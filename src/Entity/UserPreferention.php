@@ -13,11 +13,12 @@ class UserPreferention
    * @ORM\Column(type="integer")
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
-   * @ORM\OneToMany(targetEntity="App\Entity\DataTime", mappedBy="preferention")
+   * 
    */
   private $id;
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User")
+     * @ORM\OneToOne(targetEntity="App\Entity\User")            // $sex; $weight $height $age $activity intentions caloric_requirement
+    
      * @var User
      */
     private $user;
@@ -25,15 +26,42 @@ class UserPreferention
     /**
      * @ORM\Column(type="string") 
      */
-    private $cel;
+    private $gender;
+
     /**
      * @ORM\Column(type="float") 
      */
-    private $waga;
+    private $weight;
+
+    /**
+     * @ORM\Column(type="float") 
+     */
+    private $height;
+
     /**
      * @ORM\Column(type="integer") 
      */
-    private $kcal;
+    private $age;
+
+    /**
+     * @ORM\Column(type="string") 
+     */
+    private $activity;
+    
+    /**
+     * @ORM\Column(type="integer") 
+     */
+    private $caloric_requirement;
+
+    /**
+     * @ORM\Column(type="string") 
+     */
+    private $intentions;
+
+    /**
+     * @ORM\Column(type="integer") 
+     */
+    private $kcal_day;
 
 
     public function getId()
@@ -41,34 +69,84 @@ class UserPreferention
         return $this->id;
     }
 
-    public function getCel(): ?string
+    public function getGender(): ?string
     {
-        return $this->cel;
+        return $this->gender;
     }
 
-    public function setCel($cel): void
+    public function setGender($gender): void
     {
-        $this->cel = $cel;
+        $this->gender = $gender;
     }
 
-    public function getWaga(): ?string
+    public function getIntentions(): ?string
     {
-        return $this->waga;
+        return $this->intentions;
     }
 
-    public function setWaga($waga): void
+    public function setIntentions($intentions): void
     {
-        $this->waga = $waga;
+        $this->intentions = $intentions;
     }
 
-    public function getKcal(): ?string
+    public function getWeight(): ?float
     {
-        return $this->kcal;
+        return $this->weight;
     }
 
-    public function setKcal($kcal): void
+    public function setWeight($weight): void
     {
-        $this->kcal = $kcal;
+        $this->weight = $weight;
+    }
+
+    public function getHeight(): ?float
+    {
+        return $this->height;
+    }
+
+    public function setHeight($height): void
+    {
+        $this->height = $height;
+    }
+
+    public function getAge(): ?integer
+    {
+        return $this->age;
+    }
+
+    public function setAge($age): void
+    {
+        $this->age = $age;
+    }
+
+    public function getActivity(): ?string
+    {
+        return $this->activity;
+    }
+
+    public function setActivity($activity): void
+    {
+        $this->activity = $activity;
+    }
+
+    public function getKcal(): ?integer
+    {
+        return $this->caloric_requirement;
+    }
+
+    public function setKcal($caloric_requirement): void
+    {
+        $this->caloric_requirement = $caloric_requirement;
+    }
+
+    public function getKcalDay(): ?integer
+    {
+        return $this->kcal_day;
+    }
+
+    public function setKcalDay($kcal_day): void
+    {
+        $this->kcal_day = $kcal_day;
     }
 
 

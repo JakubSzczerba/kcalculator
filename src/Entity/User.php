@@ -10,6 +10,7 @@ class User implements UserInterface  {
    * @ORM\Column(type="integer")
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
+   * @ORM\OneToMany(targetEntity="App\Entity\UsersEntries", mappedBy="user")
    */
   private $id;
   /**

@@ -22,11 +22,18 @@ class UserPreferentionFixtures extends Fixture
     public function loadPreferention(ObjectManager $manager): void
     {
 
-        foreach ($this->getPreferentionData() as [$cel, $waga, $kcal]) {
+        foreach ($this->getPreferentionData() as [$gender, $weight, $height, $age, $activity, $caloric_requirement, $intentions, $kcal_day]) {
             $userpref = new UserPreferention();
-            $userpref->setCel($cel);
-            $userpref->setWaga($waga);
-            $userpref->setKcal($kcal);
+            $userpref->setGender($gender);
+            $userpref->setWeight($weight);
+            $userpref->setHeight($height);
+            $userpref->setAge($age);
+            $userpref->setActivity($activity);
+            $userpref->setKcal($caloric_requirement);
+            $userpref->setIntentions($intentions);
+            $userpref->setKcalDay($kcal_day);
+            
+            
 
             $manager->persist($userpref);
             // $this->addReference($username, $user);
@@ -41,9 +48,9 @@ class UserPreferentionFixtures extends Fixture
     {
         return [
             // $preferentionData = [$cel, $waga, $kcal];
-            ['redukcja', '98.7', '2230'],
-            ['utrzymanie', '75.4', '2500'],
-            ['przybranie', '65.5', '3000'],
+            ['man', '85.6', '185', '25', 'activity_3', '2500', 'burn', '2300'],
+            ['woman', '55.3', '162', '20', 'activity_1', '1800', 'keep', '1800'],
+            ['man', '60', '182', '30', 'activity_1', '2250', 'gain', '3000'],
         ];
     }
 

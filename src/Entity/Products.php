@@ -15,10 +15,10 @@ class Products
    */
   private $id;
   /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\UserDaily")
-     * @var UserDaily
+     * @ORM\ManyToMany(targetEntity="App\Entity\UsersEntries")
+     * @var UsersEntries
      */
-    private $daily;
+    private $entries;
   /**
      * @ORM\Column(type="text") 
      */
