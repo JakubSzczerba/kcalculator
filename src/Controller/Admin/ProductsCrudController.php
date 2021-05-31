@@ -2,15 +2,14 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\DataTime;
+use App\Entity\Products;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-
-class DataTimeCrudController extends AbstractCrudController
+class ProductsCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return DataTime::class;
+        return Products::class;
     }
 
     /*

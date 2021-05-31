@@ -2,14 +2,15 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\UserDaily;
+use App\Entity\UsersEntries;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class UserDailyCrudController extends AbstractCrudController
+
+class UsersEntriesCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return UserDaily::class;
+        return UsersEntries::class;
     }
 
     /*

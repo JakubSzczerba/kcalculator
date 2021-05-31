@@ -4,8 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\UserPreferention;
 use App\Entity\User;
-use App\Entity\UserDaily;
-use App\Entity\DataTime;
+use App\Entity\UsersEntries;
+use App\Entity\Products;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -23,7 +23,7 @@ class AdminDashboardController extends AbstractDashboardController
     {
         $routeBuilder = $this->get(CrudUrlGenerator::class)->build();
 
-        return $this->redirect($routeBuilder->setController(DataTimeCrudController::class)->generateUrl());
+        return $this->redirect($routeBuilder->setController(UserCrudController::class)->generateUrl());
       
     }
 
@@ -34,8 +34,9 @@ class AdminDashboardController extends AbstractDashboardController
         
         yield MenuItem::linkToCrud('User', 'icon class', User::class);
         yield MenuItem::linkToCrud('UserPreferention', 'icon class', UserPreferention::class);
-        yield MenuItem::linkToCrud('DataTime', 'icon class', DataTime::class);
-        yield MenuItem::linkToCrud('UserDaily', 'icon class', UserDaily::class);
+        yield MenuItem::linkToCrud('UsersEntries', 'icon class', UsersEntries::class);
+        yield MenuItem::linkToCrud('Products', 'icon class', Products::class);
+        
 
 
 
