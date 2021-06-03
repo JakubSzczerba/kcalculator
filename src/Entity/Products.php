@@ -55,7 +55,7 @@ class Products
         $this->product = $product;
     }
 
-    public function getEnergy(): ?integer
+    public function getEnergy(): ?int  
     {
         return $this->energy;
     }

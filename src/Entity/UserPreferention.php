@@ -109,7 +109,7 @@ class UserPreferention
         $this->height = $height;
     }
 
-    public function getAge(): ?integer
+    public function getAge(): ?int
     {
         return $this->age;
     }
@@ -129,7 +129,7 @@ class UserPreferention
         $this->activity = $activity;
     }
 
-    public function getKcal(): ?integer
+    public function getKcal(): ?int
     {
         return $this->caloric_requirement;
     }
@@ -139,7 +139,7 @@ class UserPreferention
         $this->caloric_requirement = $caloric_requirement;
     }
 
-    public function getKcalDay(): ?integer
+    public function getKcalDay(): ?int
     {
         return $this->kcal_day;
     }
