@@ -18,8 +18,8 @@ class ImageExtension extends AbstractExtension
 
 
 
-    public function findFood()
-    {
+    //public function findFood()
+    //{
     /*
     $host= 'localhost';
     $user= 'root';
@@ -54,11 +54,5 @@ class ImageExtension extends AbstractExtension
       
     } 
     */
-    }
-
-    public function kcal()
-    {
-     
-    }
-
+    //}
 }

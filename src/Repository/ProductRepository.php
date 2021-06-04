@@ -14,18 +14,27 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Products::class);
     }
 
+    /**
+     * @return Products[]
+     */
+
     public function findProducts()
     {
 
         $qb = $this->createQueryBuilder('p');
 
         $qb->select('p.product', 'p.energy', 'p.protein', 'p.fat', 'p.carbo');
+            //->where('p.product > :product');
 
+        
+        
         dump($qb->getQuery()->getResult());
 
 
         return $qb->getQuery()->getResult();
-    }
+
+
+    
 
 
 
@@ -61,4 +70,5 @@ class ProductRepository extends ServiceEntityRepository
 
 
     
+} 
 }
