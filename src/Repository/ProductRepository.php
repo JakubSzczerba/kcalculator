@@ -19,7 +19,12 @@ class ProductRepository extends ServiceEntityRepository
 
         $qb = $this->createQueryBuilder('p');
 
-        return $qb;
+        $qb->select('p.product', 'p.energy', 'p.protein', 'p.fat', 'p.carbo');
+
+        dump($qb->getQuery()->getResult());
+
+
+        return $qb->getQuery()->getResult();
     }
 
 

@@ -15,27 +15,21 @@ class DailyController extends AbstractController
 {
 /**
    * @Route("/daily", name="daily")
-   * @param ProductRepository $productRepository
    */
   public function daily()
   {
-    $products = $productRepository->findAll();
     
-    return $this->render('User/afterlogin.html.twig', [
-      'controller_name' => 'DailyController',
-      'products' => $products
-    ]);
+    return $this->render('User/afterlogin.html.twig', []);
     
   }
 
 
 /**
    * @Route("/findFood", name="findFood")
-   * @param ProductRepository $productRepository
    */
-  public function findFood()
+  public function findFood(Request $request, ProductRepository $products): Response
   {
-    $products = $productRepository->findProducts();
+    $foundProducts = $products->findProducts();
 
     return $this->render('User/searchproducts.html.twig',[
       'products' => $products
