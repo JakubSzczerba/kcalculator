@@ -20,7 +20,7 @@ class ImageExtension extends AbstractExtension
 
     public function findFood()
     {
-
+    /*
     $host= 'localhost';
     $user= 'root';
     $pass= '';
@@ -53,6 +53,7 @@ class ImageExtension extends AbstractExtension
       echo"Wpisz nazwę produktu";
       
     } 
+    */
     }
 
     public function kcal()

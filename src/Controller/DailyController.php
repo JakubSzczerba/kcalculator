@@ -9,47 +9,38 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use App\Repository\ProductRepository;
 
 class DailyController extends AbstractController
 {
 /**
    * @Route("/daily", name="daily")
+   * @param ProductRepository $productRepository
    */
-  public function szukaj()
+  public function daily()
   {
-    return $this->render('User/afterlogin.html.twig', []);
+    $products = $productRepository->findAll();
+    
+    return $this->render('User/afterlogin.html.twig', [
+      'controller_name' => 'DailyController',
+      'products' => $products
+    ]);
     
   }
 
 
 /**
-   * @Route("/uploadFood", name="uploadFood")
+   * @Route("/findFood", name="findFood")
+   * @param ProductRepository $productRepository
    */
   public function findFood()
   {
-    $host= 'localhost';
-    $user= 'root';
-    $pass= '';
-    $dbname= 'kcalculator';
-    if(isset($_POST["search"]) && $_POST["search"] != "")
-    {
-      $conn = mysqli_connect($host, $user, $pass, $dbname);
-      if(!$conn)
-      {
-        echo"No connection";
-        return;
-      }
+    $products = $productRepository->findProducts();
 
-      $product = $_POST["search"];
-      $question = "SELECT Produkt, Energia, Białko, Tłuszcz, Węglowodany FROM tabkal WHERE Produkt = '$product'";
-      $result = mysqli_query($conn, $question);
-      $row = mysqli_fetch_row($result);
- 
-      return $this->render('User/afterlogin.html.twig', []);
+    return $this->render('User/searchproducts.html.twig',[
+      'products' => $products
+    ]);
 
-    } else {
-      return $this->render('User/afterlogin.html.twig', []);
-    } 
 
   }
 
