@@ -18,21 +18,26 @@ class ProductRepository extends ServiceEntityRepository
      * @return Products[]
      */
 
-    public function findProducts()
+    public function findProducts(string $product): array
     {
-
+        
         $qb = $this->createQueryBuilder('p');
 
-        $qb->select('p.product', 'p.energy', 'p.protein', 'p.fat', 'p.carbo');
-            //->where('p.product > :product');
 
-        
-        
+        $qb->select('p.product', 'p.energy', 'p.protein', 'p.fat', 'p.carbo')
+            //->select('p')
+            ->where('p.product = :product')
+            ->setParameter('product', $product);
+            
+            
+                 
+
         dump($qb->getQuery()->getResult());
-
-
         return $qb->getQuery()->getResult();
+        
+    
 
+        
 
     
 

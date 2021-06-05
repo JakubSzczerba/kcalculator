@@ -25,11 +25,13 @@ class DailyController extends AbstractController
 
 
 /**
-   * @Route("/findFood", name="findFood")
+   * @Route("/findFood", methods="POST", name="findFood")
    */
   public function findFood(Request $request, ProductRepository $products): Response
   {
-    $foundProducts = $products->findProducts();
+    $nameproduct= $_POST["search"];
+    $foundProducts = $products->findProducts($nameproduct);
+
 
     return $this->render('User/searchproducts.html.twig',[
       'products' => $products
