@@ -37,6 +37,22 @@ class DailyController extends AbstractController
       'products' => $products
     ]);
 
+    $results = [];
+    
+    foreach ($foundProducts as $product) {
+      $results[]=[
+        'product' => $product->getProduct,
+        'energy' => $product->getEnergy,
+        'protein' => $product->getProtein,
+        'fat' => $product->getFat,
+        'carbo' => $product->getCarbo,
+        'product' => htmlspecialchars($product->getProduct(), \ENT_COMPAT | \ENT_HTML5),
+
+      ];
+    }
+    return $results;
+    
+
 
   }
 
