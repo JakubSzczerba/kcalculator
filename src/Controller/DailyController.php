@@ -46,11 +46,11 @@ class DailyController extends AbstractController
         'protein' => $product->getProtein,
         'fat' => $product->getFat,
         'carbo' => $product->getCarbo,
-        'product' => htmlspecialchars($product->getProduct(), \ENT_COMPAT | \ENT_HTML5),
 
       ];
+
     }
-    return $results;
+    return $results; 
     
 
 

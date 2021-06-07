@@ -15,7 +15,7 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Products[]
+     * @return products[]
      */
 
     public function findProducts(string $product): array
