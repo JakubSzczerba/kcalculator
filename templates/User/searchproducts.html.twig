@@ -6,19 +6,20 @@
                 <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">
                     <div class="col-lg-6">
                         <h3 class="mt-5">Wybrany produkt</h3><br>
-                            <div>
-                            
+                            <div>                           
                                 <ul>
                                     {% for product in products %}
                                         
-                                            <li>{{ product.product }}</li>
-                                            <li>{{ product.energy }}</li>
-                                            <li>{{ product.protein }}</div>
-                                            <li>{{ product.fat }}</li>
-                                            <li>{{ product.carbo }}</li>
+                                        <li>{{ product.product|e }}</li>
+                                        <li>{{ product.energy|e }}</li>
+                                        <li>{{ product.protein|e }}</div>
+                                        <li>{{ product.fat|e }}</li>
+                                        <li>{{ product.carbo|e }}</li>
+                                    {% else %}
+                                        <li><em>no data found</em></li>
                                         
                                     {% endfor %}
-                                </ul>
+                                </ul>                              
                             </div>
                         </ul>
                     </div>
