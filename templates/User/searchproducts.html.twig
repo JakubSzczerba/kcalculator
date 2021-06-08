@@ -5,26 +5,30 @@
             <div class="col-lg-6">
                 <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">
                     <div class="col-lg-6">
-                        <h3 class="mt-5">Wybrany produkt</h3><br>
+                        <h3 class="mt-5">Wybrany produkt:</h3><br>
                             <div>                           
-                                <ul>
+                                    <em>** Wartości na 100g produktu **<br><br></em>
                                     {% for product in products %}
                                         
-                                        <li>{{ product.product|e }}</li>
-                                        <li>{{ product.energy|e }}</li>
-                                        <li>{{ product.protein|e }}</li>
-                                        <li>{{ product.fat|e }}</li>
-                                        <li>{{ product.carbo|e }}</li>
+                                        <div><h3><blold>{{ product.product|e }}, {{ product.energy|e }} kcal <h3></bold></div>
+                                  {#    <div>{{ product.energy|e }}</div>        #}
+                                        <div><h5>Białko: {{ product.protein|e }} g</h5></div>
+                                        <div><h5>Tłuszcz: {{ product.fat|e }} g</h5></div>
+                                        <div><h5>Węglowodany: {{ product.carbo|e }} g</h5></div>
                                     {% else %}
-                                        <li><em>nie ma takiego produktu</em></li>
+                                        <em><h3><blold>Nie ma takiego produktu :(<h3></bold></em>
                                         
-                                    {% endfor %}
-                                </ul>                              
-                            </div>
-                        </ul>
-                    </div>
-                    
+                                    {% endfor %}                                                            
+                            </div>                      
+                    </div>                  
                 </form>
+                <div>
+                    <form>
+                        <div>
+                    {#      <button type="submit" class="btn btn-success">Dodaj</button><br>   #}
+                        </div>
+                    </form>
+                </div>
             
         </div>
     
