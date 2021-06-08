@@ -20,7 +20,7 @@ class Products
      */
     private $entries;
   /**
-     * @ORM\Column(type="text") 
+     * @ORM\Column(type="string") 
      */
     private $product;
     /**
@@ -45,7 +45,7 @@ class Products
         return $this->id;
     }
 
-    public function getProduct(): ?text
+    public function getProduct(): ?string
     {
         return $this->product;
     }

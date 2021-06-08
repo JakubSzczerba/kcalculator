@@ -34,7 +34,7 @@ class DailyController extends AbstractController
 
 
     return $this->render('User/searchproducts.html.twig',[
-      'products' => $products
+      'products' => $foundProducts
     ]);
 
     $results = [];

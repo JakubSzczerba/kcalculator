@@ -33,7 +33,7 @@ class ProductRepository extends ServiceEntityRepository
             
                  
 
-        dump($qb->getQuery()->getResult());
+        //dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getResult();
         
     
