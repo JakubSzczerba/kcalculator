@@ -18,9 +18,43 @@ class PreferentionsController extends AbstractController
     return $this->render('User/preferentions.html.twig', []);
   }
 
-  /**
-   * @Route("/kcal", name="kcal")
+
+
+
+/**
+   * @Route("/setPreferention", methods="POST", name="setPreferention")
    */
+  public function setPreferention(Request $request, ProductRepository $preferention): Response
+  {
+
+
+    
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+} 
+
+/*
   public function kcal()
   { 
     $result = 0;
@@ -59,7 +93,7 @@ class PreferentionsController extends AbstractController
       {
         $result = $result * 2.0;
       }  
-    }
+    } TRZEBA DODAC INTENCJE!
     settype($result, "integer");
     echo $result;
 
@@ -68,5 +102,6 @@ class PreferentionsController extends AbstractController
     return $this->render('User/preferentions.html.twig', []);
   }
 
-}
 
+
+*/
