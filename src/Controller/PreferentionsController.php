@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use App\Repository\PreferentionsRepository;
 
 class PreferentionsController extends AbstractController
 {
@@ -24,28 +25,28 @@ class PreferentionsController extends AbstractController
 /**
    * @Route("/setPreferention", methods="POST", name="setPreferention")
    */
-  public function setPreferention(Request $request, ProductRepository $preferention): Response
+  public function setPreferention(Request $request, PreferentionsRepository $preferention): Response
   {
 
+    $result = 0;
+    $gender;
+    $weight = $_POST['weight']; 
+    $height = $_POST['height']; 
+    $age = $_POST['age'];
+    $low = isset($_POST['activity1']); // 1.45;
+    $medium = isset($_POST['activity2']); // 1.75;
+    $hard = isset($_POST['activity3']); // 2.0;
 
-    
+    $set_preferention = $preferention->addPreferention();
 
 
+    return $this->render('User/loadedpreferentions.html.twig',[
+      'preferentions' => $set_preferention
+    ]);
+
+
+       
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -55,16 +56,22 @@ class PreferentionsController extends AbstractController
 } 
 
 /*
-  public function kcal()
+
+  public function kcalPerDay()
   { 
     $result = 0;
+    $caloric_requirement = 0; // zapotrzebowanie ogólne
+    $kcal_day = 0;            // zapotrzebowanie wedłóŋ preferencji
     $sex;
     $weight = $_POST['weight']; 
     $height = $_POST['height']; 
     $age = $_POST['age'];
-    //$low = $_POST['activity1']; // 1.45;
-    //$medium = $_POST['activity2']; // 1.75;
-    //$hard = $_POST['activity3']; // 2.0;
+    $low = $_POST['activity1']; // 1.45;
+    $medium = $_POST['activity2']; // 1.75;
+    $hard = $_POST['activity3']; // 2.0;
+    $burn = -300;
+    $keep = 0;
+    $gain = +300;
 
     if ( isset($_POST['man']) || isset($_POST['woman']) )
     {
@@ -93,14 +100,38 @@ class PreferentionsController extends AbstractController
       {
         $result = $result * 2.0;
       }  
-    } TRZEBA DODAC INTENCJE!
-    settype($result, "integer");
-    echo $result;
+    } 
+    return $result;
+    $result = $caloric_requirement;
+    settype($r$caloric_requirement, "integer");
+    return $caloric_requirement;
 
 
+    $kcal_day = $caloric_requirement;
 
-    return $this->render('User/preferentions.html.twig', []);
+    if ( isset($_POST['intension1']) || isset($_POST['intension2']) || isset($_POST['intension3']) )
+    {
+      if (isset($_POST['intension1']))
+      {
+        $kcal_day = $kcal_day - 300;
+      }
+      elseif (isset($_POST['intension2']))
+      {
+        $kcal_day = $kcal_day + 0;
+      }
+      elseif (isset($_POST['intension3']))
+      {
+        $kcal_day = $kcal_day +300;
+      }  
+    } 
+    
+    settype($kcal_day, "integer");
+    return $kcal_day;
+
+
   }
+  
+  
 
 
 

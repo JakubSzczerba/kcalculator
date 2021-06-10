@@ -19,7 +19,7 @@ class DailyController extends AbstractController
   public function daily()
   {
     
-    return $this->render('User/afterlogin.html.twig', []);
+    return $this->render('User/daily.html.twig', []);
     
   }
 

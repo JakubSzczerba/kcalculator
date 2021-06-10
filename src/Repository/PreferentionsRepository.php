@@ -16,7 +16,7 @@ class PreferentionsRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return products[]
+     * @return preferention[]
      */
 
     public function addPreferention()
