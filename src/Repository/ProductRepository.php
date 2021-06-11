@@ -20,9 +20,7 @@ class ProductRepository extends ServiceEntityRepository
 
     public function findProducts(string $product): array
     {
-        
         $qb = $this->createQueryBuilder('p');
-
 
         $qb->select('p')
             //->select('p')
@@ -30,14 +28,17 @@ class ProductRepository extends ServiceEntityRepository
             ->where('p.product = :product')
             ->setParameter('product', $product);
             
-            
-            
-            
-                 
-
         //dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getResult();
-        
+
+
+
+
+
+
+
+
+       
     
         
         
