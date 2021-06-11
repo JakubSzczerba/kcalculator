@@ -25,11 +25,13 @@ class ProductRepository extends ServiceEntityRepository
         $qb->select('p')
             //->select('p')
             //->select('p.product', 'p.energy', 'p.protein', 'p.fat', 'p.carbo')
-            ->where('p.product = :product')
-            ->setParameter('product', $product);
+            ->where('p.product LIKE :product')        
+            ->setParameter('product', '%'.$product.'%')
+            ->orderBy('p.product', 'ASC');
+
             
         //dump($qb->getQuery()->getResult());
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getArrayResult();
 
 
 
