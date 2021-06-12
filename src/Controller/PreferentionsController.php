@@ -5,9 +5,10 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use App\Repository\PreferentionsRepository;
+use App\Entity\UserPreferention;
 
 class PreferentionsController extends AbstractController
 {
@@ -25,9 +26,10 @@ class PreferentionsController extends AbstractController
 /**
    * @Route("/setPreferention", methods="POST", name="setPreferention")
    */
-  public function setPreferention(Request $request, PreferentionsRepository $preferention): Response
+  public function setPreferention(Request $request, EntityManagerInterface $entityManager): Response
   {
 
+    /*
     $result = 0;
     $gender;
     $weight = $_POST['weight']; 
@@ -44,7 +46,7 @@ class PreferentionsController extends AbstractController
       'preferentions' => $set_preferention
     ]);
 
-
+*/
        
   }
 
