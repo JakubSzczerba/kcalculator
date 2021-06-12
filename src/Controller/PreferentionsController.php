@@ -29,24 +29,30 @@ class PreferentionsController extends AbstractController
   public function setPreferention(Request $request, EntityManagerInterface $entityManager): Response
   {
 
-    /*
     $result = 0;
+    $caloric_requirement = 0;   // zapotrzebowanie ogólne
+    $kcal_day = 0;              // zapotrzebowanie wedłóŋ preferencji
     $gender;
+
     $weight = $_POST['weight']; 
     $height = $_POST['height']; 
     $age = $_POST['age'];
+
     $low = isset($_POST['activity1']); // 1.45;
     $medium = isset($_POST['activity2']); // 1.75;
     $hard = isset($_POST['activity3']); // 2.0;
 
-    $set_preferention = $preferention->addPreferention();
+    $burn = isset($_POST['intension1']); //-300;
+    $keep =isset($_POST['intension2']);  //0;
+    $gain = isset($_POST['intension3']); //+300;
 
-
+    /*
     return $this->render('User/loadedpreferentions.html.twig',[
       'preferentions' => $set_preferention
     ]);
+    */
 
-*/
+
        
   }
 
