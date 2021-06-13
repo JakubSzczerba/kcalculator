@@ -32,11 +32,15 @@ class PreferentionsController extends AbstractController
     $result = 0;
     $caloric_requirement = 0;   // zapotrzebowanie ogólne
     $kcal_day = 0;              // zapotrzebowanie wedłóg preferencji
-    $gender;
-
+  
+    $gender = '';
     $weight = $_POST['weight']; 
     $height = $_POST['height']; 
     $age = $_POST['age'];
+    $activity = '';
+    $intension = '';
+
+
 
     $low = isset($_POST['activity1']); // 1.45;
     $medium = isset($_POST['activity2']); // 1.75;
@@ -51,10 +55,12 @@ class PreferentionsController extends AbstractController
     {
       if (isset($_POST['man']))
       {
+        $gender = 'man';
         $result = (10*$weight) + (6.25*$height) - (5*$age) + 5 ;
       } 
       elseif (isset($_POST['woman']))
       {
+        $gender = 'woman';
         $result = (10*$weight) + (6.25*$height) - (5*$age) - 161 ;
       }
     
@@ -64,50 +70,91 @@ class PreferentionsController extends AbstractController
     {
       if (isset($_POST['activity1']))
       {
+        $activity = 'low';
         $result = $result * 1.45;
       }
       elseif (isset($_POST['activity2']))
       {
+        $activity = 'medium';
         $result = $result * 1.75;
       }
       elseif (isset($_POST['activity3']))
       {
+        $activity = 'high';
         $result = $result * 2.0;
       }  
       
     } 
 
     settype($result, "integer");
-    //return $result;
-    //echo $result;
 
     $caloric_requirement = $caloric_requirement + $result;
-    echo $caloric_requirement;
+
     
     if ( isset($_POST['intension1']) || isset($_POST['intension2']) || isset($_POST['intension3']) )
     {
 
       if (isset($_POST['intension1']))
       {
+        $intension = 'burn';
         $kcal_day = ($caloric_requirement + $burn);
       }
       elseif (isset($_POST['intension2']))
       {
+        $intension = 'keep';
         $kcal_day = ($caloric_requirement + $keep);
       }
       elseif (isset($_POST['intension3']))
       {
+        $intension = 'gain';
         $kcal_day = ($caloric_requirement + $gain);
       }  
       
     } 
     
     settype($kcal_day, "integer");
-    //return $kcal_day;
-    echo('<br>');
-    echo $kcal_day;
     
-    return $this->render('User/preferentions.html.twig', []);
+
+    $preferention = new UserPreferention();
+    $preferention->setGender($gender);
+    $preferention->setWeight($weight);
+    $preferention->setHeight($height);
+    $preferention->setAge($age);
+    $preferention->setActivity($activity);
+    $preferention->setKcal($caloric_requirement);
+    $preferention->setIntentions($intension);
+    $preferention->setKcalDay($kcal_day);
+
+    $entityManager->persist($preferention);
+    $entityManager->flush();
+
+    return $this->render('User/loadedpreferentions.html.twig', [
+      'preferentions' => $preferention
+    ]);
+
+    $dataToGet = [];
+
+    foreach ($preferention as $preferentions) {
+      
+      $dataToGet[] = [
+
+        'gender' => $preferention->getGender($gender),
+        'weight' => $preferention->getWeight($weight),
+        'height' => $preferention->getHeight($height),
+        'age' => $preferention->getAge($age),
+        'activity' => $preferention->getActivity($activity),
+        'caloric_requirement' => $preferention->getKcal($caloric_requirement),
+        'intension' => $preferention->getIntentions($intension),
+        'kcal_day' => $preferention->getKcalDay($kcal_day)
+
+      ];
+      
+    };
+    return $dataToGet;
+
+
+    
+    
     
     /*
     return $this->render('User/loadedpreferentions.html.twig',[
@@ -115,7 +162,7 @@ class PreferentionsController extends AbstractController
     ]);
     */
 
-
+        //preferention.kcal_day
        
   }
 
