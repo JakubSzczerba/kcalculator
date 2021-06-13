@@ -74,38 +74,37 @@ class PreferentionsController extends AbstractController
       {
         $result = $result * 2.0;
       }  
+      
     } 
 
     settype($result, "integer");
     //return $result;
-    echo $result;
+    //echo $result;
 
-    $result = $caloric_requirement;
-     
-    
+    $caloric_requirement = $caloric_requirement + $result;
+    echo $caloric_requirement;
     
     if ( isset($_POST['intension1']) || isset($_POST['intension2']) || isset($_POST['intension3']) )
     {
-      $kcal_day = $caloric_requirement;
-      settype($kcal_day, "integer");
 
       if (isset($_POST['intension1']))
       {
-        $kcal_day = ($kcal_day + $burn);
+        $kcal_day = ($caloric_requirement + $burn);
       }
       elseif (isset($_POST['intension2']))
       {
-        $kcal_day = ($kcal_day + $keep);
+        $kcal_day = ($caloric_requirement + $keep);
       }
       elseif (isset($_POST['intension3']))
       {
-        $kcal_day = ($kcal_day + $gain);
+        $kcal_day = ($caloric_requirement + $gain);
       }  
       
     } 
     
-    //settype($kcal_day, "integer");
+    settype($kcal_day, "integer");
     //return $kcal_day;
+    echo('<br>');
     echo $kcal_day;
     
     return $this->render('User/preferentions.html.twig', []);
