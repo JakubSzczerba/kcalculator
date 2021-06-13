@@ -38,7 +38,7 @@ class PreferentionsController extends AbstractController
     $height = $_POST['height']; 
     $age = $_POST['age'];
     $activity = '';
-    $intension = '';
+    $intentions = '';
 
 
 
@@ -96,24 +96,23 @@ class PreferentionsController extends AbstractController
 
       if (isset($_POST['intension1']))
       {
-        $intension = 'burn';
+        $intentions = 'burn';
         $kcal_day = ($caloric_requirement + $burn);
       }
       elseif (isset($_POST['intension2']))
       {
-        $intension = 'keep';
+        $intentions = 'keep';
         $kcal_day = ($caloric_requirement + $keep);
       }
       elseif (isset($_POST['intension3']))
       {
-        $intension = 'gain';
+        $intentions = 'gain';
         $kcal_day = ($caloric_requirement + $gain);
       }  
       
     } 
     
     settype($kcal_day, "integer");
-    
 
     $preferention = new UserPreferention();
     $preferention->setGender($gender);
@@ -122,7 +121,7 @@ class PreferentionsController extends AbstractController
     $preferention->setAge($age);
     $preferention->setActivity($activity);
     $preferention->setKcal($caloric_requirement);
-    $preferention->setIntentions($intension);
+    $preferention->setIntentions($intentions);
     $preferention->setKcalDay($kcal_day);
 
     $entityManager->persist($preferention);
@@ -138,14 +137,14 @@ class PreferentionsController extends AbstractController
       
       $dataToGet[] = [
 
-        'gender' => $preferention->getGender($gender),
-        'weight' => $preferention->getWeight($weight),
-        'height' => $preferention->getHeight($height),
-        'age' => $preferention->getAge($age),
-        'activity' => $preferention->getActivity($activity),
-        'caloric_requirement' => $preferention->getKcal($caloric_requirement),
-        'intension' => $preferention->getIntentions($intension),
-        'kcal_day' => $preferention->getKcalDay($kcal_day)
+        'gender' => $preferention->getGender(),
+        'weight' => $preferention->getWeight(),
+        'height' => $preferention->getHeight(),
+        'age' => $preferention->getAge(),
+        'activity' => $preferention->getActivity(),
+        'caloric_requirement' => $preferention->getKcal(),
+        'intentions' => $preferention->getIntentions(),
+        'kcal_day' => $preferention->getKcalDay()
 
       ];
       
@@ -156,13 +155,7 @@ class PreferentionsController extends AbstractController
     
     
     
-    /*
-    return $this->render('User/loadedpreferentions.html.twig',[
-      'preferentions' => $set_preferention
-    ]);
-    */
 
-        //preferention.kcal_day
        
   }
 

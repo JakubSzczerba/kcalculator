@@ -51,7 +51,7 @@ class UserPreferention
     /**
      * @ORM\Column(type="integer") 
      */
-    private $caloric_requirement;
+    public $caloric_requirement;
 
     /**
      * @ORM\Column(type="string") 
@@ -61,12 +61,23 @@ class UserPreferention
     /**
      * @ORM\Column(type="integer") 
      */
-    private $kcal_day;
+    public $kcal_day;
 
 
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+        
     }
 
     public function getGender(): ?string
