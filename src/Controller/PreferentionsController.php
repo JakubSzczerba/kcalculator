@@ -31,7 +31,7 @@ class PreferentionsController extends AbstractController
 
     $result = 0;
     $caloric_requirement = 0;   // zapotrzebowanie ogólne
-    $kcal_day = 0;              // zapotrzebowanie wedłóŋ preferencji
+    $kcal_day = 0;              // zapotrzebowanie wedłóg preferencji
     $gender;
 
     $weight = $_POST['weight']; 
@@ -42,45 +42,11 @@ class PreferentionsController extends AbstractController
     $medium = isset($_POST['activity2']); // 1.75;
     $hard = isset($_POST['activity3']); // 2.0;
 
-    $burn = isset($_POST['intension1']); //-300;
-    $keep =isset($_POST['intension2']);  //0;
-    $gain = isset($_POST['intension3']); //+300;
+    $burn = -300;           //-300;
+    $keep = 0;              //0;
+    $gain = 300;            //+300;
 
-    /*
-    return $this->render('User/loadedpreferentions.html.twig',[
-      'preferentions' => $set_preferention
-    ]);
-    */
-
-
-       
-  }
-
-
-
-
-
-
-} 
-
-/*
-
-  public function kcalPerDay()
-  { 
-    $result = 0;
-    $caloric_requirement = 0; // zapotrzebowanie ogólne
-    $kcal_day = 0;            // zapotrzebowanie wedłóŋ preferencji
-    $sex;
-    $weight = $_POST['weight']; 
-    $height = $_POST['height']; 
-    $age = $_POST['age'];
-    $low = $_POST['activity1']; // 1.45;
-    $medium = $_POST['activity2']; // 1.75;
-    $hard = $_POST['activity3']; // 2.0;
-    $burn = -300;
-    $keep = 0;
-    $gain = +300;
-
+    
     if ( isset($_POST['man']) || isset($_POST['woman']) )
     {
       if (isset($_POST['man']))
@@ -109,38 +75,54 @@ class PreferentionsController extends AbstractController
         $result = $result * 2.0;
       }  
     } 
-    return $result;
+
+    settype($result, "integer");
+    //return $result;
+    echo $result;
+
     $result = $caloric_requirement;
-    settype($r$caloric_requirement, "integer");
-    return $caloric_requirement;
-
-
-    $kcal_day = $caloric_requirement;
-
+     
+    
+    
     if ( isset($_POST['intension1']) || isset($_POST['intension2']) || isset($_POST['intension3']) )
     {
+      $kcal_day = $caloric_requirement;
+      settype($kcal_day, "integer");
+
       if (isset($_POST['intension1']))
       {
-        $kcal_day = $kcal_day - 300;
+        $kcal_day = ($kcal_day + $burn);
       }
       elseif (isset($_POST['intension2']))
       {
-        $kcal_day = $kcal_day + 0;
+        $kcal_day = ($kcal_day + $keep);
       }
       elseif (isset($_POST['intension3']))
       {
-        $kcal_day = $kcal_day +300;
+        $kcal_day = ($kcal_day + $gain);
       }  
+      
     } 
     
-    settype($kcal_day, "integer");
-    return $kcal_day;
+    //settype($kcal_day, "integer");
+    //return $kcal_day;
+    echo $kcal_day;
+    
+    return $this->render('User/preferentions.html.twig', []);
+    
+    /*
+    return $this->render('User/loadedpreferentions.html.twig',[
+      'preferentions' => $set_preferention
+    ]);
+    */
 
 
+       
   }
-  
-  
 
 
 
-*/
+
+
+
+} 
