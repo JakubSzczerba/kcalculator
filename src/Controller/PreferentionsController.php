@@ -115,8 +115,12 @@ class PreferentionsController extends AbstractController
     
     settype($kcal_day, "integer");
 
+    $userId = $this->getUser()->getId();
+    
+
     $users = new User();
-    $users->getId();
+    $users->setPreferention($userId);
+    $entityManager->persist($users);
     
 
     $preferention = new UserPreferention();
@@ -131,7 +135,7 @@ class PreferentionsController extends AbstractController
 
     $preferention->setUsers($users);
 
-    $entityManager->persist($users);
+    
     $entityManager->persist($preferention);
     $entityManager->flush();
 

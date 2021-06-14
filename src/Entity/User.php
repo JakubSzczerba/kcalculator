@@ -26,8 +26,6 @@ class User implements UserInterface  {
   private $password;
   /**
      * @ORM\OneToOne(targetEntity="App\Entity\UserPreferention", mappedBy="users")            
-    
-     * @var UserPreferention
      */
     private $preferentions;
 
@@ -46,18 +44,19 @@ class User implements UserInterface  {
     {
         return $this->preferentions;
     }
-
-    public function setPreferention(?UserPreferention $preferentions): self
+    public function setPreferention($preferentions): void
     {
         $this->preferentions = $preferentions;
-        return $this;
-    } 
+    }
+
 
   public function getRoles() {
     return ['ROLE_USER'];
   }
-  public function getPassword() : string {
+  public function getPassword(): string 
+  {
     return $this->password;
+    
   }
   public function getSalt() {
     // TODO: Implement getSalt() method.
@@ -74,8 +73,11 @@ class User implements UserInterface  {
   /**
    * @param string $password
    */
-  public function setPassword(string $password) {
+  public function setPassword(string $password): self
+  {
     $this->password = $password;
+    return $this;
+   
   }
   public function setUsername(string $username): void
     {
@@ -85,4 +87,6 @@ class User implements UserInterface  {
     {
         $this->email = $email;
     }
+
+    
 }
