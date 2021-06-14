@@ -17,11 +17,10 @@ class UserPreferention
    */
   private $id;
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User")            // $sex; $weight $height $age $activity intentions caloric_requirement
-    
-     * @var User
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="preferentions") 
+     * @ORM\JoinColumn(name="users_id", nullable=false, referencedColumnName="id")
      */
-    private $user;
+    private $users;
 
     /**
      * @ORM\Column(type="string") 
@@ -69,14 +68,15 @@ class UserPreferention
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getUsers(): ?User
     {
-        return $this->user;
+        return $this->users;
     }
 
-    public function setUser(?User $user): self
+    public function setUsers(?User $users): self
     {
-        $this->user = $user;
+        $this->users = $users;
+        return $this;
         
     }
 

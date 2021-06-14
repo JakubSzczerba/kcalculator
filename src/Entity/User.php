@@ -10,7 +10,6 @@ class User implements UserInterface  {
    * @ORM\Column(type="integer")
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
-   * @ORM\OneToMany(targetEntity="App\Entity\UsersEntries", mappedBy="user")
    */
   private $id;
   /**
@@ -26,6 +25,13 @@ class User implements UserInterface  {
    */
   private $password;
   /**
+     * @ORM\OneToOne(targetEntity="App\Entity\UserPreferention", mappedBy="users")            
+    
+     * @var UserPreferention
+     */
+    private $preferentions;
+
+  /**
    * User constructor.
    * @param string $username
    * @param string $email
@@ -35,6 +41,17 @@ class User implements UserInterface  {
   {
       return $this->id;
   }
+  
+  public function getPreferention(): ?UserPreferention
+    {
+        return $this->preferentions;
+    }
+
+    public function setPreferention(?UserPreferention $preferentions): self
+    {
+        $this->preferentions = $preferentions;
+        return $this;
+    } 
 
   public function getRoles() {
     return ['ROLE_USER'];

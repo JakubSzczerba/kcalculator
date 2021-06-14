@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use App\Entity\UserPreferention;
+use App\Entity\User;
 
 class PreferentionsController extends AbstractController
 {
@@ -114,6 +115,10 @@ class PreferentionsController extends AbstractController
     
     settype($kcal_day, "integer");
 
+    $users = new User();
+    $users->getId();
+    
+
     $preferention = new UserPreferention();
     $preferention->setGender($gender);
     $preferention->setWeight($weight);
@@ -124,6 +129,9 @@ class PreferentionsController extends AbstractController
     $preferention->setIntentions($intentions);
     $preferention->setKcalDay($kcal_day);
 
+    $preferention->setUsers($users);
+
+    $entityManager->persist($users);
     $entityManager->persist($preferention);
     $entityManager->flush();
 
@@ -131,12 +139,14 @@ class PreferentionsController extends AbstractController
       'preferentions' => $preferention
     ]);
 
+
+
+
+
+    /*
     $dataToGet = [];
-
-    foreach ($preferention as $preferentions) {
-      
+    foreach ($preferention as $preferentions) {     
       $dataToGet[] = [
-
         'gender' => $preferention->getGender(),
         'weight' => $preferention->getWeight(),
         'height' => $preferention->getHeight(),
@@ -145,13 +155,10 @@ class PreferentionsController extends AbstractController
         'caloric_requirement' => $preferention->getKcal(),
         'intentions' => $preferention->getIntentions(),
         'kcal_day' => $preferention->getKcalDay()
-
-      ];
-      
+      ];    
     };
     return $dataToGet;
-
-
+    */
     
     
     
