@@ -115,14 +115,6 @@ class PreferentionsController extends AbstractController
     
     settype($kcal_day, "integer");
 
-    $userId = $this->getUser()->getId();
-    
-
-    $users = new User();
-    $users->setPreferention($userId);
-    $entityManager->persist($users);
-    
-
     $preferention = new UserPreferention();
     $preferention->setGender($gender);
     $preferention->setWeight($weight);
@@ -133,7 +125,7 @@ class PreferentionsController extends AbstractController
     $preferention->setIntentions($intentions);
     $preferention->setKcalDay($kcal_day);
 
-    $preferention->setUsers($users);
+    $preferention->setUsers($this->getUser());
 
     
     $entityManager->persist($preferention);
