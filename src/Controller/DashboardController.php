@@ -7,23 +7,45 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use App\Entity\UserPreferention;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use App\Repository\DashboardCaloriesRepository;
 
 class DashboardController extends AbstractController
 {
 /**
    * @Route("/dashboard", name="dashboard")
    */
-  public function dashboard()
+  public function dashboard(Request $request, DashboardCaloriesRepository $caloriesrep): Response
   {
+    $id = $this->getUser()->getId();
+    
+    $preferention = $caloriesrep->showKcalPerDay($id);
 
-    // preferentions.kcal_day
-    $preferention = new UserPreferention();
-    $preferention->getKcalDay();
+
 
     return $this->render('Homepage/homeafterlog.html.twig', [
       'preferentions' => $preferention
     ]);
+
+    $results = [];
+    
+    foreach ($preferention as $pref) {
+      $results[]=[
+        'kcalday' => $pref->getKcalDay,
+      ];
+
+    }
+    return $results; 
+
+
   }
+
+
+
+  
+
+
+
 
 }
