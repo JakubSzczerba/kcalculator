@@ -61,10 +61,12 @@ class User implements UserInterface  {
   public function getSalt() {
     // TODO: Implement getSalt() method.
   }
-  public function getUsername() {
+  public function getUsername(): string
+  {
     return $this->username;
   }
-  public function getEmail() {
+  public function getEmail(): string
+  {
     return $this->email;
   }
   public function eraseCredentials() {
@@ -79,13 +81,15 @@ class User implements UserInterface  {
     return $this;
    
   }
-  public function setUsername(string $username): void
+  public function setUsername(string $username): self
     {
         $this->username = $username;
+        return $this;
     }
-    public function setEmail(string $email): void
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+        return $this;
     }
 
     
