@@ -20,6 +20,7 @@ class DashboardController extends AbstractController
   {
     $id = $this->getUser()->getId();
     
+    
     $preferention = $caloriesrep->showKcalPerDay($id);
 
 

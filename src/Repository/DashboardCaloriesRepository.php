@@ -28,7 +28,10 @@ class DashboardCaloriesRepository extends ServiceEntityRepository
             ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = p.users')
             ->where('p.kcal_day IS NOT NULL')
             ->andWhere('u.id like :users')
-            ->setParameter('users', $id);  
+            ->setParameter('users', $id);
+            //>andWhere('p.kcal_day IS NULL')
+            //->setParameter('p.kcal_day', 0);
+
             
 
             
