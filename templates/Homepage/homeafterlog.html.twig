@@ -3,6 +3,9 @@
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
+            {#{% if (preferentions.kcal_day) is empty  %}
+                <p> Ustaw preferencje, aby wieświetlic kalorie</p>
+            {% endif %} #}
             {% for preferention in preferentions %}
             <h1 class="mt-5"><span style="color: blue">{{ preferention.kcal_day|e }}</span> - <span style="color: red">0</span> =  <span style="color: green">0</span> </h1><br>
             {% endfor %} 
