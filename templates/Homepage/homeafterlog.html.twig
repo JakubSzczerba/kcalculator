@@ -6,12 +6,17 @@
             {#{% if (preferentions.kcal_day) is empty  %}
                 <p> Ustaw preferencje, aby wieświetlic kalorie</p>
             {% endif %} #}
-            {% for preferention in preferentions %}
-                {% if preferention.kcal_day > 0 %}
+            {% if preferentions %}
+                {% for preferention in preferentions %}              
                     <h1 class="mt-5"><span style="color: blue">{{ preferention.kcal_day|e }}</span> - <span style="color: red">0</span> =  <span style="color: green">0</span> </h1><br>
-                {% else %}
-                Ustaw preferencje :)
-            {% endfor %} 
+              
+                {% endfor %} 
+
+            {% else %}
+                 <h1 class="mt-5">Ustaw preferencje, aby wieświetlic kalorie</h1>
+
+            {% endif %}
+            
             <div class="col-lg-6">
                 <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">
                     <h3 class="mt-5">Możliwe treśći</h3><br>
