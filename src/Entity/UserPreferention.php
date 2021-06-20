@@ -18,7 +18,7 @@ class UserPreferention
   private $id;
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="preferentions") 
-     * @ORM\JoinColumn(name="users_id", nullable=true, referencedColumnName="id")
+     * @ORM\JoinColumn(name="users_id", nullable=false, referencedColumnName="id")
      */
     private $users;
 
