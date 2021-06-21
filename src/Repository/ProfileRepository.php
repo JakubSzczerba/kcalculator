@@ -13,6 +13,46 @@ class DashboardCaloriesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserPreferention::class);
+        parent::__construct($registry, ProfileController::class);
     }
+
+    /**
+     * @return profile[]
+     */
+
+    public function userProfile(int $id)
+    {
+        /*
+        $qb = $this->createQueryBuilder('p');
+
+        $qb->select('p.kcal_day')
+            ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = p.users')
+            ->where('p.kcal_day IS NOT NULL')
+            ->andWhere('u.id like :users')
+            ->setParameter('users', $id);
+            
+
+            
+
+            
+        //dump($qb->getQuery()->getResult());
+        return $qb->getQuery()->getArrayResult();
+
+        */
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

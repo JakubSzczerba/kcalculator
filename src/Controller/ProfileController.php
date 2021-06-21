@@ -18,8 +18,15 @@ class ProfileController extends AbstractController
    * @Route("/profile", name="profile")
    */
   public function showProfile(Request $request, ProfileRepository $profileRepository): Response
+  
   {
-    return $this->render('User/profile.html.twig', []);
+    $id = $this->getUser()->getId();
+
+    $profile = $profileRepository->userProfile($id);
+
+    return $this->render('User/profile.html.twig', [
+        'profile' => $profile
+    ]);
   }
 
 
