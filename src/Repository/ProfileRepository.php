@@ -25,7 +25,7 @@ class ProfileRepository extends ServiceEntityRepository
         
         $qb = $this->createQueryBuilder('p');
 
-        $qb->select('p.kcal_day', 'u.username', 'u.email')
+        $qb->select('u.username', 'u.email', 'p.gender', 'p.weight', 'p.height', 'p.age', 'p.activity', 'p.caloric_requirement', 'p.intentions', 'p.kcal_day')
             ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = p.users')            
             ->where('u.id = :users')
             ->setParameter('users', $id);
@@ -34,8 +34,8 @@ class ProfileRepository extends ServiceEntityRepository
             
 
             
-        dump($qb->getQuery()->getResult());
-        //return $qb->getQuery()->getArrayResult();
+        //dump($qb->getQuery()->getResult());
+        return $qb->getQuery()->getArrayResult();
 
         
 
