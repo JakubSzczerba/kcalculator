@@ -11,4 +11,39 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use App\Entity\UserPreferention;
 use App\Entity\User;
 
-//class PreferentionsController extends AbstractController
+class ProfileController extends AbstractController
+{
+    /**
+   * @Route("/profile", name="profile")
+   */
+  public function showProfile()
+  {
+    return $this->render('User/profile.html.twig', []);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
