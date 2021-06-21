@@ -17,7 +17,7 @@ class ProfileController extends AbstractController
     /**
    * @Route("/profile", name="profile")
    */
-  public function showProfile(Request $request, DashboardCaloriesRepository $profileRepository): Response
+  public function showProfile(Request $request, ProfileRepository $profileRepository): Response
   {
     return $this->render('User/profile.html.twig', []);
   }
