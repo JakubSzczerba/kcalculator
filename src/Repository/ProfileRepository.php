@@ -9,11 +9,11 @@ use Doctrine\Persistence\ManagerRegistry;
 use function Symfony\Component\String\u;
 use Doctrine\ORM\Query\Expr\Join;
 
-class DashboardCaloriesRepository extends ServiceEntityRepository
+class ProfileRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ProfileController::class);
+        parent::__construct($registry, User::class);
     }
 
     /**
@@ -22,23 +22,22 @@ class DashboardCaloriesRepository extends ServiceEntityRepository
 
     public function userProfile(int $id)
     {
-        /*
-        $qb = $this->createQueryBuilder('p');
+        
+        $qb = $this->createQueryBuilder('u');
 
-        $qb->select('p.kcal_day')
-            ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = p.users')
-            ->where('p.kcal_day IS NOT NULL')
-            ->andWhere('u.id like :users')
-            ->setParameter('users', $id);
+        $qb->select('u.username', 'u.email')
+            //->innerJoin('App\Entity\UserPreferention', 'p', Join::WITH, 'p = u.preferentions')
+            ->where('u.id = :id')
+            ->setParameter('id', $id);
+            
+        
             
 
             
+        dump($qb->getQuery()->getResult());
+        //return $qb->getQuery()->getArrayResult();
 
-            
-        //dump($qb->getQuery()->getResult());
-        return $qb->getQuery()->getArrayResult();
-
-        */
+        
 
     }
 
