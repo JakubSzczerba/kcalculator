@@ -17,9 +17,19 @@
                 {% endfor %}
 
             {% else %}
-            <div><h5>Nazwa użytkownika: {{ app.user.username }} </h5></div>
-            <div><h5>Adres e-mail: {{ app.user.email }} </h5></div><br>
+            <table border="1" style="width: 500px; height: 150px;">
+                <tr style="text-align: center; ">
+                    <td>Nazwa użytkownika </td>
+                    <td>{{ app.user.username }}</td>                    
+                </tr>
+                <tr style="text-align: center; ">
+                    <td>Adres e-mail </td>
+                    <td>{{ app.user.email }}</td>
+                    
+                </tr>
+            </table><br>
             <div><h4>Ustaw preferencje, aby mieć wgląd do większej ilości informacji :)</h4></div><br>
+            
 
             <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
                     <button type="submit" class="btn btn-success">preferencje</button>
