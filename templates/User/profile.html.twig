@@ -6,14 +6,50 @@
             <h1 class="mt-5">Dane osobowe</h1><br>
             {% if profile %}
                 {% for profile in profile %}
-                    <div><h5>Nazwa użytkownika: {{ profile.username|e }} </h5></div>
-                    <div><h5>Adres e-mail: {{ profile.email|e }} </h5></div>
-                    <div><h5>Płeć: {{ profile.gender|e }} </h5></div>
-                    <div><h5>Waga: {{ profile.weight|e }}kg </h5></div>
-                    <div><h5>Wzrost: {{ profile.height|e }}cm </h5></div>
-                    <div><h5>Wiek: {{ profile.age|e }} </h5></div>
-                    <div><h5>Cel: {{ profile.intentions|e }} </h5></div>
-                    <div><h5>Zapotrzebowanie: {{ profile.kcal_day|e }} kcal</h5></div>
+
+                    <table border="1" style="width: 500px; height: 150px;">
+
+                        <tr style="text-align: center; ">
+                            <td>Nazwa użytkownika </td>
+                            <td>{{ profile.username|e  }}</td>                    
+                        </tr>
+
+                        <tr style="text-align: center; ">
+                            <td>Adres e-mail </td>
+                            <td>{{ profile.email|e  }}</td>                          
+                        </tr>
+
+                        <tr style="text-align: center; ">
+                            <td>Płeć  </td>
+                            <td>{{ profile.gender|e}}</td>                       
+                         </tr>
+ 
+                         <tr style="text-align: center; ">
+                            <td>Waga </td>
+                            <td>{{ profile.weight|e }} kg</td>                    
+                        </tr>
+
+                        <tr style="text-align: center; ">
+                            <td>Wzrost </td>
+                            <td>{{ profile.height|e  }} cm</td>                    
+                        </tr>
+                    
+                        <tr style="text-align: center; ">
+                            <td>Wiek </td>
+                            <td>{{ profile.age|e  }}</td>                    
+                        </tr>
+                    
+                        <tr style="text-align: center; ">
+                            <td>Cel </td>
+                            <td>{{ profile.intentions|e  }}</td>                    
+                        </tr>
+                    
+                        <tr style="text-align: center; ">
+                            <td>Zapotrzebowanie </td>
+                            <td>{{ profile.kcal_day|e  }} kcal</td>                    
+                        </tr>
+                    </table>
+                   
                 {% endfor %}
 
             {% else %}
