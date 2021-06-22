@@ -6,7 +6,15 @@
             <h1 class="mt-5">Tutaj będą dane użytkownika</h1><br>
             {% for profile in profile %}
                 {{ profile.username|e }}
+                {{ profile.email|e }}
+                {{ profile.gender|e }}
+                {{ profile.weight|e }}
+                {{ profile.height|e }}
+                {{ profile.age|e }}
+                {{ profile.intentions|e }}
                 {{ profile.kcal_day|e }}
+            
+
 
             {% endfor %}
             
