@@ -7,7 +7,7 @@
             {% if profile %}
                 {% for profile in profile %}
 
-                    <table border="1" style="width: 500px; height: 150px;">
+                    <table border="1" style="width: 600px; height: 600px;">
 
                         <tr style="text-align: center; ">
                             <td>Nazwa użytkownika </td>
@@ -48,6 +48,7 @@
                             <td>Zapotrzebowanie </td>
                             <td>{{ profile.kcal_day|e  }} kcal</td>                    
                         </tr>
+
                     </table>
                    
                 {% endfor %}
