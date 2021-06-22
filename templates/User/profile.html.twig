@@ -3,7 +3,7 @@
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="mt-5">Tutaj będą dane użytkownika</h1><br>
+            <h1 class="mt-5">Dane osobowe</h1><br>
             {% if profile %}
                 {% for profile in profile %}
                     <div><h5>Nazwa użytkownika: {{ profile.username|e }} </h5></div>
@@ -13,12 +13,17 @@
                     <div><h5>Wzrost: {{ profile.height|e }}cm </h5></div>
                     <div><h5>Wiek: {{ profile.age|e }} </h5></div>
                     <div><h5>Cel: {{ profile.intentions|e }} </h5></div>
-                    <div><h5>Zapotrzebowanie: {{ profile.kcal_day|e }} kcal</h5></div
+                    <div><h5>Zapotrzebowanie: {{ profile.kcal_day|e }} kcal</h5></div>
                 {% endfor %}
 
             {% else %}
+            <div><h5>Nazwa użytkownika: {{ app.user.username }} </h5></div>
+            <div><h5>Adres e-mail: {{ app.user.email }} </h5></div><br>
+            <div><h4>Ustaw preferencje, aby mieć wgląd do większej ilości informacji :)</h4></div><br>
 
-            <h1 class="mt-5">Cześć {{ app.user.username }} {{ app.user.email }}  ustaw preferencje :)</h1><br>
+            <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
+                    <button type="submit" class="btn btn-success">preferencje</button>
+            </form>
 
             {% endif %}
             
