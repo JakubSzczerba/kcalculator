@@ -62,6 +62,16 @@ class User implements UserInterface  {
         $this->preferentions = $preferentions;
     }
 
+    public function getEntries(): ?UsersEntries
+    {
+        return $this->entry;
+    }
+    public function setEntries($entry): void
+    {
+        $this->entry = $entry;
+    }
+
+    
 
   public function getRoles() {
     return ['ROLE_USER'];
