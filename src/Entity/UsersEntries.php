@@ -16,8 +16,8 @@ class UsersEntries
    */
   private $id;
   /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="id")
-     * @var User
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="entry")
+     * @ORM\JoinColumn(name="user_id", nullable=false, referencedColumnName="id")
      */
     private $user;
     /**
