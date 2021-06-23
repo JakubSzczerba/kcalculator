@@ -29,6 +29,12 @@ class User implements UserInterface  {
      */
     private $preferentions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UsersEntries", mappedBy="user")            
+     */
+    private $entry;
+
+
   /**
    * User constructor.
    * @param string $username
