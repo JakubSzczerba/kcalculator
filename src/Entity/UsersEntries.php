@@ -63,9 +63,10 @@ class UsersEntries
         return $this->user;
     }
 
-    public function setUser(Post $user): void
+    public function setUser(?User $user): self
     {
-        $this->user = $User;
+        $this->user = $user;
+        return $this;
     }
 
     public function getMealType(): ?string

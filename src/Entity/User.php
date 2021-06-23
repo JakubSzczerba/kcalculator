@@ -43,8 +43,9 @@ class User implements UserInterface  {
 
   public function __construct(string $username, string $email) 
   {
-    $this->username = $username; // jesli usune baza danych to przed wczytaniem 
-    $this->email = $email;      // jej na nowo, usun, albo zakomentuj ten konstruktor
+    $this->username = $username; 
+    $this->email = $email;      
+     // jesli zrobie drop db to musze usunac konstuktor, aby wczytac na naowo i zaladowac fixtures :)
   }
   
  
