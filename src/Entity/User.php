@@ -40,12 +40,14 @@ class User implements UserInterface  {
    * @param string $username
    * @param string $email
    */
+
   public function __construct(string $username, string $email) 
   {
-    $this->username = $username;
-    $this->email = $email;
+    $this->username = $username; // jesli usune baza danych to przed wczytaniem 
+    $this->email = $email;      // jej na nowo, usun, albo zakomentuj ten konstruktor
   }
   
+ 
   public function getId()
   {
       return $this->id;
