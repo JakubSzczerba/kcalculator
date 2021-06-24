@@ -15,7 +15,7 @@ class Products
    */
   private $id;
   /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\UsersEntries")
+     * @ORM\ManyToMany(targetEntity="App\Entity\UsersEntries", mappedBy="product)"
      * @var UsersEntries
      */
     private $entries;
