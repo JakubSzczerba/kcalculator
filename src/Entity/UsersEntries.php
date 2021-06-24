@@ -37,14 +37,11 @@ class UsersEntries
      */
     private $grammage;
 
-    /**
-     * @ManyToMany(targetEntity="App\Entity\Products", inversedBy="entries")
-     */
-    private $product;
 
     public function __construct()
     {
         $this->data = new \DateTime();
+       
        
     }
 

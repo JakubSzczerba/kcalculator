@@ -15,7 +15,7 @@ class Products
    */
   private $id;
   /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\UsersEntries", mappedBy="product)"
+     * @ORM\ManyToMany(targetEntity="App\Entity\UsersEntries")"
      * @var UsersEntries
      */
     private $entries;
@@ -39,6 +39,12 @@ class Products
      * @ORM\Column(type="float") 
      */
     private $carbo;
+
+    public function __construct()
+    {
+        $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
+       
+    }
 
     public function getId()
     {
