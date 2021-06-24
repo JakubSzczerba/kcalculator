@@ -66,11 +66,18 @@ class DailyController extends AbstractController
    */
   public function addEntry(Request $request, EntityManagerInterface $entityManager): Response
   {
+    $meal_type ="jakis posilek";
+    $grammage = 1;
 
     $entry = new UsersEntries();
 
     $entry->setUser($this->getUser());
-    $entry->setDateTime();
+    $entry->setDateTime(new \DateTime());
+    $entry->setMealType($meal_type);
+    $entry->setGrammage($grammage);
+
+    $entityManager->persist($entry);
+    $entityManager->flush();
     
 
 
