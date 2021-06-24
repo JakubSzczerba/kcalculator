@@ -66,6 +66,18 @@ class DailyController extends AbstractController
    */
   public function addEntry(Request $request, EntityManagerInterface $entityManager): Response
   {
+
+    $entry = new UsersEntries();
+
+    $entry->setUser($this->getUser());
+    $entry->setDateTime();
+    
+
+
+
+
+
+
     //cos tam       loadEntry.html.twig
     return $this->render('User/loadEntry.html.twig', []);
   }
