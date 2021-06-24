@@ -11,6 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use App\Repository\ProductRepository;
+use App\Entity\User;
+use App\Entity\UsersEntries;
 
 class DailyController extends AbstractController
 {
@@ -64,7 +66,10 @@ class DailyController extends AbstractController
    */
   public function addEntry(Request $request, EntityManagerInterface $entityManager): Response
   {
+    //cos tam       loadEntry.html.twig
+    return $this->render('User/loadEntry.html.twig', []);
   }
+  
 
 
 }
