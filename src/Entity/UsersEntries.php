@@ -40,7 +40,7 @@ class UsersEntries
     private $grammage;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\UserProducts", inversedBy="entries")"
+     * @ORM\ManyToMany(targetEntity="App\Entity\Products", inversedBy="entries")"
      * @JoinTable(name="entry_product")
      */
     private $food;
