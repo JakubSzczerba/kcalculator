@@ -103,6 +103,17 @@ class Products
         $this->carbo = $carbo;
     }
 
+    public function getEntry(): ?UsersEntries
+    {
+        return $this->entries;
+    }
+
+    public function setEntry(?UsersEntries $entries): self
+    {
+        $this->entries = $entries;
+        return $this;
+    }
+
 
 
 
