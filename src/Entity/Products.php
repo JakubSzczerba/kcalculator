@@ -15,8 +15,8 @@ class Products
    */
   private $id;
   /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\UsersEntries")"
-     * @var UsersEntries
+     * @ORM\ManyToMany(targetEntity="App\Entity\UsersEntries", mappedBy="food")"
+     * 
      */
     private $entries;
   /**
