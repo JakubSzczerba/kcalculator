@@ -75,12 +75,13 @@ class DailyController extends AbstractController
     $entry->setDateTime(new \DateTime());
     $entry->setMealType($meal_type);
     $entry->setGrammage($grammage);
+    $entry->set();
 
     $entityManager->persist($entry);
     $entityManager->flush();
     
 
-
+      // >setUsers($this->getUser());
 
 
 

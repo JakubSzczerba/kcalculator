@@ -49,9 +49,7 @@ class UsersEntries
     public function __construct()
     {
         $this->data = new \DateTime();
-        $this->food = new \Doctrine\Common\Collections\ArrayCollection();
-       
-       
+        $this->food = new \Doctrine\Common\Collections\ArrayCollection();       
     }
 
     public function getId()
@@ -98,6 +96,17 @@ class UsersEntries
     public function setGrammage($grammage): void
     {
         $this->grammage = $grammage;
+    }
+
+    public function getFood(): ?Products
+    {
+        return $this->food;
+    }
+
+    public function setProducts(?Products $food): self
+    {
+        $this->food = $food;
+        return $this;
     }
 
 }
