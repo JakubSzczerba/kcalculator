@@ -13,6 +13,7 @@ use Twig\TwigFilter;
 use App\Repository\ProductRepository;
 use App\Entity\User;
 use App\Entity\UsersEntries;
+use App\Entity\Products;
 
 class DailyController extends AbstractController
 {
@@ -66,8 +67,12 @@ class DailyController extends AbstractController
    */
   public function addEntry(Request $request, EntityManagerInterface $entityManager): Response
   {
+    $em = $this->getDoctrine()->getManager();
+
     $meal_type ="jakis posilek";
     $grammage = 1;
+
+    $product = $em->getRepository(Products::class)->find(2);
 
     $entry = new UsersEntries();
 
@@ -75,13 +80,13 @@ class DailyController extends AbstractController
     $entry->setDateTime(new \DateTime());
     $entry->setMealType($meal_type);
     $entry->setGrammage($grammage);
-    $entry->set();
+    $entry->setFood($product);
 
     $entityManager->persist($entry);
     $entityManager->flush();
     
 
-      // >setUsers($this->getUser());
+      // $entry->setFood($this->getProducts());
 
 
 

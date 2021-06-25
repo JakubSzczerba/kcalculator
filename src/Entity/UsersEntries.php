@@ -103,9 +103,9 @@ class UsersEntries
         return $this->food;
     }
 
-    public function setProducts(?Products $food): self
+    public function setFood(?Products $food): self
     {
-        $this->food = $food;
+        $this->food[] = $food; //dodalem [] przed food i dziala :)
         return $this;
     }
 
