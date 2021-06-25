@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
@@ -47,6 +49,7 @@ class UsersEntries
     public function __construct()
     {
         $this->data = new \DateTime();
+        $this->food = new \Doctrine\Common\Collections\ArrayCollection();
        
        
     }
