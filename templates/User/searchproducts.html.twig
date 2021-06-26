@@ -11,7 +11,7 @@
                                     {% for product in products %}
                                         
                                         <div class="row"><h3><blold>{{ product.product|e }}, <h3></bold></div>
-                                        <div class="row"><h4><span style="color: grey">100g, {{ product.energy|e }} kcal ... '</span></h4> 
+                                        <div class="row"><h4><span style="color: grey">100g, {{ product.energy|e }} kcal &emsp;</span></h4> 
                                             <form action="{{ path('addEntry') }}" method="POST" class="form-horizontal"> 
                                                 
                                                 <button type="submit" class="btn btn-success">+</button>
