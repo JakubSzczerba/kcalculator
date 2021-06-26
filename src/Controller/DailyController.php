@@ -101,6 +101,7 @@ class DailyController extends AbstractController
 
   
   // addEntry -> photo in tell.
+  // commented content is fof addEntry
 
 
 }
