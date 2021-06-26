@@ -33,7 +33,7 @@ class DailyController extends AbstractController
    */
   public function findFood(Request $request, ProductRepository $products): Response
   {
-    $nameproduct= $_POST["search"];
+    $nameproduct = $_POST["search"];
     $foundProducts = $products->findProducts($nameproduct);
 
 
@@ -56,7 +56,9 @@ class DailyController extends AbstractController
     }
     return $results; 
     
-
+    $addEntry->addEntry($foundProducts);
+    
+    
 
   }
 
