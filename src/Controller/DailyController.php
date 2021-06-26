@@ -56,7 +56,7 @@ class DailyController extends AbstractController
     }
     return $results; 
     
-    $addEntry->addEntry($foundProducts);
+    //$addEntry->addEntry($foundProducts);
     
     
 
@@ -65,11 +65,11 @@ class DailyController extends AbstractController
   
 
   /**
-   * @Route("/addEntry", methods="POST", name="addEntry")
+   * @Route("/showOneProduct", methods="POST", name="showOneProduct")
    */
-  public function addEntry(Request $request, EntityManagerInterface $entityManager): Response
+  public function showOneProduct(Request $request, ProductRepository $products): Response
   {
-    $em = $this->getDoctrine()->getManager();
+    /* $em = $this->getDoctrine()->getManager();
 
     $meal_type ="jakis posilek";
     $grammage = 1;
@@ -90,13 +90,17 @@ class DailyController extends AbstractController
 
       // $entry->setFood($this->getProducts());
 
-
-
+    */
+    
 
     //cos tam       loadEntry.html.twig
-    return $this->render('User/loadEntry.html.twig', []);
+    return $this->render('User/loadEntry.html.twig', [
+      'products' => $foundProducts
+    ]);
   }
+
   
+  // addEntry -> photo in tell.
 
 
 }
