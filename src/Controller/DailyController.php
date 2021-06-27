@@ -35,6 +35,7 @@ class DailyController extends AbstractController
   {
     $nameproduct = $_POST["search"];
     $foundProducts = $products->findProducts($nameproduct);
+    //$oneResult = $_GET["showThisProduct"];
 
 
     return $this->render('User/searchproducts.html.twig',[
@@ -54,11 +55,8 @@ class DailyController extends AbstractController
       ];
 
     }
-    return $results; 
-    
-    //$addEntry->addEntry($foundProducts);
-    
-    
+    return $results;
+      
 
   }
 
@@ -67,8 +65,22 @@ class DailyController extends AbstractController
   /**
    * @Route("/showOneProduct", methods="POST", name="showOneProduct")
    */
-  public function showOneProduct(Request $request, ProductRepository $products): Response
+  public function showOneProduct(int $id): Response
   {
+
+    $product = $this->getDoctrine()
+        ->getRepository(Products::class)
+        ->find($id);
+
+    return $this->render('User/loadEntry.html.twig', [
+      'products' => $foundProducts
+    ]);
+  }
+
+
+
+
+
     /* $em = $this->getDoctrine()->getManager();
 
     $meal_type ="jakis posilek";
@@ -94,11 +106,6 @@ class DailyController extends AbstractController
     
 
     //cos tam       loadEntry.html.twig
-    return $this->render('User/loadEntry.html.twig', [
-      'products' => $foundProducts
-    ]);
-  }
-
   
   // addEntry -> photo in tell.
   // commented content is fof addEntry
