@@ -39,7 +39,7 @@ class ProductRepository extends ServiceEntityRepository
      * @return product[]
      */
 
-    public function checkProduct(string $product): array
+    public function checkedProduct(string $product): array
     {
         $qb = $this->createQueryBuilder('check');
 

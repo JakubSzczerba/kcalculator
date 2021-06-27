@@ -65,17 +65,22 @@ class DailyController extends AbstractController
   /**
    * @Route("/showOneProduct", methods="POST", name="showOneProduct")
    */
-  public function showOneProduct()
+  public function showOneProduct(ProductRepository $productRepository)
   {
+    $checkingProduct = $productRepository->checkedProduct();
 
+    /*
     $getOneProduct = $_POST["showThisProduct"];
     $searchigProduct = new Products;
     $id = $searchigProduct->getId();
     echo $id;
+    */
 
     
 
-    return $this->render('User/loadEntry.html.twig', []);
+    return $this->render('User/loadEntry.html.twig', [
+      'checkingProduct' => $checkingProduct
+    ]);
   }
 
 
