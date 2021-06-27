@@ -65,19 +65,21 @@ class DailyController extends AbstractController
   /**
    * @Route("/showOneProduct", methods="POST", name="showOneProduct")
    */
-  public function showOneProduct(ProductRepository $productRepository)
+  public function showOneProduct(Request $request, ProductRepository $productRepository): Response
   {
-    $checkingProduct = $productRepository->checkedProduct();
-
-    /*
-    $getOneProduct = $_POST["showThisProduct"];
-    $searchigProduct = new Products;
-    $id = $searchigProduct->getId();
-    echo $id;
-    */
-
     
+    $searchigProduct = new Products;
 
+    if (isset($_POST['showThisProduct']))
+    {
+      $id = $searchigProduct->getId();
+    }
+  
+    $checkingProduct = $productRepository->checkedProduct($id);
+
+    //$findId = $em->getRepository('kcalculator\public\findFood', $id);
+
+ 
     return $this->render('User/loadEntry.html.twig', [
       'checkingProduct' => $checkingProduct
     ]);

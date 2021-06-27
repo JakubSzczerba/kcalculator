@@ -39,17 +39,18 @@ class ProductRepository extends ServiceEntityRepository
      * @return product[]
      */
 
-    public function checkedProduct(): array
+    public function checkedProduct(int $oneProduct)
     {
         $qb = $this->createQueryBuilder('check');
 
         $qb->select('check')
-            ->where('check.product = :check');   
+            ->where('check.id = :check')  
+            ->setParameter('check', $oneProduct);
             
             
 
             
-        //dump($qb->getQuery()->getResult());
+        dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getArrayResult();
 
 
