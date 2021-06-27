@@ -33,6 +33,33 @@ class ProductRepository extends ServiceEntityRepository
         //dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getArrayResult();
 
+    }
+
+    /**
+     * @return product[]
+     */
+
+    public function checkProduct(string $product): array
+    {
+        $qb = $this->createQueryBuilder('check');
+
+        $qb->select('check')
+            ->where('check.product = :check');   
+            
+            
+
+            
+        //dump($qb->getQuery()->getResult());
+        return $qb->getQuery()->getArrayResult();
+
+
+
+
+    }
+
+
+    
+
 
 
 
@@ -81,5 +108,5 @@ class ProductRepository extends ServiceEntityRepository
 
 
     
-} 
+
 }
