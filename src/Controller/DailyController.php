@@ -76,15 +76,23 @@ class DailyController extends AbstractController
 
   }
 
-
-
-
-    /* $em = $this->getDoctrine()->getManager();
+  /**
+   * @Route("/wpis", methods="POST", name="addEntry")
+   */
+  public function addEntry(Request $request, EntityManagerInterface $entityManager): Response
+  { 
+    
+    $em = $this->getDoctrine()->getManager();
 
     $meal_type ="jakis posilek";
     $grammage = 1;
+    
+    //$product = $em->getRepository(Products::class)->find($id);
 
-    $product = $em->getRepository(Products::class)->find(2);
+    $product = new Products();
+    $product->getId();
+
+    
 
     $entry = new UsersEntries();
 
@@ -96,17 +104,15 @@ class DailyController extends AbstractController
 
     $entityManager->persist($entry);
     $entityManager->flush();
-    
 
-      // $entry->setFood($this->getProducts());
+    return $this->render('User/daily.html.twig', []);
 
-    */
-    
+  }
 
-    //cos tam       loadEntry.html.twig
+
+
+
   
-  // addEntry -> photo in tell.
-  // commented content is fof addEntry
 
 
 }
