@@ -79,7 +79,7 @@ class DailyController extends AbstractController
   /**
    * @Route("/wpis", methods="POST", name="addEntry")
    */
-  public function addEntry(Request $request, EntityManagerInterface $entityManager): Response
+  public function addEntry(Request $request, EntityManagerInterface $entityManager, Products $product): Response
   { 
     
     $em = $this->getDoctrine()->getManager();
@@ -100,7 +100,7 @@ class DailyController extends AbstractController
     $entry->setDateTime(new \DateTime());
     $entry->setMealType($meal_type);
     $entry->setGrammage($grammage);
-    $entry->setFood($product);
+    $entry->setFood($this->getProducts());
 
     $entityManager->persist($entry);
     $entityManager->flush();
@@ -112,7 +112,6 @@ class DailyController extends AbstractController
 
 
 
-  
 
 
 }
