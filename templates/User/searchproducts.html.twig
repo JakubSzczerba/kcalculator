@@ -11,7 +11,7 @@
                                     {% for product in products %}
                                         
                                         <div class="row"><h3><blold>{{ product.product|e }}, <h3></bold></div>
-                                        <div class="row"><h4><span style="color: grey">100g, {{ product.energy|e }} kcal, {{ product.id|e }} &emsp;</span></h4> 
+                                        <div class="row"><h4><span style="color: grey">100g, {{ product.energy|e }} kcal &emsp;</span></h4> 
                                 
                                                 <a href="{{ path('product.detail', {id: product.id}) }}" class="btn btn-dark">+</a>
                                                                                                   
