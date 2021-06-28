@@ -5,9 +5,10 @@
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
+        
             <div class="row"><h1 class="mt-5"> Dodaj wpis do dziennika</h1></div><br><br>
-            <div class="row"><h2><blold>{{ product.product|e }}, <h2></bold></div>
-            <div class="row"><h4><span style="color: grey">100g, {{ product.energy|e }} kcal, {{ product.id|e }} &emsp;</span></h4>
+            <div><h2><blold>{{ product.product|e }} <h2></bold></div>
+            <div><h3><bold><span style="color: blue">{{ product.energy|e }} kcal </span></bold></h3>
             <div><h5>Białko: {{ product.protein|e }} g</h5></div>
             <div><h5>Tłuszcz: {{ product.fat|e }} g</h5></div>
             <div><h5>Węglowodany: {{ product.carbo|e }} g</h5></div>
