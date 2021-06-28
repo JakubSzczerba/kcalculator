@@ -29,7 +29,7 @@ class DailyController extends AbstractController
 
 
 /**
-   * @Route("/findFood", methods="POST", name="findFood")
+   * @Route("/product", methods="POST", name="findFood")
    */
   public function findFood(Request $request, ProductRepository $products): Response
   {
@@ -63,28 +63,18 @@ class DailyController extends AbstractController
   
 
   /**
-   * @Route("/showOneProduct", methods="POST", name="showOneProduct")
+   * @Route("/product/{id}", name="product.detail")
    */
-  public function showOneProduct(Request $request, ProductRepository $productRepository): Response
+  public function showOneProduct(Products $product): Response
   {
-    
-    $searchigProduct = new Products;
 
-    if (isset($_POST['showThisProduct']))
-    {
-      $id = $searchigProduct->getId();
-    }
-  
-    $checkingProduct = $productRepository->checkedProduct($id);
-
-    //$findId = $em->getRepository('kcalculator\public\findFood', $id);
-
- 
     return $this->render('User/loadEntry.html.twig', [
-      'checkingProduct' => $checkingProduct
+      'product' => $product,
     ]);
-  }
+    
+    
 
+  }
 
 
 

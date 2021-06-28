@@ -3,7 +3,7 @@
 {% block body %}
     
             <div class="col-lg-6">
-             <form action="{{ path('showOneProduct') }}" method="POST" class="form-horizontal">
+             
                     <div class="col-lg-6">
                         <h3 class="mt-5">Wyniki:</h3><br>
                             <div>                           
@@ -12,9 +12,9 @@
                                         
                                         <div class="row"><h3><blold>{{ product.product|e }}, <h3></bold></div>
                                         <div class="row"><h4><span style="color: grey">100g, {{ product.energy|e }} kcal, {{ product.id|e }} &emsp;</span></h4> 
-                                           
-                                                <button type="submit" name="showThisProduct" class="btn btn-success">+</button>
-                                            
+                                
+                                                <a href="{{ path('product.detail', {id: product.id}) }}" class="btn btn-dark">+</a>
+                                                                                                  
                                         </div> 
                                         {#       
                                         <div><h5>Białko: {{ product.protein|e }} g</h5></div>
@@ -29,7 +29,7 @@
                                     {% endfor %}                                                            
                             </div>                      
                     </div>                  
-                </form>
+                
         {#        <div>
                     <form>  
                         <div>
