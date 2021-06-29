@@ -65,8 +65,10 @@ class DailyController extends AbstractController
   /**
    * @Route("/product/{id}", name="product.detail")
    */
-  public function showOneProduct(Products $product): Response
+  public function showOneProduct(int $id, Products $product): Response
   {
+    dump($id);
+
 
     return $this->render('User/loadEntry.html.twig', [
       'product' => $product,
@@ -77,38 +79,37 @@ class DailyController extends AbstractController
   }
 
   /**
-   * @Route("/wpis", methods="POST", name="addEntry")
+   * @Route("/product{id}", methods="POST", name="addEntry")
    */
-  public function addEntry(Request $request, EntityManagerInterface $entityManager, Products $product): Response
+  public function addEntry(int $id, Request $request, EntityManagerInterface $entityManager, Products $product): Response
   { 
     
     $em = $this->getDoctrine()->getManager();
 
     $meal_type ="jakis posilek";
     $grammage = 1;
-    
-    //$product = $em->getRepository(Products::class)->find($id);
 
-    $product = new Products();
-    $product->getId();
-
-    
+    $product = $em->getRepository(Products::class)->find($id);
 
     $entry = new UsersEntries();
+
+
 
     $entry->setUser($this->getUser());
     $entry->setDateTime(new \DateTime());
     $entry->setMealType($meal_type);
     $entry->setGrammage($grammage);
-    $entry->setFood($this->getProducts());
+    $entry->setFood($product);
+
 
     $entityManager->persist($entry);
     $entityManager->flush();
 
-    return $this->render('User/daily.html.twig', []);
+    return $this->render('User/daily.html.twig', [
+      'product' => $product,
+    ]);
 
   }
-
 
 
 
