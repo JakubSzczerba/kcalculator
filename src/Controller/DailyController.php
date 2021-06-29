@@ -84,7 +84,7 @@ class DailyController extends AbstractController
     
     $em = $this->getDoctrine()->getManager();
 
-    $meal_type = "";
+    $meal_type = 'meal_1';
     $grammage = 1;
 
 
@@ -92,34 +92,42 @@ class DailyController extends AbstractController
     {
       if (isset($_POST['meal_1']))
       {
-        
-        $meal_type ="meal_1";
+
+        $meal_type = 'meal_1';
         
       } 
       elseif (isset($_POST['meal_2']))
       {
 
-        $meal_type ="meal_2";
+        $meal_type = 'meal_2';
 
       }
-    
+      elseif (isset($_POST['meal_3']))
+      {
+
+        $meal_type = 'meal_3';
+
+      }
+      elseif (isset($_POST['meal_4']))
+      {
+
+        $meal_type = 'meal_4';
+
+      }
+      elseif (isset($_POST['meal_5']))
+      {
+
+        $meal_type = 'meal_5';
+
+      }
+      elseif (isset($_POST['meal_6']))
+      {
+
+        $meal_type = 'meal_6';
+
+      }
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     $product = $em->getRepository(Products::class)->find($id);
