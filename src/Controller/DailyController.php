@@ -67,9 +67,7 @@ class DailyController extends AbstractController
    */
   public function showOneProduct(int $id, Products $product): Response
   {
-    dump($id);
-
-
+  
     return $this->render('User/loadEntry.html.twig', [
       'product' => $product,
     ]);
@@ -104,6 +102,7 @@ class DailyController extends AbstractController
 
     $entityManager->persist($entry);
     $entityManager->flush();
+    
 
     return $this->render('User/daily.html.twig', [
       'product' => $product,
