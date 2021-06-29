@@ -84,21 +84,23 @@ class DailyController extends AbstractController
     
     $em = $this->getDoctrine()->getManager();
 
-    $meal_type ="meal_1";
+    $meal_type = "";
     $grammage = 1;
 
 
     if ( isset($_POST['meal_1']) || isset($_POST['meal_2']) || isset($_POST['meal_3']) || isset($_POST['meal_4']) || isset($_POST['meal_5']) || isset($_POST['meal_6']) )
     {
-      if (isset($_POST['man']))
+      if (isset($_POST['meal_1']))
       {
-        $gender = 'man';
-        $result = (10*$weight) + (6.25*$height) - (5*$age) + 5 ;
+        
+        $meal_type ="meal_1";
+        
       } 
-      elseif (isset($_POST['woman']))
+      elseif (isset($_POST['meal_2']))
       {
-        $gender = 'woman';
-        $result = (10*$weight) + (6.25*$height) - (5*$age) - 161 ;
+
+        $meal_type ="meal_2";
+
       }
     
     }
