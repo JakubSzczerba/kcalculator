@@ -84,14 +84,45 @@ class DailyController extends AbstractController
     
     $em = $this->getDoctrine()->getManager();
 
-    $meal_type ="jakis posilek";
+    $meal_type ="meal_1";
     $grammage = 1;
+
+
+    if ( isset($_POST['meal_1']) || isset($_POST['meal_2']) || isset($_POST['meal_3']) || isset($_POST['meal_4']) || isset($_POST['meal_5']) || isset($_POST['meal_6']) )
+    {
+      if (isset($_POST['man']))
+      {
+        $gender = 'man';
+        $result = (10*$weight) + (6.25*$height) - (5*$age) + 5 ;
+      } 
+      elseif (isset($_POST['woman']))
+      {
+        $gender = 'woman';
+        $result = (10*$weight) + (6.25*$height) - (5*$age) - 161 ;
+      }
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     $product = $em->getRepository(Products::class)->find($id);
 
     $entry = new UsersEntries();
-
-
 
     $entry->setUser($this->getUser());
     $entry->setDateTime(new \DateTime());
@@ -102,7 +133,7 @@ class DailyController extends AbstractController
 
     $entityManager->persist($entry);
     $entityManager->flush();
-    
+
 
     return $this->render('User/daily.html.twig', [
       'product' => $product,
