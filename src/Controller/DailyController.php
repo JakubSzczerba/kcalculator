@@ -125,9 +125,12 @@ class DailyController extends AbstractController
 
         $meal_type = 'meal_6';
 
-      }
+      } 
 
-    }
+    } else {
+      echo "nie jest";
+    } 
+    
 
 
     $product = $em->getRepository(Products::class)->find($id);

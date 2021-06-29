@@ -11,7 +11,7 @@
                 <div><h1><blold>{{ product.product|e }}: <h1></bold></div>
 
                 <div><h2><bold><span style="color: #006600">{{ product.energy|e }} kcal, </span></bold> <span style="color: grey"><em>porcja 100g</em></span></h2> 
-                    <button type="submit" class="btn btn-success">Dodaj wpis</button>
+                    <button type="submit" name="klik" class="btn btn-success">Dodaj wpis</button>
                 <div>
 
                 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
@@ -23,22 +23,22 @@
                 <div><h5><span style="color: #3d3d29">Węglowodany: </span></bold>{{ product.carbo|e }} g</h5></div>
             </form> 
 
-
+{# <select name="meals" class="form-select" id="inlineFormSelectPref"> #}
 
              <div class="row">
-                    <form>  
+                    <form action="{{ path('addEntry', {id: product.id}) }}" method="POST" class="form-horizontal">  
                         <div>
                             <form class="row row-cols-lg-auto g-3 align-items-center">
                                 <div class="col-12">
                                 <br>
                                     <label class="visually-hidden" for="inlineFormSelectPref">Wybierz posiłek</label>
-                                    <select class="form-select" id="inlineFormSelectPref">
-                                        <option selected, name="meal_1" value="1">Przekąska</option>
-                                        <option name="meal_2" value="2">Śniadanie</option>
-                                        <option name="meal_3" value="3">Drugie śniadanie</option>
-                                        <option name="meal_4" value="4">Obiad</option>
-                                        <option name="meal_5" value="5">Podwieczorek</option>
-                                        <option name="meal_6" value="6">Kolacja</option>   
+                                    <select name="Meals">
+                                        <option selected, value="1">Przekąska</option>
+                                        <option value="2">Śniadanie</option>
+                                        <option value="3">Drugie śniadanie</option>
+                                        <option value="4">Obiad</option>
+                                        <option value="5">Podwieczorek</option>
+                                        <option value="6">Kolacja</option>   
                                     </select>
                                 </div>
 
