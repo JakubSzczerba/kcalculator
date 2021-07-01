@@ -91,14 +91,9 @@ class DailyController extends AbstractController
     if(!empty($_POST['Meals'])) 
     {
       $meal_type = $_POST['Meals'];
-      echo 'Posiłek: ' . $meal_type;
     } 
-    else {
-      echo 'nie ma';
-    }
     
-
-
+    
     $product = $em->getRepository(Products::class)->find($id);
 
     $entry = new UsersEntries();
