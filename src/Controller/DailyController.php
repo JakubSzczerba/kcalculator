@@ -84,52 +84,18 @@ class DailyController extends AbstractController
     
     $em = $this->getDoctrine()->getManager();
 
-    $meal_type = 'meal_1';
+    $meal_type = '';
     $grammage = 1;
 
 
-    if ( isset($_POST['meal_1']) || isset($_POST['meal_2']) || isset($_POST['meal_3']) || isset($_POST['meal_4']) || isset($_POST['meal_5']) || isset($_POST['meal_6']) )
+    if(!empty($_POST['Meals'])) 
     {
-      if (isset($_POST['meal_1']))
-      {
-
-        $meal_type = 'meal_1';
-        
-      } 
-      elseif (isset($_POST['meal_2']))
-      {
-
-        $meal_type = 'meal_2';
-
-      }
-      elseif (isset($_POST['meal_3']))
-      {
-
-        $meal_type = 'meal_3';
-
-      }
-      elseif (isset($_POST['meal_4']))
-      {
-
-        $meal_type = 'meal_4';
-
-      }
-      elseif (isset($_POST['meal_5']))
-      {
-
-        $meal_type = 'meal_5';
-
-      }
-      elseif (isset($_POST['meal_6']))
-      {
-
-        $meal_type = 'meal_6';
-
-      } 
-
-    } else {
-      echo "nie jest";
+      $meal_type = $_POST['Meals'];
+      echo 'Posiłek: ' . $meal_type;
     } 
+    else {
+      echo 'nie ma';
+    }
     
 
 

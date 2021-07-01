@@ -5,7 +5,7 @@
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
-           <form action="{{ path('addEntry', {id: product.id}) }}" method="POST" class="form-horizontal"> 
+           <form action="{{ path('addEntry', {id: product.id}) }}" method="POST" id="entryform" class="form-horizontal"> 
         
                 <div class="row"><h1 class="mt-5"> Dodaj wpis do dziennika</h1></div><br><br><br>
                 <div><h1><blold>{{ product.product|e }}: <h1></bold></div>
@@ -26,13 +26,13 @@
 {# <select name="meals" class="form-select" id="inlineFormSelectPref"> #}
 
              <div class="row">
-                    <form action="{{ path('addEntry', {id: product.id}) }}" method="POST" class="form-horizontal">  
+                    <form action="{{ path('addEntry', {id: product.id}) }}" method="POST" id="entryform" class="form-horizontal">  
                         <div>
                             <form class="row row-cols-lg-auto g-3 align-items-center">
                                 <div class="col-12">
                                 <br>
                                     <label class="visually-hidden" for="inlineFormSelectPref">Wybierz posiłek</label>
-                                    <select name="Meals">
+                                    <select name="Meals" form="entryform">
                                         <option selected, value="1">Przekąska</option>
                                         <option value="2">Śniadanie</option>
                                         <option value="3">Drugie śniadanie</option>
@@ -42,7 +42,16 @@
                                     </select>
                                 </div>
 
-                                <div class="col-12">
+                                 </div>
+                                </form>
+                           
+                        </div>
+                    </form>
+                </div>  {#<label for="username">4) Posilek:</label>
+                         <input type="radio" name="meal_1" value="meal_1">Sniadanie<br>#}
+
+
+                               {# <div class="col-12">
                                     <br>
                                     <label class="visually-hidden" for="inlineFormSelectPref">Wielość porcji  </label>
                                     <select class="form-select" id="inlineFormSelectPref"> 
@@ -81,7 +90,7 @@
                            
                         </div>
                     </form>
-                </div> 
+                </div> #}
             
         
 
