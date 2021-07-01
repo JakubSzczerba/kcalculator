@@ -85,7 +85,7 @@ class DailyController extends AbstractController
     $em = $this->getDoctrine()->getManager();
 
     $meal_type = '';
-    $grammage = 1;
+    $grammage = 100;
 
 
     if(!empty($_POST['Meals'])) 
