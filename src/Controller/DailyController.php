@@ -85,13 +85,18 @@ class DailyController extends AbstractController
     $em = $this->getDoctrine()->getManager();
 
     $meal_type = '';
-    $grammage = 100;
-
+    $grammage = '';
+    //Grammage
 
     if(!empty($_POST['Meals'])) 
     {
       $meal_type = $_POST['Meals'];
     } 
+
+    if(!empty($_POST['Grammage']))
+    {
+      $grammage = $_POST['Grammage'];
+    }
     
     
     $product = $em->getRepository(Products::class)->find($id);
