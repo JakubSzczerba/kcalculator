@@ -22,7 +22,7 @@ class DailyController extends AbstractController
    */
   public function daily()
   {
-    
+    echo "co tam";
     return $this->render('User/daily.html.twig', []);
     
   }
@@ -121,18 +121,19 @@ class DailyController extends AbstractController
   }
 
   /**
-   * @Route("/daily", methods="POST", name="showEntries")
+   * @Route("/daily", name="showEntries")
    */
   public function showEntries(Request $request, EntriesRepository $entriesRepository): Response
   {
     $id = $this->getUser()->getId();
     $date = new \DateTime();
+
     $showEntry = $entriesRepository->displayEntry($date, $id);
 
 
 
 
-    return $this->render('User/daily.html.twig', [
+    return $this->render('User/testEntry.html.twig', [
       'entry' => $showEntry
     ]);
   

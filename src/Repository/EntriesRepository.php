@@ -25,7 +25,7 @@ class EntriesRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('e');
 
-        $qb->select('e')
+        $qb->select('e.datetime, e.meal_type, e.grammage')
             ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = e.users')
             ->where('u.id = :users') 
             ->andWhere('e.datetime = datatime')     
