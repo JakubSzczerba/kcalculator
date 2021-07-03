@@ -120,6 +120,15 @@ class DailyController extends AbstractController
 
   }
 
+  /**
+   * @Route("/daily", methods="POST", name="showEntries")
+   */
+  public function showEntries(Request $request, ProductRepository $products): Response
+  {
+    return $this->render('User/daily.html.twig', []);
+  
+  }
+
 
 
 
