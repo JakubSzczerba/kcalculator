@@ -125,7 +125,16 @@ class DailyController extends AbstractController
    */
   public function showEntries(Request $request, EntriesRepository $entriesRepository): Response
   {
-    return $this->render('User/daily.html.twig', []);
+
+    $date = new \DateTime();
+    $showEntry = $entriesRepository->displayEntry($date);
+
+
+
+
+    return $this->render('User/daily.html.twig', [
+      'entry' => $showEntry
+    ]);
   
   }
 
