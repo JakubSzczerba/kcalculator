@@ -7,7 +7,13 @@
                         <h3 class="mt-5">Wpis:</h3><br>
                             <div>                           
                                     <br><br>
-                                                                                        
+                                    {% for entry in entry %}
+                                        
+                                        <div class="row"><h3><blold>{{ entry.meal_type|e }}, <h3></bold></div> 
+                                                                                                                        
+                                        <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
+                                        
+                                    {% endfor %}                                                                            
                             </div>                      
                     </div>                  
 {% endblock %}
