@@ -23,14 +23,15 @@ class EntriesRepository extends ServiceEntityRepository
 
     public function displayEntry(int $id)
     {
+        
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')
             ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = e.user')
             ->where('u.id = :user') 
-            //->andWhere('e.datetime = datatime')     
+            //->andWhere('e.datetime = datetime')     
             ->setParameter('user', $id);
-            //->setParameter('datatime', $datetime);
+            //->setParameter('today', $today->format('Y-m-d'));
 
 
             
