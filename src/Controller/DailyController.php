@@ -127,9 +127,9 @@ class DailyController extends AbstractController
   public function showEntries(Request $request, EntriesRepository $entriesRepository): Response
   {
     $id = $this->getUser()->getId();
-    $date = new \DateTime();
+    $datetime = new \DateTime('@'.strtotime('now'));
 
-    $showEntry = $entriesRepository->displayEntry($id);
+    $showEntry = $entriesRepository->displayEntry($datetime, $id);
 
 
 
