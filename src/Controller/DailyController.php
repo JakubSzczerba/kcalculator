@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use App\Repository\ProductRepository;
+use App\Repository\EntriesRepository;
 use App\Entity\User;
 use App\Entity\UsersEntries;
 use App\Entity\Products;
@@ -22,7 +23,7 @@ class DailyController extends AbstractController
    */
   public function daily()
   {
-    echo "co tam";
+    
     return $this->render('User/daily.html.twig', []);
     
   }
@@ -121,14 +122,14 @@ class DailyController extends AbstractController
   }
 
   /**
-   * @Route("/daily", name="showEntries")
+   * @Route("/wpisy",  methods="POST", name="showEntries")
    */
   public function showEntries(Request $request, EntriesRepository $entriesRepository): Response
   {
     $id = $this->getUser()->getId();
     $date = new \DateTime();
 
-    $showEntry = $entriesRepository->displayEntry($date, $id);
+    $showEntry = $entriesRepository->displayEntry($id);
 
 
 
