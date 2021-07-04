@@ -9,9 +9,10 @@
                                     <br><br>
                                     {% for entry in entry %}
                                         
+                                        <div class="row"><h2><blold>{{ entry.datetime|date("d/m/Y") }}, <h2></bold></div><br>
                                         <div class="row"><h3><blold>Posilek: {{ entry.meal_type|e }}, <h3></bold></div> <br>
-                                        <div class="row"><h3><blold>Porcja: {{ entry.grammage|e }} g, <h3></bold></div> <br>
-                                        <div class="row"><h2><blold>{{ entry.datetime|date("d/m/Y") }}, <h2></bold></div> 
+                                        <div class="row"><h3><blold>Porcja: {{ entry.grammage|e }} g, <h3></bold></div> 
+                                        
 
                                                                                                                         
                                         <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
