@@ -29,6 +29,7 @@ class EntriesRepository extends ServiceEntityRepository
         $qb->select('e')
             //->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = e.user')
             //->innerJoin('App\Entity\Products', 'p', Join::WITH, 'p = e.food')
+            // trzeba pokombinować
             ->where('e.user = :user') 
             ->andWhere('e.datetime = :datetime')     
             ->setParameter('user', $id)
