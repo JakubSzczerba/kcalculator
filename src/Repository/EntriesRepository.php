@@ -27,9 +27,9 @@ class EntriesRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')
-            ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = e.user')
+            //->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = e.user')
             //->innerJoin('App\Entity\Products', 'p', Join::WITH, 'p = e.food')
-            ->where('u.id = :user') 
+            ->where('e.user = :user') 
             ->andWhere('e.datetime = :datetime')     
             ->setParameter('user', $id)
             ->setParameter('datetime', $datetime->format('Y-m-d'));
