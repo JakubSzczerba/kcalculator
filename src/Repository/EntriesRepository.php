@@ -27,9 +27,6 @@ class EntriesRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')
-            //->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = e.user')
-            //->innerJoin('App\Entity\Products', 'p', Join::WITH, 'p = e.food')
-            // trzeba pokombinować
             ->leftJoin('e.food', 'p')
             ->addSelect('p')
             ->where('e.user = :user') 
