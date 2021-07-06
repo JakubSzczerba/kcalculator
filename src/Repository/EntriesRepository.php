@@ -37,7 +37,7 @@ class EntriesRepository extends ServiceEntityRepository
 
 
             
-        dump($qb->getQuery()->getResult());
+        //dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getArrayResult();
 
     }
