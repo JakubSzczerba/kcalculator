@@ -11,17 +11,13 @@
 
                                         {% for product in entry.food %}
                                             <div class="row"><h2><blold><span style="color: black">{{ product.product|e }}, {{ entry.grammage|e }} g</span></h2></bold></div>
-                                            <div class="row"><h4>{{ product.energy|e }} kcal</h4></div>
+                                            <div class="row"><h4>{{ product.energy|e }} kcal <span style="color: gray">(wartość jeszcze na 100g)</span></h4></div>
+                                            <div class="row"><h5>B: {{ product.protein|e }} g, T: {{ product.fat|e }} g, W: {{ product.carbo|e }} g</h5></div>
                                             
                                         {% endfor %}
-                                        
-                                        
                                         <br>
                                        <div class="row"><h3><blold>Posilek: {{ entry.meal_type|e }}, <h3></bold></div> <br>
-
-                                        
-
-                                                                                                                        
+                                                                                                                      
                                         <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
                                         
                                     {% endfor %}                                                                            
