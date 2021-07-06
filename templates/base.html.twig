@@ -11,14 +11,19 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        {# navbar navbar-dark bg-dark #}
+        {# <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> #}
             <div class="container">
                 {% if app.user %}
                     <a class="navbar-brand" href="{{ path('preferentions') }}">{{ app.user.username }}</a>&emsp;&emsp;
                     
-                    <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">                       
-                        <input type="text" name="search" class="form-control">
-                        <button class="btn btn-outline-success" type="submit">Szukaj</button>                 
-                    </form>
+                    <form action="{{ path('findFood') }}" method="POST" class="d-flex">    
+                                           
+                        <input type="search" name="search" class="form-control me-2" placeholder="Wpisz nazwę produktu" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Szukaj</button>   
+
+                     </form>              
+                    
 
                 {% endif %}
                 <div class="collapse navbar-collapse" id="navbarResponsive">
