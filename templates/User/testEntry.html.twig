@@ -12,10 +12,9 @@
                                         <div class="row"><h2><blold>{{ entry.datetime|date("d/m/Y") }}, <h2></bold></div><br>
                                         <div class="row"><h3><blold>Posilek: {{ entry.meal_type|e }}, <h3></bold></div> <br>
                                         <div class="row"><h3><blold>Porcja: {{ entry.grammage|e }} g, <h3></bold></div> <br>
-                                        <div class="row"><h3><blold>Produkt:  <h3></bold></div>
 
                                         {% for product in entry.food %}
-                                                 {{ product.product|e }}
+                                            <div class="row"><h3><blold>Produkt: {{ product.product|e }} <h3></bold></div>
                                         {% endfor %}
 
                                                                                                                         
