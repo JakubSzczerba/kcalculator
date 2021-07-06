@@ -14,10 +14,10 @@
                                         <div class="row"><h3><blold>Porcja: {{ entry.grammage|e }} g, <h3></bold></div> <br>
                                         <div class="row"><h3><blold>Produkt:  <h3></bold></div>
 
-   {#                                     {% for product in entry.food %}
-                                                 {{ product.product|length }}
-                                         {% endfor %}
-#}
+                                        {% for product in entry.food %}
+                                                 {{ product.product|e }}
+                                        {% endfor %}
+
                                                                                                                         
                                         <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
                                         
