@@ -87,7 +87,7 @@ class DailyController extends AbstractController
 
     $meal_type = '';
     $grammage = '';
-    $energyXgram = 3.14;
+    $energyXgram;
     $proteinXgram = 3.14;
     $fatXgram = 3.14;
     $carboXgram = 3.14;
@@ -111,7 +111,8 @@ class DailyController extends AbstractController
     $fat = $product->getFat();
     $carbo = $product->getCarbo();
     
-
+    $energyXgram = $energy * $grammage;
+    
     $entry = new UsersEntries();
 
     $entry->setUser($this->getUser());
