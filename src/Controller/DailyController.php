@@ -115,6 +115,12 @@ class DailyController extends AbstractController
     $proteinXgram = $protein * $grammage;
     $fatXgram = $fat * $grammage;
     $carboXgram = $carbo * $grammage;
+
+    $energyXgram = round($energyXgram, 0);
+    $proteinXgram = round($proteinXgram, 2);
+    $fatXgram = round($fatXgram, 2);
+    $carboXgram = round($carboXgram, 2);
+
     
     $entry = new UsersEntries();
 
