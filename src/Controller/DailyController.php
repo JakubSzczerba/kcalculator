@@ -104,8 +104,12 @@ class DailyController extends AbstractController
       $grammage = $_POST['Grammage'];
     }
     
-    
     $product = $em->getRepository(Products::class)->find($id);
+    
+    $energy = $product->getEnergy();
+    //$test = array($product);
+    //printf($test);
+    echo $energy;
 
     $entry = new UsersEntries();
 
