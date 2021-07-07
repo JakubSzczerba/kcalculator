@@ -107,9 +107,10 @@ class DailyController extends AbstractController
     $product = $em->getRepository(Products::class)->find($id);
     
     $energy = $product->getEnergy();
-    //$test = array($product);
-    //printf($test);
-    echo $energy;
+    $protein = $product->getProtein();
+    $fat = $product->getFat();
+    $carbo = $product->getCarbo();
+    
 
     $entry = new UsersEntries();
 
