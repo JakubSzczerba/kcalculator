@@ -87,6 +87,11 @@ class DailyController extends AbstractController
 
     $meal_type = '';
     $grammage = '';
+    $energyXgram = 3.14;
+    $proteinXgram = 3.14;
+    $fatXgram = 3.14;
+    $carboXgram = 3.14;
+   
     //Grammage
 
     if(!empty($_POST['Meals'])) 
@@ -109,7 +114,10 @@ class DailyController extends AbstractController
     $entry->setMealType($meal_type);
     $entry->setGrammage($grammage);
     $entry->setFood($product);
-
+    $entry->setEnergyXgram($energyXgram);
+    $entry->setProteinXgram($proteinXgram);
+    $entry->setFatXgram($fatXgram);
+    $entry->setCarboXgram($carboXgram);
 
     $entityManager->persist($entry);
     $entityManager->flush();
