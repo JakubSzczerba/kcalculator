@@ -145,4 +145,3 @@ class DailyController extends AbstractController
 
 
 }
-
