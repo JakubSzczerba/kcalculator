@@ -117,7 +117,7 @@ class UsersEntries
     {
         $this->grammage = $grammage;
     }
-    /////
+    
     public function getEnergyXgram(): ?float
     {
         return $this->energyXgram;
@@ -148,15 +148,15 @@ class UsersEntries
         $this->fatXgram = $fatXgram;
     }
 
+    public function getCarboXgram(): ?float
+    {
+        return $this->carboXgram;
+    }
 
-
-
-
-
-
-
-
-
+    public function setCarboXgram($carboXgram): void
+    {
+        $this->carboXgram = $carboXgram;
+    }
 
     public function getFood(): ?Products
     {
