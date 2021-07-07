@@ -128,6 +128,16 @@ class UsersEntries
         $this->energyXgram = $energyXgram;
     }
 
+    public function getProteinXgram(): ?float
+    {
+        return $this->proteinXgram;
+    }
+
+    public function setProteinXgram($proteinXgram): void
+    {
+        $this->proteinXgram = $proteinXgram;
+    }
+
     public function getFood(): ?Products
     {
         return $this->food;
