@@ -117,6 +117,16 @@ class UsersEntries
     {
         $this->grammage = $grammage;
     }
+    /////
+    public function getEnergyXgram(): ?float
+    {
+        return $this->energyXgram;
+    }
+
+    public function setEnergyXgram($energyXgram): void
+    {
+        $this->energyXgram = $energyXgram;
+    }
 
     public function getFood(): ?Products
     {
