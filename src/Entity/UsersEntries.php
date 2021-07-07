@@ -138,6 +138,26 @@ class UsersEntries
         $this->proteinXgram = $proteinXgram;
     }
 
+    public function getFatXgram(): ?float
+    {
+        return $this->fatXgram;
+    }
+
+    public function setFatXgram($fatXgram): void
+    {
+        $this->fatXgram = $fatXgram;
+    }
+
+
+
+
+
+
+
+
+
+
+
     public function getFood(): ?Products
     {
         return $this->food;
