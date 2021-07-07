@@ -40,6 +40,26 @@ class UsersEntries
     private $grammage;
 
     /**
+     * @ORM\Column(type="float") 
+     */
+    private $energyXgram;
+
+    /**
+     * @ORM\Column(type="float") 
+     */
+    private $proteinXgram;
+
+    /**
+     * @ORM\Column(type="float") 
+     */
+    private $fatXgram;
+
+    /**
+     * @ORM\Column(type="float") 
+     */
+    private $carboXgram;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Products", inversedBy="entries")"
      * @JoinTable(name="entry_product")
      */
