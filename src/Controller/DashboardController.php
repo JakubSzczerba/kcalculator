@@ -9,7 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use App\Repository\DashboardCaloriesRepository;
+use App\Repository\DashboardCaloriesRepository; 
+use App\Repository\EntriesRepository;
 
 class DashboardController extends AbstractController
 {
