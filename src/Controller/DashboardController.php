@@ -20,6 +20,7 @@ class DashboardController extends AbstractController
   public function dashboard(Request $request, DashboardCaloriesRepository $caloriesrep, EntriesRepository $entried_kcalRepository): Response
   {
     $id = $this->getUser()->getId();
+    $datetime = new \DateTime('@'.strtotime('now'));
     
     
     $preferention = $caloriesrep->showKcalPerDay($id);
