@@ -25,6 +25,8 @@ class DashboardController extends AbstractController
     
     $preferention = $caloriesrep->showKcalPerDay($id);
 
+    $summKcal = $entried_kcalRepository->SummEntriedKcal($datetime, $id); 
+
 
 
     return $this->render('Homepage/homeafterlog.html.twig', [

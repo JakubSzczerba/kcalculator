@@ -42,5 +42,30 @@ class EntriesRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @return entried_kcal[]
+     */
+
+    public function SummEntriedKcal(\DateTime $datetime, int $id)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('e')
+            ->leftJoin('e.food', 'p')
+            ->addSelect('p')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')     
+            ->setParameter('user', $id)
+            ->setParameter('datetime', $datetime->format('Y-m-d'));
+            
+
+
+            
+        //dump($qb->getQuery()->getResult());
+        return $qb->getQuery()->getArrayResult();
+
+    }
+
 
 }
