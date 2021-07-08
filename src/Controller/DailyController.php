@@ -145,7 +145,7 @@ class DailyController extends AbstractController
   }
 
   /**
-   * @Route("/wpisy",  methods="POST", name="showEntries")
+   * @Route("/wpisy",  methods="GET", name="showEntries")
    */
   public function showEntries(Request $request, EntriesRepository $entriesRepository): Response
   {
