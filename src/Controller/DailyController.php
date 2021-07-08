@@ -138,9 +138,17 @@ class DailyController extends AbstractController
     $entityManager->flush();
 
 
-    return $this->render('User/daily.html.twig', [
-      'product' => $product,
-    ]);
+
+    if ($this->getUser()) 
+        {
+        return $this->redirectToRoute('showEntries');
+             
+        } else 
+        {
+        return $this->render('User/daily.html.twig', [
+          'product' => $product,
+        ]);
+        }
 
   }
 
