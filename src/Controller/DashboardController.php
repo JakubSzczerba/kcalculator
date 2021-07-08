@@ -17,7 +17,7 @@ class DashboardController extends AbstractController
 /**
    * @Route("/dashboard", name="dashboard")
    */
-  public function dashboard(Request $request, DashboardCaloriesRepository $caloriesrep): Response
+  public function dashboard(Request $request, DashboardCaloriesRepository $caloriesrep, EntriesRepository $entried_kcalRepository): Response
   {
     $id = $this->getUser()->getId();
     
