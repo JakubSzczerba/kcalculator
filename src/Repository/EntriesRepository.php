@@ -51,7 +51,7 @@ class EntriesRepository extends ServiceEntityRepository
         
         $qb = $this->createQueryBuilder('e');
 
-        $qb->select('SUM(e.energyXgram)')
+        $qb->select('SUM(e.energyXgram) as totalKcal')
             ->where('e.user = :user') 
             ->andWhere('e.datetime = :datetime')     
             ->setParameter('user', $id)
@@ -61,7 +61,7 @@ class EntriesRepository extends ServiceEntityRepository
 
             
         dump($qb->getQuery()->getResult());
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getSingleScalarResult();
 
     }
 
