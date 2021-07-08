@@ -30,7 +30,8 @@ class DashboardController extends AbstractController
 
 
     return $this->render('Homepage/homeafterlog.html.twig', [
-      'preferentions' => $preferention
+      'preferentions' => $preferention,
+      'summKcal' => $summKcal
     ]);
 
     $results = [];

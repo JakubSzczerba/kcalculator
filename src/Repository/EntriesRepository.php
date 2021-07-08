@@ -51,9 +51,7 @@ class EntriesRepository extends ServiceEntityRepository
         
         $qb = $this->createQueryBuilder('e');
 
-        $qb->select('e')
-            ->leftJoin('e.food', 'p')
-            ->addSelect('p')
+        $qb->select('e.energyXgram')
             ->where('e.user = :user') 
             ->andWhere('e.datetime = :datetime')     
             ->setParameter('user', $id)
@@ -62,7 +60,7 @@ class EntriesRepository extends ServiceEntityRepository
 
 
             
-        //dump($qb->getQuery()->getResult());
+        dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getArrayResult();
 
     }
