@@ -6,12 +6,13 @@
                     <div class="col-lg-6">
                         <h3 class="mt-5"><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h1>
                             <p>
-                                <input type="date" id="date" value="2021-07-10" >
+                               
+                                <input type="date" id="date" value=" {{ "now"|date("d/m/Y") }} " >
                             </p>
                             <div>                           
                                     <br><br>
                                     {% for entry in entry %}
-
+                                        
                                         {% for product in entry.food %}
                                             <div class="row"><h2><blold><span style="color: black">{{ product.product|e }}, {{ (entry.grammage|e)*100 }} g</span></h2></bold></div>
                                             <div class="row"><h4>{{ entry.energyXgram|e }} kcal</h4></div>
@@ -23,7 +24,9 @@
                                                                                                                       
                                         <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
                                         
+                                        
                                     {% endfor %}                                                                            
                             </div>                      
                     </div>                  
 {% endblock %}
+ {# {% set result = preferention.kcal_day - summKcal %}  #}
