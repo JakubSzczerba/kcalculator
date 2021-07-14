@@ -11,6 +11,7 @@
                             </p>
                             <div>                           
                                     <br><br>
+                                    {% if entry %}
                                     {% for entry in entry %}
                                         
                                         {% for product in entry.food %}
@@ -25,7 +26,10 @@
                                         <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
                                         
                                         
-                                    {% endfor %}                                                                            
+                                    {% endfor %}  
+                                    {% else %}
+                                        nie ma
+                                    {% endif %}                                                                          
                             </div>                      
                     </div>                  
 {% endblock %}
