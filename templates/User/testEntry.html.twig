@@ -28,7 +28,9 @@
                                         
                                     {% endfor %}  
                                     {% else %}
-                                        nie ma
+                                        <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">
+                                            <input type="search" name="search" class="form-control me-2" placeholder="Wpisz nazwę produktu" aria-label="Search">
+                                            <button class="btn btn-outline-success" type="submit">Szukaj</button> 
                                     {% endif %}                                                                          
                             </div>                      
                     </div>                  
