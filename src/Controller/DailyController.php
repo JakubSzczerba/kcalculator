@@ -153,11 +153,24 @@ class DailyController extends AbstractController
   }
 
   /**
-   * @Route("/product/delete/{id}")
-   * @Method({"DELETE"})
+   * @Route("/wpisy/delete/{id}", name="deleteEntry")
    */
-  public function deleteEntry()
-  {
+  public function deleteEntry(Request $request, int $id, EntityManagerInterface $entityManager)
+  { 
+    
+    $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find($id);
+
+    if ($id)
+    {
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->remove($entry);
+      $entityManager->flush();
+    } else {
+      return $this->redirectToRoute('showEntries');
+    }
+
+    // "{{ path('deleteEntry') }}"
+    return $this->render('User/testEntry.html.twig', []);
 
   }
 
