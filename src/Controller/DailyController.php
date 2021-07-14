@@ -153,6 +153,15 @@ class DailyController extends AbstractController
   }
 
   /**
+   * @Route("/product/delete/{id}")
+   * @Method({"DELETE"})
+   */
+  public function deleteEntry()
+  {
+
+  }
+
+  /**
    * @Route("/wpisy",  methods="GET", name="showEntries")
    */
   public function showEntries(Request $request, EntriesRepository $entriesRepository): Response
