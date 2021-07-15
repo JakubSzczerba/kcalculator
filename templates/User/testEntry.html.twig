@@ -5,9 +5,7 @@
                     
                     <div class="col-lg-6">
                     {% if entry %}
-                        {% for entry in entry %}
-
-                        <h3 class="mt-5"><h1><span style="color: blue"> {{ entry.datetime|date("d/m/Y") }} </span></h3>
+                        <h3 class="mt-5"><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>
                             <p>
                                <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
                                 <input type="date" id="date" name="dataTocheckDaily">
@@ -15,18 +13,20 @@
                                 </form> 
 
                             </p>
-                            <div>                           
+                            <div>  
+                                                     
                                     <br><br>
                                     
-                                        
+                                    {% for entry in entry %}
+                                    <div class="row"><h1><span style="color: #6b6b47">{{ entry.meal_type|e }} </span></h1></div>
                                         {% for product in entry.food %}
                                             <div class="row"><h2><blold><span style="color: black">{{ product.product|e }}, {{ (entry.grammage|e)*100 }} g</span></h2></bold></div>
                                             <div class="row"><h4>{{ entry.energyXgram|e }} kcal</h4></div>
                                             <div class="row"><h5>B: {{ entry.proteinXgram|e }} g, T: {{ entry.fatXgram|e }} g, W: {{ entry.carboXgram|e }} g</h5></div>
                                             
                                         {% endfor %}
-                                        <br>
-                                       <div class="row"><h3><blold>Posilek: {{ entry.meal_type|e }} <h3></bold></div> 
+                                        
+                                       
                                        <div class="row">
                                         <a href="#">Edytuj</a>&nbsp;&nbsp;
                                         <a href="{{ path('deleteEntry', {id: entry.id}) }}"><span style="color: red">Usuń</span></a>
