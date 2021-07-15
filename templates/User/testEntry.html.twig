@@ -5,7 +5,7 @@
                     
                     <div class="col-lg-6">
                     {% if entry %}
-                                    {% for entry in entry %}
+                        {% for entry in entry %}
 
                         <h3 class="mt-5"><h1><span style="color: blue"> {{ entry.datetime|date("d/m/Y") }} </span></h3>
                             <p>
@@ -37,7 +37,7 @@
                                         
                                     {% endfor %}  
                                     {% else %}
-                                    <h3 class="mt-5"><h1><span style="color: blue">Tego dnia nie było wpisów</span></h3>
+                                    <h3 class="mt-5"><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>
                                         <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">
                                             <label> Aby utworzyć wpis, dodaj produkty </label>
                                             <input type="search" name="search" class="form-control me-2" placeholder="Wpisz nazwę produktu" aria-label="Search">
