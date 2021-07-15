@@ -24,14 +24,14 @@
                                             <div class="row"><h4>{{ entry.energyXgram|e }} kcal</h4></div>
                                             <div class="row"><h5>B: {{ entry.proteinXgram|e }} g, T: {{ entry.fatXgram|e }} g, W: {{ entry.carboXgram|e }} g</h5></div>
                                             
-                                        {% endfor %}
+                                        
                                         
                                        
                                        <div class="row">
-                                        <a href="{{ path('editEntry', {id: entry.id}) }}">Edytuj</a>&nbsp;&nbsp;
+                                        <a href="{{ path('editEntry', {id: product.id}) }}">Edytuj</a>&nbsp;&nbsp;
                                         <a href="{{ path('deleteEntry', {id: entry.id}) }}"><span style="color: red">Usuń</span></a>
                                         </div> 
-                                                                                                                      
+                                          {% endfor %}                                                                            
                                         <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
                                         
                                         

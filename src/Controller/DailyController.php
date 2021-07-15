@@ -180,18 +180,22 @@ class DailyController extends AbstractController
    */
   public function editEntry(Request $request, int $id, EntityManagerInterface $entityManager, Products $product)
   {
-    $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find($id);
+    $product = $this->getDoctrine()->getRepository(Products::class)->find($id);
     if ($id)
     {
       //$product = $entityManager->getRepository(Products::class)->find($productId);
       //$productId = $productId->GetId();
+      //dump($product);
+      //$product = $entry->getFood();
       //dump($product);
       $entityManager = $this->getDoctrine()->getManager();
       $entityManager->flush();
     }
     
 
-    return $this->render('User/editEntry.html.twig', []);
+    return $this->render('User/loadEntry.html.twig', [
+      'product' => $product,
+    ]);
 
   }
 
