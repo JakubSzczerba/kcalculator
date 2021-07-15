@@ -190,10 +190,11 @@ class DailyController extends AbstractController
       //dump($product);
       $entityManager = $this->getDoctrine()->getManager();
       $entityManager->flush();
+      
     }
     
 
-    return $this->render('User/loadEntry.html.twig', [
+    return $this->render('User/editEntry.html.twig', [
       'product' => $product,
     ]);
 

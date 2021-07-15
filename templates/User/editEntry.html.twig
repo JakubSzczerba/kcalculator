@@ -3,10 +3,76 @@
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
-                    
-                    <h1 class="mt-5"><span style="color: blue"> Próba </span> </h1><br>
               
-     
+            <h1 class="mt-5"><span style="color: blue"> Próba </span> </h1><br>
+
+                <form action="{{ path('editEntry', {id: product.id}) }}" method="POST" id="entryform" class="form-horizontal">
+
+                    <div class="row"><h1 class="mt-5"> Dodaj wpis do dziennika</h1></div><br><br><br>
+                        <div><h1><blold>{{ product.product|e }}: <h1></bold></div>
+
+                         <div><h2><bold><span style="color: #006600">{{ product.energy|e }} kcal, </span></bold> <span style="color: grey"><em>porcja 100g</em></span></h2> 
+                        <button type="submit" name="klik" class="btn btn-success">Zapisz</button>
+                        <div>
+                        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+                        <div><h5><bold><span style="color: #ff6633">Białko: </span></bold>{{ product.protein|e }} g</h5></div>
+
+                        <div><h5><span style="color: #cc0099">Tłuszcz: </span></bold>{{ product.fat|e }} g</h5></div>
+
+                        <div><h5><span style="color: #3d3d29">Węglowodany: </span></bold>{{ product.carbo|e }} g</h5></div>
+                </form> 
+
+                 <div class="row">
+                    <form action="{{ path('editEntry', {id: product.id}) }}" method="POST" id="entryform" class="form-horizontal">  
+                        <div>
+                            <form class="row row-cols-lg-auto g-3 align-items-center">
+                                <div class="col-12">
+                                <br>
+                                    <label class="visually-hidden" for="inlineFormSelectPref">Wybierz posiłek</label>
+
+                                    <select name="Meals" form="entryform">
+                                        <option selected, value="Przekąska">Przekąska</option>
+                                        <option value="Śniadanie">Śniadanie</option>
+                                        <option value="Drugie śniadanie">Drugie śniadanie</option>
+                                        <option value="Obiad">Obiad</option>
+                                        <option value="Podwieczorek">Podwieczorek</option>
+                                        <option value="Kolacja">Kolacja</option>   
+                                    </select><br> <br>
+
+                                   
+                                    <label class="visually-hidden" for="inlineFormSelectPref">Wielkość porcji</label>
+
+                                    <select name="Grammage" form="entryform"> 
+                                        <option selected, value="1">100 g</option>
+                                        <option value="0.125">12.5 g</option>
+                                        <option value="0.25">25 g</option>
+                                        <option value="0.333">33 g</option>
+                                        <option value="0.375">37.5 g</option>
+                                        <option value="0.50">50 g</option>
+                                        <option value="0.625">62.5 g</option>
+                                        <option value="0.666">66 g</option>
+                                        <option value="0.75">75 g</option>
+                                        <option value="0.875">87.5 g</option>
+                                        <option value="2">200 g</option>
+                                        <option value="3">300 g</option>
+                                        <option value="4">400 g</option>
+                                        <option value="5">500 g</option>
+                                    </select>
+
+                                </div>
+
+                                 </div>
+                                </form>
+                           
+                        </div>
+                    </form>
+                </div>  
         </div>
     </div>
+
+
+                    
+     
+        
+    
 {% endblock %}
