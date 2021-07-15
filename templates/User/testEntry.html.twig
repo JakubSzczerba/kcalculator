@@ -4,15 +4,20 @@
    
                     
                     <div class="col-lg-6">
-                        <h3 class="mt-5"><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>
+                    {% if entry %}
+                                    {% for entry in entry %}
+
+                        <h3 class="mt-5"><h1><span style="color: blue"> {{ entry.datetime|date("d/m/Y") }} </span></h3>
                             <p>
-                               
-                                <input type="date" id="date" name="dataTocheckDaily" value="2010-01-01" >
+                               <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
+                                <input type="date" id="date" name="dataTocheckDaily">
+                                <button type="submit" name="dateCheck" class="btn btn-success">pokaż</button>
+                                </form> 
+
                             </p>
                             <div>                           
                                     <br><br>
-                                    {% if entry %}
-                                    {% for entry in entry %}
+                                    
                                         
                                         {% for product in entry.food %}
                                             <div class="row"><h2><blold><span style="color: black">{{ product.product|e }}, {{ (entry.grammage|e)*100 }} g</span></h2></bold></div>
@@ -32,6 +37,7 @@
                                         
                                     {% endfor %}  
                                     {% else %}
+                                    <h3 class="mt-5"><h1><span style="color: blue">Tego dnia nie było wpisów</span></h3>
                                         <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">
                                             <label> Aby utworzyć wpis, dodaj produkty </label>
                                             <input type="search" name="search" class="form-control me-2" placeholder="Wpisz nazwę produktu" aria-label="Search">

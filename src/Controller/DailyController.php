@@ -176,12 +176,22 @@ class DailyController extends AbstractController
   }
 
   /**
-   * @Route("/wpisy",  methods="GET", name="showEntries")
+   * @Route("/wpisy",  methods="GET|POST", name="showEntries")
    */
   public function showEntries(Request $request, EntriesRepository $entriesRepository): Response
   {
     $id = $this->getUser()->getId();
-    $datetime = new \DateTime('@'.strtotime('now'));
+    $datetime;
+
+    if (isset($_POST['dataTocheckDaily']))
+    { 
+      //echo "jest";
+      $datetime = new \DateTime($_POST['dataTocheckDaily']);
+    }
+    else {
+      //echo "nie jest";
+      $datetime = new \DateTime('@'.strtotime('now'));
+    }
 
     $showEntry = $entriesRepository->displayEntry($datetime, $id);
 
