@@ -180,21 +180,17 @@ class DailyController extends AbstractController
    */
   public function editEntry(Request $request, int $id, EntityManagerInterface $entityManager, Products $product)
   {
-    
+    $entry = new UsersEntries(); 
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
-    if ($id)
-    {
+    
       // @Entity("product", expr="repository.find(comment_id)")
-      $entityManager = $this->getDoctrine()->getManager();
-      $entityManager->flush();
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->flush();
       
-    }
     
-    
-
     return $this->render('User/loadEntry.html.twig', [
       'product' => $product,
-    ]);
+    ]); //change load to edit
 
   }
 
