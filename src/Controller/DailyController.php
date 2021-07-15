@@ -165,12 +165,13 @@ class DailyController extends AbstractController
       $entityManager = $this->getDoctrine()->getManager();
       $entityManager->remove($entry);
       $entityManager->flush();
-    } else {
       return $this->redirectToRoute('showEntries');
+    } 
+    else {
+      return $this->render('User/testEntry.html.twig', []);
     }
 
-    // "{{ path('deleteEntry') }}"
-    return $this->render('User/testEntry.html.twig', []);
+
 
   }
 
