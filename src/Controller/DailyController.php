@@ -157,11 +157,12 @@ class DailyController extends AbstractController
    */
   public function deleteEntry(Request $request, int $id, EntityManagerInterface $entityManager)
   { 
-    
+    $productId;
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find($id);
 
     if ($id)
     {
+      
       $entityManager = $this->getDoctrine()->getManager();
       $entityManager->remove($entry);
       $entityManager->flush();
@@ -175,22 +176,22 @@ class DailyController extends AbstractController
   }
 
   /**
-   * @Route("/product{id}/edit",  methods="GET|POST", name="editEntry")
+   * @Route("/wpisy/edit/{id}",  methods="GET|POST", name="editEntry")
    */
   public function editEntry(Request $request, int $id, EntityManagerInterface $entityManager, Products $product)
   {
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find($id);
     if ($id)
     {
-
+      //$product = $entityManager->getRepository(Products::class)->find($productId);
+      //$productId = $productId->GetId();
+      //dump($product);
       $entityManager = $this->getDoctrine()->getManager();
       $entityManager->flush();
     }
     
 
-    return $this->render('User/loadEntry.html.twig', [
-      'product' => $product
-    ]);
+    return $this->render('User/editEntry.html.twig', []);
 
   }
 
