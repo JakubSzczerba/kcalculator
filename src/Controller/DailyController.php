@@ -194,16 +194,15 @@ class DailyController extends AbstractController
     }   
     
     $entry->setMealType($meal_type);
-
-
-    if(!empty($_POST['edit'])) 
-    {
-      return $this->redirectToRoute('showEntries');
-    }   
     
     
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
+
+    if( $entityManager->flush()) 
+    {
+      return $this->redirectToRoute('showEntries');
+    }   
       
     
     return $this->render('User/editEntry.html.twig', [
@@ -211,7 +210,7 @@ class DailyController extends AbstractController
       'product' => $product,
 
      
-    ]); //change load to edit
+    ]); 
 
   }
 
