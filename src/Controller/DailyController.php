@@ -178,18 +178,21 @@ class DailyController extends AbstractController
   /**
    * @Route("/wpisy/edit/{id}",  methods="GET|POST", name="editEntry")
    */
-  public function editEntry(Request $request, int $id, EntityManagerInterface $entityManager, Products $product)
+  public function editEntry(Request $request, int $id, Products $food, EntityManagerInterface $entityManager)
   {
     $entry = new UsersEntries(); 
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
+
+    $product = $entityManager->getRepository(UsersEntries::class)->find($food);
     
-      // @Entity("product", expr="repository.find(comment_id)")
+    
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
       
     
-    return $this->render('User/loadEntry.html.twig', [
-      'product' => $product,
+    return $this->render('User/editEntry.html.twig', [
+      'entry' => $entry,
+     
     ]); //change load to edit
 
   }

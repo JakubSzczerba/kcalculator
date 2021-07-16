@@ -6,20 +6,12 @@
               
             <div class="row"><h1 class="mt-5">Edytuj wpis: </h1></div><br><br><br>
 
-                <form action="{{ path('editEntry', {id: product.id}) }}" method="POST" id="entryform" class="form-horizontal">
-
-                        <div><h1><blold>{{ product.product|e }}: <h1></bold></div>
-
-                         <div><h2><bold><span style="color: #006600">{{ product.energy|e }} kcal, </span></bold> <span style="color: grey"><em>porcja 100g</em></span></h2> 
-                        <button type="submit" name="klik" class="btn btn-success">Zapisz</button>
-                        <div>
-                        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                        <div><h5><bold><span style="color: #ff6633">Białko: </span></bold>{{ product.protein|e }} g</h5></div>
-
-                        <div><h5><span style="color: #cc0099">Tłuszcz: </span></bold>{{ product.fat|e }} g</h5></div>
-
-                        <div><h5><span style="color: #3d3d29">Węglowodany: </span></bold>{{ product.carbo|e }} g</h5></div>
-               
+                <form action="{{ path('editEntry', {id: entry.id}) }}" method="POST" id="entryform" class="form-horizontal">
+                        
+                         <div><h5><bold><span style="color: #ff6633">id wpisu: </span></bold>{{ entry.id|e }} </h5></div>
+                         <div><h5><bold><span style="color: #ff6633">kcal: </span></bold>{{ entry.energyXgram|e }} kcal</h5></div>
+                         <div><h5><bold><span style="color: #ff6633">waga: </span></bold>{{ (entry.grammage|e) * 100}} g</h5></div>
+            
                  <div class="row">
 
                         <div>
