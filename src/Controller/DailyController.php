@@ -184,6 +184,9 @@ class DailyController extends AbstractController
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
 
     $product = $entityManager->getRepository(UsersEntries::class)->find($food);
+
+
+
     
     
     $entityManager = $this->getDoctrine()->getManager();
@@ -192,7 +195,7 @@ class DailyController extends AbstractController
     
     return $this->render('User/editEntry.html.twig', [
       'entry' => $entry,
-      'food' => $food,
+      'product' => $product,
 
      
     ]); //change load to edit
