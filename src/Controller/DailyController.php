@@ -94,6 +94,7 @@ class DailyController extends AbstractController
    
     //Grammage
 
+    
     if(!empty($_POST['Meals'])) 
     {
       $meal_type = $_POST['Meals'];
@@ -185,8 +186,20 @@ class DailyController extends AbstractController
 
     $product = $entityManager->getRepository(UsersEntries::class)->find($food);
 
+    $meal_type = '';
+
+    if(!empty($_POST['Meals'])) 
+    {
+      $meal_type = $_POST['Meals'];
+    }   
+    
+    $entry->setMealType($meal_type);
 
 
+    if(!empty($_POST['edit'])) 
+    {
+      return $this->redirectToRoute('showEntries');
+    }   
     
     
     $entityManager = $this->getDoctrine()->getManager();
