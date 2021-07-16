@@ -192,6 +192,8 @@ class DailyController extends AbstractController
     
     return $this->render('User/editEntry.html.twig', [
       'entry' => $entry,
+      'food' => $food,
+
      
     ]); //change load to edit
 
