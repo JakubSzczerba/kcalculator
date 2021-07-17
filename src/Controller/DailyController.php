@@ -238,13 +238,16 @@ class DailyController extends AbstractController
       $datetime = new \DateTime('@'.strtotime('now'));
     }
 
-    $showEntry = $entriesRepository->displayEntry($datetime, $id);
+    $showEntry = $entriesRepository->displayEntry($datetime, $id); //all entries per day, but products are not grouping in one row (meal)
+
+    $ShowSnack = $entriesRepository->displayEntry($datetime, $id, $meal1); // try to fetch all entries per day for row -> Przękąski 
 
 
 
 
     return $this->render('User/testEntry.html.twig', [
-      'entry' => $showEntry
+      'entry' => $showEntry,
+      'snack' => $ShowSnack,
     ]);
   
   }
