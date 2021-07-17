@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-   
-                    
-                    <div class="col-lg-6">
+{% block body %} {#<div class="row"><h1 class="mt-5"> Dziennik</h1></div><br><br><br>#}
+<divc lass="col-lg-12" >
+<br>
                     {% if entry %}
-                        <h3 class="mt-5"><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>
+                       <div class="row"> <h3><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <p>
                                <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
                                 <input type="date" id="date" name="dataTocheckDaily">
@@ -16,7 +15,8 @@
                             <div>  
                                                      
                                     <br><br>
-                                    <table class="table table-striped" style="width: 800px;"> 
+                                    {% if snack %}
+                                    <table class="table table-striped" style="width: 1000px;"> 
                                         <thead>
                                             <tr>
                                                 <th><h4>Śniadanie</h4></th>
@@ -45,20 +45,38 @@
                                                 <a href="#">Edytuj</a> &nbsp;&nbsp;
                                                 <a href="#"><span style="color: red">Usuń<span></a>                                            
                                                 </td>
-                                            </tr>
-                                             
-                                        
-                                       
-                                       
-                                          {% endfor %}                                                                            
-                                        
-                                        
-                                        
+                                            </tr>                                                             
+                                          {% endfor %}                                                                                                                  
                                     {% endfor %}  
                                     </tbody>
+                                    </table>
 
-                                            </table>
-                                        
+                                    {% else %}
+                                    <table class="table table-striped" style="width: 800px;"> 
+                                        <thead>
+                                            <tr>
+                                                <th><h4>Śniadanie</h4></th>                                              
+                                                <th><h6></h6></th>
+                                                <th><h4> kcal</h4></th>                                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr> 
+                                        </tbody>
+                                    </table> 
+                                    <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
+                                    <br>         
+                                    {% endif %}     
+
+
+
+
+
+
                                     {% else %}
                                     <h3 class="mt-5"><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>
                                         <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">
