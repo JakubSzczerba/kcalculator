@@ -221,6 +221,7 @@ class DailyController extends AbstractController
   {
     $id = $this->getUser()->getId();
     $datetime;
+    $meal='';
     $meal1 = "Przekąska";
     $meal2 = "Śniadanie";
     $meal3 = "Drugie śniadanie";
@@ -240,7 +241,7 @@ class DailyController extends AbstractController
 
     $showEntry = $entriesRepository->displayEntry($datetime, $id); //all entries per day, but products are not grouping in one row (meal)
 
-    $ShowSnack = $entriesRepository->displayEntry($datetime, $id, $meal1); // try to fetch all entries per day for row -> Przękąski 
+    $ShowSnack = $entriesRepository->ShowSnack($datetime, $id, $meal1); // try to fetch all entries per day for row -> Przękąski 
 
 
 
