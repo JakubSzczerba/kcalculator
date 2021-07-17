@@ -16,22 +16,17 @@
                             <div>  
                                                      
                                     <br><br>
-                                    {% for entry in entry %}
-                                    <div class="row"><h1><span style="color: #6b6b47">{{ entry.meal_type|e }} </span></h1></div>
-                                        {% for product in entry.food %}
-                                            <div class="row"><h2><blold><span style="color: black">{{ product.product|e }}, {{ (entry.grammage|e)*100 }} g</span></h2></bold></div>
-                                            <div class="row"><h4>{{ entry.energyXgram|e }} kcal</h4></div>
-                                            <div class="row"><h5>B: {{ entry.proteinXgram|e }} g, T: {{ entry.fatXgram|e }} g, W: {{ entry.carboXgram|e }} g</h5></div>
-                                            
+                                    <h1><span style="color: #6b6b47"> Przekąski </span></h1></div>
+
+                                    {% for snack in snack %}
+                                        {% for product in snack.food %}
+                                            <div class="row"><h2><blold><span style="color: black">{{ product.product|e }}</span><bold></h2></div>
                                         
                                         
                                        
-                                       <div class="row">
-                                        <a href="{{ path('editEntry', {id: entry.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                        <a href="{{ path('deleteEntry', {id: entry.id}) }}"><span style="color: red">Usuń</span></a>
-                                        </div> 
+                                       
                                           {% endfor %}                                                                            
-                                        <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
+                                        
                                         
                                         
                                     {% endfor %}  
