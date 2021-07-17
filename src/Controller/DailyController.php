@@ -221,7 +221,12 @@ class DailyController extends AbstractController
   {
     $id = $this->getUser()->getId();
     $datetime;
-    $meal_type;
+    $meal1 = "Przekąska";
+    $meal2 = "Śniadanie";
+    $meal3 = "Drugie śniadanie";
+    $meal4 = "Obiad";
+    $meal5 = "Podwieczorek";
+    $meal6 = "Kolacja";
 
     if (isset($_POST['dataTocheckDaily']))
     { 
