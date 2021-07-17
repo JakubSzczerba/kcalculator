@@ -33,6 +33,7 @@ class EntriesRepository extends ServiceEntityRepository
             ->andWhere('e.datetime = :datetime')     
             ->setParameter('user', $id)
             ->setParameter('datetime', $datetime->format('Y-m-d'));
+            //->groupBy('e.meal_type');
             
 
 
