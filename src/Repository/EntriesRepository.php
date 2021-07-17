@@ -78,7 +78,7 @@ class EntriesRepository extends ServiceEntityRepository
         
         $qb = $this->createQueryBuilder('e');
 
-        $qb->select('e')
+        $qb->select('e')    //summSnack
             ->leftJoin('e.food', 'p')
             ->addSelect('p')
             ->where('e.user = :user') 
