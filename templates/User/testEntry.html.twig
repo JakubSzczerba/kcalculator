@@ -128,6 +128,44 @@
                                     
                                     {% endif %}<br>
 
+                                    {% if dinner %}
+                                    <table class="table table-striped" style="width: 1000px;"> 
+                                        <thead>
+                                            <tr>
+                                                <th><h3>Obiad</h3></th>
+                                                
+                                                <th><h6></h6></th>
+                                                <th><h4> kcal</h4></th> 
+                                                                
+                                            </tr>
+                                        </thead>
+                                     <tbody>
+                                    {% for dinner in dinner %}                                   
+                                        {% for product in dinner.food %}
+
+                                            <tr>
+                                                <td>
+                                                <h5><blold><span style="color: black">{{ product.product|e }}, {{ (dinner.grammage|e)*100 }} g</span></h5></bold>
+                                                </td>
+
+                                                <td>
+                                                <a>{{ dinner.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>
+
+                                                <td>
+                                                <a href="#">Edytuj</a> &nbsp;&nbsp;
+                                                <a href="{{ path('deleteEntry', {id: dinner.id}) }}"><span style="color: red">Usuń</span></a>                                          
+                                                </td>
+                                            </tr>                                                                                                      
+                                          {% endfor %}                                                                                                                                                           
+                                    {% endfor %}  
+                                    </tbody>  
+                                    </table>
+                    
+                                    {% else %}
+                                    
+                                    {% endif %}<br>
+
 
 
 

@@ -142,6 +142,29 @@ class EntriesRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getArrayResult(); 
 
+    } 
+
+    /**
+     * @return dinner[]
+     */
+
+    public function ShowDinner(\DateTime $datetime, int $id, string $meal4)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('e')  
+            ->leftJoin('e.food', 'p')
+            ->addSelect('p')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')  
+            ->andWhere('e.meal_type = :meal_type')
+            ->setParameter('user', $id)   
+            ->setParameter('meal_type', $meal4)
+            ->setParameter('datetime', $datetime->format('Y-m-d'));
+
+        return $qb->getQuery()->getArrayResult(); 
+
     }
 
 
