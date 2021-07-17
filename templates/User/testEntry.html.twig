@@ -14,7 +14,7 @@
                             </p>
                             <div>  
                                                      
-                                    <br>
+                                    <br><br>
                                     {% if snack %}
                                     <table class="table table-striped" style="width: 1000px;"> 
                                         <thead>
@@ -37,7 +37,7 @@
                                                 <a>{{ snack.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </td>
                                                 <td>
-                                                <a href="#">Edytuj</a> &nbsp;&nbsp;
+                                                <a href="{{ path('editEntry', {id: snack.id}) }}">Edytuj</a>&nbsp;&nbsp;
                                                 <a href="{{ path('deleteEntry', {id: snack.id}) }}"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                             
@@ -45,8 +45,9 @@
                                     {% endfor %}  
                                     </tbody>
                                     </table>
+                                     <br>
                                     {% else %}                                    
-                                    {% endif %} <br>
+                                    {% endif %}
 
                                     {% if breakfast %}
                                     <table class="table table-striped" style="width: 1000px;"> 
@@ -73,7 +74,7 @@
                                                 </td>
 
                                                 <td>
-                                                <a href="#">Edytuj</a> &nbsp;&nbsp;
+                                                <a href="{{ path('editEntry', {id: breakfast.id}) }}">Edytuj</a>&nbsp;&nbsp;
                                                 <a href="{{ path('deleteEntry', {id: breakfast.id}) }}"><span style="color: red">Usuń</span></a>                                           
                                                 </td>
                                             </tr>                                                                                                      
@@ -81,10 +82,10 @@
                                     {% endfor %}  
                                     </tbody>  
                                     </table>
-                    
+                                    <br>
                                     {% else %}
                                     
-                                    {% endif %}<br>
+                                    {% endif %}
                                       
                                     {% if lunch %}
                                     <table class="table table-striped" style="width: 1000px;"> 
@@ -111,7 +112,7 @@
                                                 </td>
 
                                                 <td>
-                                                <a href="#">Edytuj</a> &nbsp;&nbsp;
+                                                <a href="{{ path('editEntry', {id: lunch.id}) }}">Edytuj</a>&nbsp;&nbsp;
                                                 <a href="{{ path('deleteEntry', {id: lunch.id}) }}"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                                                                      
@@ -119,10 +120,10 @@
                                     {% endfor %}  
                                     </tbody>  
                                     </table>
-                    
+                                    <br>
                                     {% else %}
                                     
-                                    {% endif %}<br>
+                                    {% endif %}
 
                                     {% if dinner %}
                                     <table class="table table-striped" style="width: 1000px;"> 
@@ -149,7 +150,7 @@
                                                 </td>
 
                                                 <td>
-                                                <a href="#">Edytuj</a> &nbsp;&nbsp;
+                                                <a href="{{ path('editEntry', {id: dinner.id}) }}">Edytuj</a>&nbsp;&nbsp;
                                                 <a href="{{ path('deleteEntry', {id: dinner.id}) }}"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                                                                      
@@ -157,10 +158,10 @@
                                     {% endfor %}  
                                     </tbody>  
                                     </table>
-                    
+                                    <br>
                                     {% else %}
                                     
-                                    {% endif %}<br>
+                                    {% endif %}
                                     
                                     {% if tea %}
                                     <table class="table table-striped" style="width: 1000px;"> 
@@ -187,16 +188,17 @@
                                                 </td>
 
                                                 <td>
-                                                <a href="#">Edytuj</a> &nbsp;&nbsp;
+                                                <a href="{{ path('editEntry', {id: tea.id}) }}">Edytuj</a>&nbsp;&nbsp;
                                                 <a href="{{ path('deleteEntry', {id: tea.id}) }}"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                                                                      
                                           {% endfor %}                                                                                                                                                           
                                     {% endfor %}  
                                     </tbody>  
-                                    </table>                   
+                                    </table>  
+                                    <br>                 
                                     {% else %}                                   
-                                    {% endif %}<br>
+                                    {% endif %}
                                     
                                     {% if supper %}
                                     <table class="table table-striped" style="width: 1000px;"> 
@@ -223,16 +225,17 @@
                                                 </td>
 
                                                 <td>
-                                                <a href="#">Edytuj</a> &nbsp;&nbsp;
+                                                <a href="{{ path('editEntry', {id: supper.id}) }}">Edytuj</a>&nbsp;&nbsp;
                                                 <a href="{{ path('deleteEntry', {id: supper.id}) }}"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                                                                      
                                           {% endfor %}                                                                                                                                                           
                                     {% endfor %}  
                                     </tbody>  
-                                    </table>                   
+                                    </table> 
+                                    <br>                  
                                     {% else %}                                   
-                                    {% endif %}<br>
+                                    {% endif %}
 
 
 
