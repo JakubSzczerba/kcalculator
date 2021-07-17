@@ -22,7 +22,7 @@
                                                 <th><h3>Przekąski</h3></th>
                                                 
                                                 <th><h6></h6></th>
-                                                <th><h4> kcal</h4></th> 
+                                                <th><h4>{{ snackcal|number_format }} kcal</h4></th> 
                                                                 
                                             </tr>
                                         </thead>
@@ -46,7 +46,8 @@
                                     </tbody>
                                     </table>
                                     {% else %}                                    
-                                    {% endif %}
+                                    {% endif %} <br>
+
                                     {% if breakfast %}
                                     <table class="table table-striped" style="width: 1000px;"> 
                                         <thead>
@@ -193,10 +194,44 @@
                                           {% endfor %}                                                                                                                                                           
                                     {% endfor %}  
                                     </tbody>  
-                                    </table>
-                    
-                                    {% else %}
+                                    </table>                   
+                                    {% else %}                                   
+                                    {% endif %}<br>
                                     
+                                    {% if supper %}
+                                    <table class="table table-striped" style="width: 1000px;"> 
+                                        <thead>
+                                            <tr>
+                                                <th><h3>Kolacja</h3></th>
+                                                
+                                                <th><h6></h6></th>
+                                                <th><h4> kcal</h4></th> 
+                                                                
+                                            </tr>
+                                        </thead>
+                                     <tbody>
+                                    {% for supper in supper %}                                   
+                                        {% for product in supper.food %}
+
+                                            <tr>
+                                                <td>
+                                                <h5><blold><span style="color: black">{{ product.product|e }}, {{ (supper.grammage|e)*100 }} g</span></h5></bold>
+                                                </td>
+
+                                                <td>
+                                                <a>{{ supper.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>
+
+                                                <td>
+                                                <a href="#">Edytuj</a> &nbsp;&nbsp;
+                                                <a href="{{ path('deleteEntry', {id: supper.id}) }}"><span style="color: red">Usuń</span></a>                                          
+                                                </td>
+                                            </tr>                                                                                                      
+                                          {% endfor %}                                                                                                                                                           
+                                    {% endfor %}  
+                                    </tbody>  
+                                    </table>                   
+                                    {% else %}                                   
                                     {% endif %}<br>
 
 

@@ -249,7 +249,12 @@ class DailyController extends AbstractController
 
     $ShowDinner = $entriesRepository->ShowDinner($datetime, $id, $meal4); // OBIAD
 
-    $ShowTea = $entriesRepository->ShowTea($datetime, $id, $meal5); // Podwieczorek
+    $ShowTea = $entriesRepository->ShowTea($datetime, $id, $meal5); // Podwieczorek  
+
+    $ShowSupper = $entriesRepository->ShowSupper($datetime, $id, $meal6); // Koalcja 
+
+    //summ kcal for meals near to name of meal
+    $SummSnacksKcal = $entriesRepository->SummSnacksKcal($datetime, $id, $meal1); // {{ snackcal|number_format }}
 
 
 
@@ -261,6 +266,8 @@ class DailyController extends AbstractController
       'lunch' => $ShowLunch,
       'dinner' => $ShowDinner,
       'tea' => $ShowTea,
+      'supper' => $ShowSupper,
+      'snackcal' => $SummSnacksKcal, 
     ]);
   
   }

@@ -190,6 +190,50 @@ class EntriesRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @return supper[]
+     */
+
+    public function ShowSupper(\DateTime $datetime, int $id, string $meal6)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('e')  
+            ->leftJoin('e.food', 'p')
+            ->addSelect('p')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')  
+            ->andWhere('e.meal_type = :meal_type')
+            ->setParameter('user', $id)   
+            ->setParameter('meal_type', $meal6)
+            ->setParameter('datetime', $datetime->format('Y-m-d'));
+
+        return $qb->getQuery()->getArrayResult(); 
+
+    }
+
+    /**
+     * @return snacks_kcal[]
+     */
+
+    public function SummSnacksKcal(\DateTime $datetime, int $id, string $meal1)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('SUM(e.energyXgram) as snackKcal')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')  
+            ->andWhere('e.meal_type = :meal_type')
+            ->setParameter('user', $id)
+            ->setParameter('datetime', $datetime->format('Y-m-d'))
+            ->setParameter('meal_type', $meal1);
+            
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
 
 }
 
