@@ -3,76 +3,13 @@
 {% block body %}
     <div class="row">
        
-            <br>
-            <br>
-            
-            <div class="col-lg-12">
-                <br>
-                <table border="1" style="width: 700px; height: 150px;">
-                <tr style="text-align: center; ">
-                    <td>Posiłek </td>
-                    <td>Produkty</td>  
-                    <td>Kcal </td>    
-                    <td>Białko </td>  
-                    <td>Tłuszcz </td>    
-                    <td>Węglowodany </td>        
+            <table class="table table-striped" style="width: 200px; height: 200px;"> 
+            <thead>
+                <tr>
+                <th>cos 1</th>
+                <th> cos2</th>
                 </tr>
-
-                <tr style="text-align: center; ">
-                    <td>Przekąski </td>
-                    <td> Tutaj będą <br>produkty</td>  
-                    <td>kcale </td>    
-                    <td>białka </td>  
-                    <td>tłuszcze </td>    
-                    <td>węgle </td>        
-                </tr>
-
-                <tr style="text-align: center; ">
-                    <td>Śniadanie </td>
-                    <td> Tutaj będą <br>produkty</td>  
-                    <td>kcale </td>    
-                    <td>białka </td>  
-                    <td>tłuszcze </td>    
-                    <td>węgle </td>        
-                </tr>
-
-                <tr style="text-align: center; ">
-                    <td>Drugie śniadanie </td>
-                    <td> Tutaj będą <br>produkty</td>  
-                    <td>kcale </td>    
-                    <td>białka </td>  
-                    <td>tłuszcze </td>    
-                    <td>węgle </td>        
-                </tr>
-
-                <tr style="text-align: center; ">
-                    <td>Obiad </td>
-                    <td> Tutaj będą <br>produkty</td>  
-                    <td>kcale </td>    
-                    <td>białka </td>  
-                    <td>tłuszcze </td>    
-                    <td>węgle </td>        
-                </tr>
-
-                <tr style="text-align: center; ">
-                    <td>Podwieczorek </td>
-                    <td> Tutaj będą <br>produkty</td>  
-                    <td>kcale </td>    
-                    <td>białka </td>  
-                    <td>tłuszcze </td>    
-                    <td>węgle </td>        
-                </tr>
-
-                <tr style="text-align: center; ">
-                    <td>Kolacja </td>
-                    <td> Tutaj będą <br>produkty</td>  
-                    <td>kcale </td>    
-                    <td>białka </td>  
-                    <td>tłuszcze </td>    
-                    <td>węgle </td>        
-                </tr>
-
-                
+            </thead>
             </table>
 
 
@@ -82,11 +19,8 @@
 
 
 
-
-
-
             </div>
-
+<br><br><br>
             <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
                     <label for="username">Pokaż wpis</label>
                     <button type="submit" class="btn btn-success">wpis</button><br>                   
