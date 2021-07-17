@@ -16,11 +16,11 @@
                             <div>  
                                                      
                                     <br><br>
-                                    <h1><span style="color: #6b6b47"> Przekąski </span></h1></div>
+                                    <h1><span style="color: #6b6b47"> Przekąski </span></h1>
 
                                     {% for snack in snack %}
                                         {% for product in snack.food %}
-                                            <div class="row"><h2><blold><span style="color: black">{{ product.product|e }}</span><bold></h2></div>
+                                            <h2><blold><span style="color: black">{{ product.product|e }}, {{ (snack.grammage|e)*100 }} g</span><bold></h2>
                                         
                                         
                                        
