@@ -98,7 +98,7 @@ class EntriesRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return snacks[]
+     * @return breakfast[]
      */
 
     public function ShowBreakfast(\DateTime $datetime, int $id, string $meal2)
@@ -117,7 +117,30 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('datetime', $datetime->format('Y-m-d'));
                       
         //dump($qb->getQuery()->getResult());
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getArrayResult(); 
+
+    }
+
+    /**
+     * @return lunch[]
+     */
+
+    public function ShowLunch(\DateTime $datetime, int $id, string $meal3)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('e')  
+            ->leftJoin('e.food', 'p')
+            ->addSelect('p')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')  
+            ->andWhere('e.meal_type = :meal_type')
+            ->setParameter('user', $id)   
+            ->setParameter('meal_type', $meal3)
+            ->setParameter('datetime', $datetime->format('Y-m-d'));
+
+        return $qb->getQuery()->getArrayResult(); 
 
     }
 
