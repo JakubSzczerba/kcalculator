@@ -97,5 +97,29 @@ class EntriesRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @return snacks[]
+     */
+
+    public function ShowBreakfast(\DateTime $datetime, int $id, string $meal2)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('e')    //summSnack
+            ->leftJoin('e.food', 'p')
+            ->addSelect('p')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')  
+            ->andWhere('e.meal_type = :meal_type')
+            ->setParameter('user', $id)   
+            ->setParameter('meal_type', $meal2)
+            ->setParameter('datetime', $datetime->format('Y-m-d'));
+                      
+        //dump($qb->getQuery()->getResult());
+        return $qb->getQuery()->getArrayResult();
+
+    }
+
 
 }

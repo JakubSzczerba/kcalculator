@@ -19,19 +19,16 @@
                                     <table class="table table-striped" style="width: 1000px;"> 
                                         <thead>
                                             <tr>
-                                                <th><h4>Śniadanie</h4></th>
+                                                <th><h3>Przekąski</h3></th>
                                                 
                                                 <th><h6></h6></th>
                                                 <th><h4> kcal</h4></th> 
                                                                 
                                             </tr>
                                         </thead>
-                                     
+                                    <tbody>
                                     {% for snack in snack %}
                                         {% for product in snack.food %}
-
-                                        <tbody>
-
                                             <tr>
                                                 <td>
                                                 <h5><blold><span style="color: black">{{ product.product|e }}, {{ (snack.grammage|e)*100 }} g</span></h5></bold>
@@ -52,12 +49,67 @@
                                     </table>
 
                                     {% else %}
-                                    <table class="table table-striped" style="width: 800px;"> 
+                                    <table class="table table-striped" style="width: 1000px;"> 
+                                        <thead>
+                                            <tr>
+                                                <th><h4>Przekąski</h4></th>                                              
+                                                <th><h6></h6></th>
+                                                <th><h4> kcal</h4></th>                                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr> 
+                                        </tbody>
+                                    </table> 
+                                    <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
+                                    <br>         
+                                    {% endif %}<br>
+
+                                    {% if breakfast %}
+                                    <table class="table table-striped" style="width: 1000px;"> 
+                                        <thead>
+                                            <tr>
+                                                <th><h3>Śniadanie</h3></th>
+                                                
+                                                <th><h6></h6></th>
+                                                <th><h4> kcal</h4></th> 
+                                                                
+                                            </tr>
+                                        </thead>
+                                     <tbody>
+                                    {% for breakfast in breakfast %}                                   
+                                        {% for product in breakfast.food %}
+
+                                            <tr>
+                                                <td>
+                                                <h5><blold><span style="color: black">{{ product.product|e }}, {{ (breakfast.grammage|e)*100 }} g</span></h5></bold>
+                                                </td>
+
+                                                <td>
+                                                <a>{{ breakfast.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>
+
+                                                <td>
+                                                <a href="#">Edytuj</a> &nbsp;&nbsp;
+                                                <a href="#"><span style="color: red">Usuń<span></a>                                            
+                                                </td>
+                                            </tr>                                                                                                      
+                                          {% endfor %}                                                                                                                                                           
+                                    {% endfor %}  
+                                    </tbody>  
+                                    </table>
+                    
+                                    {% else %}
+                                    <table class="table table-striped" style="width: 1000px;"> 
                                         <thead>
                                             <tr>
                                                 <th><h4>Śniadanie</h4></th>                                              
                                                 <th><h6></h6></th>
-                                                <th><h4> kcal</h4></th>                                                                
+                                                <th></th>                                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -76,7 +128,7 @@
 
 
 
-
+                                    {# DO TĄD #}
                                     {% else %}
                                     <h3 class="mt-5"><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>
                                         <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">

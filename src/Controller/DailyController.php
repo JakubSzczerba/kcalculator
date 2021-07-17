@@ -243,12 +243,15 @@ class DailyController extends AbstractController
 
     $ShowSnack = $entriesRepository->ShowSnack($datetime, $id, $meal1); // try to fetch all entries per day for row -> Przękąski 
 
+    $ShowBreakfast = $entriesRepository->ShowBreakfast($datetime, $id, $meal2); // the same way ^ but with Śnaidanie!
+
 
 
 
     return $this->render('User/testEntry.html.twig', [
       'entry' => $showEntry,
       'snack' => $ShowSnack,
+      'breakfast' => $ShowBreakfast,
     ]);
   
   }
