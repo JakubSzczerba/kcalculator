@@ -1,26 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row">
-       
-            <table class="table table-striped" style="width: 300px; height: 200px;"> 
+    
+    <div class="row"><h1 class="mt-5"> Dziennik</h1></div><br><br><br>
+      
 
+            <table class="table table-striped" style="width: 500px;"> 
             <thead>
                 <tr>
-                    <th>Śniadanie</th>
-                    <th>==</th>
+                    <th><h4>Śniadanie</h4></th>
+                    
+                    <th><h5>B: 0.5 g, T: 0 g, W: 27 g</h5></th>
+                    <th><h4>144 kcal</h4></th>
+                                     
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <td><h5>Buraki</h5></td>
+                    <td>
+                    <h5><blold><span style="color: black">Buraki, 100 g</span></h5></bold>
+                    </td>
 
                     <td>
+                    <a>48 kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
                     <a href="#">Edytuj</a> &nbsp;&nbsp;
-                    <a href="#"><span style="color: red">Usuń<span></a>
+                    <a href="#"><span style="color: red">Usuń<span></a> 
+                    
                     </td>
                 </tr>
+
+                <tr>
+                    <td>
+                    <h5><blold><span style="color: black">Pizza, 400 g</span></h5></bold>
+                    </td>
+
+                    <td>
+                    <a>746 kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                    <a href="#">Edytuj</a> &nbsp;&nbsp;
+                    <a href="#"><span style="color: red">Usuń<span></a> 
+                    
+                    </td>
+                </tr>
+
             </tbody>
 
             </table>
@@ -33,12 +59,7 @@
 
 
             </div>
-<br><br><br>
-            <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
-                    <label for="username">Pokaż wpis</label>
-                    <button type="submit" class="btn btn-success">wpis</button><br>                   
-                </form>
-        </div>
-    </div>
+
+     
 {% endblock %}
 
