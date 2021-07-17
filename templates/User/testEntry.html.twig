@@ -14,7 +14,7 @@
                             </p>
                             <div>  
                                                      
-                                    <br><br>
+                                    <br>
                                     {% if snack %}
                                     <table class="table table-striped" style="width: 1000px;"> 
                                         <thead>
@@ -55,7 +55,7 @@
                                                 <th><h3>Śniadanie</h3></th>
                                                 
                                                 <th><h6></h6></th>
-                                                <th><h4> kcal</h4></th> 
+                                                <th><h4>{{ breakcal|number_format }} kcal</h4></th> 
                                                                 
                                             </tr>
                                         </thead>
@@ -93,7 +93,7 @@
                                                 <th><h3>Drugie Śniadanie</h3></th>
                                                 
                                                 <th><h6></h6></th>
-                                                <th><h4> kcal</h4></th> 
+                                                <th><h4>{{ lunchkcal|number_format }}  kcal</h4></th> 
                                                                 
                                             </tr>
                                         </thead>
@@ -131,7 +131,7 @@
                                                 <th><h3>Obiad</h3></th>
                                                 
                                                 <th><h6></h6></th>
-                                                <th><h4> kcal</h4></th> 
+                                                <th><h4>{{ dinnerkcal|number_format }} kcal</h4></th> 
                                                                 
                                             </tr>
                                         </thead>
@@ -169,7 +169,7 @@
                                                 <th><h3>Podwieczorek</h3></th>
                                                 
                                                 <th><h6></h6></th>
-                                                <th><h4> kcal</h4></th> 
+                                                <th><h4>{{ teakcal|number_format }} kcal</h4></th> 
                                                                 
                                             </tr>
                                         </thead>
@@ -205,7 +205,7 @@
                                                 <th><h3>Kolacja</h3></th>
                                                 
                                                 <th><h6></h6></th>
-                                                <th><h4> kcal</h4></th> 
+                                                <th><h4>{{ supperkcal|number_format }} kcal</h4></th> 
                                                                 
                                             </tr>
                                         </thead>

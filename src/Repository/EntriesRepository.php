@@ -234,6 +234,111 @@ class EntriesRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @return breakfast_kcal[]
+     */
+
+    public function SummBreakfast(\DateTime $datetime, int $id, string $meal2)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('SUM(e.energyXgram) as breakKcal')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')  
+            ->andWhere('e.meal_type = :meal_type')
+            ->setParameter('user', $id)
+            ->setParameter('datetime', $datetime->format('Y-m-d'))
+            ->setParameter('meal_type', $meal2);
+            
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
+    /**
+     * @return lunch_kcal[]
+     */
+
+    public function SummLunch(\DateTime $datetime, int $id, string $meal3)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('SUM(e.energyXgram) as lunchKcal')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')  
+            ->andWhere('e.meal_type = :meal_type')
+            ->setParameter('user', $id)
+            ->setParameter('datetime', $datetime->format('Y-m-d'))
+            ->setParameter('meal_type', $meal3);
+            
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
+    /**
+     * @return dinner_kcal[]
+     */
+
+    public function SummDinner(\DateTime $datetime, int $id, string $meal4)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('SUM(e.energyXgram) as dinnerKcal')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')  
+            ->andWhere('e.meal_type = :meal_type')
+            ->setParameter('user', $id)
+            ->setParameter('datetime', $datetime->format('Y-m-d'))
+            ->setParameter('meal_type', $meal4);
+            
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
+    /**
+     * @return tea_kcal[]
+     */
+
+    public function SummTea(\DateTime $datetime, int $id, string $meal5)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('SUM(e.energyXgram) as teaKcal')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')  
+            ->andWhere('e.meal_type = :meal_type')
+            ->setParameter('user', $id)
+            ->setParameter('datetime', $datetime->format('Y-m-d'))
+            ->setParameter('meal_type', $meal5);
+            
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
+    /**
+     * @return supper_kcal[]
+     */
+
+    public function SummSupper(\DateTime $datetime, int $id, string $meal6)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('SUM(e.energyXgram) as supperKcal')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')  
+            ->andWhere('e.meal_type = :meal_type')
+            ->setParameter('user', $id)
+            ->setParameter('datetime', $datetime->format('Y-m-d'))
+            ->setParameter('meal_type', $meal6);
+            
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
 
 }
 
