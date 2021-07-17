@@ -16,19 +16,6 @@
                             <div>  
                                                      
                                     <br><br>
-                                    <table class"table table-striped" style="width: 200px; height: 200px;">
-                                    <thead>
-                                        <tr>
-                                        <th>Posiłek<th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        <th>Produkty<th>
-                                        </tr>
-                                    </tbody>
-                                    </table>
-
                                     {% for entry in entry %}
                                     <div class="row"><h1><span style="color: #6b6b47">{{ entry.meal_type|e }} </span></h1></div>
                                         {% for product in entry.food %}
@@ -54,7 +41,7 @@
                                             <label> Aby utworzyć wpis, dodaj produkty </label>
                                             <input type="search" name="search" class="form-control me-2" placeholder="Wpisz nazwę produktu" aria-label="Search">
                                             <button class="btn btn-outline-success" type="submit">Szukaj</button> 
-                                    {% endif %}                                                                          
+                                    {% endif %}                                                                                           
                             </div>                      
                     </div>                  
 {% endblock %}
