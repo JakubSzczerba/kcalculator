@@ -249,6 +249,8 @@ class DailyController extends AbstractController
 
     $ShowDinner = $entriesRepository->ShowDinner($datetime, $id, $meal4); // OBIAD
 
+    $ShowTea = $entriesRepository->ShowTea($datetime, $id, $meal5); // Podwieczorek
+
 
 
 
@@ -258,6 +260,7 @@ class DailyController extends AbstractController
       'breakfast' => $ShowBreakfast,
       'lunch' => $ShowLunch,
       'dinner' => $ShowDinner,
+      'tea' => $ShowTea,
     ]);
   
   }

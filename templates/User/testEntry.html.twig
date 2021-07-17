@@ -33,11 +33,9 @@
                                                 <td>
                                                 <h5><blold><span style="color: black">{{ product.product|e }}, {{ (snack.grammage|e)*100 }} g</span></h5></bold>
                                                 </td>
-
                                                 <td>
                                                 <a>{{ snack.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </td>
-
                                                 <td>
                                                 <a href="#">Edytuj</a> &nbsp;&nbsp;
                                                 <a href="{{ path('deleteEntry', {id: snack.id}) }}"><span style="color: red">Usuń</span></a>                                          
@@ -47,11 +45,8 @@
                                     {% endfor %}  
                                     </tbody>
                                     </table>
-
-                                    {% else %}
-                                    
-                                    {% endif %}<br>
-
+                                    {% else %}                                    
+                                    {% endif %}
                                     {% if breakfast %}
                                     <table class="table table-striped" style="width: 1000px;"> 
                                         <thead>
@@ -155,6 +150,44 @@
                                                 <td>
                                                 <a href="#">Edytuj</a> &nbsp;&nbsp;
                                                 <a href="{{ path('deleteEntry', {id: dinner.id}) }}"><span style="color: red">Usuń</span></a>                                          
+                                                </td>
+                                            </tr>                                                                                                      
+                                          {% endfor %}                                                                                                                                                           
+                                    {% endfor %}  
+                                    </tbody>  
+                                    </table>
+                    
+                                    {% else %}
+                                    
+                                    {% endif %}<br>
+                                    
+                                    {% if tea %}
+                                    <table class="table table-striped" style="width: 1000px;"> 
+                                        <thead>
+                                            <tr>
+                                                <th><h3>Podwieczorek</h3></th>
+                                                
+                                                <th><h6></h6></th>
+                                                <th><h4> kcal</h4></th> 
+                                                                
+                                            </tr>
+                                        </thead>
+                                     <tbody>
+                                    {% for tea in tea %}                                   
+                                        {% for product in tea.food %}
+
+                                            <tr>
+                                                <td>
+                                                <h5><blold><span style="color: black">{{ product.product|e }}, {{ (tea.grammage|e)*100 }} g</span></h5></bold>
+                                                </td>
+
+                                                <td>
+                                                <a>{{ tea.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>
+
+                                                <td>
+                                                <a href="#">Edytuj</a> &nbsp;&nbsp;
+                                                <a href="{{ path('deleteEntry', {id: tea.id}) }}"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                                                                      
                                           {% endfor %}                                                                                                                                                           
