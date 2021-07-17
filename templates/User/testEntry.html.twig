@@ -40,7 +40,7 @@
 
                                                 <td>
                                                 <a href="#">Edytuj</a> &nbsp;&nbsp;
-                                                <a href="#"><span style="color: red">Usuń<span></a>                                            
+                                                <a href="{{ path('deleteEntry', {id: snack.id}) }}"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                             
                                           {% endfor %}                                                                                                                  
@@ -78,7 +78,7 @@
 
                                                 <td>
                                                 <a href="#">Edytuj</a> &nbsp;&nbsp;
-                                                <a href="#"><span style="color: red">Usuń<span></a>                                            
+                                                <a href="{{ path('deleteEntry', {id: breakfast.id}) }}"><span style="color: red">Usuń</span></a>                                           
                                                 </td>
                                             </tr>                                                                                                      
                                           {% endfor %}                                                                                                                                                           
@@ -116,7 +116,7 @@
 
                                                 <td>
                                                 <a href="#">Edytuj</a> &nbsp;&nbsp;
-                                                <a href="#"><span style="color: red">Usuń<span></a>                                            
+                                                <a href="{{ path('deleteEntry', {id: lunch.id}) }}"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                                                                      
                                           {% endfor %}                                                                                                                                                           
