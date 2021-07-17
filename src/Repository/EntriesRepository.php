@@ -53,14 +53,17 @@ class EntriesRepository extends ServiceEntityRepository
 
         $qb->select('SUM(e.energyXgram) as totalKcal')
             ->where('e.user = :user') 
-            ->andWhere('e.datetime = :datetime')     
+            ->andWhere('e.datetime = :datetime')  
+            //->groupBy('e.meal_type')  
             ->setParameter('user', $id)
             ->setParameter('datetime', $datetime->format('Y-m-d'));
+            
             
 
 
             
         //dump($qb->getQuery()->getResult());
+        //return $qb->getQuery()->getSingleScalarResult();
         return $qb->getQuery()->getSingleScalarResult();
 
     }
