@@ -1,41 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<divc lass="col-lg-12" >
-<br>  
-        {% if products %}
-             
-                    <div class="col-lg-6">
-                        <h3 class="mt-5">Wyniki:</h3><br>
+
+ {% if products %}
+
+<div class="col-lg-12" >
+    <h3 class="mt-5">Wyniki wyszukiwania</h3><br>
+        <br>         
+                    <div class="row">
                             <div>                           
-                                    <br><br>
-                                    <table class="table table-striped" style="width: 1000px;"> 
+                                    <table class="table table-striped" style="width: 1000px;">
                                     <tbody>
                                     {% for product in products %}
                                         <tr>
                                             <td>
-                                                <h3><blold>{{ product.product|e }}<h3></bold>
+                                                <a href="{{ path('product.detail', {id: product.id}) }}"><h3><blold>{{ product.product|e }}<h3></bold></a>
                                             </td>
                                             <td>
-                                                <h4><span style="color: grey">{{ product.energy|e }} kcal &emsp;</span></h4> 
+                                                 
                                             </td>
                                             <td>
-                                                <a href="{{ path('product.detail', {id: product.id}) }}" class="btn btn-dark">+</a>
+                                               <h4><bold><span style="color: #006600">{{ product.energy|e }} kcal &emsp;&nbsp;&nbsp;&emsp;</span></bold></h4>
                                             </td>  
                                         </tr> 
-                                                                                      
-                                        </div> 
-
                                     {% endfor %} 
+                                    
                                      </tbody>
                                     </table>
+                                     </div> 
 
                                     {% else %}
-
-                                       <div class="col-lg-6">
-                                         <h2 class="mt-5">Wyszukiwana fraza nie istnieje</h2><br>
-                                        
-                                    
+                                       <div class="col-lg-12">
+                                         <h2 class="mt-5">Wyszukiwana fraza nie istnieje</h2><br>                               
                                     {% endif %}                                                           
                             </div>                      
                     </div>                  
