@@ -1,30 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    
-            <div class="col-lg-6">
+<divc lass="col-lg-12" >
+<br>  
+        {% if products %}
              
                     <div class="col-lg-6">
                         <h3 class="mt-5">Wyniki:</h3><br>
                             <div>                           
                                     <br><br>
+                                    <table class="table table-striped" style="width: 1000px;"> 
+                                    <tbody>
                                     {% for product in products %}
-                                        
-                                        <div class="row"><h3><blold>{{ product.product|e }}, <h3></bold></div>
-                                        <div class="row"><h4><span style="color: grey">100g, {{ product.energy|e }} kcal &emsp;</span></h4> 
-                                
+                                        <tr>
+                                            <td>
+                                                <h3><blold>{{ product.product|e }}<h3></bold>
+                                            </td>
+                                            <td>
+                                                <h4><span style="color: grey">{{ product.energy|e }} kcal &emsp;</span></h4> 
+                                            </td>
+                                            <td>
                                                 <a href="{{ path('product.detail', {id: product.id}) }}" class="btn btn-dark">+</a>
-                                                                                                  
+                                            </td>  
+                                        </tr> 
+                                                                                      
                                         </div> 
-                                        
-                                         
-                                                                       
-                                        <hr class="row"style="height:2px;border-width:0;color:gray;background-color:gray">
+
+                                    {% endfor %} 
+                                     </tbody>
+                                    </table>
 
                                     {% else %}
-                                        <em><h3><blold>Nie ma takiego produktu :(<h3></bold></em>
+
+                                       <div class="col-lg-6">
+                                         <h2 class="mt-5">Wyszukiwana fraza nie istnieje</h2><br>
                                         
-                                    {% endfor %}                                                            
+                                    
+                                    {% endif %}                                                           
                             </div>                      
                     </div>                  
                 
