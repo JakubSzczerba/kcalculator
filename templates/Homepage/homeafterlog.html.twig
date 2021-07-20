@@ -10,9 +10,9 @@
                 {% for preferention in preferentions %}   
                     {% set result = preferention.kcal_day - summKcal %}           
                     <h1 class="mt-5"><span style="color: blue">{{ preferention.kcal_day|e }}</span>
-                     <span style="color: white">-</span>
+                    -
                      <span style="color: red">{{ summKcal|number_format }}</span>
-                      <span style="color: white">=</span>
+                    =
                       <span style="color: green">{{ result }}</span> </h1><br>
               
                 {% endfor %} 
