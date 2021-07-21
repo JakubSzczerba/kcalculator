@@ -15,3 +15,10 @@ div.profile {
     margin-bottom: 20px;
     align-items: center;
 }
+
+img {
+    width: 44px;
+    height: 10px;
+    border-radius: 50%;
+
+}

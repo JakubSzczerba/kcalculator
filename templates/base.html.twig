@@ -22,7 +22,9 @@
         {# <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> #}
             <div class="container">
                 {% if app.user %}
-                    <a class="navbar-brand" href="{{ path('preferentions') }}">{{ app.user.username }}</a>&emsp;&emsp;
+                    <div id="logo">
+                    <img src="../assets/images/LOGO.PNG" alt="LOGO">
+                    </div>
                     
                     <form action="{{ path('findFood') }}" method="POST" class="d-flex">    
                                            
