@@ -6,16 +6,20 @@ body {
     background-color: #ecf3f3;
 
 } */
+.container {
+    height: 50px;
+    
+}
 
 #navbar1 {
     background-color: #2d3436;
     background-image: linear-gradient(315deg, #2d3436 10%, #000000 75%);
-    height: 70px;     
+    height: 70px;  
 }
 
 .mylogo {
     width: 170px;
-    height: 50px;   
+    height: 60px;   
     vertical-align: top;
     align-items: left;
     display: flex;
@@ -29,7 +33,8 @@ body {
 
 #content {
     background-color: white;
-    height: 2000px;
+    min-height: 840px;
+    height: auto;
     width: 900px;
     margin-left: auto;
     margin-right: auto;
@@ -68,4 +73,18 @@ body {
     text-align: left;
     
 
+}
+
+#searchingProducts {
+    background-color: white;
+    min-height: 840px;
+    height: auto;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+#daily {
+    text-align: left;
 }

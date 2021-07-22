@@ -2,7 +2,7 @@
 
 {% block body %} {#<div class="row"><h1 class="mt-5"> Dziennik</h1></div><br><br><br>#}
 <div class="row" id="content">
-<divc lass="col-lg-12" >
+<div lass="col-lg-12" >
 <br>
                     {% if entry %}
                        <div> <h3><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>
@@ -13,7 +13,7 @@
                                 </form> 
 
                             </p>
-                            <div>  
+                            <div id="daily">  
                                                      
                                     <br><br>
                                     {% if snack %}
