@@ -5,7 +5,7 @@
 <divc lass="col-lg-12" >
 <br>
                     {% if entry %}
-                       <div> <h3><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <div> <h3><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>
                             <p>
                                <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
                                 <input type="date" id="date" name="dataTocheckDaily">

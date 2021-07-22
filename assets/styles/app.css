@@ -53,9 +53,19 @@ body {
     margin-right: auto;
     text-align: left;
     font-size: 14px;
-
 }
 
 #homelist {
     text-align: left;
+}
+
+#login {
+    background-color: white;
+    height: 840px;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    
+
 }
