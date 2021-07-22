@@ -14,7 +14,7 @@ body {
 }
 
 .mylogo {
-    width: 200px;
+    width: 170px;
     height: 50px;   
     vertical-align: top;
     align-items: left;
@@ -34,9 +34,8 @@ body {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    
-
 }
+
 #dashboard {
     background-color: white;
     height: 840px;
@@ -44,4 +43,15 @@ body {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+}
+
+#preferentions {
+    background-color: white;
+    height: 840px;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    font-size: 14px;
+
 }
