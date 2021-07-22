@@ -1,14 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row">
+     <div class="row" id="dashboard">
         <div class="col-lg-12">
-            <h1 class="mt-5">Prototyp apliakcji fitness</h1><br>
+            <h1 class="mt-5">Kcalculator - apliakcja fitness</h1><br>
+            <p><h5>Projekt jest tematem mojej pracy inzynierskiej. Wszelkie prawa zastrzeżone. </h5></p>
+            <p style="text-align: right;"><h6><em>Autor projektu: Jakub Szczerba </em></h6></p><br>
+
+            </br>
+            <div id="homelist">
             <ul>
-                <li>Zaloguj się, aby liczyc kalorie</li>
-                <li>Dodawaj swoje posilki</li>
-                <li>Prowadz dziennik zywieniowy</li>
+                <li>Oblicz Swoje zapotrzebowanie kaloryczne</li>
+                <li>Prowadź dziennik tego co w ciągu dnia zjadasz</li>
+                <li>Pilnuj czy nie przekraczasz puli kalorii</li>
             </ul>
+            </div>
         </div>
     </div>
 {% endblock %}
