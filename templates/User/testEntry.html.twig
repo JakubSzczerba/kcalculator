@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %} {#<div class="row"><h1 class="mt-5"> Dziennik</h1></div><br><br><br>#}
+<div class="row" id="content">
 <divc lass="col-lg-12" >
 <br>
                     {% if entry %}
-                       <div class="row"> <h3><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <div> <h3><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <p>
                                <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
                                 <input type="date" id="date" name="dataTocheckDaily">
@@ -16,7 +17,7 @@
                                                      
                                     <br><br>
                                     {% if snack %}
-                                    <table class="table table-striped" style="width: 1000px;"> 
+                                    <table class="table table-striped" style="width: 900px;"> 
                                         <thead>
                                             <tr>
                                                 <th><h3>Przekąski</h3></th>
@@ -50,7 +51,7 @@
                                     {% endif %}
 
                                     {% if breakfast %}
-                                    <table class="table table-striped" style="width: 1000px;"> 
+                                    <table class="table table-striped" style="width: 900px;"> 
                                         <thead>
                                             <tr>
                                                 <th><h3>Śniadanie</h3></th>
@@ -88,7 +89,7 @@
                                     {% endif %}
                                       
                                     {% if lunch %}
-                                    <table class="table table-striped" style="width: 1000px;"> 
+                                    <table class="table table-striped" style="width: 900px;"> 
                                         <thead>
                                             <tr>
                                                 <th><h3>Drugie Śniadanie</h3></th>
@@ -126,7 +127,7 @@
                                     {% endif %}
 
                                     {% if dinner %}
-                                    <table class="table table-striped" style="width: 1000px;"> 
+                                    <table class="table table-striped" style="width: 900px;"> 
                                         <thead>
                                             <tr>
                                                 <th><h3>Obiad</h3></th>
@@ -164,7 +165,7 @@
                                     {% endif %}
                                     
                                     {% if tea %}
-                                    <table class="table table-striped" style="width: 1000px;"> 
+                                    <table class="table table-striped" style="width: 900px;"> 
                                         <thead>
                                             <tr>
                                                 <th><h3>Podwieczorek</h3></th>
@@ -201,7 +202,7 @@
                                     {% endif %}
                                     
                                     {% if supper %}
-                                    <table class="table table-striped" style="width: 1000px;"> 
+                                    <table class="table table-striped" style="width: 900px;"> 
                                         <thead>
                                             <tr>
                                                 <th><h3>Kolacja</h3></th>
@@ -250,7 +251,8 @@
                                             <button class="btn btn-outline-success" type="submit">Szukaj</button> 
                                     {% endif %}                                                                                           
                             </div>                      
-                    </div>                  
+                    </div>  
+                </div>                
 {% endblock %}
  {# {% set result = preferention.kcal_day - summKcal %}  #}
 
