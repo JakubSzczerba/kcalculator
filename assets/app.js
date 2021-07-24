@@ -14,6 +14,9 @@ import './bootstrap';
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
 
+
+// try to view query to user that if he sure to remove entry.
+
 const snack = document.getElementById('snack');
 
 if (snack) {
