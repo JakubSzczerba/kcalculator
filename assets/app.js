@@ -13,4 +13,20 @@ import './bootstrap';
 
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
-alert(1);
+
+const snack = document.getElementById('snack');
+
+if (snack) {
+    snack.addEventListener('click', e => {
+        if (e.target.className === 'remove') {
+            if(confirm('Na pewno chcesz usunąć wpis?')) {
+                const id = e.target.getAttribute('id');
+
+                fetch(`/wpisy/delete/{id}`, {
+                    method: 'DELETE'
+
+                }).then(res => window.location.reload());
+            }
+        }
+    });
+}

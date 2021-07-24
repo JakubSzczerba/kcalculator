@@ -17,7 +17,7 @@
                                                      
                                     <br><br>
                                     {% if snack %}
-                                    <table class="table table-striped" style="width: 900px;"> 
+                                    <table id="snack" class="table table-striped" style="width: 900px;"> 
                                         <thead>
                                             <tr>
                                                 <th><h3>Przekąski</h3></th>
@@ -39,7 +39,7 @@
                                                 </td>
                                                 <td>
                                                 <a href="{{ path('editEntry', {id: snack.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                                <a href="{{ path('deleteEntry', {id: snack.id}) }}"><span style="color: red">Usuń</span></a>                                          
+                                                <a class="remove" href="{{ path('deleteEntry', {id: snack.id}) }}"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                             
                                           {% endfor %}                                                                                                                  
