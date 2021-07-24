@@ -21,12 +21,20 @@
         {# navbar navbar-dark bg-dark #}
         {# <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> #}
             <div class="container">  
-
-                 <a class="navbar-brand">
-                <div id="mylogo">
-                    <img class="mylogo" src="../assets/images/LOGO.PNG" alt="LOGO">
-                </div>
-                </a>
+            
+                {% if app.user %}
+                    <a class="navbar-brand" href="{{ path('preferentions') }}">
+                    <div id="mylogo">
+                        <img class="mylogo" src="../assets/images/LOGO.PNG" alt="LOGO">
+                    </div>
+                    </a>
+                {% else %}
+                    <a class="navbar-brand" href="{{ path('home') }}">
+                    <div id="mylogo">
+                        <img class="mylogo" src="../assets/images/LOGO.PNG" alt="LOGO">
+                    </div>
+                    </a>
+                {% endif %}
 
                 {% if app.user %}
 
