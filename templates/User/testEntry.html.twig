@@ -76,7 +76,7 @@
 
                                                 <td>
                                                 <a href="{{ path('editEntry', {id: breakfast.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                                <a href="{{ path('deleteEntry', {id: breakfast.id}) }}"><span style="color: red">Usuń</span></a>                                           
+                                                <a href="{{ path('deleteEntry', {id: breakfast.id}) }}" onclick="return confirm('Jesteś pewny?')"><span style="color: red">Usuń</span></a>                                           
                                                 </td>
                                             </tr>                                                                                                      
                                           {% endfor %}                                                                                                                                                           
