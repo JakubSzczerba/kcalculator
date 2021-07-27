@@ -11,12 +11,14 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 
+
+import $ from 'jquery';
+import './js/askOfRemoveEntry';
+
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
 
 const snack = document.getElementById('snack');
-
-//alert(1);   //finally is working :)
 
 
 // try with aking user that he is sure about removing entry -> Nie dziala :/
