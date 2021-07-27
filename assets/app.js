@@ -19,7 +19,7 @@ console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
 const snack = document.getElementById('snack');
 
-alert(1);
+alert(1);   //finally is working :)
 
 if (snack) {
     snack.addEventListener('click', e => {
