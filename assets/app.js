@@ -13,9 +13,9 @@ import './bootstrap';
 
 
 import $ from 'jquery';
-import './js/askOfRemoveEntry';
+import askOfRemoveEntry from './js/askOfRemoveEntry';
 
-console.log('Hello Webpack Encore! Edit me in assets/app.js');
+//$(askOfRemoveEntry);  // jquery smiga
 
 
 const snack = document.getElementById('snack');
