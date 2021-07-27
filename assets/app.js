@@ -19,6 +19,8 @@ console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
 const snack = document.getElementById('snack');
 
+alert(1);
+
 if (snack) {
     snack.addEventListener('click', e => {
         if (e.target.className === 'remove') {
