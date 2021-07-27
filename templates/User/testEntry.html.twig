@@ -190,7 +190,7 @@
 
                                                 <td>
                                                 <a href="{{ path('editEntry', {id: tea.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                                <a href="{{ path('deleteEntry', {id: tea.id}) }}"><span style="color: red">Usuń</span></a>                                          
+                                                <a href="{{ path('deleteEntry', {id: tea.id}) }}" onclick="return confirm('Jesteś pewny?')"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                                                                      
                                           {% endfor %}                                                                                                                                                           
@@ -227,7 +227,7 @@
 
                                                 <td>
                                                 <a href="{{ path('editEntry', {id: supper.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                                <a href="{{ path('deleteEntry', {id: supper.id}) }}"><span style="color: red">Usuń</span></a>                                          
+                                                <a href="{{ path('deleteEntry', {id: supper.id}) }}" onclick="return confirm('Jesteś pewny?')"><span style="color: red">Usuń</span></a>                                          
                                                 </td>
                                             </tr>                                                                                                      
                                           {% endfor %}                                                                                                                                                           
