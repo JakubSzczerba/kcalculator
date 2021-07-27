@@ -21,18 +21,4 @@ import askOfRemoveEntry from './js/askOfRemoveEntry';
 const snack = document.getElementById('snack');
 
 
-// try with aking user that he is sure about removing entry -> Nie dziala :/
-if (snack) {
-    snack.addEventListener('click', e => {
-        if (e.target.className === 'remove') {
-            if(confirm('Na pewno chcesz usunąć wpis?')) {
-                const id = e.target.getAttribute('id');
-
-                fetch(`/wpisy/delete/{id}`, {
-                    method: 'DELETE'
-
-                }).then(res => window.location.reload());
-            }
-        }
-    });
-}
+// alert(1);
