@@ -19,7 +19,7 @@ const snack = document.getElementById('snack');
 //alert(1);   //finally is working :)
 
 
-// try with aking user that he is sure about removing entry
+// try with aking user that he is sure about removing entry -> Nie dziala :/
 if (snack) {
     snack.addEventListener('click', e => {
         if (e.target.className === 'remove') {
