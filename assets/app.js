@@ -14,13 +14,12 @@ import './bootstrap';
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
 
-
-// try to view query to user that if he sure to remove entry.
-
 const snack = document.getElementById('snack');
 
-alert(1);   //finally is working :)
+//alert(1);   //finally is working :)
 
+
+// try with aking user that he is sure about removing entry
 if (snack) {
     snack.addEventListener('click', e => {
         if (e.target.className === 'remove') {
