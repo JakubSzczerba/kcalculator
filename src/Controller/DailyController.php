@@ -180,12 +180,12 @@ class DailyController extends AbstractController
  /**
    * @Route("/wpisy/edit/{id}",  methods="GET|POST", name="editEntry")
    */
-  public function editEntry(Request $request, int $id, Products $food, EntityManagerInterface $entityManager)
+  public function editEntry(Request $request, UsersEntries $id, Products $food, EntityManagerInterface $entityManager)
   {
     $entry = new UsersEntries(); 
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
 
-    $product = $entityManager->getRepository(UsersEntries::class)->find($food);
+    $product = $entry->getFood()->getProduct();
 
     $meal_type = '';
 
