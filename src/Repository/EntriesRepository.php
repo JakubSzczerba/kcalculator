@@ -339,6 +339,25 @@ class EntriesRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @return editEntry[]
+     */
 
+    public function editEntry(int $id)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('e')
+            ->leftJoin('e.food', 'p')
+            ->addSelect('p')
+            ->where('e.id = :id')            
+            ->setParameter('id', $id);
+                  
+        dump($qb->getQuery()->getResult());
+        return $qb->getQuery()->getArrayResult();
+
+
+    }   
 }
 

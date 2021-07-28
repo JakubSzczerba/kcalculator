@@ -180,12 +180,13 @@ class DailyController extends AbstractController
  /**
    * @Route("/wpisy/edit/{id}",  methods="GET|POST", name="editEntry")
    */
-  public function editEntry(Request $request, UsersEntries $id, Products $food, EntityManagerInterface $entityManager)
+  public function editEntry(Request $request, int $id, EntityManagerInterface $entityManager, EntriesRepository $entriesRepository)
   {
     $entry = new UsersEntries(); 
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
 
-    $product = $entry->getFood()->getProduct();
+ 
+    //$product = $entriesRepository->editEntry($id);
 
     $meal_type = '';
 
@@ -200,19 +201,14 @@ class DailyController extends AbstractController
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
 
-    if( flush()) 
-    {
-      return $this->redirectToRoute('showEntries');
-    }   
-      
-    else {
+    
     return $this->render('User/editEntry.html.twig', [
       'entry' => $entry,
       'product' => $product,
 
      
     ]); 
-  }
+  
   }
 
   /**
