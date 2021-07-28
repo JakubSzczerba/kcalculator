@@ -178,39 +178,41 @@ class DailyController extends AbstractController
   }
   
   /**
-   * @Route("/wpisy/edit/{entryId}/{productId} ",  methods="GET|POST", name="editEntry")
-   * @ParamConverter("entry", options={"id" = "entryId"})
-   * @ParamConverter("product", options={"id" = "productId"})
+   * @Route("/wpisy/edit/{id}",  methods="GET|POST", name="editEntry")
    */
-  public function editEntry(Request $request, UsersEntries $entryId, Products $productId, EntityManagerInterface $entityManager)
+  public function editEntry(Request $request, int $id, Products $food, EntityManagerInterface $entityManager)
   {
     $entry = new UsersEntries(); 
-    $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $entryId,));
+    $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
 
-    $product = $entityManager->getRepository(UsersEntries::class)->find(array('id' => $productId,));
+    $product = $entityManager->getRepository(UsersEntries::class)->find($food);
 
-    /*$meal_type = '';
+    $meal_type = '';
 
     if(!empty($_POST['Meals'])) 
     {
       $meal_type = $_POST['Meals'];
     }   
     
-    $entry->setMealType($meal_type); */
+    $entry->setMealType($meal_type);
     
     
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
 
+    if( flush()) 
+    {
+      return $this->redirectToRoute('showEntries');
+    }   
       
-    
+    else {
     return $this->render('User/editEntry.html.twig', [
       'entry' => $entry,
       'product' => $product,
 
+     
     ]); 
-
-  
+  }
   }
 
   /**
