@@ -12,6 +12,14 @@
                          <div><h5><bold><span style="color: #ff6633">kcal: </span></bold>{{ entry.energyXgram|e }} kcal</h5></div>
                          <div><h5><bold><span style="color: #ff6633">waga: </span></bold>{{ (entry.grammage|e) * 100}} g</h5></div>
                          <div><h5><bold><span style="color: #ff6633">id produktu: </span></bold>{{ product.id|e }} (bład - taki jak id wpisu)</h5></div>
+
+                         {#
+                            {% for product in entry.food %}
+                                <div><h5><bold><span style="color: #ff6633">produkt: {{ product.product|e }} </h5></div>
+                                <div><h5><bold><span style="color: #ff6633">id produktu: </span></bold>{{ product.id|e }} (bład - taki jak id wpisu)</h5></div>
+                            {% endfor %}
+
+                         #}
                           
             
                  <div class="row">
