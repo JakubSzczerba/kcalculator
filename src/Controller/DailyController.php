@@ -179,22 +179,24 @@ class DailyController extends AbstractController
   
   /**
    * @Route("/wpisy/edit/{entryId}/{productId} ",  methods="GET|POST", name="editEntry")
+   * @ParamConverter("entry", options={"id" = "entryId"})
+   * @ParamConverter("product", options={"id" = "productId"})
    */
   public function editEntry(Request $request, UsersEntries $entryId, Products $productId, EntityManagerInterface $entityManager)
   {
     $entry = new UsersEntries(); 
-    $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
+    $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $entryId,));
 
-    $product = $entityManager->getRepository(UsersEntries::class)->find($food);
+    $product = $entityManager->getRepository(UsersEntries::class)->find(array('id' => $productId,));
 
-    $meal_type = '';
+    /*$meal_type = '';
 
     if(!empty($_POST['Meals'])) 
     {
       $meal_type = $_POST['Meals'];
     }   
     
-    $entry->setMealType($meal_type);
+    $entry->setMealType($meal_type); */
     
     
     $entityManager = $this->getDoctrine()->getManager();
