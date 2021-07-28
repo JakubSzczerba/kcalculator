@@ -199,19 +199,15 @@ class DailyController extends AbstractController
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
 
-    if( flush()) 
-    {
-      return $this->redirectToRoute('showEntries');
-    }   
       
-    else {
+    
     return $this->render('User/editEntry.html.twig', [
       'entry' => $entry,
       'product' => $product,
 
-     
     ]); 
-  }
+    
+  
   }
 
   /**
