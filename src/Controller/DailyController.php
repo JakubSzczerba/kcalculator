@@ -10,6 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Repository\ProductRepository;
 use App\Repository\EntriesRepository;
 use App\Entity\User;
@@ -206,7 +207,7 @@ class DailyController extends AbstractController
       'product' => $product,
 
     ]); 
-    
+
   
   }
 
