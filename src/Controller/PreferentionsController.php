@@ -115,6 +115,9 @@ class PreferentionsController extends AbstractController
     
     settype($kcal_day, "integer");
 
+    //place for new logic (protein, fat and carbo per day)
+    
+
     $preferention = new UserPreferention();
     $preferention->setGender($gender);
     $preferention->setWeight($weight);
