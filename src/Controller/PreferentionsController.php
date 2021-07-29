@@ -76,12 +76,12 @@ class PreferentionsController extends AbstractController
       }
       elseif (isset($_POST['activity2']))
       {
-        $activity = 'medium';
+        $activity = 'Średnia aktywność w ciągu dnia';
         $result = $result * 1.75;
       }
       elseif (isset($_POST['activity3']))
       {
-        $activity = 'high';
+        $activity = 'Wysoka aktywność w ciągu dnia';
         $result = $result * 2.0;
       }  
       
@@ -97,17 +97,17 @@ class PreferentionsController extends AbstractController
 
       if (isset($_POST['intension1']))
       {
-        $intentions = 'burn';
+        $intentions = 'Redukcja tkanki tłuszczowej';
         $kcal_day = ($caloric_requirement + $burn);
       }
       elseif (isset($_POST['intension2']))
       {
-        $intentions = 'keep';
+        $intentions = 'Utrzymanie masy ciała';
         $kcal_day = ($caloric_requirement + $keep);
       }
       elseif (isset($_POST['intension3']))
       {
-        $intentions = 'gain';
+        $intentions = 'Budowa masy mięśniowej';
         $kcal_day = ($caloric_requirement + $gain);
       }  
       
