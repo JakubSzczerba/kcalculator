@@ -62,6 +62,22 @@ class UserPreferention
      */
     public $kcal_day;
 
+    /**
+     * @ORM\Column(type="integer") 
+     */
+    public $proteinPerDay;
+
+     /**
+     * @ORM\Column(type="integer") 
+     */
+    public $fatPerDay;
+
+     /**
+     * @ORM\Column(type="integer") 
+     */
+    public $carboPerDay;
+
+
 
     public function getId()
     {
@@ -158,6 +174,36 @@ class UserPreferention
     public function setKcalDay($kcal_day): void
     {
         $this->kcal_day = $kcal_day;
+    }
+   
+    public function getProteinPerDay(): ?int
+    {
+        return $this->proteinPerDay;
+    }
+
+    public function setProteinPerDay($proteinPerDay): void
+    {
+        $this->proteinPerDay = $proteinPerDay;
+    }
+
+    public function getFatPerDay(): ?int
+    {
+        return $this->fatPerDay;
+    }
+
+    public function setFatPerDay($fatPerDay): void
+    {
+        $this->fatPerDay = $fatPerDay;
+    }
+
+    public function getCarboPerDay(): ?int
+    {
+        return $this->carboPerDay;
+    }
+
+    public function setCarboPerDay($carboPerDay): void
+    {
+        $this->carboPerDay = $carboPerDay;
     }
 
 
