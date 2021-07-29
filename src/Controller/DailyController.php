@@ -180,15 +180,12 @@ class DailyController extends AbstractController
  /**
    * @Route("/wpisy/edit/{id}",  methods="GET|POST", name="editEntry")
    */
-  public function editEntry(Request $request, int $id, Products $food, EntityManagerInterface $entityManager, EntriesRepository $entriesRepository)
+  public function editEntry(Request $request, int $id, EntityManagerInterface $entityManager, EntriesRepository $entriesRepository): Response
   {
     $entry = new UsersEntries(); 
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
-
- 
-    //$product = $entriesRepository->editEntry($id); //pomysl o tablicy
-
-    $product = $entityManager->getRepository(UsersEntries::class)->find($food); // tylko po to, aby bledu nie bylo.
+    // $entry->setFood($product);
+    
 
     $meal_type = '';
 
@@ -206,7 +203,6 @@ class DailyController extends AbstractController
     
     return $this->render('User/editEntry.html.twig', [
       'entry' => $entry,
-      'product' => $product,
 
      
     ]); 
