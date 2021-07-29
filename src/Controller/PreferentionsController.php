@@ -139,25 +139,6 @@ class PreferentionsController extends AbstractController
 
 
 
-    /*
-    $dataToGet = [];
-    foreach ($preferention as $preferentions) {     
-      $dataToGet[] = [
-        'gender' => $preferention->getGender(),
-        'weight' => $preferention->getWeight(),
-        'height' => $preferention->getHeight(),
-        'age' => $preferention->getAge(),
-        'activity' => $preferention->getActivity(),
-        'caloric_requirement' => $preferention->getKcal(),
-        'intentions' => $preferention->getIntentions(),
-        'kcal_day' => $preferention->getKcalDay()
-      ];    
-    };
-    return $dataToGet;
-    */
-    
-    
-    
 
        
   }
