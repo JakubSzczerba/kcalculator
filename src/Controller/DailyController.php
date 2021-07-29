@@ -199,7 +199,7 @@ class DailyController extends AbstractController
     
     $entry->setMealType($meal_type);
     
-    
+    // moze persist? chocaz teoretycznie nie byl potrzebny
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
 
