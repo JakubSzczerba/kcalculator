@@ -76,16 +76,19 @@ class PreferentionsController extends AbstractController
       {
         $activity = 'niską aktywność w ciągu dnia';
         $result = $result * 1.45;
+        
       }
       elseif (isset($_POST['activity2']))
       {
         $activity = 'średnią aktywność w ciągu dnia';
         $result = $result * 1.75;
+        
       }
       elseif (isset($_POST['activity3']))
       {
         $activity = 'wysoką aktywność w ciągu dnia';
         $result = $result * 2.0;
+        
       }  
       
     } 
@@ -102,21 +105,33 @@ class PreferentionsController extends AbstractController
       {
         $intentions = 'zredukować tkankę tłuszczową';
         $kcal_day = ($caloric_requirement + $burn);
+        $protein = 2 * $weight; // ilosc bialka dla osob chcacych SCHUDNAC
+        $fat = ($kcal_day * 0.25)/9 ;
+        $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
       }
       elseif (isset($_POST['intension2']))
       {
         $intentions = 'utrzymać masę ciała';
         $kcal_day = ($caloric_requirement + $keep);
+        $protein = 1.60 * $weight; // ilosc bialka dla osob chcacych UTRZYMAC WAGE
+        $fat = ($kcal_day * 0.25)/9 ;
+        $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
       }
       elseif (isset($_POST['intension3']))
       {
         $intentions = 'zbudować masę mięśniową';
         $kcal_day = ($caloric_requirement + $gain);
+        $protein = 1.85 * $weight; // ilosc bialka dla osob chcacych PRZYTYĆ
+        $fat = ($kcal_day * 0.25)/9 ;
+        $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
       }  
       
     } 
     
     settype($kcal_day, "integer");
+    settype($protein, "integer");
+    settype($fat, "integer");
+    settype($carbo, "integer");
 
     //place for new logic (protein, fat and carbo per day)
 
