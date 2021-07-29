@@ -56,12 +56,12 @@ class PreferentionsController extends AbstractController
     {
       if (isset($_POST['man']))
       {
-        $gender = 'man';
+        $gender = 'Mężczyzna';
         $result = (10*$weight) + (6.25*$height) - (5*$age) + 5 ;
       } 
       elseif (isset($_POST['woman']))
       {
-        $gender = 'woman';
+        $gender = 'Kobieta';
         $result = (10*$weight) + (6.25*$height) - (5*$age) - 161 ;
       }
     
@@ -71,7 +71,7 @@ class PreferentionsController extends AbstractController
     {
       if (isset($_POST['activity1']))
       {
-        $activity = 'low';
+        $activity = 'Niska aktywność w ciągu dnia';
         $result = $result * 1.45;
       }
       elseif (isset($_POST['activity2']))
