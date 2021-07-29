@@ -51,6 +51,9 @@ class PreferentionsController extends AbstractController
     $keep = 0;              //0;
     $gain = 300;            //+300;
 
+    $protein = 1;
+    $fat = 1;
+    $carbo = 1;
     
     if ( isset($_POST['man']) || isset($_POST['woman']) )
     {
@@ -71,17 +74,17 @@ class PreferentionsController extends AbstractController
     {
       if (isset($_POST['activity1']))
       {
-        $activity = 'Niska aktywność w ciągu dnia';
+        $activity = 'niską aktywność w ciągu dnia';
         $result = $result * 1.45;
       }
       elseif (isset($_POST['activity2']))
       {
-        $activity = 'Średnia aktywność w ciągu dnia';
+        $activity = 'średnią aktywność w ciągu dnia';
         $result = $result * 1.75;
       }
       elseif (isset($_POST['activity3']))
       {
-        $activity = 'Wysoka aktywność w ciągu dnia';
+        $activity = 'wysoką aktywność w ciągu dnia';
         $result = $result * 2.0;
       }  
       
@@ -97,17 +100,17 @@ class PreferentionsController extends AbstractController
 
       if (isset($_POST['intension1']))
       {
-        $intentions = 'Redukcja tkanki tłuszczowej';
+        $intentions = 'zredukować tkankę tłuszczową';
         $kcal_day = ($caloric_requirement + $burn);
       }
       elseif (isset($_POST['intension2']))
       {
-        $intentions = 'Utrzymanie masy ciała';
+        $intentions = 'utrzymać masę ciała';
         $kcal_day = ($caloric_requirement + $keep);
       }
       elseif (isset($_POST['intension3']))
       {
-        $intentions = 'Budowa masy mięśniowej';
+        $intentions = 'zbudować masę mięśniową';
         $kcal_day = ($caloric_requirement + $gain);
       }  
       
@@ -116,7 +119,7 @@ class PreferentionsController extends AbstractController
     settype($kcal_day, "integer");
 
     //place for new logic (protein, fat and carbo per day)
-    
+
 
     $preferention = new UserPreferention();
     $preferention->setGender($gender);
@@ -126,7 +129,10 @@ class PreferentionsController extends AbstractController
     $preferention->setActivity($activity);
     $preferention->setKcal($caloric_requirement);
     $preferention->setIntentions($intentions);
-    $preferention->setKcalDay($kcal_day);
+    $preferention->setKcalDay($kcal_day); //setProteinPerDay
+    $preferention->setProteinPerDay($protein);
+    $preferention->setFatPerDay($fat);
+    $preferention->setCarboPerDay($carbo);
 
     $preferention->setUsers($this->getUser());
 

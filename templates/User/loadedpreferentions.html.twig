@@ -1,38 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}    
+{% block body %}   
 
-            <div class="col-lg-6">
-                    <div class="col-lg-6">
+<div class="row" id="dashboard">
+
+   <div class="col-lg-12">
+
                         <h2 class="mt-5">Witaj {{ preferentions.users.username  }}!</h2><br>
-                        <div>                           
+                                                  
                             <em><h6>Poniżej przedsawiamy Twoje zapotrzebowanie kaloryczne :)</h6><br><br></em>
+                            {% if entry.gender == 'Mężczyzna' %}
+                            <h4>{{ preferentions.gender }} w wieku {{ preferentions.age }} lat, który ma {{ preferentions.activity }}, 
+                            przy wzroście {{ preferentions.height }} cm i wadze {{ preferentions.weight }} kg, 
+                            aby {{ preferentions.intentions }} powinien jeść w ciągu dnia 
+                            <span style="color: blue">{{ preferentions.kcal_day }} kcal</span> </h4>
 
-                            <div><h4>Płeć: {{ preferentions.gender }}</h4></div>
-                            <div><h4>Waga: {{ preferentions.weight }} kg</h4></div>
-                            <div><h4>Wzrost: {{ preferentions.height }} cm</h4></div>
-                            <div><h4>Wiek: {{ preferentions.age }} lata</h4></div>
-                            <div><h4>Aktywność: {{ preferentions.activity }}</h4></div>
-                            {#<div><h4>Dzienne zapotrzebowanie: {{ preferentions.caloric_requirement }} kcal</h4></div> #}
-                            {#<div><h4>Cel: {{ preferentions.intensions }} </h4></div> #}
-                            <div><h3>Należne zapotrzebowanie: <span style="color: blue">{{ preferentions.kcal_day }} kcal</span></h3></div>
+                            {% if entry.gender == 'Kobieta' %}
+                            
+
+
+
+
+                            
                             
                                                                          
-                            </div>                      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {% endblock %}
