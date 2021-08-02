@@ -14,10 +14,10 @@
                      <span style="color: red">{{ summKcal|number_format }}</span>
                     =
                       <span style="color: green">{{ result }}</span> </h1><br><br><br>
-                                 
-                {% endfor %} 
 
-                    Białko: 0/{{ summProtein|number_format }}
+                    Białko: {{ summProtein|number_format }}/{{ preferention.proteinPerDay|e }}
+
+                    {% endfor %}
 
             {% else %}
                 <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
