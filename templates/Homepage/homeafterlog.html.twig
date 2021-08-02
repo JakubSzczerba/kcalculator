@@ -15,7 +15,8 @@
                     =
                       <span style="color: green">{{ result }}</span> </h1><br><br><br>
 
-                    Białko: {{ summProtein|number_format }}/{{ preferention.proteinPerDay|e }}
+                    Białko: {{ summProtein|number_format }}/{{ preferention.proteinPerDay|e }} <br>
+                    Tłuszcz: {{ summFat|number_format }}/{{ preferention.fatPerDay|e }}
 
                     {% endfor %}
 
