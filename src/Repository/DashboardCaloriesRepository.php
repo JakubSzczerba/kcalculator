@@ -24,7 +24,7 @@ class DashboardCaloriesRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('p');
 
-        $qb->select('p.kcal_day, p.proteinPerDay')
+        $qb->select('p.kcal_day, p.proteinPerDay, p.fatPerDay, p.carboPerDay')
             ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = p.users')
             ->where('p.kcal_day IS NOT NULL')
             ->andWhere('u.id like :users')
