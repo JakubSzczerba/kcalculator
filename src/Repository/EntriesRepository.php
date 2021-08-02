@@ -369,7 +369,7 @@ class EntriesRepository extends ServiceEntityRepository
         
         $qb = $this->createQueryBuilder('e');
 
-        $qb->select('SUM(e.proteinPerDay) as totalProteins')
+        $qb->select('SUM(e.proteinXgram) as totalProteins')
             ->where('e.user = :user') 
             ->andWhere('e.datetime = :datetime')   
             ->setParameter('user', $id)

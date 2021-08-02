@@ -17,7 +17,7 @@
                                  
                 {% endfor %} 
 
-                    {#Białko: 0/{{ preferentions.proteinPerDay|e }} #}
+                    Białko: 0/{{ summProtein||number_format  }}
 
             {% else %}
                 <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
