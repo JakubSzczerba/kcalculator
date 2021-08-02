@@ -29,9 +29,9 @@ class DashboardController extends AbstractController
 
     //ceate var for summ:
     
-      $summProtein;
-      $summFat;
-      $summCarbo;
+      $summProtein;  // SummEntriedProteins
+      $summFat;      // SummEntriedFats
+      $summCarbo;    // SummEntriedCarbo
 
 
 
