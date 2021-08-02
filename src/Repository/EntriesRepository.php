@@ -359,5 +359,27 @@ class EntriesRepository extends ServiceEntityRepository
 
 
     }   
+
+    /**
+     * @return entried_Proteins[]
+     */
+
+    public function SummEntriedProteins(\DateTime $datetime, int $id)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('SUM(e.proteinPerDay) as totalProteins')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')   
+            ->setParameter('user', $id)
+            ->setParameter('datetime', $datetime->format('Y-m-d'));
+            
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
+
+
 }
 
