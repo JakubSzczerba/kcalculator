@@ -17,7 +17,7 @@
                                  
                 {% endfor %} 
 
-                    Białko: 0/{{ summProtein||number_format  }}
+                    Białko: 0/{{ summProtein|number_format }}
 
             {% else %}
                 <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
