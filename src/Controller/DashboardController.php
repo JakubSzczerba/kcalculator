@@ -27,6 +27,12 @@ class DashboardController extends AbstractController
 
     $summKcal = $entried_kcalRepository->SummEntriedKcal($datetime, $id); 
 
+    //ceate var for summ:
+    
+      $summProtein;
+      $summFat;
+      $summCarbo;
+
 
 
     return $this->render('Homepage/homeafterlog.html.twig', [
