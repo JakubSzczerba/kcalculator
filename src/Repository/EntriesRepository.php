@@ -398,6 +398,25 @@ class EntriesRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @return entried_Carbo[]
+     */
+
+    public function SummEntriedCarbo(\DateTime $datetime, int $id)
+    {
+        
+        $qb = $this->createQueryBuilder('e');
+
+        $qb->select('SUM(e.carboXgram) as totalCarbo')
+            ->where('e.user = :user') 
+            ->andWhere('e.datetime = :datetime')   
+            ->setParameter('user', $id)
+            ->setParameter('datetime', $datetime->format('Y-m-d'));
+            
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
 
 
 } 

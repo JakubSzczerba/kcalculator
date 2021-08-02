@@ -16,7 +16,8 @@
                       <span style="color: green">{{ result }}</span> </h1><br><br><br>
 
                     Białko: {{ summProtein|number_format }}/{{ preferention.proteinPerDay|e }} <br>
-                    Tłuszcz: {{ summFat|number_format }}/{{ preferention.fatPerDay|e }}
+                    Tłuszcz: {{ summFat|number_format }}/{{ preferention.fatPerDay|e }} <br>
+                    Węglowodany: {{ summCarbo|number_format }}/{{ preferention.carboPerDay|e }}
 
                     {% endfor %}
 

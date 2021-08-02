@@ -26,11 +26,10 @@ class DashboardController extends AbstractController
     $preferention = $caloriesrep->showKcalPerDay($id);
 
     $summKcal = $entried_kcalRepository->SummEntriedKcal($datetime, $id); 
-
-    
+  
     $summProtein = $entried_kcalRepository->SummEntriedProteins($datetime, $id);
     $summFat = $entried_kcalRepository->SummEntriedFats($datetime, $id);
-    $summCarbo;    // SummEntriedCarbo
+    $summCarbo = $entried_kcalRepository->SummEntriedCarbo($datetime, $id);
 
 
 
@@ -39,6 +38,7 @@ class DashboardController extends AbstractController
       'summKcal' => $summKcal,
       'summProtein' => $summProtein,
       'summFat' => $summFat,
+      'summCarbo' => $summCarbo,
     ]);
 
     $results = [];
