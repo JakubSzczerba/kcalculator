@@ -13,11 +13,11 @@
                     -
                      <span style="color: red">{{ summKcal|number_format }}</span>
                     =
-                      <span style="color: green">{{ result }}</span> </h1><br><br><br>
+                      <span style="color: green">{{ result }}</span> </h1><br><br><br><br>
 
                     <h5><bold><span style="color: #ff6633">Białko: </span></bold> {{ summProtein|number_format }}/{{ preferention.proteinPerDay|e }} <br>
-                    Tłuszcz: {{ summFat|number_format }}/{{ preferention.fatPerDay|e }} <br>
-                    Węglowodany: {{ summCarbo|number_format }}/{{ preferention.carboPerDay|e }}
+                    <span style="color: #cc0099">Tłuszcz: </span></bold> {{ summFat|number_format }}/{{ preferention.fatPerDay|e }} <br>
+                    <span style="color: #3d3d29">Węglowodany: </span></bold> {{ summCarbo|number_format }}/{{ preferention.carboPerDay|e }} </h5>
 
                     {% endfor %} {# <h5><bold><span style="color: #ff6633">Białko: </span></bold>{{ product.protein|e }} g</h5> #}
 
