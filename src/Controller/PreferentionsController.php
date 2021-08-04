@@ -156,13 +156,16 @@ class PreferentionsController extends AbstractController
     return $this->render('User/loadedpreferentions.html.twig', [
       'preferentions' => $preferention
     ]);
-
-
-
-
-
-
        
+  }
+
+
+  /**
+   * @Route("/editPreferention/{id}", methods="GET|POST", name="editPreferention")
+   */
+  public function editPreferention(Request $request, int $id, EntityManagerInterface $entityManager)
+  {
+
   }
 
 
