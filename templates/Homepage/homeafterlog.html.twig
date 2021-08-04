@@ -15,11 +15,11 @@
                     =
                       <span style="color: green">{{ result }}</span> </h1><br><br><br>
 
-                    Białko: {{ summProtein|number_format }}/{{ preferention.proteinPerDay|e }} <br>
+                    <h5><bold><span style="color: #ff6633">Białko: </span></bold> {{ summProtein|number_format }}/{{ preferention.proteinPerDay|e }} <br>
                     Tłuszcz: {{ summFat|number_format }}/{{ preferention.fatPerDay|e }} <br>
                     Węglowodany: {{ summCarbo|number_format }}/{{ preferention.carboPerDay|e }}
 
-                    {% endfor %}
+                    {% endfor %} {# <h5><bold><span style="color: #ff6633">Białko: </span></bold>{{ product.protein|e }} g</h5> #}
 
             {% else %}
                 <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
