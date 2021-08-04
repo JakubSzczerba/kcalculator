@@ -165,6 +165,9 @@ class PreferentionsController extends AbstractController
    */
   public function editPreferention(Request $request, int $id, EntityManagerInterface $entityManager)
   {
+    
+    $preferention = new UserPreferention();
+    $preferention = $this->getDoctrine()->getRepository(UserPreferention::class)->find(array('id' => $id,));
 
   }
 
