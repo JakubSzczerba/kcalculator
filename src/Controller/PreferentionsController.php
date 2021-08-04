@@ -133,9 +133,7 @@ class PreferentionsController extends AbstractController
     settype($fat, "integer");
     settype($carbo, "integer");
 
-    //place for new logic (protein, fat and carbo per day)
-
-
+    
     $preferention = new UserPreferention();
     $preferention->setGender($gender);
     $preferention->setWeight($weight);
@@ -144,7 +142,7 @@ class PreferentionsController extends AbstractController
     $preferention->setActivity($activity);
     $preferention->setKcal($caloric_requirement);
     $preferention->setIntentions($intentions);
-    $preferention->setKcalDay($kcal_day); //setProteinPerDay
+    $preferention->setKcalDay($kcal_day);
     $preferention->setProteinPerDay($protein);
     $preferention->setFatPerDay($fat);
     $preferention->setCarboPerDay($carbo);
