@@ -170,6 +170,9 @@ class PreferentionsController extends AbstractController
     $preferention = $this->getDoctrine()->getRepository(UserPreferention::class)->find(array('id' => $id,));
 
 
+    //pomysle pozniej o nowym szablonie itd
+
+
     // szablon tylko dla sprawdzenia 
     return $this->render('User/daily.html.twig', [
       'preferention' => $preferention,
