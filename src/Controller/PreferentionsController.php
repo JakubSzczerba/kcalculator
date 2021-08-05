@@ -21,6 +21,14 @@ class PreferentionsController extends AbstractController
     return $this->render('User/preferentions.html.twig', []);
   }
 
+  /**
+   * @Route("/preferentions/edit", name="preferentionsEdit")
+   */
+  public function editreferentions()
+  {
+    return $this->render('User/editPreferentions.html.twig', []);
+  }
+
 
 
 
@@ -170,11 +178,11 @@ class PreferentionsController extends AbstractController
     $preferention = $this->getDoctrine()->getRepository(UserPreferention::class)->find(array('id' => $id,));
 
 
-    //pomysle pozniej o nowym szablonie itd
+    //pomysle pozniej o nowym szablonie itd, szablobn zrobiony, ale cos mi tu nie smiga.
 
 
     // szablon tylko dla sprawdzenia 
-    return $this->render('User/editPreferentions.html.twig', [
+    return $this->render('User/editPreferention.html.twig', [
       'preferention' => $preferention,
  
     ]); 
