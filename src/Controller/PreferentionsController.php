@@ -174,7 +174,7 @@ class PreferentionsController extends AbstractController
 
 
     // szablon tylko dla sprawdzenia 
-    return $this->render('User/daily.html.twig', [
+    return $this->render('User/editPreferentions.html.twig', [
       'preferention' => $preferention,
  
     ]); 
