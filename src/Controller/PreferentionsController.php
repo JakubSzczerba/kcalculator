@@ -177,6 +177,8 @@ class PreferentionsController extends AbstractController
     $preferention = new UserPreferention();
     $preferention = $this->getDoctrine()->getRepository(UserPreferention::class)->find(array('id' => $id,));
 
+    //place for logic from set preferentions. 
+
 
     //$entityManager = $this->getDoctrine()->getManager();
     //$entityManager->flush();
