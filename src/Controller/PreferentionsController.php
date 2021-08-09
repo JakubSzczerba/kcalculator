@@ -283,7 +283,7 @@ class PreferentionsController extends AbstractController
     settype($carbo, "integer");
 
     
-    $preferention = new UserPreferention();
+    
     $preferention->setGender($gender);
     $preferention->setWeight($weight);
     $preferention->setHeight($height);
