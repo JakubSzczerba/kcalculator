@@ -171,7 +171,7 @@ class PreferentionsController extends AbstractController
   /**
    * @Route("/editPreferention/{id}", methods="GET|POST", name="editPreferention")
    */
-  public function editPreferention(Request $request, int $id, EntityManagerInterface $entityManager)
+  public function editPreferention(Request $request, int $id, EntityManagerInterface $entityManager): Response
   {
 
     $preferention = new UserPreferention();
@@ -302,6 +302,8 @@ class PreferentionsController extends AbstractController
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
 
+
+      // error -> Notice: Undefined index: weight niedobrze... xD
 
     return $this->render('User/editPreferentions.html.twig', [
       'preferention' => $preferention,
