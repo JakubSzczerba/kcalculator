@@ -178,7 +178,10 @@ class PreferentionsController extends AbstractController
     $preferention = $this->getDoctrine()->getRepository(UserPreferention::class)->find(array('id' => $id,));
 
 
-    
+    //$entityManager = $this->getDoctrine()->getManager();
+    //$entityManager->flush();
+
+
     return $this->render('User/editPreferentions.html.twig', [
       'preferention' => $preferention,
  
