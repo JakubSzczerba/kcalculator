@@ -303,11 +303,15 @@ class PreferentionsController extends AbstractController
     $entityManager->flush();
 
 
-
+    if (isset($_POST['editpref']))
+    {
+      return $this->redirectToRoute('profile');
+    } 
+    else {
     return $this->render('User/editPreferentions.html.twig', [
       'preferention' => $preferention,
  
-    ]); 
+    ]); }
 
   }
 
