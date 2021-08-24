@@ -231,12 +231,17 @@ class DailyController extends AbstractController
   
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
-
     
+
+    if (isset($_POST['editbut']))
+    {
+      return $this->redirectToRoute('showEntries');
+    } 
+    else {
     return $this->render('User/editEntry.html.twig', [
       'entry' => $entry,
       
-    ]); 
+    ]); }
   
   }
 
