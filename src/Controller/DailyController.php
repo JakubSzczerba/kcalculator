@@ -180,7 +180,7 @@ class DailyController extends AbstractController
  /**
    * @Route("/wpisy/edit/{id}",  methods="GET|POST", name="editEntry")
    */
-  public function editEntry(Request $request, int $id, EntityManagerInterface $entityManager, EntriesRepository $entriesRepository)
+  public function editEntry(Request $request, int $id, EntityManagerInterface $entityManager, EntriesRepository $entriesRepository, Products $product)
   {
     $entry = new UsersEntries(); 
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
@@ -202,10 +202,33 @@ class DailyController extends AbstractController
     {
       $grammage = $_POST['Grammage'];
     }
+
+    $product = $entry->getFood();
+    dump($product);
+
+    $energy = $product->getEnergy();
+    $protein = $product->getProtein();
+    $fat = $product->getFat();
+    $carbo = $product->getCarbo();
+    
+    $energyXgram = $energy * $grammage;
+    $proteinXgram = $protein * $grammage;
+    $fatXgram = $fat * $grammage;
+    $carboXgram = $carbo * $grammage;
+
+    $energyXgram = round($energyXgram, 0);
+    $proteinXgram = round($proteinXgram, 2);
+    $fatXgram = round($fatXgram, 2);
+    $carboXgram = round($carboXgram, 2);
     
     $entry->setMealType($meal_type);
+    $entry->setGrammage($grammage);
+    $entry->setEnergyXgram($energyXgram);
+    $entry->setProteinXgram($proteinXgram);
+    $entry->setFatXgram($fatXgram);
+    $entry->setCarboXgram($carboXgram);
     
-    // moze persist? chocaz teoretycznie nie byl potrzebny
+  
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
 
