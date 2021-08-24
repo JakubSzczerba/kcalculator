@@ -202,6 +202,13 @@ class PreferentionsController extends AbstractController
     $fat = 1;
     $carbo = 1;
 
+    if ( isset($_POST['weight']) || isset($_POST['height']) || isset($_POST['age']))
+    {
+      $weight = $_POST['weight'];
+      $height = $_POST['height'];
+      $age = $_POST['age'];
+    }
+
     if ( isset($_POST['man']) || isset($_POST['woman']) )
     {
       if (isset($_POST['man']))
@@ -244,13 +251,58 @@ class PreferentionsController extends AbstractController
 
     $caloric_requirement = $caloric_requirement + $result;
 
+    if ( isset($_POST['intension1']) || isset($_POST['intension2']) || isset($_POST['intension3']) )
+    {
 
+      if (isset($_POST['intension1']))
+      {
+        $intentions = 'zredukować tkankę tłuszczową';
+        $kcal_day = ($caloric_requirement + $burn);
+        $protein = 2 * $weight; // ilosc bialka dla osob chcacych SCHUDNAC
+        $fat = ($kcal_day * 0.25)/9 ;
+        $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
+      }
+      elseif (isset($_POST['intension2']))
+      {
+        $intentions = 'utrzymać masę ciała';
+        $kcal_day = ($caloric_requirement + $keep);
+        $protein = 1.60 * $weight; // ilosc bialka dla osob chcacych UTRZYMAC WAGE
+        $fat = ($kcal_day * 0.25)/9 ;
+        $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
+      }
+      elseif (isset($_POST['intension3']))
+      {
+        $intentions = 'zbudować masę mięśniową';
+        $kcal_day = ($caloric_requirement + $gain);
+        $protein = 1.85 * $weight; // ilosc bialka dla osob chcacych PRZYTYĆ
+        $fat = ($kcal_day * 0.25)/9 ;
+        $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
+      }  
+      
+    } 
 
+    settype($kcal_day, "integer");
+    settype($protein, "integer");
+    settype($fat, "integer");
+    settype($carbo, "integer");
 
     
+    $preferention->setGender($gender);
+    $preferention->setWeight($weight);
+    $preferention->setHeight($height);
+    $preferention->setAge($age);
+    $preferention->setActivity($activity);
+    $preferention->setKcal($caloric_requirement);
+    $preferention->setIntentions($intentions);
+    $preferention->setKcalDay($kcal_day);
+    $preferention->setProteinPerDay($protein);
+    $preferention->setFatPerDay($fat);
+    $preferention->setCarboPerDay($carbo);
+
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->flush();
 
 
-      // error -> Notice: Undefined index: weight niedobrze... xD
 
     return $this->render('User/editPreferentions.html.twig', [
       'preferention' => $preferention,
