@@ -187,46 +187,46 @@ class DailyController extends AbstractController
 
 
     $meal_type = '';
-    $grammage = '';
-    $energyXgram;
-    $proteinXgram;
-    $fatXgram;
-    $carboXgram;
+    $grammage = $entry->getGrammage();
+    $energyXgram = $entry->getEnergyXgram();
+    $proteinXgram = $entry->getProteinXgram();
+    $fatXgram = $entry->getFatXgram();
+    $carboXgram = $entry->getCarboXgram();
 
     if(!empty($_POST['Meals'])) 
     {
       $meal_type = $_POST['Meals'];
     }
     
+    $grammageForEdit = ($grammage / $grammage);
+    $energyForEdit = ($energyXgram / $grammage);
+    $proteinForEdit = ($proteinXgram / $grammage);
+    $fatForEdit = ($fatXgram / $grammage);
+    $carboForEdit = ($carboXgram / $grammage);
+
     if(!empty($_POST['Grammage']))
     {
-      $grammage = $_POST['Grammage'];
+      $grammageForEdit = $_POST['Grammage'];
     }
 
-    $product = $entry->getFood();
-    dump($product);
+    $energy = $energyForEdit * $grammageForEdit;
+    $protein = $proteinForEdit * $grammageForEdit;
+    $fat= $fatForEdit * $grammageForEdit;
+    $carbo = $carboForEdit * $grammageForEdit;
 
-    $energy = $product->getEnergy();
-    $protein = $product->getProtein();
-    $fat = $product->getFat();
-    $carbo = $product->getCarbo();
-    
-    $energyXgram = $energy * $grammage;
-    $proteinXgram = $protein * $grammage;
-    $fatXgram = $fat * $grammage;
-    $carboXgram = $carbo * $grammage;
+    $energy = round($energy, 0);
+    $protein = round($protein, 2);
+    $fat = round($fat, 2);
+    $carbo = round($carbo, 2);
 
-    $energyXgram = round($energyXgram, 0);
-    $proteinXgram = round($proteinXgram, 2);
-    $fatXgram = round($fatXgram, 2);
-    $carboXgram = round($carboXgram, 2);
-    
     $entry->setMealType($meal_type);
-    $entry->setGrammage($grammage);
-    $entry->setEnergyXgram($energyXgram);
-    $entry->setProteinXgram($proteinXgram);
-    $entry->setFatXgram($fatXgram);
-    $entry->setCarboXgram($carboXgram);
+    $entry->setGrammage($grammageForEdit);
+    $entry->setEnergyXgram($energy);
+    $entry->setProteinXgram($protein);
+    $entry->setFatXgram($fat);
+    $entry->setCarboXgram($carbo);
+
+    
     
   
     $entityManager = $this->getDoctrine()->getManager();
