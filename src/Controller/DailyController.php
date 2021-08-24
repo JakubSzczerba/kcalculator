@@ -185,10 +185,13 @@ class DailyController extends AbstractController
     $entry = new UsersEntries(); 
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
 
- 
-    //$product = $entriesRepository->editEntry($id); //pomysl o tablicy
 
     $meal_type = '';
+    $grammage = '';
+    $energyXgram;
+    $proteinXgram;
+    $fatXgram;
+    $carboXgram;
 
     if(!empty($_POST['Meals'])) 
     {
