@@ -158,7 +158,7 @@ class UsersEntries
         $this->carboXgram = $carboXgram;
     }
 
-    public function getFood(): ?Products
+    public function getFood(): ?Collection  // game changer :)
     {
         return $this->food;
     }
