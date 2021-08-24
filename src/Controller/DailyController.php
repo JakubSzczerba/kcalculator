@@ -196,7 +196,12 @@ class DailyController extends AbstractController
     if(!empty($_POST['Meals'])) 
     {
       $meal_type = $_POST['Meals'];
-    }   
+    }
+    
+    if(!empty($_POST['Grammage']))
+    {
+      $grammage = $_POST['Grammage'];
+    }
     
     $entry->setMealType($meal_type);
     
