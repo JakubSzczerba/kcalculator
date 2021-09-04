@@ -77,12 +77,6 @@ class UserPreferention
      */
     public $carboPerDay;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UsersWeightHistory", mappedBy="userPreferention")            
-     */
-    private $userWeightHistory;
-
-
 
     public function getId()
     {
@@ -210,15 +204,7 @@ class UserPreferention
     {
         $this->carboPerDay = $carboPerDay;
     }
-    //
-    public function getUserWeightHistory(): ?UsersWeightHistory
-    {
-        return $this->userWeightHistory;
-    }
-    public function setUserWeightHistory($userWeightHistory): void
-    {
-        $this->userWeightHistory = $userWeightHistory;
-    }
+    
 
 
 
