@@ -10,13 +10,19 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class UsersWeightHistory
 {
-     /**
+ /**
    * @ORM\Column(type="integer")
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    * 
    */
   private $id;
+
+  /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserPreferention", inversedBy="userWeightHistory")
+     * @ORM\JoinColumn(name="preferention_id", nullable=false, referencedColumnName="id")
+     */
+    private $userPreferention;
 }
 
 
