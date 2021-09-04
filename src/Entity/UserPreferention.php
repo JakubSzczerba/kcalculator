@@ -77,6 +77,11 @@ class UserPreferention
      */
     public $carboPerDay;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UsersWeightHistory", mappedBy="userPreferention")            
+     */
+    private $userWeightHistory;
+
 
 
     public function getId()
