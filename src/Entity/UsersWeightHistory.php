@@ -37,11 +37,61 @@ class UsersWeightHistory
     private $userWeight;
 
 
-
     public function __construct()
     {
         $this->data = new \DateTime();      
     }
+
+    public function getId()
+  {
+      return $this->id;
+  }
+
+  public function getUserPreferention(): ?UserPreferention
+    {
+        return $this->userPreferention;
+    }
+
+    public function setUserPreferention(?UserPreferention $userPreferention): self
+    {
+        $this->userPreferention = $userPreferention;
+        return $this;
+    }
+    
+    public function getDateTime(): \DateTime
+    {
+        return $this->datetime;
+    }
+
+    public function setDateTime(\DateTime $datetime): void
+    {
+        $this->datetime = $datetime;
+    }
+
+    public function getUserWeight(): ?float
+    {
+        return $this->userWeight;
+    }
+
+    public function setUserWeight($userWeight): void
+    {
+        $this->userWeight = $userWeight;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
