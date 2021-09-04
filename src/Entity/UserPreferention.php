@@ -210,6 +210,15 @@ class UserPreferention
     {
         $this->carboPerDay = $carboPerDay;
     }
+    //
+    public function getUserWeightHistory(): ?UsersWeightHistory
+    {
+        return $this->userWeightHistory;
+    }
+    public function setUserWeightHistory($userWeightHistory): void
+    {
+        $this->userWeightHistory = $userWeightHistory;
+    }
 
 
 
