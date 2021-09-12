@@ -315,13 +315,6 @@ class PreferentionsController extends AbstractController
 
   }
 
-   /**
-   * @Route("/testForPorile", name="testForPorile")
-   */
-  public function testForPorile()
-  {
-    return $this->render('User/testingVersionOfProfile.html.twig', []);
-  }
 
 
 
