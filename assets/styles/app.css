@@ -1,11 +1,7 @@
 body {
-    background-color: lightgrey;    
+    background-color: #e2e8f0;   
 }
 
-/* div.profile {
-    background-color: #ecf3f3;
-
-} */
 .container {
     height: 50px;
     
@@ -91,8 +87,7 @@ body {
 
 body{
     color: #1a202c;
-    text-align: left;
-    background-color: #e2e8f0;    
+    text-align: left;   
 }
 .main-body {
     padding: 15px;
@@ -141,3 +136,14 @@ body{
 .shadow-none {
     box-shadow: none!important;
 }
+
+#nonentry {
+    background-color: white;
+    height: 840px;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    position: relative;
+}
+    
