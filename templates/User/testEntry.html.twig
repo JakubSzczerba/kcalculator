@@ -5,15 +5,15 @@
 <div lass="col-lg-12" >
 <br>
                     {% if entry %}
-                    {% set dateOfEntry = "now"|date("d/m/Y") %}   
-                       <div> <h3><h1><span style="color: blue"> {{ dateOfEntry }} </span></h3>
-                            <p>
-                               <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
-                                <input type="date" id="date" name="dataTocheckDaily">
-                                <button type="submit" name="dateCheck" class="btn btn-dark">pokaż</button>
-                                </form> 
+                        {% set dateOfEntry = "now"|date("d/m/Y") %}   
+                        <div> <h3><h1><span style="color: blue"> {{ dateOfEntry }} </span></h3>
+                                <p>
+                                <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
+                                    <input type="date" id="date" name="dataTocheckDaily">
+                                    <button type="submit" name="dateCheck" class="btn btn-dark">pokaż</button>
+                                    </form> 
 
-                            </p>
+                                </p>
                             <div id="daily">  
                                                      
                                     <br><br>
@@ -239,11 +239,7 @@
                                     {% else %}                                   
                                     {% endif %}
 
-
-
-
-
-                                    {# DO TĄD #}
+                               {# DO TĄD #}
                                     {% else %}
                                     <h3 class="mt-5"><h1><span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>
                                         <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">
@@ -256,7 +252,6 @@
                 </div>                
 {% endblock %}
 
- {# {% set result = preferention.kcal_day - summKcal %}  #}
 
 
 
