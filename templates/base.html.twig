@@ -50,17 +50,26 @@
                     <ul class="navbar-nav ml-auto">
                         {% if app.user %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('dashboard') }}">Tablica</a>
+                                <a class="nav-link" href="#">
+                                    <ion-icon name="moon-sharp"></ion-icon>
+                                </a>
                             </li>
                             <li>
-                                <a class="nav-link" href="{{ path('showEntries') }}">Dziennik</a>
+                                <a class="nav-link" href="#">
+                                    <ion-icon name="notifications-sharp"></ion-icon>
+                                </a>
                             </li>
                             <li>
-                                <a class="nav-link" href="{{ path('profile') }}">Mój profil</a>
+                                <a class="nav-link" href="{{ path('profile') }}">
+                                   <ion-icon name="person-circle-sharp"></ion-icon>
+                                </a>
                             </li>
                             <li>
-                                <a class="nav-link" href="{{ path('logout') }}">Wyloguj się</a>
+                                <a class="nav-link" href="{{ path('logout') }}">
+                                   <ion-icon name="power-sharp"></ion-icon>
+                                </a>
                             </li>
+                            
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('home') }}">Strona główna</a>
@@ -86,23 +95,33 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Kcalculator
+                        <ion-icon name="calculator-sharp"></ion-icon>
+                            Informacje
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('dashboard') }}">Tablica</a>
+                    <a href="{{ path('dashboard') }}">
+                        <ion-icon name="home-sharp"></ion-icon>
+                            Panel główny
+                    </a>
                 </li>
                 <li>
-                    <a href="{{ path('showEntries') }}">Dziennik</a>
+                    <a href="{{ path('showEntries') }}">
+                        <ion-icon name="calendar-number-sharp"></ion-icon>
+                            Dziennik
+                    </a>
                 </li>
                 <li>
                     <a href="{{ path('profile') }}">
-                    <ion-icon name="heart"></ion-icon>
-                        Mój profil
+                        <ion-icon name="person-sharp"></ion-icon>
+                            {{ app.user.username }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('logout') }}">Wyloguj się</a>
+                    <a href="{{ path('logout') }}">
+                        <ion-icon name="trash-bin-sharp"></ion-icon>
+                            Wyloguj się
+                    </a>
                 </li>
             </ul>
         </div>
