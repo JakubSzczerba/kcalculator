@@ -12,16 +12,16 @@
                         {% if preferentions %}
                             {% for preferention in preferentions %}   
                                 {% set result = preferention.kcal_day - summKcal %} 
-                                        
-                                <h1 class="mt-5"><span style="color: blue">{{ preferention.kcal_day|e }}</span>
-                                -
-                                <span style="color: red">{{ summKcal|number_format }}</span>
-                                =
-                                <span style="color: green">{{ result }}</span> </h1><br><br><br><br>
+                                <div class="mt-3">      
+                                    <h1 class="mt-5"><span style="color: blue">{{ preferention.kcal_day|e }}</span>
+                                    -
+                                    <span style="color: red">{{ summKcal|number_format }}</span>
+                                    =
+                                    <span style="color: green">{{ result }}</span> </h1><br><br><br><br>
 
-                                <h5><bold><span style="color: #ff6633">Białko: </span></bold> {{ summProtein|number_format }} <strong>/{{ preferention.proteinPerDay|e }}</strong> <br>
-                                <span style="color: #cc0099">Tłuszcz: </span></bold> {{ summFat|number_format }} <strong>/{{ preferention.fatPerDay|e }}</strong> <br>
-                                <span style="color: #3d3d29">Węglowodany: </span></bold> {{ summCarbo|number_format }} <strong>/{{ preferention.carboPerDay|e }}</strong> </h5>
+                                    <h5><bold><span style="color: #ff6633">Białko: </span></bold> {{ summProtein|number_format }} <strong>/{{ preferention.proteinPerDay|e }}</strong> <br>
+                                    <span style="color: #cc0099">Tłuszcz: </span></bold> {{ summFat|number_format }} <strong>/{{ preferention.fatPerDay|e }}</strong> <br>
+                                    <span style="color: #3d3d29">Węglowodany: </span></bold> {{ summCarbo|number_format }} <strong>/{{ preferention.carboPerDay|e }}</strong> </h5>
                             {% endfor %}
                         {% else %}
                                 <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
@@ -29,6 +29,69 @@
                                     <button type="submit" class="btn btn-success">Dalej</button>
                                 </form>
                         {% endif %}
+                                </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                <h6 class="mb-0">Białko</h6>
+                                </div>
+                                <div class="col" style="text-align: center">
+                                <h6 class="mb-0">Tłuszcz</h6>
+                                </div>
+                                <div class="col" style="text-align: right">
+                                <h6 class="mb-0">Węglowodany</h6>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                XD
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                <h6 class="mb-0">Waga</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                XD
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                <h6 class="mb-0">Wzrost</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                XD
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                <h6 class="mb-0">Wiek</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                XD
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                <a class="btn btn-info " href="">Edydtuj preferencje</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
             
 
 
