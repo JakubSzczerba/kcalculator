@@ -6,7 +6,7 @@
         
         <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
-                <div class="card"> 
+                <div class="card" style="width: 625px"> {#====== modyfikacja kcali =========#}
                     <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">        
                         {% if preferentions %}
@@ -38,7 +38,7 @@
                 {% for preferention in preferentions %}   
                 {% set result = preferention.kcal_day - summKcal %} 
                 <div class="col-md-8">
-                        <div class="card mb-3">
+                        <div class="card mb-3" style="width: 410px; float: right"> {#===== modyfikacja makrosów ======#}
                             <div class="card-body">
                             <div class="row">
                                 <div class="col" style="text-align: center">
@@ -74,7 +74,13 @@
                 {% endfor %}
                             <hr>
                             <div class="row">
-                                asd
+                                <div class="col" style="text-align: center">
+                                </div>
+                                <div class="col" style="text-align: center">
+                                    <img src="../assets/images/chart.png" alt="Admin" class="rounded-circle">
+                                </div>
+                                <div class="col" style="text-align: center">
+                                </div>
                             </div>         
                             <div class="row">   
                             </div>
