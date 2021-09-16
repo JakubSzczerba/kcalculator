@@ -1,31 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row" id="dashboard">
-        <div class="col-lg-12">
-            
-            {% if preferentions %}
-                {% for preferention in preferentions %}   
-                    {% set result = preferention.kcal_day - summKcal %}           
-                    <h1 class="mt-5"><span style="color: blue">{{ preferention.kcal_day|e }}</span>
-                    -
-                     <span style="color: red">{{ summKcal|number_format }}</span>
-                    =
-                      <span style="color: green">{{ result }}</span> </h1><br><br><br><br>
+   <div class="container">
+    <div class="main-body">
+        
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card"> 
+                    <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">        
+                        {% if preferentions %}
+                            {% for preferention in preferentions %}   
+                                {% set result = preferention.kcal_day - summKcal %} 
+                                        
+                                <h1 class="mt-5"><span style="color: blue">{{ preferention.kcal_day|e }}</span>
+                                -
+                                <span style="color: red">{{ summKcal|number_format }}</span>
+                                =
+                                <span style="color: green">{{ result }}</span> </h1><br><br><br><br>
 
-                    <h5><bold><span style="color: #ff6633">Białko: </span></bold> {{ summProtein|number_format }} <strong>/{{ preferention.proteinPerDay|e }}</strong> <br>
-                    <span style="color: #cc0099">Tłuszcz: </span></bold> {{ summFat|number_format }} <strong>/{{ preferention.fatPerDay|e }}</strong> <br>
-                    <span style="color: #3d3d29">Węglowodany: </span></bold> {{ summCarbo|number_format }} <strong>/{{ preferention.carboPerDay|e }}</strong> </h5>
+                                <h5><bold><span style="color: #ff6633">Białko: </span></bold> {{ summProtein|number_format }} <strong>/{{ preferention.proteinPerDay|e }}</strong> <br>
+                                <span style="color: #cc0099">Tłuszcz: </span></bold> {{ summFat|number_format }} <strong>/{{ preferention.fatPerDay|e }}</strong> <br>
+                                <span style="color: #3d3d29">Węglowodany: </span></bold> {{ summCarbo|number_format }} <strong>/{{ preferention.carboPerDay|e }}</strong> </h5>
 
-                    {% endfor %}
+                            {% endfor %}
 
-            {% else %}
-                <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
-                    <h1 class="mt-5">Oblicz zapotrzebownie kaloryczne :)</h1><br>
-                    <button type="submit" class="btn btn-success">Dalej</button>
-                 </form>
+                        {% else %}
 
-            {% endif %}
+                                <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
+                                    <h1 class="mt-5">Oblicz zapotrzebownie kaloryczne :)</h1><br>
+                                    <button type="submit" class="btn btn-success">Dalej</button>
+                                </form>
+
+                        {% endif %}
             
             <div class="col-lg-6">
                 <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">
