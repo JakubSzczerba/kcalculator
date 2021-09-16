@@ -34,64 +34,55 @@
                     </div>
                 </div>
             </div>
+            {% if preferentions %}
+                {% for preferention in preferentions %}   
+                {% set result = preferention.kcal_day - summKcal %} 
                 <div class="col-md-8">
                         <div class="card mb-3">
                             <div class="card-body">
                             <div class="row">
-                                <div class="col">
+                                <div class="col" style="text-align: center">
                                 <h6 class="mb-0">Białko</h6>
                                 </div>
                                 <div class="col" style="text-align: center">
                                 <h6 class="mb-0">Tłuszcz</h6>
                                 </div>
-                                <div class="col" style="text-align: right">
+                                <div class="col" style="text-align: center">
                                 <h6 class="mb-0">Węglowodany</h6>
                                 </div>
                             </div>
                             <hr>
+
                             <div class="row">
                                 <div class="col-sm-3">
-                                <h6 class="mb-0">Email</h6>
+                                <h6 class="mb-0"></h6>
                                 </div>
-                                <div class="col-sm-9 text-secondary">
-                                XD
+                                <div class="col-sm-9 text-secondary"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col" style="text-align: center">
+                                <h6 class="mb-0"></span></bold>{{ summProtein|number_format }} <strong>/{{ preferention.proteinPerDay|e }}</strong></h6>
+                                </div>
+                                <div class="col" style="text-align: center">
+                                <h6 class="mb-0"></span></bold> {{ summFat|number_format }} <strong>/{{ preferention.fatPerDay|e }}</strong></h6>
+                                </div>
+                                <div class="col" style="text-align: center">
+                                <h6 class="mb-0"></span></bold> {{ summCarbo|number_format }} <strong>/{{ preferention.carboPerDay|e }}</strong></h6>
                                 </div>
                             </div>
+                {% endfor %}
                             <hr>
                             <div class="row">
-                                <div class="col-sm-3">
-                                <h6 class="mb-0">Waga</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                XD
-                                </div>
+                                asd
+                            </div>         
+                            <div class="row">   
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                <h6 class="mb-0">Wzrost</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                XD
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                <h6 class="mb-0">Wiek</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                XD
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                <a class="btn btn-info " href="">Edydtuj preferencje</a>
-                                </div>
-                            </div>
+                            <hr>   
                             </div>
                         </div>
+                {% else %}
+                {% endif %}
             
 
 
