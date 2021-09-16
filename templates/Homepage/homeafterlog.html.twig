@@ -22,20 +22,16 @@
                                 <h5><bold><span style="color: #ff6633">Białko: </span></bold> {{ summProtein|number_format }} <strong>/{{ preferention.proteinPerDay|e }}</strong> <br>
                                 <span style="color: #cc0099">Tłuszcz: </span></bold> {{ summFat|number_format }} <strong>/{{ preferention.fatPerDay|e }}</strong> <br>
                                 <span style="color: #3d3d29">Węglowodany: </span></bold> {{ summCarbo|number_format }} <strong>/{{ preferention.carboPerDay|e }}</strong> </h5>
-
                             {% endfor %}
-
                         {% else %}
-
                                 <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
                                     <h1 class="mt-5">Oblicz zapotrzebownie kaloryczne :)</h1><br>
                                     <button type="submit" class="btn btn-success">Dalej</button>
                                 </form>
-
                         {% endif %}
             
-            <div class="col-lg-6">
-                <form action="{{ path('findFood') }}" method="POST" class="form-horizontal">
+
+
                     
             </div>
         </div>
