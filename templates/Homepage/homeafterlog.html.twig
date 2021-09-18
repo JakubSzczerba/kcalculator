@@ -6,7 +6,7 @@
         
         <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
-                <div class="card" style="width: 625px"> {#====== modyfikacja kcali =========#}
+                <div class="card" style="width: 625px; height: 433px;"> {#====== modyfikacja kcali =========#}
                     <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">        
                         {% if preferentions %}
@@ -19,9 +19,12 @@
                                     =
                                     <span style="color: green">{{ result }}</span> </h1><br><br><br><br>
 
-                                    <h5><bold><span style="color: #ff6633">Białko: </span></bold> {{ summProtein|number_format }} <strong>/{{ preferention.proteinPerDay|e }}</strong> <br>
-                                    <span style="color: #cc0099">Tłuszcz: </span></bold> {{ summFat|number_format }} <strong>/{{ preferention.fatPerDay|e }}</strong> <br>
-                                    <span style="color: #3d3d29">Węglowodany: </span></bold> {{ summCarbo|number_format }} <strong>/{{ preferention.carboPerDay|e }}</strong> </h5>
+                                    <div style="text-align: left">
+                                    <hr>
+                                    <h5><bold><span style="color: black">Aktywność w ciągu dnia: </span></bold><span style="color: gray">Tu bedzie aktywność</span> <br> <hr>
+                                    <span style="color: black">Pozostało do spozycia: </span></bold> <span style="color: green"> {{ result }} kcal</span> </h5>
+                                    <hr>
+                                    </div>
                             {% endfor %}
                         {% else %}
                                 <form action="{{ path('preferentions') }}" method="POST" class="form-horizontal">
@@ -42,13 +45,13 @@
                             <div class="card-body">
                             <div class="row">
                                 <div class="col" style="text-align: center">
-                                <h6 class="mb-0">Białko</h6>
+                                <h6 class="mb-0"><strong><span style="color: #ff6633">Białko</strong></bold></h6>
                                 </div>
                                 <div class="col" style="text-align: center">
-                                <h6 class="mb-0">Tłuszcz</h6>
+                                <h6 class="mb-0"><strong><span style="color: #cc0099">Tłuszcz</span></strong></h6>
                                 </div>
                                 <div class="col" style="text-align: center">
-                                <h6 class="mb-0">Węglowodany</h6>
+                                <h6 class="mb-0"><strong><span style="color: #3d3d29">Węglowodany</span></strong></h6>
                                 </div>
                             </div>
                             <hr>
@@ -71,7 +74,6 @@
                                 <h6 class="mb-0"></span></bold> {{ summCarbo|number_format }} <strong>/{{ preferention.carboPerDay|e }}</strong></h6>
                                 </div>
                             </div>
-                {% endfor %}
                             <hr>
                             <div class="row">
                                 <div class="col" style="text-align: center">
@@ -86,15 +88,18 @@
                             </div>
                             <hr>   
                             </div>
-                        </div>
-                {% else %}
-                {% endif %}
-            
-
-
-                    
-            </div>
+                        </div>          
+            </div>              
         </div>
+            <div class="card mb-3" style="height: 380px;">
+                <div class="col" style="text-align: center">
+                    <img src="../assets/images/chartWeight.png" alt="Admin" style="height: 375px; width: 800px">
+                </div>            
+            </div>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+
     </div>
 {% endblock %}
 
