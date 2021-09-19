@@ -19,12 +19,6 @@ class UsersWeightHistory
   private $id;
 
   /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserPreferention", inversedBy="userWeightHistory")
-     * @ORM\JoinColumn(name="user_preferention_id", nullable=false, referencedColumnName="id")
-     */
-    private $userPreferention;
-
-  /**
      * @var \DateTime
      * 
      * @ORM\Column(type="date") 
