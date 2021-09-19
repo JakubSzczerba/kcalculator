@@ -34,9 +34,9 @@ class DashboardController extends AbstractController
     $summCarbo = $entried_kcalRepository->SummEntriedCarbo($datetime, $id);
 
 
-    // Chart implementation:
-    $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
-        $chart->setData([
+    // Chart for MACRO implementation:
+    $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
+        $chartMacro->setData([
           'labels'=> [
             'Białko',
             'Tłuszcz',
@@ -54,6 +54,28 @@ class DashboardController extends AbstractController
             ],
         ]);
 
+    // Chart for Weight implementations:
+      $chartWeight = $chartBuilder->createChart(Chart::TYPE_LINE);
+      $chartWeight->setData([
+          'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          'datasets' => [
+              [
+                  'label' => 'My First dataset',
+                  'backgroundColor' => 'rgb(255, 99, 132)',
+                  'borderColor' => 'rgb(255, 99, 132)',
+                  'data' => [10, 5, 2],
+              ],
+          ],
+      ]);
+      $chartWeight->setOptions([
+        'scales' => [
+            'yAxes' => [
+                ['ticks' => ['min' => 0, 'max' => 100]],
+            ],
+        ],
+    ]);
+
+
 
 
     return $this->render('Homepage/homeafterlog.html.twig', [
@@ -62,27 +84,13 @@ class DashboardController extends AbstractController
       'summProtein' => $summProtein,
       'summFat' => $summFat,
       'summCarbo' => $summCarbo,
-      'chart' => $chart,
+      'chartMacro' => $chartMacro,
+      'chartWeight' => $chartWeight,
     ]);
 
-    $results = [];
     
-    foreach ($preferention as $pref) {
-      $results[]=[
-        'kcalday' => $pref->getKcalDay,
-      ];
 
-    }
-    return $results; 
 
 
   }
-
-
-
-  
-
-
-
-
 }

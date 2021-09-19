@@ -75,14 +75,10 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
+                            <div class="row">                 
                                 <div class="col" style="text-align: center">
-                                </div>
-                                <div class="col" style="text-align: center">
-                                    {#<img src="../assets/images/chart.png" alt="Admin" class="rounded-circle">#}
-                                    {{ render_chart(chart) }}
-                                </div>
-                                <div class="col" style="text-align: center">
+                                    {# <img src="../assets/images/chart.png" alt="Admin" class="rounded-circle"> #}
+                                    {{ render_chart(chartMacro) }}
                                 </div>
                             </div>         
                             <div class="row">   
@@ -94,7 +90,10 @@
         </div>
             <div class="card mb-3" style="height: 380px;">
                 <div class="col" style="text-align: center">
-                    <img src="../assets/images/chartWeight.png" alt="Admin" style="height: 375px; width: 800px">
+                    {# <img src="../assets/images/chartWeight.png" alt="Admin" style="height: 375px; width: 800px"> #}
+                    <div class="changesizeChart" style="float: auto">
+                    {{ render_chart(chartWeight) }}
+                    </div>
                 </div>            
             </div>
                 {% endfor %}

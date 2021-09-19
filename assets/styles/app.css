@@ -279,5 +279,14 @@ body{
         position: relative;
         margin-right: 0;
     }
+
+
+
+.changesizeChart {
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
 }
-    
+
+
+}
