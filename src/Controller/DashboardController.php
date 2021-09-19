@@ -57,13 +57,13 @@ class DashboardController extends AbstractController
     // Chart for Weight implementations:
       $chartWeight = $chartBuilder->createChart(Chart::TYPE_LINE);
       $chartWeight->setData([
-          'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          'labels' => ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
           'datasets' => [
               [
-                  'label' => 'My First dataset',
-                  'backgroundColor' => 'rgb(255, 99, 132)',
-                  'borderColor' => 'rgb(255, 99, 132)',
-                  'data' => [10, 5, 2],
+                  'label' => 'Zmiana wagi',
+                  'backgroundColor' => 'grey',
+                  'borderColor' => 'rgb(64,64,64)',
+                  'data' => [10, 5, 2, 20, 30, 45, 60, 75, 20, 100, 3, 44],
               ],
           ],
       ]);
