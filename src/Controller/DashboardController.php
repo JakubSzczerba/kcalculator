@@ -33,20 +33,35 @@ class DashboardController extends AbstractController
     $summFat = $entried_kcalRepository->SummEntriedFats($datetime, $id);
     $summCarbo = $entried_kcalRepository->SummEntriedCarbo($datetime, $id);
 
-    
+
     // Chart implementation:
-    $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+    $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $chart->setData([
-            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          'labels'=> [
+            'Białko',
+            'Tłuszcz',
+            'Węglowodany'
+          ],
             'datasets' => [
                 [
                     'label' => 'My First dataset',
-                    'backgroundColor' => 'rgb(255, 99, 132)',
-                    'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [0, 10, 5, 2, 20, 30, 45],
+                    'backgroundColor' => [
+                      '#ff6633',
+                      '#cc0099',
+                      '#3d3d29'],
+                    'data' => [$summProtein, $summFat, $summCarbo],
                 ],
             ],
         ]);
+
+        /*
+        abel: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+        */
 
 
 
