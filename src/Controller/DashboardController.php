@@ -11,13 +11,15 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use App\Repository\DashboardCaloriesRepository; 
 use App\Repository\EntriesRepository;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 class DashboardController extends AbstractController
 {
 /**
    * @Route("/dashboard", name="dashboard")
    */
-  public function dashboard(Request $request, DashboardCaloriesRepository $caloriesrep, EntriesRepository $entried_kcalRepository): Response
+  public function dashboard(Request $request, DashboardCaloriesRepository $caloriesrep, EntriesRepository $entried_kcalRepository, ChartBuilderInterface $chartBuilder): Response
   {
     $id = $this->getUser()->getId();
     $datetime = new \DateTime('@'.strtotime('now'));
@@ -31,6 +33,21 @@ class DashboardController extends AbstractController
     $summFat = $entried_kcalRepository->SummEntriedFats($datetime, $id);
     $summCarbo = $entried_kcalRepository->SummEntriedCarbo($datetime, $id);
 
+    
+    // Chart implementation:
+    $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+        $chart->setData([
+            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            'datasets' => [
+                [
+                    'label' => 'My First dataset',
+                    'backgroundColor' => 'rgb(255, 99, 132)',
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'data' => [0, 10, 5, 2, 20, 30, 45],
+                ],
+            ],
+        ]);
+
 
 
     return $this->render('Homepage/homeafterlog.html.twig', [
@@ -39,6 +56,7 @@ class DashboardController extends AbstractController
       'summProtein' => $summProtein,
       'summFat' => $summFat,
       'summCarbo' => $summCarbo,
+      'chart' => $chart,
     ]);
 
     $results = [];

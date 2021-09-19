@@ -380,6 +380,9 @@
     "symfony/uid": {
         "version": "v5.2.6"
     },
+    "symfony/ux-chartjs": {
+        "version": "v1.2.0"
+    },
     "symfony/var-dumper": {
         "version": "v5.2.6"
     },
