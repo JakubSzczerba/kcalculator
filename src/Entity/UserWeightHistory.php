@@ -6,9 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="user_weight_history)
+ * @ORM\Table(name="user_weightHistory)
  */
-class UsersWeightHistory
+class UserWeightHistory
 {
     /**
    * @ORM\Column(type="integer")
@@ -30,17 +30,36 @@ class UsersWeightHistory
      */
     private $userWeight;
 
-
-
+ 
     public function __construct()
     {
-        $this->data = new \DateTime();      
+        $this->datetime = new \DateTime();      
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    public function getDateTime(): \DateTime
+    {
+        return $this->datetime;
+    }
 
+    public function setDateTime(\DateTime $datetime): void
+    {
+        $this->datetime = $datetime;
+    }
 
+    public function getUserWeight(): ?float
+    {
+        return $this->userWeight;
+    }
 
+    public function setUserWeight($userWeight): void
+    {
+        $this->userWeight = $userWeight;
+    }
 
 
 
