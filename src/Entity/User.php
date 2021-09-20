@@ -34,6 +34,12 @@ class User implements UserInterface  {
      */
     private $entry;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserWeightHistory", mappedBy="user")            
+     */
+    private $userWeightHistory;
+
+
 
   /**
    * User constructor.
@@ -114,6 +120,15 @@ class User implements UserInterface  {
     {
         $this->email = $email;
         return $this;
+    }
+
+    public function getUerWeightHistory(): ?UserWeightHistory
+    {
+        return $this->userWeightHistory;
+    }
+    public function setUerWeightHistory(?UserWeightHistory $userWeightHistory): self
+    {
+        $this->userWeightHistory = $userWeightHistory;
     }
 
     

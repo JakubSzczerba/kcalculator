@@ -19,10 +19,10 @@ class UserWeightHistory
   private $id;
 
   /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserPreferention", inversedBy="userWeightHistory")
-     * @ORM\JoinColumn(name="preferention_id", nullable=false, referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userWeightHistory")
+     * @ORM\JoinColumn(name="user_id", nullable=false, referencedColumnName="id")
      */
-    private $preferention;
+    private $user;
 
   /**
      * @var \DateTime
@@ -67,17 +67,17 @@ class UserWeightHistory
         $this->userWeight = $userWeight;
     }
 
-    public function getPreferention(): ?UserPreferention
+    public function getUsers(): ?User
     {
-        return $this->preferention;
+        return $this->user;
     }
 
-    public function setPreferention(?UserPreferention $preferention): self
+    public function setUsers(?User $user): self
     {
-        $this->preferention = $preferention;
+        $this->user = $user;
         return $this;
     }
-
+    
 
 
 }

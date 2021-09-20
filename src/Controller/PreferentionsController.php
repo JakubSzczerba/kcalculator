@@ -10,6 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use App\Entity\UserPreferention;
 use App\Entity\User;
+use App\Entity\UserWeightHistory;
 
 class PreferentionsController extends AbstractController
 {
@@ -156,9 +157,15 @@ class PreferentionsController extends AbstractController
     $preferention->setCarboPerDay($carbo);
 
     $preferention->setUsers($this->getUser());
+    
+    $userWeightHistory = new UserWeightHistory();
+    $userWeightHistory->setUsers($this->getUser());
+    $userWeightHistory->setUserWeight($weight);
+    $userWeightHistory->setDateTime(new \DateTime());
 
     
     $entityManager->persist($preferention);
+    $entityManager->persist($userWeightHistory);
     $entityManager->flush();
 
     return $this->render('User/loadedpreferentions.html.twig', [
@@ -299,7 +306,14 @@ class PreferentionsController extends AbstractController
     $preferention->setFatPerDay($fat);
     $preferention->setCarboPerDay($carbo);
 
+    $userWeightHistory = new UserWeightHistory();
+    $userWeightHistory->setUsers($this->getUser());
+    $userWeightHistory->setUserWeight($weight);
+    $userWeightHistory->setDateTime(new \DateTime());
+
+
     $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->persist($userWeightHistory);
     $entityManager->flush();
 
 
