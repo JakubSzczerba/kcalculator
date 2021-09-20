@@ -74,7 +74,7 @@ class UserWeightHistory
 
     public function setPreferention(?UserPreferention $preferention): self
     {
-        $this->user = $preferention;
+        $this->preferention = $preferention;
         return $this;
     }
 
