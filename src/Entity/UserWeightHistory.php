@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="user_weightHistory)
+ * @ORM\Table(name="user_weightHistory")
  */
 class UserWeightHistory
 {
@@ -33,7 +33,7 @@ class UserWeightHistory
  
     public function __construct()
     {
-        $this->datetime = new \DateTime();      
+        $this->date = new \DateTime();      
     }
 
     public function getId()
