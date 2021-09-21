@@ -23,20 +23,12 @@ class UserWeightHistoryRepository extends ServiceEntityRepository
     public function showHistory(int $id)
     {
         
-        $qb = $this->createQueryBuilder('e');
+        $qb = $this->createQueryBuilder('w');
 
-        $qb->select('e')
-            ->leftJoin('e.food', 'p')
-            ->addSelect('p')
-            ->where('e.user = :user') 
-            ->andWhere('e.datetime = :datetime')     
-            ->setParameter('user', $id)
-            ->setParameter('datetime', $datetime->format('Y-m-d'))
-            ->groupBy('e.meal_type', 'p.product');
-            
-
-
-            
+        $qb->select('w')
+            ->where('w.user = :user')     
+            ->setParameter('user', $id);
+         
         //dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getArrayResult();
 

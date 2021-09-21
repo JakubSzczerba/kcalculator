@@ -11,6 +11,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use App\Repository\DashboardCaloriesRepository; 
 use App\Repository\EntriesRepository;
+use App\Repository\UserWeightHistoryRepository;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 
@@ -19,7 +20,10 @@ class DashboardController extends AbstractController
 /**
    * @Route("/dashboard", name="dashboard")
    */
-  public function dashboard(Request $request, DashboardCaloriesRepository $caloriesrep, EntriesRepository $entried_kcalRepository, ChartBuilderInterface $chartBuilder): Response
+  public function dashboard(
+                            Request $request, DashboardCaloriesRepository $caloriesrep, EntriesRepository $entried_kcalRepository, 
+                            UserWeightHistoryRepository $userWeight, ChartBuilderInterface $chartBuilder
+                            ): Response
   {
     $id = $this->getUser()->getId();
     $datetime = new \DateTime('@'.strtotime('now'));
@@ -33,7 +37,8 @@ class DashboardController extends AbstractController
     $summFat = $entried_kcalRepository->SummEntriedFats($datetime, $id);
     $summCarbo = $entried_kcalRepository->SummEntriedCarbo($datetime, $id);
 
-
+    $showHistory = $userWeight->showHistory($id);
+    
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $chartMacro->setData([
