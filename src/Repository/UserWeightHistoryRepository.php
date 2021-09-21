@@ -25,7 +25,7 @@ class UserWeightHistoryRepository extends ServiceEntityRepository
         
         $qb = $this->createQueryBuilder('w');
 
-        $qb->select('w')
+        $qb->select('w.userWeight')
             ->where('w.user = :user')     
             ->setParameter('user', $id);
          
