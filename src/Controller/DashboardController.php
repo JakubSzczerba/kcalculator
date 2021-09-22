@@ -38,8 +38,20 @@ class DashboardController extends AbstractController
     $summCarbo = $entried_kcalRepository->SummEntriedCarbo($datetime, $id);
 
     $showHistory = $userWeight->showHistory($id);
-    //dump($showHistory);
+    
+    //get datas from query for simple table
+    $results = [];
+    foreach ($showHistory as $weight ) {   
+      foreach($weight as $value){
+      
+        $results = [
+        $value,
+        $value++
+                  ];
 
+          }
+    }
+  
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $chartMacro->setData([
@@ -69,17 +81,11 @@ class DashboardController extends AbstractController
                   'label' => 'Zmiana wagi',
                   'backgroundColor' => 'grey',
                   'borderColor' => 'rgb(64,64,64)',
-                  'data' => [10, 5, 2, 20, 30, 45, 60, 75, 20, 100, 3, 44],
+                  'data' => $results
               ],
           ],
       ]);
-      $chartWeight->setOptions([
-        'scales' => [
-            'yAxes' => [
-                ['ticks' => ['min' => 0, 'max' => 100]],
-            ],
-        ],
-    ]);
+     
 
 
 
