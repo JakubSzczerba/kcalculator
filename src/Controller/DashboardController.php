@@ -38,8 +38,8 @@ class DashboardController extends AbstractController
     $summCarbo = $entried_kcalRepository->SummEntriedCarbo($datetime, $id);
 
     $showHistory = $userWeight->showHistory($id);
-    dump($showHistory);
-    
+    //dump($showHistory);
+
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $chartMacro->setData([

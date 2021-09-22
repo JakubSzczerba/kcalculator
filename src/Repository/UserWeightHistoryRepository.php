@@ -30,7 +30,7 @@ class UserWeightHistoryRepository extends ServiceEntityRepository
             ->setParameter('user', $id);
          
         //dump($qb->getQuery()->getResult());
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getResult();
 
     }
 }
