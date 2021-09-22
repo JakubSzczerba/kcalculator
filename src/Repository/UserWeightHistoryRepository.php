@@ -33,4 +33,22 @@ class UserWeightHistoryRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
 
     }
+
+    /**
+     * @return MonthHistory[]
+     */
+
+    public function monthHistory(int $id)
+    {
+        
+        $qb = $this->createQueryBuilder('w');
+
+        $qb->select('w.datetime')
+            ->where('w.user = :user')     
+            ->setParameter('user', $id);
+         
+        //dump($qb->getQuery()->getResult());
+        return $qb->getQuery()->getResult();
+
+    }
 }
