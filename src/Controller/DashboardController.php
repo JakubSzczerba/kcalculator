@@ -97,9 +97,9 @@ class DashboardController extends AbstractController
           break;
           case 'December':
           $x = "Grudzień";
-          break;
-          
+          break;       
           }
+          
         $months = [
           $x,
           $x++
