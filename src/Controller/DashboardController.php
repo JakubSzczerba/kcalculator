@@ -61,12 +61,17 @@ class DashboardController extends AbstractController
         //dump($x);
         $x = $value->format('M');
         $months = [
-        $x,
-        $x++
+          $x,
+          $x++
                   ];
           }
     }
 
+    $monthsPL = [
+      'Sep'=> 'Wrzesień',
+    ];
+    //dump($months);
+    //dump($monthsPL);
 
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
