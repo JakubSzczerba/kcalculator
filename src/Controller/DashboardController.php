@@ -106,7 +106,7 @@ class DashboardController extends AbstractController
                   ];
           }
     }
-    
+
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $chartMacro->setData([
@@ -135,7 +135,7 @@ class DashboardController extends AbstractController
               [
                   'label' => 'Zmiana wagi',
                   'backgroundColor' => 'grey',
-                  'borderColor' => 'rgb(64,64,64)',
+                  'borderColor' => 'red',
                   'data' => $results
               ],
           ],
