@@ -59,20 +59,54 @@ class DashboardController extends AbstractController
     foreach ($monthHistory as $month ) {   
       foreach($month as $value){
         //dump($x);
-        $x = $value->format('M');
+        $x = $value->format('F');
+        switch ($x)
+          {
+          case 'January':
+          $x = "Styczeń";
+          break;
+          case 'February':
+          $x = "Luty";
+          break;
+          case 'March':
+          $x = "Marzec";
+          break;
+          case 'April':
+          $x = "Kwiecień";
+          break;
+          case 'May':
+          $x = "Maj";
+          break;
+          case 'June':
+          $x = "Czerwiec";
+          break;
+          case 'July':
+          $x = "Lipiec";
+          break;
+          case 'August':
+          $x = "Sierpień";
+          break;
+          case 'September':
+          $x = "Wrzesień";
+          break;
+          case 'October':
+          $x = "Październik";
+          break;
+          case 'November':
+          $x = "Listopad";
+          break;
+          case 'December':
+          $x = "Grudzień";
+          break;
+          
+          }
         $months = [
           $x,
           $x++
                   ];
           }
     }
-
-    $monthsPL = [
-      'Sep'=> 'Wrzesień',
-    ];
-    //dump($months);
-    //dump($monthsPL);
-
+    
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $chartMacro->setData([
