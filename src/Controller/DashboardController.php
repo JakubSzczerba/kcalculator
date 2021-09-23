@@ -37,11 +37,11 @@ class DashboardController extends AbstractController
     $summFat = $entried_kcalRepository->SummEntriedFats($datetime, $id);
     $summCarbo = $entried_kcalRepository->SummEntriedCarbo($datetime, $id);
 
+    // charts queries
     $showHistory = $userWeight->showHistory($id);
     $monthHistory = $userWeight->monthHistory($id);
-    dump($monthHistory);
 
-    //             get datas from query for simple table
+    //get weight from user's history and fetch in a single array
     $results = [];
     foreach ($showHistory as $weight ) {   
       foreach($weight as $value){
@@ -53,6 +53,8 @@ class DashboardController extends AbstractController
 
           }
     }
+
+    $$months = [];
     
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
