@@ -54,8 +54,20 @@ class DashboardController extends AbstractController
           }
     }
 
-    $$months = [];
-    
+    //get data from user's history, farmat all datatime for only name of month and fetch in a single array
+    $months = [];
+    foreach ($monthHistory as $month ) {   
+      foreach($month as $value){
+        //dump($x);
+        $x = $value->format('M');
+        $months = [
+        $x,
+        $x++
+                  ];
+          }
+    }
+
+
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $chartMacro->setData([
@@ -79,7 +91,7 @@ class DashboardController extends AbstractController
     // Chart for Weight implementations:
       $chartWeight = $chartBuilder->createChart(Chart::TYPE_LINE);
       $chartWeight->setData([
-          'labels' => ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+          'labels' => $months,
           'datasets' => [
               [
                   'label' => 'Zmiana wagi',
