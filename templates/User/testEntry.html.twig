@@ -6,7 +6,7 @@
 <br>
                     {% if entry %}
                         {% set dateOfEntry = "now"|date("d/m/Y") %} 
-                        {% set dataTest = entry.datetime|date("d/m/Y") %}    
+                        
                         <div> <h3><h1><span style="color: blue"> {{ dateOfEntry }} </span></h3>
                                 <p>
                                 <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
