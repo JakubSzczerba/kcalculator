@@ -267,7 +267,9 @@ body{
     }
 
     #wrapper.toggled #sidebar-wrapper {
-        width: 0;
+        width: 47px;
+        padding: -10px;
+        
     }
 
     #page-content-wrapper {
