@@ -57,6 +57,7 @@ class DashboardController extends AbstractController
       foreach($month as $value){
 
         $x = $value->format('F');
+
         switch ($x)
           {
           case 'January':
@@ -97,13 +98,11 @@ class DashboardController extends AbstractController
           break;       
           }
           
-        $months = [
-          $x,
-          $x++
-                  ];
+        array_push($months, $x);
+
           }
     }
-dump ($results);
+    
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $chartMacro->setData([
