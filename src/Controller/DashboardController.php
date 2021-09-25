@@ -44,12 +44,9 @@ class DashboardController extends AbstractController
     //get weight from user's history and fetch in a single array
     $results = [];
     foreach ($showHistory as $weight ) {   
-      foreach($weight as $value){
-      
-        $results = [
-        $value,
-        $value++
-                  ];
+      foreach($weight as $value) {
+
+        array_push($results, $value);
 
           }
     }
@@ -58,7 +55,7 @@ class DashboardController extends AbstractController
     $months = [];
     foreach ($monthHistory as $month ) {   
       foreach($month as $value){
-        //dump($x);
+
         $x = $value->format('F');
         switch ($x)
           {
@@ -106,7 +103,7 @@ class DashboardController extends AbstractController
                   ];
           }
     }
-
+dump ($results);
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $chartMacro->setData([
