@@ -272,8 +272,6 @@ class DailyController extends AbstractController
 
     $showEntry = $entriesRepository->displayEntry($datetime, $id); //all entries per day, but products are not grouping in one row (meal)
 
-    dump($showEntry);
-
     $ShowSnack = $entriesRepository->ShowSnack($datetime, $id, $meal1); // try to fetch all entries per day for row -> Przękąski 
 
     $ShowBreakfast = $entriesRepository->ShowBreakfast($datetime, $id, $meal2); // the same way ^ but with Śnaidanie!
