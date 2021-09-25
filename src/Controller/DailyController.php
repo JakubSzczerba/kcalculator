@@ -309,6 +309,7 @@ class DailyController extends AbstractController
       'dinnerkcal' => $SummDinner,
       'teakcal' => $SummTea,
       'supperkcal' => $SummSupper,
+      'dataTest' => $datetime,
     ]);
   
   }

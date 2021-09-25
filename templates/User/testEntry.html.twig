@@ -5,7 +5,7 @@
 <div lass="col-lg-12" >
 <br>
                     {% if entry %}
-                        {% set dateOfEntry = "now"|date("d/m/Y") %}    
+                        {% set dateOfEntry = dataTest|date("d/m/Y") %}    
                         <div> <h3><h1><span style="color: blue"> {{ dateOfEntry }} </span></h3>
                                 <p>
                                 <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
@@ -241,9 +241,10 @@
 
                                {# DO TĄD #}
                                     {% else %}
+                                    {% set dateOfEntry = dataTest|date("d/m/Y") %}
                                         <div class="row" id="nonentry">
                                             <div class="col-lg-12" >
-                                                <h3 class="mt-5"><h1>Brak wpisów dnia <span style="color: blue"> {{ "now"|date("d/m/Y") }} </span></h3>
+                                                <h3 class="mt-5"><h1>Brak wpisów dnia <span style="color: blue"> {{ dateOfEntry }} </span></h3>
                                                 <a class="btn btn-info" type="submit" href="">Dodaj wpis</a> 
                                             </div>
                                         </div>
