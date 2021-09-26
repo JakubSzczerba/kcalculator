@@ -89,14 +89,14 @@ class DashboardController extends AbstractController
           'datasets' => [
               [
                   'label' => 'Zmiana wagi',
-                  'backgroundColor' => 'grey',
-                  'borderColor' => 'black',
+                  'backgroundColor' => '',
+                  'borderColor' => 'green',
                   'data' => $results
               ],
           ],
       ]);
      
-
+//'fill' => false,
 
 
 
