@@ -55,49 +55,8 @@ class DashboardController extends AbstractController
     $months = [];
     foreach ($monthHistory as $month ) {   
       foreach($month as $value){
-
-        $x = $value->format('F');
-
-        switch ($x)
-          {
-          case 'January':
-          $x = "Styczeń";
-          break;
-          case 'February':
-          $x = "Luty";
-          break;
-          case 'March':
-          $x = "Marzec";
-          break;
-          case 'April':
-          $x = "Kwiecień";
-          break;
-          case 'May':
-          $x = "Maj";
-          break;
-          case 'June':
-          $x = "Czerwiec";
-          break;
-          case 'July':
-          $x = "Lipiec";
-          break;
-          case 'August':
-          $x = "Sierpień";
-          break;
-          case 'September':
-          $x = "Wrzesień";
-          break;
-          case 'October':
-          $x = "Październik";
-          break;
-          case 'November':
-          $x = "Listopad";
-          break;
-          case 'December':
-          $x = "Grudzień";
-          break;       
-          }
-          
+      
+        $x = $value->format('d.m');      
         array_push($months, $x);
 
           }
