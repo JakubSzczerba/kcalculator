@@ -245,7 +245,13 @@
                                         <div class="row" id="nonentry">
                                             <div class="col-lg-12" >
                                                 <h3 class="mt-5"><h1>Brak wpisów dnia <span style="color: blue"> {{ dateOfEntry }} </span></h3>
-                                                <a class="btn btn-info" type="submit" href="">Dodaj wpis</a> 
+                                                <p>
+                                                    <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
+                                                        <input type="date" id="date" name="dataTocheckDaily">
+                                                        <button type="submit" name="dateCheck" class="btn btn-dark">pokaż</button>
+                                                    </form> 
+
+                                                </p>
                                             </div>
                                         </div>
                                     {% endif %}                                                                                           
