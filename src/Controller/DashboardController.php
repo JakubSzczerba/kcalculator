@@ -115,9 +115,9 @@ class DashboardController extends AbstractController
                 [
                     'label' => 'My First dataset',
                     'backgroundColor' => [
-                      '#ff6633',
-                      '#cc0099',
-                      '#3d3d29'],
+                      '#0099FF',
+                      '#FF6633',
+                      '#663300'],
                     'data' => [$summProtein, $summFat, $summCarbo],
                 ],
             ],
