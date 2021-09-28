@@ -61,6 +61,7 @@ class DashboardController extends AbstractController
 
           }
     }
+    // comment for commit.
 
     // Chart for MACRO implementation:
     $chartMacro = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
