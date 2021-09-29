@@ -89,19 +89,19 @@
                                 <div class="card-body">
                                     <div class="row" >
                                         <div class="col-sm-3" style="text-align: left">
-                                        <h6 class="mb-0">Cel</h6>
+                                        <h6 class="mb-0">Wybrana intencja</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                        cos
+                                        {{ profile.intentions|e  }}
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <div class="col-sm-3" style="text-align: left">
-                                        <h6 class="mb-0">Aktywność</h6>
+                                        <h6 class="mb-0">Generowana aktywność</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                        cos
+                                        {{ profile.activity|e  }}
                                         </div>
                                     </div>
                                     <hr>
@@ -110,7 +110,7 @@
                                         <h6 class="mb-0">Bierne zapotrzebownie</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                        cos
+                                        {{ profile.caloric_requirement|e }} kcal
                                         </div>
                                     </div>
                                     <hr>
@@ -119,7 +119,7 @@
                                         <h6 class="mb-0">Dzienne zapotrzebowanie</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                        cos
+                                        {{ profile.kcal_day|e }} kcal
                                         </div>
                                     </div>
                                     <hr>
@@ -128,7 +128,7 @@
                                         <h6 class="mb-0">Ilość białka na dzień</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                        cos
+                                        {{ profile.proteinPerDay|e }}
                                         </div>
                                     </div>
                                     <hr>
@@ -137,7 +137,7 @@
                                         <h6 class="mb-0">Ilość tłuszczy na dzień</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                        cos
+                                        {{ profile.fatPerDay|e }}
                                         </div>
                                     </div>
                                     <hr>
@@ -146,7 +146,7 @@
                                         <h6 class="mb-0">Ilość węglowodanów na dzień</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                        cos
+                                        {{ profile.carboPerDay|e }}
                                         </div>
                                     </div>
                                     <hr>
