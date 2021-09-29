@@ -6,7 +6,7 @@
         
         <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
-                <div class="card" style="width: 625px; height: 433px;"> {#====== modyfikacja kcali =========#}
+                <div class="card" style="width: 625px; height: 350px;"> {#====== modyfikacja kcali =========#}
                     <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">        
                         {% if preferentions %}
@@ -17,7 +17,7 @@
                                     -
                                     <span style="color: red">{{ summKcal|number_format }}</span>
                                     =
-                                    <span style="color: green">{{ result }}</span> </h1><br><br><br><br>
+                                    <span style="color: green">{{ result }}</span> </h1><br><br>
 
                                     <div style="text-align: left">
                                     <hr>
@@ -41,7 +41,7 @@
                 {% for preferention in preferentions %}   
                 {% set result = preferention.kcal_day - summKcal %} 
                 <div class="col-md-8">
-                        <div class="card mb-3" style="width: 410px; float: right"> {#===== modyfikacja makrosów ======#}
+                        <div class="card mb-3" style="width: 410px; float: right; height: 350px"> {#===== modyfikacja makrosów ======#}
                             <div class="card-body">
                             <div class="row">
                                 <div class="col" style="text-align: center">
@@ -88,7 +88,7 @@
                         </div>          
             </div>              
         </div>
-            <div class="card mb-3" style="height: 380px;">
+            <div class="card mb-3" style="height: 465px;">
                 <div class="col" style="text-align: center">
                     {# <img src="../assets/images/chartWeight.png" alt="Admin" style="height: 375px; width: 800px"> #}
                     <div class="changesizeChart" style="float: auto">
