@@ -17,8 +17,10 @@ import askOfRemoveEntry from './js/askOfRemoveEntry';
 
 //$(askOfRemoveEntry);  // jquery smiga
 
+/*  Functions for views  */
 
-const snack = document.getElementById('snack');
+$("#changeBGC").click(function(){
+    $("body").css("background-color","black");
+  })
 
 
-// alert(1);

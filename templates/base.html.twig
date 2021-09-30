@@ -8,6 +8,7 @@
               crossorigin="anonymous">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <title>{% block title %}Kcalculator{% endblock %}</title>
         
@@ -52,7 +53,7 @@
                     <ul class="navbar-nav ml-auto">
                         {% if app.user %}
                             <li id="navbarIcons" class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a id="changeBGC" class="nav-link" href="#">
                                     <ion-icon name="moon-sharp"></ion-icon>
                                 </a>
                             </li>
