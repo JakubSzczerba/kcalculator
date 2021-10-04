@@ -7,20 +7,26 @@
         <div class="col-lg-12">
            <form action="{{ path('addEntry', {id: product.id}) }}" method="POST" id="entryform" class="form-horizontal"> 
         
-                <h1 class="mt-5"> Dodaj wpis do dziennika</h1><br><br><br>
-                <div><h1><blold>{{ product.product|e }}: <h1></bold></div>
+                <div class="d-flex flex-column align-items-center text-center">
+                    <h1 class="mt-5"> Zapisz, aby dodać wpis do dziennika</h1>
+                </div>
+                <hr>
+                <br><br>
+                
+                <div><h1><blold>{{ product.product|e }}: <h1></bold></div><br>
 
                 <div><h2><bold><span style="color: #006600">{{ product.energy|e }} kcal, </span></bold> <span style="color: grey"><em>porcja 100g</em></span></h2> 
+                    
                     <button type="submit" name="klik" class="btn btn-dark">Zapisz</button>
                 <div>
 
                 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
-                <div><h5><bold><span style="color: #0099FF">Białko: </span></bold>{{ product.protein|e }} g</h5></div>
+                <div><h6 class="mb-0"><strong><span style="color: #0099FF">Białko: </span></strong>{{ product.protein|e }} g</h6></div>
 
-                <div><h5><span style="color: #FF6633">Tłuszcz: </span></bold>{{ product.fat|e }} g</h5></div>
+                <div><h6 class="mb-0"><strong><span style="color: #FF6633">Tłuszcz: </span></strong>{{ product.fat|e }} g</h6></div>
 
-                <div><h5><span style="color: #663300">Węglowodany: </span></bold>{{ product.carbo|e }} g</h5></div>
+                <div><h6 class="mb-0"><strong><span style="color: #663300">Węglowodany: </span></strong>{{ product.carbo|e }} g</h6></div>
             </form> 
 
              <div class="row">
