@@ -1,15 +1,21 @@
 <?php
+
+/*
+ * This file was created by Jakub Szczerba
+ * It is part of an engineering project - Kcalculator - copyright is reserved
+ * Contact: https://www.linkedin.com/in/jakub-szczerba-3492751b4/
+*/
+
 declare(strict_types=1);
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use App\Entity\UserPreferention;
-use App\Entity\User;
 use App\Entity\UserWeightHistory;
 
 class PreferentionsController extends AbstractController
@@ -19,7 +25,7 @@ class PreferentionsController extends AbstractController
    */
   public function preferentions()
   {
-    return $this->render('User/preferentions.html.twig', []);
+    return $this->render('User/preferentions.html.twig');
   }
 
   /**
@@ -27,122 +33,118 @@ class PreferentionsController extends AbstractController
    */
   public function editreferentions()
   {
-    return $this->render('User/editPreferentions.html.twig', []);
+    return $this->render('User/editPreferentions.html.twig');
   }
-
-
-
 
 /**
    * @Route("/setPreferention", methods="POST", name="setPreferention")
    */
   public function setPreferention(Request $request, EntityManagerInterface $entityManager): Response
   {
-
+    /** Reulst before fill from */
     $result = 0;
-    $caloric_requirement = 0;   // zapotrzebowanie ogólne
-    $kcal_day = 0;              // zapotrzebowanie wedłóg preferencji
+
+    /** Daily caloric requirement per user for */
+    $caloric_requirement = 0;
+
+    /** requirement Kcal according to established gains */
+    $kcal_day = 0;           
   
+    /** Form variables (selecting by user) */
     $gender = '';
-    $weight = $_POST['weight']; 
-    $height = $_POST['height']; 
-    $age = $_POST['age'];
+    $weight = $request->get('weight'); //$request->get('man');
+    $height = $request->get('height');
+    $age =$request->get('age');
     $activity = '';
     $intentions = '';
 
+    /** Value connected with the chosen intents */
+    $burn = -300;           
+    $keep = 0;              
+    $gain = 300;            
 
-
-    $low = isset($_POST['activity1']); // 1.45;
-    $medium = isset($_POST['activity2']); // 1.75;
-    $hard = isset($_POST['activity3']); // 2.0;
-
-    $burn = -300;           //-300;
-    $keep = 0;              //0;
-    $gain = 300;            //+300;
-
+    /** Variable connected with amount of macronutrients per day - beefore calculating  */
     $protein = 1;
     $fat = 1;
     $carbo = 1;
     
-    if ( isset($_POST['man']) || isset($_POST['woman']) )
+    if ( !empty($request->get('man')) || !empty($request->get('woman')) )
     {
-      if (isset($_POST['man']))
+      if ($request->get('man'))
       {
         $gender = 'Mężczyzna';
         $result = (10*$weight) + (6.25*$height) - (5*$age) + 5 ;
       } 
-      elseif (isset($_POST['woman']))
+      elseif ($request->get('woman'))
       {
         $gender = 'Kobieta';
         $result = (10*$weight) + (6.25*$height) - (5*$age) - 161 ;
-      }
-    
+      }  
     }
 
-    if ( isset($_POST['activity1']) || isset($_POST['activity2']) || isset($_POST['activity3']) )
+    if ( !empty($request->get('activity1')) || !empty($request->get('activity2')) || !empty($request->get('activity3')) )
     {
-      if (isset($_POST['activity1']))
+      if ($request->get('activity1'))
       {
-        $activity = 'niską aktywność w ciągu dnia';
-        $result = $result * 1.45;
-        
+        $activity = 'niską aktywność w ciągu dnia';     //low activity
+        $result = $result * 1.45;      
       }
-      elseif (isset($_POST['activity2']))
+      elseif ($request->get('activity2'))
       {
-        $activity = 'średnią aktywność w ciągu dnia';
-        $result = $result * 1.75;
-        
+        $activity = 'średnią aktywność w ciągu dnia';   //medium activity
+        $result = $result * 1.75;    
       }
-      elseif (isset($_POST['activity3']))
+      elseif ($request->get('activity3'))
       {
-        $activity = 'wysoką aktywność w ciągu dnia';
-        $result = $result * 2.0;
-        
-      }  
-      
+        $activity = 'wysoką aktywność w ciągu dnia';    //high activity
+        $result = $result * 2.0;        
+      }      
     } 
 
     settype($result, "integer");
-
     $caloric_requirement = $caloric_requirement + $result;
-
     
-    if ( isset($_POST['intension1']) || isset($_POST['intension2']) || isset($_POST['intension3']) )
+    if ( !empty($request->get('intension1')) || !empty($request->get('intension2')) || !empty($request->get('intension3')) )
     {
-
-      if (isset($_POST['intension1']))
+      if ($request->get('intension1'))
       {
         $intentions = 'zredukować tkankę tłuszczową';
         $kcal_day = ($caloric_requirement + $burn);
-        $protein = 2 * $weight; // ilosc bialka dla osob chcacych SCHUDNAC
+
+        /** Macronutrients for burning fat */
+        $protein = 2 * $weight;
         $fat = ($kcal_day * 0.25)/9 ;
         $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
       }
-      elseif (isset($_POST['intension2']))
+      elseif ($request->get('intension2'))
       {
         $intentions = 'utrzymać masę ciała';
         $kcal_day = ($caloric_requirement + $keep);
-        $protein = 1.60 * $weight; // ilosc bialka dla osob chcacych UTRZYMAC WAGE
+
+        /** Macronutrients for keep weight */
+        $protein = 1.60 * $weight;
         $fat = ($kcal_day * 0.25)/9 ;
         $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
       }
-      elseif (isset($_POST['intension3']))
+      elseif ($request->get('intension3'))
       {
         $intentions = 'zbudować masę mięśniową';
         $kcal_day = ($caloric_requirement + $gain);
-        $protein = 1.85 * $weight; // ilosc bialka dla osob chcacych PRZYTYĆ
+
+        /** Macronutrients for build muscle */
+        $protein = 1.85 * $weight; 
         $fat = ($kcal_day * 0.25)/9 ;
         $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
-      }  
-      
+      }      
     } 
     
+    /** Changing type from few number after comma for just integer */
     settype($kcal_day, "integer");
     settype($protein, "integer");
     settype($fat, "integer");
     settype($carbo, "integer");
 
-    
+    /** Seting all preferentions */
     $preferention = new UserPreferention();
     $preferention->setGender($gender);
     $preferention->setWeight($weight);
@@ -155,40 +157,36 @@ class PreferentionsController extends AbstractController
     $preferention->setProteinPerDay($protein);
     $preferention->setFatPerDay($fat);
     $preferention->setCarboPerDay($carbo);
-
     $preferention->setUsers($this->getUser());
     
+    /** Creating a Weight History for geting data to chart on Dashboard */
     $userWeightHistory = new UserWeightHistory();
     $userWeightHistory->setUsers($this->getUser());
     $userWeightHistory->setUserWeight($weight);
     $userWeightHistory->setDateTime(new \DateTime());
 
-    
     $entityManager->persist($preferention);
     $entityManager->persist($userWeightHistory);
     $entityManager->flush();
 
     return $this->render('User/loadedpreferentions.html.twig', [
       'preferentions' => $preferention
-    ]);
-       
+      ]
+    );      
   }
-
 
   /**
    * @Route("/editPreferention/{id}", methods="GET|POST", name="editPreferention")
    */
   public function editPreferention(Request $request, int $id, EntityManagerInterface $entityManager): Response
   {
-
     $preferention = new UserPreferention();
     $preferention = $this->getDoctrine()->getRepository(UserPreferention::class)->find(array('id' => $id,));
 
-    //place for logic from set preferentions. 
-
+    /* Logic from setPreferentions method */
     $result = 0;
-    $caloric_requirement = 0;   // zapotrzebowanie ogólne
-    $kcal_day = 0;              // zapotrzebowanie wedłóg preferencji
+    $caloric_requirement = 0;  
+    $kcal_day = 0;              
   
     $gender = $preferention->getGender();
     $weight = $preferention->getWeight(); 
@@ -197,103 +195,100 @@ class PreferentionsController extends AbstractController
     $activity = $preferention->getActivity();
     $intentions = $preferention->getIntentions();
 
-    $low = isset($_POST['activity1']); // 1.45;
-    $medium = isset($_POST['activity2']); // 1.75;
-    $hard = isset($_POST['activity3']); // 2.0;
+    /** Value connected with the chosen intents */
+    $burn = -300;           
+    $keep = 0;              
+    $gain = 300;    
 
-    $burn = -300;           //-300;
-    $keep = 0;              //0;
-    $gain = 300;            //+300;
-
+    /** Variable connected with amount of macronutrients per day - beefore calculating  */
     $protein = 1;
     $fat = 1;
     $carbo = 1;
 
-    if ( isset($_POST['weight']) || isset($_POST['height']) || isset($_POST['age']))
+    if ( !empty($request->get('weight')) || !empty($request->get('height')) || !empty($request->get('age')) )
     {
-      $weight = $_POST['weight'];
-      $height = $_POST['height'];
-      $age = $_POST['age'];
+      $weight = $request->get('weight');
+      $height = $request->get('height');
+      $age = $request->get('age');
     }
 
-    if ( isset($_POST['man']) || isset($_POST['woman']) )
+    if ( !empty($request->get('man')) || !empty($request->get('woman')) )
     {
-      if (isset($_POST['man']))
+      if ($request->get('man'))
       {
         $gender = 'Mężczyzna';
         $result = (10*$weight) + (6.25*$height) - (5*$age) + 5 ;
       } 
-      elseif (isset($_POST['woman']))
+      elseif ($request->get('woman'))
       {
         $gender = 'Kobieta';
         $result = (10*$weight) + (6.25*$height) - (5*$age) - 161 ;
-      }
-    
+      }  
     }
 
-    if ( isset($_POST['activity1']) || isset($_POST['activity2']) || isset($_POST['activity3']) )
+    if ( !empty($request->get('activity1')) || !empty($request->get('activity2')) || !empty($request->get('activity3')) )
     {
-      if (isset($_POST['activity1']))
+      if ($request->get('activity1'))
       {
-        $activity = 'niską aktywność w ciągu dnia';
-        $result = $result * 1.45;
-        
+        $activity = 'niską aktywność w ciągu dnia';     //low activity
+        $result = $result * 1.45;      
       }
-      elseif (isset($_POST['activity2']))
+      elseif ($request->get('activity2'))
       {
-        $activity = 'średnią aktywność w ciągu dnia';
-        $result = $result * 1.75;
-        
+        $activity = 'średnią aktywność w ciągu dnia';   //medium activity
+        $result = $result * 1.75;    
       }
-      elseif (isset($_POST['activity3']))
+      elseif ($request->get('activity3'))
       {
-        $activity = 'wysoką aktywność w ciągu dnia';
-        $result = $result * 2.0;
-        
-      }  
-      
+        $activity = 'wysoką aktywność w ciągu dnia';    //high activity
+        $result = $result * 2.0;        
+      }      
     } 
 
     settype($result, "integer");
-
     $caloric_requirement = $caloric_requirement + $result;
 
-    if ( isset($_POST['intension1']) || isset($_POST['intension2']) || isset($_POST['intension3']) )
+    if ( !empty($request->get('intension1')) || !empty($request->get('intension2')) || !empty($request->get('intension3')) )
     {
-
-      if (isset($_POST['intension1']))
+      if ($request->get('intension1'))
       {
         $intentions = 'zredukować tkankę tłuszczową';
         $kcal_day = ($caloric_requirement + $burn);
-        $protein = 2 * $weight; // ilosc bialka dla osob chcacych SCHUDNAC
+
+        /** Macronutrients for burning fat */
+        $protein = 2 * $weight;
         $fat = ($kcal_day * 0.25)/9 ;
         $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
       }
-      elseif (isset($_POST['intension2']))
+      elseif ($request->get('intension2'))
       {
         $intentions = 'utrzymać masę ciała';
         $kcal_day = ($caloric_requirement + $keep);
-        $protein = 1.60 * $weight; // ilosc bialka dla osob chcacych UTRZYMAC WAGE
+
+        /** Macronutrients for keep weight */
+        $protein = 1.60 * $weight;
         $fat = ($kcal_day * 0.25)/9 ;
         $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
       }
-      elseif (isset($_POST['intension3']))
+      elseif ($request->get('intension3'))
       {
         $intentions = 'zbudować masę mięśniową';
         $kcal_day = ($caloric_requirement + $gain);
-        $protein = 1.85 * $weight; // ilosc bialka dla osob chcacych PRZYTYĆ
+
+        /** Macronutrients for build muscle */
+        $protein = 1.85 * $weight; 
         $fat = ($kcal_day * 0.25)/9 ;
         $carbo = ($kcal_day - ($protein * 4) - ($fat * 9) )/4 ;
-      }  
-      
+      }      
     } 
 
+    /** Changing type from few number after comma for just integer */
     settype($kcal_day, "integer");
     settype($protein, "integer");
     settype($fat, "integer");
     settype($carbo, "integer");
-
     
+    /** Seting all preferentions */
     $preferention->setGender($gender);
     $preferention->setWeight($weight);
     $preferention->setHeight($height);
@@ -306,33 +301,26 @@ class PreferentionsController extends AbstractController
     $preferention->setFatPerDay($fat);
     $preferention->setCarboPerDay($carbo);
 
+    /** Creating a Weight History for geting data to chart on Dashboard */
     $userWeightHistory = new UserWeightHistory();
     $userWeightHistory->setUsers($this->getUser());
     $userWeightHistory->setUserWeight($weight);
     $userWeightHistory->setDateTime(new \DateTime());
 
-
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->persist($userWeightHistory);
     $entityManager->flush();
-
 
     if (isset($_POST['editpref']))
     {
       return $this->redirectToRoute('profile');
     } 
+
     else {
-    return $this->render('User/editPreferentions.html.twig', [
-      'preferention' => $preferention,
- 
-    ]); }
-
+      return $this->render('User/editPreferentions.html.twig', [
+        'preferention' => $preferention,
+        ]
+      ); 
+    }
   }
-
-
-
-
-
-
-
 } 
