@@ -7,26 +7,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends AbstractController
 {
-
-
     /**
-     * @Route(
-     *     "/",
-     *     name="home"
-     * )
+     * @Route("/", name="home")
      */
     public function homepage()
     {       
         if ($this->getUser()) 
         {
-        return $this->redirectToRoute('dashboard');
-             
-        } else 
-        {
-        return $this->render('Homepage/homepage.html.twig', []);
-        }
+            return $this->redirectToRoute('dashboard');         
+        } 
 
-           
+        else {
+            return $this->render('Homepage/homepage.html.twig');
+        }         
     }
-
 }
