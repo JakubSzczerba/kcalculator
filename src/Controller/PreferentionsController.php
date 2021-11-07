@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Form\PreferentionsType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -322,5 +323,17 @@ class PreferentionsController extends AbstractController
         ]
       ); 
     }
+  }
+
+  /**
+   * @Route("/testPref", name="testPref")
+   */
+  public function testPref()
+  {
+    $form = $this->createForm(PreferentionsType::class);
+
+    return $this->render('User/testPref.html.twig', [
+      'form' => $form->createView()
+    ]);
   }
 } 
