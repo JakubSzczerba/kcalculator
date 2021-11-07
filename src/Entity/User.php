@@ -75,8 +75,9 @@ class User implements UserInterface
    * @param string $email
    */
 
-  public function __construct(string $username, string $email) 
+  public function __construct(string $fullName, string $username, string $email) 
   {
+    $this->fullName = $fullName;
     $this->username = $username; 
     $this->email = $email;      
      // jesli zrobie drop db to musze usunac konstuktor, aby wczytac na naowo i zaladowac fixtures :)
