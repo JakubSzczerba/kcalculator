@@ -331,6 +331,7 @@ class PreferentionsController extends AbstractController
   public function testPref()
   {
     $form = $this->createForm(PreferentionsType::class);
+    //tescom
 
     return $this->render('User/testPref.html.twig', [
       'form' => $form->createView()
