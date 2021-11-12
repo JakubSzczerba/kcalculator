@@ -27,13 +27,14 @@
                 {% if app.user %}
                     <a class="navbar-brand" href="{{ path('dashboard') }}">
                     <div id="mylogo">
-                        <img class="mylogo" src="../assets/images/LOGO.PNG" alt="LOGO">
+                        <img class="mylogo" src="{{ asset('build/LOGO.PNG') }}" alt="LOGO">
+                        
                     </div>
                     </a>
                 {% else %}
                     <a class="navbar-brand" href="{{ path('home') }}">
                     <div id="mylogo">
-                        <img class="mylogo" src="../assets/images/LOGO.PNG" alt="LOGO">
+                        <img class="mylogo" src="{{ asset('build/LOGO.PNG') }}" alt="LOGO">
                     </div>
                     </a>
                 {% endif %}

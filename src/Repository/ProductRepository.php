@@ -26,7 +26,7 @@ class ProductRepository extends ServiceEntityRepository
             //->select('p')
             //->select('p.product', 'p.energy', 'p.protein', 'p.fat', 'p.carbo')
             ->where('p.product LIKE :product')        
-            ->setParameter('product', '%'.$product.'%')
+            ->setParameter('product', $product.'%')
             ->orderBy('p.product', 'ASC');
 
             
