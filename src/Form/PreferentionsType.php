@@ -12,6 +12,7 @@ namespace App\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -24,24 +25,33 @@ class PreferentionsType extends AbstractType
                 'choices' => [
                     'Mężczyzna' => 'man',
                     'Kobieta' => 'woman'
-                ]
+                ],
+                'label' => 'Płeć'
             ])
-            ->add('weight', TextType::class)
-            ->add('height', TextType::class)
-            ->add('age', TextType::class)
+            ->add('weight', NumberType::class, [
+                'label' => 'Waga'
+            ])
+            ->add('height', TextType::class,  [
+                'label' => 'Wzrost'
+            ])
+            ->add('age', TextType::class,  [
+                'label' => 'Wiek'
+            ])
             ->add('activity', ChoiceType::class, [
                 'choices' => [
-                    'activity1' => 'niską aktywność w ciągu dnia',
-                    'activity2' => 'średnią aktywność w ciągu dnia',
-                    'activity3' => 'wysoką aktywność w ciągu dnia'
-                ]
+                    'Niska aktywność w ciągu dnia' => 'activity1',
+                    'Średnia aktywność w ciągu dnia' => 'activity2',
+                    'Wysoka aktywność w ciągu dnia' => 'activity3'
+                ],
+                'label' => 'Aktywność'
             ])
             ->add('intentions', ChoiceType::class, [
                 'choices' => [
-                    'intension1' => 'zredukować tkankę tłuszczową',
-                    'intension2' => 'utrzymać masę ciała',
-                    'intension3' => 'zbudować masę mięśniową'
-                ]
+                    'Utrata wagi' => 'intension1',
+                    'Utrzymanie masy ciała' => 'intension2',
+                    'Budowa masy mięśniowej' => 'intension3'
+                ],
+                'label' => 'Intencje'
             ])
         ;
     }
