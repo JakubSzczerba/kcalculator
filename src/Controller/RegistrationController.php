@@ -45,7 +45,7 @@ class RegistrationController extends AbstractController
             }
         }
 
-        return $this->render('User/register.html.twig', [
+        return $this->render('User/Account/Register/index.html.twig', [
             'form' => $form->createView()
             ]
         );
