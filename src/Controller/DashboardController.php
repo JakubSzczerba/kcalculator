@@ -112,7 +112,7 @@ class DashboardController extends AbstractController
           ],
       ]);
      
-    return $this->render('Homepage/homeafterlog.html.twig', [
+    return $this->render('User/Dashboard/index.html.twig', [
       'preferentions' => $preferention,
       'summKcal' => $summKcal,
       'summProtein' => $summProtein,
