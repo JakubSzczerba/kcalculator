@@ -39,14 +39,6 @@ class DailyController extends AbstractController
   }
 
 /**
-   * @Route("/daily", name="daily")
-   */
-  public function daily()
-  {  
-    return $this->render('User/daily.html.twig');    
-  }
-
-/**
    * @Route("/product", methods="POST", name="findFood")
    */
   public function findFood(Request $request): Response
@@ -54,7 +46,7 @@ class DailyController extends AbstractController
     $nameproduct = $request->get('search');
     $foundProducts = $this->productRepository->findProducts($nameproduct);
   
-    return $this->render('User/searchproducts.html.twig',[
+    return $this->render('User/Daily/Products/searchedProducts.html.twig',[
       'products' => $foundProducts
     ]);
   }
@@ -64,7 +56,7 @@ class DailyController extends AbstractController
    */
   public function showOneProduct(Products $product): Response
   {
-    return $this->render('User/loadEntry.html.twig', [
+    return $this->render('User/Daily/Products/productDetails.html.twig', [
       'product' => $product,
     ]);
   }
@@ -123,13 +115,6 @@ class DailyController extends AbstractController
       {
         return $this->redirectToRoute('showEntries');            
       } 
-
-      else {   
-        return $this->render('User/daily.html.twig', [
-          'product' => $product,
-          ]
-        );
-      }
   }
 
   /**
@@ -148,14 +133,14 @@ class DailyController extends AbstractController
       return $this->redirectToRoute('showEntries');
     } 
     else {
-      return $this->render('User/testEntry.html.twig', []);
+      return $this->render('User/Daily/index.html.twig', []);
     }
   }
   
  /**
    * @Route("/wpisy/edit/{id}",  methods="GET|POST", name="editEntry")
    */
-  public function editEntry(int $id)
+  public function editEntry(Request $request, int $id)
   {
     $entry = new UsersEntries(); 
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
@@ -167,9 +152,9 @@ class DailyController extends AbstractController
     $fatXgram = $entry->getFatXgram();
     $carboXgram = $entry->getCarboXgram();
 
-    if(!empty($_POST['Meals'])) 
+    if(!empty($request->get('Meals')))
     {
-      $meal_type = $_POST['Meals'];
+      $meal_type = $request->get('Meals');
     }
     
     $grammageForEdit = ($grammage / $grammage);
@@ -178,9 +163,9 @@ class DailyController extends AbstractController
     $fatForEdit = ($fatXgram / $grammage);
     $carboForEdit = ($carboXgram / $grammage);
 
-    if(!empty($_POST['Grammage']))
+    if(!empty($request->get('Grammage')))
     {
-      $grammageForEdit = $_POST['Grammage'];
+      $grammageForEdit = $request->get('Grammage');
     }
 
     $energy = $energyForEdit * $grammageForEdit;
@@ -209,7 +194,7 @@ class DailyController extends AbstractController
     } 
 
     else {
-    return $this->render('User/editEntry.html.twig', [
+    return $this->render('User/Daily/Entries/editEntry.html.twig', [
       'entry' => $entry,     
         ]
       ); 
@@ -254,7 +239,7 @@ class DailyController extends AbstractController
     $SummTea = $this->entriesRepository->SummTea($datetime, $id, $meal5);           // {{ teakcal|number_format }}
     $SummSupper = $this->entriesRepository->SummSupper($datetime, $id, $meal6);    // {{ supperkcal|number_format }}
 
-    return $this->render('User/testEntry.html.twig', [
+    return $this->render('User/Daily/index.html.twig', [
       'entry' => $showEntry,
       'snack' => $ShowSnack,
       'breakfast' => $ShowBreakfast,

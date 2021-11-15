@@ -159,7 +159,7 @@ class PreferentionsController extends AbstractController
       return $this->redirectToRoute('dashboard');
     }
 
-    return $this->render('User/preferention.html.twig', [
+    return $this->render('User/Preferentions/index.html.twig', [
       'form' => $form->createView()
     ]);
   }
@@ -285,7 +285,7 @@ class PreferentionsController extends AbstractController
       return $this->redirectToRoute('dashboard');
     }
 
-    return $this->render('User/preferention.html.twig', [
+    return $this->render('User/Preferentions/index.html.twig', [
       'form' => $form->createView()
     ]);
   }
