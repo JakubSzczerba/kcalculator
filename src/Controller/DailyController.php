@@ -68,6 +68,8 @@ class DailyController extends AbstractController
   {   
     $em = $this->getDoctrine()->getManager();
 
+    // Pomyslec o formualrzu do "products details" i dodawac to z form
+
     $meal_type = '';
     $grammage = '';
     
