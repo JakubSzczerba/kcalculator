@@ -19,7 +19,7 @@ class ProductDetailsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Melas', ChoiceType::class, [
+            ->add('Meals', ChoiceType::class, [
                 'choices' => [
                     'Przekąska' => 'Przekąska',
                     'Śniadanie' => 'Śniadanie',
