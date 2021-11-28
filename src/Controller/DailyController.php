@@ -19,6 +19,7 @@ use App\Repository\EntriesRepository;
 use App\Entity\UsersEntries;
 use App\Entity\Products;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\ProductDetailsType;
 
 class DailyController extends AbstractController
 {
@@ -258,5 +259,19 @@ class DailyController extends AbstractController
       'dataTest' => $datetime,
       ]
     );
+  }
+
+  /**
+   * @Route("/testShowOneProduct/{id}", name="testShowOneProduct")
+   */
+  public function testShowOneProduct(Products $product, Request $request): Response
+  {
+    $form = $this->createForm(ProductDetailsType::class);
+    $form->handleRequest($request);
+
+    return $this->render('User/Daily/Products/testShowOneProduct.html.twig', [
+      'product' => $product,
+      'form' => $form->createView(),
+    ]);
   }
 }
