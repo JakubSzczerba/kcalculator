@@ -53,71 +53,60 @@ class DailyController extends AbstractController
   }
 
   /**
-   * @Route("/product/{id}", name="product.detail")
+   * @Route("/product/{id}", methods="GET|POST", name="addEntry")
    */
-  public function showOneProduct(Products $product): Response
-  {
-    return $this->render('User/Daily/Products/productDetails.html.twig', [
-      'product' => $product,
-    ]);
-  }
-
-  /**
-   * @Route("/product{id}", methods="POST", name="addEntry")
-   */
-  public function addEntry(Request $request, int $id, Products $product): Response
+  public function addEntry(Request $request, Products $product, int $id)
   {   
     $em = $this->getDoctrine()->getManager();
+    $form = $this->createForm(ProductDetailsType::class);
+    $form->handleRequest($request);
 
-    // Pomyslec o formualrzu do "products details" i dodawac to z form
-
-    $meal_type = '';
-    $grammage = '';
-    
-    if(!empty($request->get('Meals')) || !empty($request->get('Grammage')) ) 
+    if ($form->isSubmitted() && $form->isValid())
     {
-      $meal_type = $request->get('Meals');
-      $grammage = $request->get('Grammage');
-    } 
+      $meal_type = $form->get('Meals')->getData();
+      $grammage = $form->get('Grammage')->getData();
+      
+      // getting infroamtion about selected product
+      $product = $em->getRepository(Products::class)->find($id);
+      $energy = $product->getEnergy();
+      $protein = $product->getProtein();
+      $fat = $product->getFat();
+      $carbo = $product->getCarbo();
 
-    // getting infroamtion about selected product
-    $product = $em->getRepository(Products::class)->find($id);
-    $energy = $product->getEnergy();
-    $protein = $product->getProtein();
-    $fat = $product->getFat();
-    $carbo = $product->getCarbo();
-    
-    // recalculation of product's informations by selected grammage
-    $energyXgram = $energy * $grammage;
-    $proteinXgram = $protein * $grammage;
-    $fatXgram = $fat * $grammage;
-    $carboXgram = $carbo * $grammage;
+      // recalculation of product's informations by selected grammage
+      $energyXgram = $energy * $grammage;
+      $proteinXgram = $protein * $grammage;
+      $fatXgram = $fat * $grammage;
+      $carboXgram = $carbo * $grammage;
 
-    // rounding results
-    $energyXgram = round($energyXgram, 0);
-    $proteinXgram = round($proteinXgram, 2);
-    $fatXgram = round($fatXgram, 2);
-    $carboXgram = round($carboXgram, 2);
-    
-    // Creating Entry
-    $entry = new UsersEntries();
-    $entry->setUser($this->getUser());
-    $entry->setDateTime(new \DateTime());
-    $entry->setMealType($meal_type);
-    $entry->setGrammage($grammage);
-    $entry->setFood($product);
-    $entry->setEnergyXgram($energyXgram);
-    $entry->setProteinXgram($proteinXgram);
-    $entry->setFatXgram($fatXgram);
-    $entry->setCarboXgram($carboXgram);
+      // rounding results
+      $energyXgram = round($energyXgram, 0);
+      $proteinXgram = round($proteinXgram, 2);
+      $fatXgram = round($fatXgram, 2);
+      $carboXgram = round($carboXgram, 2);
 
-    $this->entityManager->persist($entry);
-    $this->entityManager->flush();
+      // Creating Entry
+      $entry = new UsersEntries();
+      $entry->setUser($this->getUser());
+      $entry->setDateTime(new \DateTime());
+      $entry->setMealType($meal_type);
+      $entry->setGrammage($grammage);
+      $entry->setFood($product);
+      $entry->setEnergyXgram($energyXgram);
+      $entry->setProteinXgram($proteinXgram);
+      $entry->setFatXgram($fatXgram);
+      $entry->setCarboXgram($carboXgram);
 
-    if ($this->getUser()) 
-      {
-        return $this->redirectToRoute('showEntries');            
-      } 
+      $this->entityManager->persist($entry);
+      $this->entityManager->flush();
+
+      return $this->redirectToRoute('showEntries'); 
+    }
+
+    return $this->render('User/Daily/Products/productDetails.html.twig', [
+      'product' => $product,
+      'form' => $form->createView(),
+    ]);
   }
 
   /**
@@ -259,19 +248,5 @@ class DailyController extends AbstractController
       'dataTest' => $datetime,
       ]
     );
-  }
-
-  /**
-   * @Route("/testShowOneProduct/{id}", name="testShowOneProduct")
-   */
-  public function testShowOneProduct(Products $product, Request $request): Response
-  {
-    $form = $this->createForm(ProductDetailsType::class);
-    $form->handleRequest($request);
-
-    return $this->render('User/Daily/Products/testShowOneProduct.html.twig', [
-      'product' => $product,
-      'form' => $form->createView(),
-    ]);
   }
 }
