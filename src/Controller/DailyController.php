@@ -18,6 +18,7 @@ use App\Repository\ProductRepository;
 use App\Repository\EntriesRepository;
 use App\Entity\UsersEntries;
 use App\Entity\Products;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProductDetailsType;
 
@@ -134,63 +135,54 @@ class DailyController extends AbstractController
    */
   public function editEntry(Request $request, int $id)
   {
-    $entry = new UsersEntries(); 
     $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
 
-    $meal_type = '';
-    $grammage = $entry->getGrammage();
-    $energyXgram = $entry->getEnergyXgram();
-    $proteinXgram = $entry->getProteinXgram();
-    $fatXgram = $entry->getFatXgram();
-    $carboXgram = $entry->getCarboXgram();
-
-    if(!empty($request->get('Meals')))
-    {
-      $meal_type = $request->get('Meals');
-    }
+    $form = $this->createForm(ProductDetailsType::class);
+    $form->handleRequest($request);
+    $choosenProduct = $entry->getFood();
     
-    $grammageForEdit = ($grammage / $grammage);
-    $energyForEdit = ($energyXgram / $grammage);
-    $proteinForEdit = ($proteinXgram / $grammage);
-    $fatForEdit = ($fatXgram / $grammage);
-    $carboForEdit = ($carboXgram / $grammage);
+    $product = [];
 
-    if(!empty($request->get('Grammage')))
-    {
-      $grammageForEdit = $request->get('Grammage');
+    foreach ($choosenProduct as $productDetails ) {  
+      $product = $productDetails;
     }
 
-    $energy = $energyForEdit * $grammageForEdit;
-    $protein = $proteinForEdit * $grammageForEdit;
-    $fat= $fatForEdit * $grammageForEdit;
-    $carbo = $carboForEdit * $grammageForEdit;
-
-    $energy = round($energy, 0);
-    $protein = round($protein, 2);
-    $fat = round($fat, 2);
-    $carbo = round($carbo, 2);
-
-    $entry->setMealType($meal_type);
-    $entry->setGrammage($grammageForEdit);
-    $entry->setEnergyXgram($energy);
-    $entry->setProteinXgram($protein);
-    $entry->setFatXgram($fat);
-    $entry->setCarboXgram($carbo);
-
-    $this->entityManager = $this->getDoctrine()->getManager();
-    $this->entityManager->flush();
-    
-    if (isset($_POST['editbut']))
+    if ($form->isSubmitted() && $form->isValid())
     {
+      $meal_type = $form->get('Meals')->getData();
+      $grammage = $form->get('Grammage')->getData();
+
+      $energy = $product->getEnergy();
+      $protein = $product->getProtein();
+      $fat = $product->getFat();
+      $carbo = $product->getCarbo();
+
+      $energyXgram = $energy * $grammage;
+      $proteinXgram = $protein * $grammage;
+      $fatXgram = $fat * $grammage;
+      $carboXgram = $carbo * $grammage;
+
+      $energyXgram = round($energyXgram, 0);
+      $proteinXgram = round($proteinXgram, 2);
+      $fatXgram = round($fatXgram, 2);
+      $carboXgram = round($carboXgram, 2);
+
+      $entry->setMealType($meal_type);
+      $entry->setGrammage($grammage);
+      $entry->setEnergyXgram($energyXgram);
+      $entry->setProteinXgram($proteinXgram);
+      $entry->setFatXgram($fatXgram);
+      $entry->setCarboXgram($carboXgram);
+
+      $this->entityManager->flush();
+
       return $this->redirectToRoute('showEntries');
     } 
 
-    else {
-    return $this->render('User/Daily/Entries/editEntry.html.twig', [
-      'entry' => $entry,     
-        ]
-      ); 
-    } 
+    return $this->render('User/Daily/Products/productDetails.html.twig', [
+      'product' => $product,
+      'form' => $form->createView(),
+    ]);
   }
 
   /**
