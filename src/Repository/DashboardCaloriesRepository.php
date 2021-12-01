@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file was created by Jakub Szczerba
+ * It is part of an engineering project - Kcalculator - copyright is reserved
+ * Contact: https://www.linkedin.com/in/jakub-szczerba-3492751b4/
+*/
+
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\UserPreferention;
@@ -19,26 +27,17 @@ class DashboardCaloriesRepository extends ServiceEntityRepository
     /**
      * @return calories[]
      */
-
     public function showKcalPerDay(int $id)
     {
         $qb = $this->createQueryBuilder('p');
 
-        $qb->select('p.kcal_day, p.proteinPerDay, p.fatPerDay, p.carboPerDay')
+        $qb->select('p.kcal_day, p.proteinPerDay, p.fatPerDay, p.carboPerDay, p.intentions')
             ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = p.users')
             ->where('p.kcal_day IS NOT NULL')
             ->andWhere('u.id like :users')
             ->setParameter('users', $id);
-            //>andWhere('p.kcal_day IS NULL')
-            //->setParameter('p.kcal_day', 0);
-
-            
-
-            
-        //dump($qb->getQuery()->getResult());
+   
         return $qb->getQuery()->getArrayResult();
 
     }
-
-
 }
