@@ -18,7 +18,6 @@ use App\Repository\ProductRepository;
 use App\Repository\EntriesRepository;
 use App\Entity\UsersEntries;
 use App\Entity\Products;
-use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProductDetailsType;
 
@@ -49,7 +48,8 @@ class DailyController extends AbstractController
     $foundProducts = $this->productRepository->findProducts($nameproduct);
   
     return $this->render('User/Daily/Products/searchedProducts.html.twig',[
-      'products' => $foundProducts
+      'products' => $foundProducts,
+      'nameproduct' => $nameproduct,
     ]);
   }
 

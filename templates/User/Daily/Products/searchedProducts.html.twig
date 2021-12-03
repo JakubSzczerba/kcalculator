@@ -6,7 +6,7 @@
 <div class="row" id="searchingProducts">
     <div lass="col-lg-12">
 
-    <h3 class="mt-5" style="text-align: center;">Wyniki wyszukiwania: </h3>  <br><br>        
+    <h3 class="mt-5" style="text-align: center;">Wyniki wyszukiwania dla frazy "{{ nameproduct}}" </h3>  <br><br>        
                                                     
                                     <table class="table table-striped" style="width: 900px;">
                                     <tbody>
@@ -30,7 +30,7 @@
 
                                     {% else %}
                                        <div class="col-lg-12">
-                                         <h2 class="mt-5">Wyszukiwana fraza nie istnieje</h2><br>                               
+                                         <h2 class="mt-5">Produkt o nazwie "{{ nameproduct}}" nie istnieje</h2><br>                               
                                     {% endif %}                                                                                                          
                     </div>                          
         </div>   
