@@ -34,6 +34,5 @@ class ProductRepository extends ServiceEntityRepository
             ->orderBy('p.product', 'ASC');
 
         return $qb->getQuery()->getArrayResult();
-
     }
 }
