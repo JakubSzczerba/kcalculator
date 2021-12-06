@@ -1,14 +1,18 @@
 <?php
 
+/*
+ * This file was created by Jakub Szczerba
+ * It is part of an engineering project - Kcalculator - copyright is reserved
+ * Contact: https://www.linkedin.com/in/jakub-szczerba-3492751b4/
+*/
+
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\UsersEntries;
-use App\Entity\Products;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use function Symfony\Component\String\u;
-use Doctrine\ORM\Query\Expr\Join;
 
 class EntriesRepository extends ServiceEntityRepository
 {
@@ -20,10 +24,8 @@ class EntriesRepository extends ServiceEntityRepository
     /**
      * @return entries[]
      */
-
     public function displayEntry(\DateTime $datetime, int $id)
-    {
-        
+    {        
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')
@@ -33,14 +35,8 @@ class EntriesRepository extends ServiceEntityRepository
             ->andWhere('e.datetime = :datetime')     
             ->setParameter('user', $id)
             ->setParameter('datetime', $datetime->format('Y-m-d'));
-            //->groupBy('e.meal_type', 'p.product');  zakomentowane bo wywaloalo blad.
             
-
-
-            
-        //dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getArrayResult();
-
     }
 
     /**
@@ -62,10 +58,8 @@ class EntriesRepository extends ServiceEntityRepository
     /**
      * @return snacks[]
      */
-
     public function ShowSnack(\DateTime $datetime, int $id, string $meal1)
     {
-        
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')    //summSnack
@@ -77,23 +71,15 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('user', $id)   
             ->setParameter('meal_type', $meal1)
             ->setParameter('datetime', $datetime->format('Y-m-d'));
-            
-            
-
-
-            
-        //dump($qb->getQuery()->getResult());
+  
         return $qb->getQuery()->getArrayResult();
-
     }
 
     /**
      * @return breakfast[]
      */
-
     public function ShowBreakfast(\DateTime $datetime, int $id, string $meal2)
-    {
-        
+    {       
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')    //summSnack
@@ -106,18 +92,14 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('meal_type', $meal2)
             ->setParameter('datetime', $datetime->format('Y-m-d'));
                       
-        //dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getArrayResult(); 
-
     }
 
     /**
      * @return lunch[]
      */
-
     public function ShowLunch(\DateTime $datetime, int $id, string $meal3)
-    {
-        
+    {        
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')  
@@ -131,16 +113,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('datetime', $datetime->format('Y-m-d'));
 
         return $qb->getQuery()->getArrayResult(); 
-
     } 
 
     /**
      * @return dinner[]
      */
-
     public function ShowDinner(\DateTime $datetime, int $id, string $meal4)
-    {
-        
+    {       
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')  
@@ -154,16 +133,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('datetime', $datetime->format('Y-m-d'));
 
         return $qb->getQuery()->getArrayResult(); 
-
     }
 
     /**
      * @return tea[]
      */
-
     public function ShowTea(\DateTime $datetime, int $id, string $meal5)
-    {
-        
+    {        
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')  
@@ -177,16 +153,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('datetime', $datetime->format('Y-m-d'));
 
         return $qb->getQuery()->getArrayResult(); 
-
     }
 
     /**
      * @return supper[]
      */
-
     public function ShowSupper(\DateTime $datetime, int $id, string $meal6)
-    {
-        
+    {       
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')  
@@ -200,16 +173,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('datetime', $datetime->format('Y-m-d'));
 
         return $qb->getQuery()->getArrayResult(); 
-
     }
 
     /**
      * @return snacks_kcal[]
      */
-
     public function SummSnacksKcal(\DateTime $datetime, int $id, string $meal1)
-    {
-        
+    {       
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('SUM(e.energyXgram) as snackKcal')
@@ -221,16 +191,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('meal_type', $meal1);
             
         return $qb->getQuery()->getSingleScalarResult();
-
     }
 
     /**
      * @return breakfast_kcal[]
      */
-
     public function SummBreakfast(\DateTime $datetime, int $id, string $meal2)
-    {
-        
+    {      
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('SUM(e.energyXgram) as breakKcal')
@@ -242,16 +209,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('meal_type', $meal2);
             
         return $qb->getQuery()->getSingleScalarResult();
-
     }
 
     /**
      * @return lunch_kcal[]
      */
-
     public function SummLunch(\DateTime $datetime, int $id, string $meal3)
-    {
-        
+    {       
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('SUM(e.energyXgram) as lunchKcal')
@@ -263,16 +227,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('meal_type', $meal3);
             
         return $qb->getQuery()->getSingleScalarResult();
-
     }
 
     /**
      * @return dinner_kcal[]
      */
-
     public function SummDinner(\DateTime $datetime, int $id, string $meal4)
-    {
-        
+    {      
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('SUM(e.energyXgram) as dinnerKcal')
@@ -284,16 +245,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('meal_type', $meal4);
             
         return $qb->getQuery()->getSingleScalarResult();
-
     }
 
     /**
      * @return tea_kcal[]
      */
-
     public function SummTea(\DateTime $datetime, int $id, string $meal5)
-    {
-        
+    {       
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('SUM(e.energyXgram) as teaKcal')
@@ -305,16 +263,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('meal_type', $meal5);
             
         return $qb->getQuery()->getSingleScalarResult();
-
     }
 
     /**
      * @return supper_kcal[]
      */
-
     public function SummSupper(\DateTime $datetime, int $id, string $meal6)
-    {
-        
+    {       
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('SUM(e.energyXgram) as supperKcal')
@@ -326,16 +281,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('meal_type', $meal6);
             
         return $qb->getQuery()->getSingleScalarResult();
-
     }
 
     /**
      * @return editEntry[]
      */
-
     public function editEntry(int $id)
-    {
-        
+    {       
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('e')
@@ -344,19 +296,14 @@ class EntriesRepository extends ServiceEntityRepository
             ->where('e.id = :id')            
             ->setParameter('id', $id);
                   
-        dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getArrayResult();
-
-
     }   
 
     /**
      * @return entried_Proteins[]
      */
-
     public function SummEntriedProteins(\DateTime $datetime, int $id)
-    {
-        
+    {      
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('SUM(e.proteinXgram) as totalProteins')
@@ -366,16 +313,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('datetime', $datetime->format('Y-m-d'));
             
         return $qb->getQuery()->getSingleScalarResult();
-
     }
 
     /**
      * @return entried_Fats[]
      */
-
     public function SummEntriedFats(\DateTime $datetime, int $id)
-    {
-        
+    {       
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('SUM(e.fatXgram) as totalFats')
@@ -385,16 +329,13 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('datetime', $datetime->format('Y-m-d'));
             
         return $qb->getQuery()->getSingleScalarResult();
-
     }
 
     /**
      * @return entried_Carbo[]
      */
-
     public function SummEntriedCarbo(\DateTime $datetime, int $id)
-    {
-        
+    {        
         $qb = $this->createQueryBuilder('e');
 
         $qb->select('SUM(e.carboXgram) as totalCarbo')
@@ -404,10 +345,6 @@ class EntriesRepository extends ServiceEntityRepository
             ->setParameter('datetime', $datetime->format('Y-m-d'));
             
         return $qb->getQuery()->getSingleScalarResult();
-
     }
-
-
-
 } 
 

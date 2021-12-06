@@ -1,12 +1,18 @@
 <?php
 
+/*
+ * This file was created by Jakub Szczerba
+ * It is part of an engineering project - Kcalculator - copyright is reserved
+ * Contact: https://www.linkedin.com/in/jakub-szczerba-3492751b4/
+*/
+
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\UserPreferention;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use function Symfony\Component\String\u;
 use Doctrine\ORM\Query\Expr\Join;
 
 class ProfileRepository extends ServiceEntityRepository
@@ -19,10 +25,8 @@ class ProfileRepository extends ServiceEntityRepository
     /**
      * @return profile[]
      */
-
     public function userProfile(int $id)
-    {
-        
+    {     
         $qb = $this->createQueryBuilder('p');
 
         $qb->select('u.username', 'u.email', 'p.gender', 'p.weight', 'p.height', 'p.age', 'p.activity', 'p.caloric_requirement', 'p.intentions', 'p.kcal_day', 'p.id', 'p.proteinPerDay', 'p.fatPerDay', 'p.carboPerDay' )
@@ -30,28 +34,6 @@ class ProfileRepository extends ServiceEntityRepository
             ->where('u.id = :users')
             ->setParameter('users', $id);
             
-        
-            
-
-            
-        //dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getArrayResult();
-
-        
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

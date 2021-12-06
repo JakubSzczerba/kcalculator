@@ -29,13 +29,22 @@ class PreferentionsType extends AbstractType
                 'label' => 'Płeć'
             ])
             ->add('weight', NumberType::class, [
-                'label' => 'Waga'
+                'label' => 'Waga (kg)',
+                'attr' => array(
+                    'placeholder' => '68.5'
+                )
             ])
             ->add('height', TextType::class,  [
-                'label' => 'Wzrost'
+                'label' => 'Wzrost (cm)',
+                'attr' => array(
+                    'placeholder' => '153'
+                )
             ])
             ->add('age', TextType::class,  [
-                'label' => 'Wiek'
+                'label' => 'Wiek',
+                'attr' => array(
+                    'placeholder' => '31'
+                )
             ])
             ->add('activity', ChoiceType::class, [
                 'choices' => [
