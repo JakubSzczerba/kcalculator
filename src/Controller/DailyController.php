@@ -101,6 +101,8 @@ class DailyController extends AbstractController
       $this->entityManager->persist($entry);
       $this->entityManager->flush();
 
+      $this->addFlash('success', 'Dodano wpis do dziennika');
+
       return $this->redirectToRoute('showEntries'); 
     }
 
