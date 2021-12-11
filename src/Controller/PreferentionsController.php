@@ -156,6 +156,8 @@ class PreferentionsController extends AbstractController
       $this->entityManager->persist($userWeightHistory);
       $this->entityManager->flush();
 
+      $this->addFlash('success', 'Obliczono dziennie zapotrzebowanie kaloryczne');
+
       return $this->redirectToRoute('dashboard');
     }
 
@@ -281,6 +283,8 @@ class PreferentionsController extends AbstractController
 
       $this->entityManager->persist($userWeightHistory);
       $this->entityManager->flush();
+
+      $this->addFlash('success', 'Edytowano dziennie zapotrzebowanie kaloryczne');
 
       return $this->redirectToRoute('dashboard');
     }
