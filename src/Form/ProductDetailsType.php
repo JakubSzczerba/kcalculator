@@ -50,5 +50,9 @@ class ProductDetailsType extends AbstractType
                 'label' => 'Wielkość porcji'
             ])
         ;
+        /**
+         * add event listener to ajax -> dynamic changig value of kcal, proteinf etc after choose grammage
+         * $builder->addEventListener(
+         */
     }
 }
