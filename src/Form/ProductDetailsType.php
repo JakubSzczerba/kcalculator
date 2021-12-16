@@ -10,9 +10,13 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Entity\UsersEntries;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ProductDetailsType extends AbstractType
 {
@@ -49,10 +53,30 @@ class ProductDetailsType extends AbstractType
                 ],
                 'label' => 'Wielkość porcji'
             ])
+            // ->add('changingValues', EntityType::class, [
+            //     'class' => UsersEntries::class,
+            //     'placeholder' => '',
+            // ])
         ;
-        /**
-         * add event listener to ajax -> dynamic changig value of kcal, proteinf etc after choose grammage
-         * $builder->addEventListener(
-         */
+
+        // $builder->addEventListener(
+        //     FormEvents::PRE_SET_DATA,
+        //     function (FormEvent $event) {
+        //         $form = $event->getForm();
+
+        //         // this would be your entity, i.e. SportMeetup
+        //         $data = $event->getData();
+
+        //         $sport = $data->getSport();
+        //         $positions = null === $sport ? [] : $sport->getAvailablePositions();
+
+        //         $form->add('position', EntityType::class, [
+        //             'class' => Position::class,
+        //             'placeholder' => '',
+        //             'choices' => $positions,
+        //         ]);
+        //     }
+        // );
+                
     }
 }
