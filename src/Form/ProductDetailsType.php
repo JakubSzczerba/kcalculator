@@ -50,5 +50,6 @@ class ProductDetailsType extends AbstractType
                 'label' => 'Wielkość porcji'
             ])
         ;
+                
     }
 }
