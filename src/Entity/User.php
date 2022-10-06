@@ -80,7 +80,7 @@ class User implements UserInterface
     $this->fullName = $fullName;
     $this->username = $username; 
     $this->email = $email;      
-     // jesli zrobie drop db to musze usunac konstuktor, aby wczytac na naowo i zaladowac fixtures :)
+    /* nedd to comment constructor for new fixtures load. */
   } 
  
   public function getId()
