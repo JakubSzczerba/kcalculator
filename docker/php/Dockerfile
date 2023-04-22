@@ -1,14 +1,16 @@
 FROM php:7.4-fpm
 
-RUN apt-get update && apt-get install -y zlib1g-dev g++ git libicu-dev zip libzip-dev zip \
-    && docker-php-ext-install intl opcache pdo pdo_mysql \
-    && pecl install apcu \
-    && docker-php-ext-enable apcu \
-    && docker-php-ext-configure zip \
-    && docker-php-ext-install zip
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 
-WORKDIR /var/www/project
+RUN apt-get update  \
+    && apt-get install -y  libpq-dev libpng-dev libzip-dev zip nodejs \
+    && docker-php-ext-install zip pgsql pdo_pgsql sysvsem gd bcmath \
+    && apt-get clean \
+    && curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN apt-get install -y nodejs
 
-RUN curl -sS https://get.symfony.com/cli/installer | bash
+RUN npm install -g yarn
+
+WORKDIR /var/www/kcalculator

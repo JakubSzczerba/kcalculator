@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * @ORM\Table(name="`user`")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface  
@@ -81,7 +82,7 @@ class User implements UserInterface
     $this->username = $username; 
     $this->email = $email;      
     /* nedd to comment constructor for new fixtures load. */
-  } 
+  }
  
   public function getId()
   {

@@ -1,51 +1,44 @@
-version: '3'
-
-networks:
-  nginx-php74-mysql8-node:
-
+version: '3.8'
 services:
-
-  # nginx
-  nginx-service:
-    image: nginx:stable-alpine
-    container_name: nginx-container
+  db:
+    image: postgres:13.2
     ports:
-      - "8080:80"
-    volumes:
-      - ./app:/var/www/project
-      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-    depends_on:
-      - php74-service
-      - mysql8-service
-    networks:
-      - nginx-php74-mysql8-node
-
-  # php
-  php74-service:
-    build:
-      context: .
-      dockerfile: ./docker/php/Dockerfile
-    container_name: php74-container
-    ports:
-      - "9000:9000"
-    volumes:
-      - ./app:/var/www/project
-    networks:
-      - nginx-php74-mysql8-node
-
-  # mysql
-  mysql8-service:
-    image: mysql:8
-    container_name: mysql8-container
-    ports:
-      - "4306:3306"
-    volumes:
-      - ./mysql:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    restart: always # always restart unless stopped manually
+      - 5449:5432
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_PASSWORD: secret
-    networks:
-      - nginx-php74-mysql8-node
-
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=kcalculator
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+  php:
+    build:
+      ./docker/php
+    volumes:
+      - .:/var/www/kcalculator:delegated
+    links:
+      - db
+      # - mailer
+    environment:
+      DATABASE_URL: "postgresql://root:root@db:5432/kcalculator?serverVersion=13.2"
+      APP_URL: "http://localhost:8099"
+      APP_ENV: "dev"
+      APP_SECRET: "ndu5tb2ald1bt3i2279888xdia13le4b"
+  nginx:
+    image: nginx:1.19
+    ports:
+      - "8099:80"
+    volumes:
+      - .:/var/www/kcalculator:delegated
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - php
+  encore:
+    image: node:10-alpine
+    volumes:
+      - .:/app
+    ports:
+      - "${DEV_SERVER_PORT:-8080}:8080"
+    working_dir: /app
+    command: [ "yarn", "dev-server", "--host=0.0.0.0" ]
+volumes:
+  db-data:
