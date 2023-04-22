@@ -26,7 +26,7 @@ class Products
      */
     private $product;
     /**
-     * @ORM\Column(type="integer") 
+     * @ORM\Column(type="float")
      */
     private $energy;
     /**
