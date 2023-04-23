@@ -36,7 +36,7 @@ class UserFixtures extends Fixture
     private function loadUsers(): void
     {
         foreach ($this->getUserData() as [$fullName, $username, $email, $password, $roles]) {
-            $user = new User();
+            $user = new User($fullName, $username, $email);
             $user->setFullName($fullName);
             $user->setUsername($username);
             $user->setEmail($email);
