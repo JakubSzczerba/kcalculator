@@ -4,7 +4,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "composer/package-versions-deprecated": "1.11.99.1",
@@ -37,7 +37,7 @@
         "symfony/debug-bundle": "5.2.*",
         "symfony/stopwatch": "^5.2",
         "symfony/web-profiler-bundle": "^5.2",
-        "symfony/web-server-bundle": "4.4"
+        "symfony/web-server-bundle": "^4.4.2"
     },
     "config": {
         "optimize-autoloader": true,

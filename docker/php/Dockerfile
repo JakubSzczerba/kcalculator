@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.0-fpm
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 
