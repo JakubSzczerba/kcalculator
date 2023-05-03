@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dictrionary\Entry;
+namespace App\Dictionary\Entry;
 
 class MealTypeDictionary
 {
