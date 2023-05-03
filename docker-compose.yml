@@ -1,25 +1,24 @@
 version: '3.8'
 services:
   db:
-    image: postgres:13.2
+    image: mariadb:10.5
     ports:
-      - 5449:5432
+      - 3306:3306
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=kcalculator
+      MYSQL_ROOT_LOGIN: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: kcalculator
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
+      - db-data:/var/lib/mysql:rw
   php:
     build:
-      ./docker/php
+      context: ./docker/php
     volumes:
       - .:/var/www/kcalculator:delegated
     links:
       - db
-      # - mailer
     environment:
-      DATABASE_URL: "postgresql://root:root@db:5432/kcalculator?serverVersion=13.2"
+      DATABASE_URL: "mysql://root:root@db:3306/kcalculator?serverVersion=10.5"
       APP_URL: "http://localhost:8099"
       APP_ENV: "dev"
       APP_SECRET: "ndu5tb2ald1bt3i2279888xdia13le4b"

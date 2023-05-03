@@ -37,7 +37,7 @@ class CsvImportCommand extends Command
         $this->setDescription('Imports a mock CSV file');
     }
    
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -56,8 +56,9 @@ class CsvImportCommand extends Command
 
             $this->em->persist($products);
         }
-
         $this->em->flush();
         $io->success('Everything went well');
+
+        return 1;
     }
 }
