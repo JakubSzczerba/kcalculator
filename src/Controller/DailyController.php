@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Dictrionary\Entry\MealTypeDictionary;
+use App\Dictionary\Entry\MealTypeDictionary;
 use App\Entity\User;
 use App\Factory\Entry\EntryFactory;
 use App\Prodiver\Entry\EntryDataProvider;
