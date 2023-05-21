@@ -72,7 +72,8 @@ class BasalMetabolicRateAlgorithm
                 break;
         }
 
-        $array['kcal'] = $kcal_day;
+        $array['caloric_requirement'] = $caloric_requirement;
+        $array['kcal_per_day'] = $kcal_day;
         $array['protein'] = (int)$protein;
         $array['fat'] = (int)$fat;
         $array['carbohydrates'] = (int)$carbohydrates;
