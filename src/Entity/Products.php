@@ -18,31 +18,37 @@ class Products
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\UsersEntries", mappedBy="food")"
      *
      */
-    private $entries;
+    private Collection $entries;
+
     /**
      * @ORM\Column(type="string")
      */
-    private $product;
+    private string $product;
+
     /**
      * @ORM\Column(type="float")
      */
-    private $energy;
+    private float $energy;
+
     /**
      * @ORM\Column(type="float")
      */
-    private $protein;
+    private float $protein;
+
     /**
      * @ORM\Column(type="float")
      */
-    private $fat;
+    private float $fat;
+
     /**
      * @ORM\Column(type="float")
      */
-    private $carbo;
+    private float $carbo;
 
     public function __construct()
     {
@@ -105,16 +111,8 @@ class Products
         $this->carbo = $carbo;
     }
 
-    public function getEntry(): ?UsersEntries
+    public function getEntry(): ArrayCollection
     {
         return $this->entries;
     }
-
-    public function setEntry(?UsersEntries $entries): self
-    {
-        $this->entries = $entries;
-        return $this;
-    }
-
-
 }
