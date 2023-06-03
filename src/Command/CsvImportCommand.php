@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 namespace App\Command;
+
 use App\Entity\Products;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -19,10 +20,7 @@ use League\Csv\Reader;
 
 class CsvImportCommand extends Command
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
+    private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
     {
@@ -32,11 +30,11 @@ class CsvImportCommand extends Command
     }
 
     protected function configure()
-    {      
+    {
         $this->setName('csv:import');
         $this->setDescription('Imports a mock CSV file');
     }
-   
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

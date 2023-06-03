@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,42 +12,48 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Products
 {
-     /**
-   * @ORM\Column(type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
-  private $id;
-  /**
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\UsersEntries", mappedBy="food")"
-     * 
+     *
      */
-    private $entries;
-  /**
-     * @ORM\Column(type="string") 
+    private Collection $entries;
+
+    /**
+     * @ORM\Column(type="string")
      */
-    private $product;
+    private string $product;
+
     /**
      * @ORM\Column(type="float")
      */
-    private $energy;
+    private float $energy;
+
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="float")
      */
-    private $protein;
+    private float $protein;
+
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="float")
      */
-    private $fat;
+    private float $fat;
+
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="float")
      */
-    private $carbo;
+    private float $carbo;
 
     public function __construct()
     {
         $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
-       
+
     }
 
     public function getId()
@@ -63,7 +71,7 @@ class Products
         $this->product = $product;
     }
 
-    public function getEnergy(): ?int  
+    public function getEnergy(): ?int
     {
         return $this->energy;
     }
@@ -103,42 +111,8 @@ class Products
         $this->carbo = $carbo;
     }
 
-    public function getEntry(): ?UsersEntries
+    public function getEntry(): ArrayCollection
     {
         return $this->entries;
     }
-
-    public function setEntry(?UsersEntries $entries): self
-    {
-        $this->entries = $entries;
-        return $this;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

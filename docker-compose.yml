@@ -18,10 +18,11 @@ services:
     links:
       - db
     environment:
-      DATABASE_URL: "mysql://root:root@db:3306/kcalculator?serverVersion=10.5"
-      APP_URL: "http://localhost:8099"
+      DATABASE_URL: "mysql://root:root@db:3306/kcalculator"
+      APP_URL: "http://kcalculator.local:8099"
       APP_ENV: "dev"
       APP_SECRET: "ndu5tb2ald1bt3i2279888xdia13le4b"
+      APP_HOSTNAME: "kcalculator.local"
   nginx:
     image: nginx:1.19
     ports:
