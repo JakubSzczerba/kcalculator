@@ -11,23 +11,22 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProfileRepository;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController extends AbstractController
 {
-    /**
-   * @Route("/profile", name="profile")
-   */
-  public function showProfile(ProfileRepository $profileRepository)
-  
-  {
-    $id = $this->getUser()->getId();
-    $profile = $profileRepository->userProfile($id);
+    #[Route('/profile', name: 'profile')]
+    public function showProfile(ProfileRepository $profileRepository): Response
 
-    return $this->render('User/Profile/index.html.twig', [
-        'profile' => $profile
-      ]
-    );
-  }
+    {
+        $id = $this->getUser()->getId();
+        $profile = $profileRepository->userProfile($id);
+
+        return $this->render('User/Profile/index.html.twig', [
+                'profile' => $profile
+            ]
+        );
+    }
 }

@@ -15,17 +15,16 @@ use App\Form\UserType;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
-    /**
-     * @Route("/register", name="registration")
-     */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, Session $session)
+    #[Route('/register', name: 'registration')]
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, Session $session): Response
     {
         $form = $this->createForm(UserType::class);
         $form->handleRequest($request);
@@ -37,16 +36,15 @@ class RegistrationController extends AbstractController
             try {
                 $entityManager->persist($user);
                 $entityManager->flush();
-                $session->getFlashBag()->add('success', sprintf('Account %s has been created!', $user->getUsername()));            
+                $session->getFlashBag()->add('success', sprintf('Account %s has been created!', $user->getUsername()));
                 return $this->redirectToRoute('home');
-            } 
-            catch (UniqueConstraintViolationException $exception) {
+            } catch (UniqueConstraintViolationException $exception) {
                 $session->getFlashBag()->add('danger', 'Email and username has to be unique');
             }
         }
 
         return $this->render('User/Account/Register/index.html.twig', [
-            'form' => $form->createView()
+                'form' => $form->createView()
             ]
         );
     }
