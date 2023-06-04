@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file was created by Jakub Szczerba
+ * It is part of an engineering project - Kcalculator - copyright is reserved
+ * Contact: https://www.linkedin.com/in/jakub-szczerba-3492751b4/
+*/
+
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -53,7 +61,6 @@ class Products
     public function __construct()
     {
         $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
-
     }
 
     public function getId()
@@ -71,7 +78,7 @@ class Products
         $this->product = $product;
     }
 
-    public function getEnergy(): ?int
+    public function getEnergy(): ?float
     {
         return $this->energy;
     }
