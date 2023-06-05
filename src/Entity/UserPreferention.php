@@ -1,5 +1,15 @@
 <?php
+
+/*
+ * This file was created by Jakub Szczerba
+ * It is part of an engineering project - Kcalculator - copyright is reserved
+ * Contact: https://www.linkedin.com/in/jakub-szczerba-3492751b4/
+*/
+
+declare(strict_types=1);
+
 namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -8,75 +18,75 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserPreferention
 {
-    
+
     /**
-   * @ORM\Column(type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   * 
-   */
-  private $id;
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     */
+    private $id;
+
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="preferentions") 
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="preferentions")
      * @ORM\JoinColumn(name="users_id", nullable=false, referencedColumnName="id")
      */
-    private $users;
+    private User $users;
 
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="string")
      */
-    private $gender;
+    private string $gender;
 
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="float")
      */
-    private $weight;
+    private float $weight;
 
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="float")
      */
-    private $height;
+    private float $height;
 
     /**
-     * @ORM\Column(type="integer") 
+     * @ORM\Column(type="integer")
      */
-    private $age;
+    private int $age;
 
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="string")
      */
-    private $activity;
-    
-    /**
-     * @ORM\Column(type="integer") 
-     */
-    public $caloric_requirement;
+    private string $activity;
 
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="integer")
      */
-    private $intentions;
+    public int $caloric_requirement;
 
     /**
-     * @ORM\Column(type="integer") 
+     * @ORM\Column(type="string")
      */
-    public $kcal_day;
+    private string $intentions;
 
     /**
-     * @ORM\Column(type="integer") 
+     * @ORM\Column(type="integer")
      */
-    public $proteinPerDay;
+    public int $kcal_day;
 
-     /**
-     * @ORM\Column(type="integer") 
+    /**
+     * @ORM\Column(type="integer")
      */
-    public $fatPerDay;
+    public int $proteinPerDay;
 
-     /**
-     * @ORM\Column(type="integer") 
+    /**
+     * @ORM\Column(type="integer")
      */
-    public $carboPerDay;
+    public int $fatPerDay;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    public int $carboPerDay;
 
     public function getId()
     {
@@ -92,7 +102,6 @@ class UserPreferention
     {
         $this->users = $users;
         return $this;
-        
     }
 
     public function getGender(): ?string
@@ -130,7 +139,7 @@ class UserPreferention
         return $this->height;
     }
 
-    public function setHeight($height): void
+    public function setHeight(float $height): void
     {
         $this->height = $height;
     }
@@ -140,7 +149,7 @@ class UserPreferention
         return $this->age;
     }
 
-    public function setAge($age): void
+    public function setAge(int $age): void
     {
         $this->age = $age;
     }
@@ -174,7 +183,7 @@ class UserPreferention
     {
         $this->kcal_day = $kcal_day;
     }
-   
+
     public function getProteinPerDay(): ?int
     {
         return $this->proteinPerDay;
@@ -204,44 +213,4 @@ class UserPreferention
     {
         $this->carboPerDay = $carboPerDay;
     }
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

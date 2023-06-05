@@ -1,8 +1,16 @@
 <?php
+
+/*
+ * This file was created by Jakub Szczerba
+ * It is part of an engineering project - Kcalculator - copyright is reserved
+ * Contact: https://www.linkedin.com/in/jakub-szczerba-3492751b4/
+*/
+
+declare(strict_types=1);
+
 namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
@@ -11,35 +19,32 @@ use Doctrine\Common\Collections\ArrayCollection;
 class UserWeightHistory
 {
     /**
-   * @ORM\Column(type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   * 
-   */
-  private $id;
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     */
+    private $id;
 
-  /**
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userWeightHistory")
      * @ORM\JoinColumn(name="user_id", nullable=false, referencedColumnName="id")
      */
-    private $user;
-
-  /**
-     * @var \DateTime
-     * 
-     * @ORM\Column(type="date") 
-     */
-    private $datetime;
+    private User $user;
 
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="date")
      */
-    private $userWeight;
+    private \DateTime $datetime;
 
- 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private float $userWeight;
+
     public function __construct()
     {
-        $this->date = new \DateTime();      
+        $this->datetime = new \DateTime();
     }
 
     public function getId()
@@ -77,7 +82,4 @@ class UserWeightHistory
         $this->user = $user;
         return $this;
     }
-    
-
-
 }
