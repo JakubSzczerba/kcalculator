@@ -1,8 +1,18 @@
 <?php
+
+/*
+ * This file was created by Jakub Szczerba
+ * It is part of an engineering project - Kcalculator - copyright is reserved
+ * Contact: https://www.linkedin.com/in/jakub-szczerba-3492751b4/
+*/
+
+declare(strict_types=1);
+
 namespace App\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
@@ -10,66 +20,65 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class UsersEntries
 {
-    
+
     /**
-   * @ORM\Column(type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
-  private $id;
-  /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="entry")
      * @ORM\JoinColumn(name="user_id", nullable=false, referencedColumnName="id")
      */
-    private $user;
-    /**
-     * @var \DateTime
-     * 
-     * @ORM\Column(type="date") 
-     */
-    private $datetime;
+    private User $user;
 
     /**
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="date")
      */
-    private $meal_type;
+    private \DateTime $datetime;
 
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="string")
      */
-    private $grammage;
+    private string $meal_type;
 
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="float")
      */
-    private $energyXgram;
+    private float $grammage;
 
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="float")
      */
-    private $proteinXgram;
+    private float $energyXgram;
 
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="float")
      */
-    private $fatXgram;
+    private float $proteinXgram;
 
     /**
-     * @ORM\Column(type="float") 
+     * @ORM\Column(type="float")
      */
-    private $carboXgram;
+    private float $fatXgram;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private float $carboXgram;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Products", inversedBy="entries")"
      * @JoinTable(name="entry_product")
      */
-    private $food;
-
+    private Collection $food;
 
     public function __construct()
     {
-        $this->data = new \DateTime();
-        $this->food = new \Doctrine\Common\Collections\ArrayCollection();       
+        $this->datetime = new \DateTime();
+        $this->food = new ArrayCollection();
     }
 
     public function getId()
@@ -117,7 +126,7 @@ class UsersEntries
     {
         $this->grammage = $grammage;
     }
-    
+
     public function getEnergyXgram(): ?float
     {
         return $this->energyXgram;
@@ -158,15 +167,14 @@ class UsersEntries
         $this->carboXgram = $carboXgram;
     }
 
-    public function getFood(): ?Collection  // game changer :)
+    public function getFood(): ?Collection
     {
         return $this->food;
     }
 
     public function setFood(?Products $food): self
     {
-        $this->food[] = $food; //dodalem [] przed food i dziala :)
+        $this->food[] = $food;
         return $this;
     }
-
 }
