@@ -34,13 +34,13 @@ class PreferentionsType extends AbstractType
                     'placeholder' => '68.5'
                 )
             ])
-            ->add('height', TextType::class,  [
+            ->add('height', TextType::class, [
                 'label' => 'Wzrost (cm)',
                 'attr' => array(
                     'placeholder' => '153'
                 )
             ])
-            ->add('age', TextType::class,  [
+            ->add('age', TextType::class, [
                 'label' => 'Wiek',
                 'attr' => array(
                     'placeholder' => '31'
@@ -61,7 +61,6 @@ class PreferentionsType extends AbstractType
                     'Chcę przybrać masy mięśniowej' => 'intension3'
                 ],
                 'label' => 'Intencje'
-            ])
-        ;
+            ]);
     }
 }
