@@ -1,107 +1,117 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-   <div class="container">
+<div class="container">
     <div class="main-body">
-        
+
         <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
-                <div class="card" style="width: 625px; height: 350px;"> {#====== modyfikacja kcali =========#}
+                <div class="card" style="width: 625px; height: 350px;"> {# ====== modyfikacja kcali ========= #}
                     <div class="card-body">
-                    <div class="d-flex flex-column align-items-center text-center">        
-                        {% if preferentions %}
-                            {% for preferention in preferentions %}   
-                                {% set result = preferention.kcal_day - summKcal %} 
-                                <div class="mt-3">      
-                                    <h1 class="mt-5"><span style="color: blue">{{ preferention.kcal_day|e }}</span>
+                        <div class="d-flex flex-column align-items-center text-center">
+                            {% if preferentions %}
+                            {% for preferention in preferentions %}
+                            {% set result = preferention.kcal_day - summKcal %}
+                            <div class="mt-3">
+                                <h1 class="mt-5"><span style="color: blue">{{ preferention.kcal_day|e }}</span>
                                     -
                                     <span style="color: red">{{ summKcal|number_format }}</span>
                                     =
-                                    <span style="color: green">{{ result }}</span> </h1><br><br>
+                                    <span style="color: green">{{ result }}</span></h1><br><br>
 
-                                    <div style="text-align: left">
+                                <div style="text-align: left">
                                     <hr>
-                                    <h5><bold><span style="color: black">Wybrany cel: </span></bold><span style="color: gray">{{ preferention.intentions }}</span> <br> <hr>
-                                    <span style="color: black">Pozostało do spozycia: </span></bold> <span style="color: green"> {{ result }} kcal</span> </h5>
+                                    <h5>
+                                        <bold><span style="color: black">Wybrany cel: </span></bold>
+                                        <span style="color: gray">{{ ('preferentions.' ~ preferention.intentions) | trans }}</span>
+                                        <br>
+                                        <hr>
+                                        <span style="color: black">Pozostało do spozycia: </span></bold>
+                                        <span style="color: green"> {{ result }} kcal</span>
+                                    </h5>
                                     <hr>
-                                    </div>
-                            {% endfor %}
-                        {% else %}
-                                <form action="{{ path('preferention') }}" method="POST" class="form-horizontal">
-                                    <h1 class="mt-5">Oblicz zapotrzebownie kaloryczne :)</h1><br>
-                                    <button type="submit" class="btn btn-success">Dalej</button>
-                                </form>
-                        {% endif %}
                                 </div>
-                    </div>
+                                {% endfor %}
+                                {% else %}
+                                    <form action="{{ path('preferention') }}" method="POST" class="form-horizontal">
+                                        <h1 class="mt-5">Oblicz zapotrzebownie kaloryczne :)</h1><br>
+                                        <button type="submit" class="btn btn-success">Dalej</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             {% if preferentions %}
-                {% for preferention in preferentions %}   
-                {% set result = preferention.kcal_day - summKcal %} 
-                <div class="col-md-8">
-                        <div class="card mb-3" style="width: 410px; float: right; height: 350px"> {#===== modyfikacja makrosów ======#}
-                            <div class="card-body">
-                            <div class="row">
-                                <div class="col" style="text-align: center">
+            {% for preferention in preferentions %}
+            {% set result = preferention.kcal_day - summKcal %}
+            <div class="col-md-8">
+                <div class="card mb-3"
+                     style="width: 410px; float: right; height: 350px"> {# ===== modyfikacja makrosów ====== #}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col" style="text-align: center">
                                 <h6 class="mb-0"><strong><span style="color: #0099FF">Białko</strong></bold></h6>
-                                </div>
-                                <div class="col" style="text-align: center">
+                            </div>
+                            <div class="col" style="text-align: center">
                                 <h6 class="mb-0"><strong><span style="color: #FF6633">Tłuszcz</span></strong></h6>
-                                </div>
-                                <div class="col" style="text-align: center">
+                            </div>
+                            <div class="col" style="text-align: center">
                                 <h6 class="mb-0"><strong><span style="color: #663300">Węglowodany</span></strong></h6>
-                                </div>
                             </div>
-                            <hr>
+                        </div>
+                        <hr>
 
-                            <div class="row">
-                                <div class="col-sm-3">
+                        <div class="row">
+                            <div class="col-sm-3">
                                 <h6 class="mb-0"></h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary"></div>
                             </div>
+                            <div class="col-sm-9 text-secondary"></div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col" style="text-align: center">
-                                <h6 class="mb-0"></span></bold>{{ summProtein|number_format }} <strong>/{{ preferention.proteinPerDay|e }}</strong></h6>
-                                </div>
-                                <div class="col" style="text-align: center">
-                                <h6 class="mb-0"></span></bold> {{ summFat|number_format }} <strong>/{{ preferention.fatPerDay|e }}</strong></h6>
-                                </div>
-                                <div class="col" style="text-align: center">
-                                <h6 class="mb-0"></span></bold> {{ summCarbo|number_format }} <strong>/{{ preferention.carboPerDay|e }}</strong></h6>
-                                </div>
+                        <div class="row">
+                            <div class="col" style="text-align: center">
+                                <h6 class="mb-0"></span></bold>{{ summProtein|number_format }}
+                                    <strong>/{{ preferention.proteinPerDay|e }}</strong></h6>
                             </div>
-                            <hr>
-                            <div class="row">                 
-                                <div class="col" style="text-align: center">
-                                    {# <img src="../assets/images/chart.png" alt="Admin" class="rounded-circle"> #}
-                                    {{ render_chart(chartMacro) }}
-                                </div>
-                            </div>         
-                            <div class="row">   
+                            <div class="col" style="text-align: center">
+                                <h6 class="mb-0"></span></bold> {{ summFat|number_format }}
+                                    <strong>/{{ preferention.fatPerDay|e }}</strong></h6>
                             </div>
-                            <hr>   
+                            <div class="col" style="text-align: center">
+                                <h6 class="mb-0"></span></bold> {{ summCarbo|number_format }}
+                                    <strong>/{{ preferention.carboPerDay|e }}</strong></h6>
                             </div>
-                        </div>          
-            </div>              
-        </div>
-            <div class="card mb-3" style="height: 465px;">
-                <div class="col" style="text-align: center">
-                    {# <img src="../assets/images/chartWeight.png" alt="Admin" style="height: 375px; width: 800px"> #}
-                    <div class="changesizeChart" style="float: auto">
-                    {{ render_chart(chartWeight) }}
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col" style="text-align: center">
+                                {# <img src="../assets/images/chart.png" alt="Admin" class="rounded-circle"> #}
+                                {{ render_chart(chartMacro) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+                        <hr>
                     </div>
-                </div>            
+                </div>
             </div>
-                {% endfor %}
-            {% else %}
-            {% endif %}
+        </div>
+        <div class="card mb-3" style="height: 465px;">
+            <div class="col" style="text-align: center">
+                {# <img src="../assets/images/chartWeight.png" alt="Admin" style="height: 375px; width: 800px"> #}
+                <div class="changesizeChart" style="float: auto">
+                    {{ render_chart(chartWeight) }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        {% endif %}
 
     </div>
-{% endblock %}
+    {% endblock %}
 
 
 
