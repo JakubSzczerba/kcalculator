@@ -1,0 +1,12 @@
+preferentions:
+# intencje
+  intension1: Redukcja tkanki tłuszczowej
+  intension2: Utrzymanie masy ciała
+  intension3: Przybranie masy mięśniowej
+# aktywność
+  activity1: Siedzący tryb życia, praca przy biurku
+  activity2: Tryb życia o średniej aktywności fizczynej
+  activity3: Tryb życia o wysokiej aktywności fizczynej
+# płeć
+  man: Mężczyzna
+  woman: Kobieta
