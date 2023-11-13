@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class PreferentionsType extends AbstractType
 {
@@ -30,21 +31,35 @@ class PreferentionsType extends AbstractType
             ])
             ->add('weight', NumberType::class, [
                 'label' => 'Waga (kg)',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => '68.5'
-                )
+                ]
             ])
             ->add('height', TextType::class, [
                 'label' => 'Wzrost (cm)',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => '153'
-                )
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'To pole nie może być puste.']),
+                    new Assert\Regex([
+                        'pattern' => '/^\d+(\.\d{1,2})?$/',
+                        'message' => 'Wprowadź poprawny wzrost (np. 153 lub 153.5).'
+                    ]),
+                ]
             ])
             ->add('age', TextType::class, [
                 'label' => 'Wiek',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => '31'
-                )
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'To pole nie może być puste.']),
+                    new Assert\Regex([
+                        'pattern' => '/^\d+$/',
+                        'message' => 'Wprowadź poprawny wiek.'
+                    ]),
+                ],
             ])
             ->add('activity', ChoiceType::class, [
                 'choices' => [

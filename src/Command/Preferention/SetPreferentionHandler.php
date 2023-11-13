@@ -34,26 +34,28 @@ class SetPreferentionHandler
 
     public function __invoke(SetPreferentionCommand $command): void
     {
+        $preferentionDTO = $command->getPreferentionDTO();
+
         /* Calculate Basal Metabolic Rate per user */
         $BMR = $this->basalMetabolicRateAlgorithm->calculate(
-            $command->getGender(),
-            $command->getWeight(),
-            $command->getHeight(),
-            $command->getAge(),
-            $command->getActivity(),
-            $command->getIntentions()
+            $preferentionDTO->getGender(),
+            $preferentionDTO->getWeight(),
+            $preferentionDTO->getHeight(),
+            $preferentionDTO->getAge(),
+            $preferentionDTO->getActivity(),
+            $preferentionDTO->getIntentions()
         );
 
         /* Persist preferentions */
         $this->preferenceFactory->new(
             $command->getUser(),
-            $command->getGender(),
-            $command->getWeight(),
-            $command->getHeight(),
-            $command->getAge(),
-            $command->getActivity(),
+            $preferentionDTO->getGender(),
+            $preferentionDTO->getWeight(),
+            $preferentionDTO->getHeight(),
+            $preferentionDTO->getAge(),
+            $preferentionDTO->getActivity(),
             $BMR['caloric_requirement'],
-            $command->getIntentions(),
+            $preferentionDTO->getIntentions(),
             $BMR['kcal_per_day'],
             $BMR['protein'],
             $BMR['fat'],
@@ -61,6 +63,6 @@ class SetPreferentionHandler
         );
 
         /* Persist weight history */
-        $this->userWeightHistoryFactory->new($command->getUser(), $command->getWeight());
+        $this->userWeightHistoryFactory->new($command->getUser(), $preferentionDTO->getWeight());
     }
 }

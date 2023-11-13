@@ -10,27 +10,19 @@ declare(strict_types=1);
 
 namespace App\Command\Preferention;
 
+use App\DTO\PreferentionDTO;
 use App\Entity\User;
 
 class SetPreferentionCommand
 {
     private User $user;
-    private string $gender;
-    private float $weight;
-    private float $height;
-    private int $age;
-    private string $activity;
-    private string $intentions;
 
-    public function __construct(User $user, string $gender, float $weight, float $height, int $age, string $activity, string $intentions)
+    private PreferentionDTO $preferentionDTO;
+
+    public function __construct(User $user, PreferentionDTO $preferentionDTO)
     {
         $this->user = $user;
-        $this->gender = $gender;
-        $this->weight = $weight;
-        $this->height = $height;
-        $this->age = $age;
-        $this->activity = $activity;
-        $this->intentions = $intentions;
+        $this->preferentionDTO = $preferentionDTO;
     }
 
     public function getUser(): User
@@ -38,33 +30,8 @@ class SetPreferentionCommand
         return $this->user;
     }
 
-    public function getGender(): string
+    public function getPreferentionDTO(): PreferentionDTO
     {
-        return $this->gender;
-    }
-
-    public function getWeight(): float
-    {
-        return $this->weight;
-    }
-
-    public function getHeight(): float
-    {
-        return $this->height;
-    }
-
-    public function getAge(): int
-    {
-        return $this->age;
-    }
-
-    public function getActivity(): string
-    {
-        return $this->activity;
-    }
-
-    public function getIntentions(): string
-    {
-        return $this->intentions;
+        return $this->preferentionDTO;
     }
 }

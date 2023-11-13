@@ -12,6 +12,7 @@ namespace App\Controller;
 
 use App\Command\Preferention\EditPreferentionCommand;
 use App\Command\Preferention\SetPreferentionCommand;
+use App\Services\Preference\FormDataExtractor;
 use Symfony\Component\Messenger\MessageBusInterface;
 use App\Entity\User;
 use App\Form\PreferentionsType;
@@ -26,29 +27,29 @@ class PreferentionsController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    private FormDataExtractor $formDataExtractor;
+
+    private MessageBusInterface $commandBus;
+
+    public function __construct(EntityManagerInterface $entityManager, FormDataExtractor $formDataExtractor, MessageBusInterface $commandBus)
     {
         $this->entityManager = $entityManager;
+        $this->formDataExtractor = $formDataExtractor;
+        $this->commandBus = $commandBus;
     }
 
     #[Route('/preferention', name: 'preferention', methods: ['POST'])]
-    public function setPreferention(Request $request, MessageBusInterface $commandBus): Response
+    public function setPreferention(Request $request): Response
     {
+        $user = $this->entityManager->getRepository(User::class)->find($this->getUser()->getId());
         $form = $this->createForm(PreferentionsType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $command = new SetPreferentionCommand(
-                $this->entityManager->getRepository(User::class)->find($this->getUser()->getId()),
-                $form->get('gender')->getData(),
-                $form->get('weight')->getData(),
-                (float)$form->get('height')->getData(),
-                (int)$form->get('age')->getData(),
-                $form->get('activity')->getData(),
-                $form->get('intentions')->getData()
-            );
-            $commandBus->dispatch($command);
+            $preferentionDTO = $this->formDataExtractor->extractPreferentionDTO($form);
 
+            $command = new SetPreferentionCommand($user, $preferentionDTO);
+            $this->commandBus->dispatch($command);
             $this->addFlash('success', 'Obliczono dziennie zapotrzebowanie kaloryczne');
 
             return $this->redirectToRoute('dashboard');
@@ -60,25 +61,17 @@ class PreferentionsController extends AbstractController
     }
 
     #[Route('/preferention/{id}/edit', name: 'editPreferentions', methods: ['GET|POST'])]
-    public function editPreferentions(int $id, Request $request, MessageBusInterface $commandBus): Response
+    public function editPreferentions(Request $request, int $id): Response
     {
-        $preferention = $this->getDoctrine()->getRepository(UserPreferention::class)->find(array('id' => $id,));
+        $preferention = $this->entityManager->getRepository(UserPreferention::class)->find(['id' => $id]);
         $form = $this->createForm(PreferentionsType::class, $preferention);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $command = new EditPreferentionCommand(
-                $preferention,
-                $this->entityManager->getRepository(User::class)->find($this->getUser()->getId()),
-                $form->get('gender')->getData(),
-                $form->get('weight')->getData(),
-                (float)$form->get('height')->getData(),
-                (int)$form->get('age')->getData(),
-                $form->get('activity')->getData(),
-                $form->get('intentions')->getData()
-            );
-            $commandBus->dispatch($command);
+            $preferentionDTO = $this->formDataExtractor->extractPreferentionDTO($form);
 
+            $command = new EditPreferentionCommand($preferention, $preferentionDTO);
+            $this->commandBus->dispatch($command);
             $this->addFlash('success', 'Edytowano dziennie zapotrzebowanie kaloryczne');
 
             return $this->redirectToRoute('dashboard');
@@ -88,4 +81,4 @@ class PreferentionsController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-} 
+}
