@@ -26,6 +26,65 @@ class PreferenceFactory
     public function new(User $user, string $gender, float $weight, float $height, int $age, string $activity, int $caloric_requirement, string $intentions, int $kcal_day, int $protein, int $fat, int $carbohydrates): UserPreferention
     {
         $preferention = new UserPreferention();
+        $preferention->setUsers($user);
+
+        $this->setValues(
+            $preferention,
+            $gender,
+            $weight,
+            $height,
+            $age,
+            $activity,
+            $caloric_requirement,
+            $intentions,
+            $kcal_day,
+            $protein,
+            $fat,
+            $carbohydrates
+        );
+
+        $this->em->persist($preferention);
+        $this->em->flush();
+
+        return $preferention;
+    }
+
+    public function edit(UserPreferention $userPreferention, string $gender, float $weight, float $height, int $age, string $activity, int $caloric_requirement, string $intentions, int $kcal_day, int $protein, int $fat, int $carbohydrates): UserPreferention
+    {
+        $this->setValues(
+            $userPreferention,
+            $gender,
+            $weight,
+            $height,
+            $age,
+            $activity,
+            $caloric_requirement,
+            $intentions,
+            $kcal_day,
+            $protein,
+            $fat,
+            $carbohydrates
+        );
+
+        $this->em->flush();
+
+        return $userPreferention;
+    }
+
+    private function setValues(
+        UserPreferention $preferention,
+        string $gender,
+        float $weight,
+        float $height,
+        int $age,
+        string $activity,
+        int $caloric_requirement,
+        string $intentions,
+        int $kcal_day,
+        int $protein,
+        int $fat,
+        int $carbohydrates
+    ): void {
         $preferention->setGender($gender);
         $preferention->setWeight($weight);
         $preferention->setHeight($height);
@@ -37,30 +96,5 @@ class PreferenceFactory
         $preferention->setProteinPerDay($protein);
         $preferention->setFatPerDay($fat);
         $preferention->setCarboPerDay($carbohydrates);
-        $preferention->setUsers($user);
-
-        $this->em->persist($preferention);
-        $this->em->flush();
-
-        return $preferention;
-    }
-
-    public function edit(UserPreferention $userPreferention, string $gender, float $weight, float $height, int $age, string $activity, int $caloric_requirement, string $intentions, int $kcal_day, int $protein, int $fat, int $carbohydrates): UserPreferention
-    {
-        $userPreferention->setGender($gender);
-        $userPreferention->setWeight($weight);
-        $userPreferention->setHeight($height);
-        $userPreferention->setAge($age);
-        $userPreferention->setActivity($activity);
-        $userPreferention->setKcal($caloric_requirement);
-        $userPreferention->setIntentions($intentions);
-        $userPreferention->setKcalDay($kcal_day);
-        $userPreferention->setProteinPerDay($protein);
-        $userPreferention->setFatPerDay($fat);
-        $userPreferention->setCarboPerDay($carbohydrates);
-
-        $this->em->flush();
-
-        return $userPreferention;
     }
 }

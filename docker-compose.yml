@@ -21,8 +21,9 @@ services:
       DATABASE_URL: "mysql://root:root@db:3306/kcalculator"
       APP_URL: "http://kcalculator.local:8099"
       APP_ENV: "dev"
-      APP_SECRET: "ndu5tb2ald1bt3i2279888xdia13le4b"
+      APP_SECRET: "053334683d7021094405b2aefb682d27"
       APP_HOSTNAME: "kcalculator.local"
+      MESSENGER_TRANSPORT_DSN: "doctrine://default?auto_setup=0"
   nginx:
     image: nginx:1.19
     ports:
