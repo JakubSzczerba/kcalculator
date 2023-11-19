@@ -46,7 +46,7 @@ class DailyController extends AbstractController
         $this->factory = $factory;
     }
 
-    /* WIP */
+    /* WIP more */
     #[Route('/product', name: 'findFood', methods: ['POST'])]
     public function findFood(Request $request): Response
     {
