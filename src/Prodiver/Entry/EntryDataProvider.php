@@ -14,9 +14,8 @@ use App\Entity\Products;
 
 class EntryDataProvider
 {
-    public function getGrammageValues(string $grammage, Products $product): array
+    public function getGrammageValues(float $grammage, Products $product): array
     {
-        $grammage = (float)$grammage;
         $energy = $product->getEnergy() * $grammage;
         $protein = $product->getProtein() * $grammage;
         $fat = $product->getFat() * $grammage;
