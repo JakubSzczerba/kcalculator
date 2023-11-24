@@ -10,10 +10,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Command\Daily\AddEntryCommand;
+use App\Command\Daily\EditEntryCommand;
 use App\Dictionary\Entry\MealTypeDictionary;
+use App\DTO\EntryDTO;
 use App\Entity\User;
-use App\Factory\Entry\EntryFactory;
-use App\Prodiver\Entry\EntryDataProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,6 +24,7 @@ use App\Entity\UsersEntries;
 use App\Entity\Products;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProductDetailsType;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DailyController extends AbstractController
@@ -33,17 +35,14 @@ class DailyController extends AbstractController
 
     private EntityManagerInterface $entityManager;
 
-    private EntryDataProvider $entryDataProvider;
+    private MessageBusInterface $commandBus;
 
-    private EntryFactory $factory;
-
-    public function __construct(ProductRepository $productRepository, EntriesRepository $entriesRepository, EntityManagerInterface $entityManager, EntryDataProvider $entryDataProvider, EntryFactory $factory)
+    public function __construct(ProductRepository $productRepository, EntriesRepository $entriesRepository, EntityManagerInterface $entityManager, MessageBusInterface $commandBus)
     {
         $this->productRepository = $productRepository;
         $this->entriesRepository = $entriesRepository;
         $this->entityManager = $entityManager;
-        $this->entryDataProvider = $entryDataProvider;
-        $this->factory = $factory;
+        $this->commandBus = $commandBus;
     }
 
     #[Route('/product', name: 'findFood', methods: ['POST'])]
@@ -61,18 +60,19 @@ class DailyController extends AbstractController
     #[Route('/product/{id}', name: 'addEntry', methods: ['GET|POST'])]
     public function addEntry(Request $request, Products $product, int $id): Response
     {
+        $user = $this->entityManager->getRepository(User::class)->find($this->getUser()->getId());
+        $product = $this->entityManager->getRepository(Products::class)->find($id);
+
         $form = $this->createForm(ProductDetailsType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->entityManager->getRepository(User::class)->find($this->getUser()->getId());
-            $product = $this->entityManager->getRepository(Products::class)->find($id);
+            $entryDTO = new EntryDTO(
+                $form->get('Grammage')->getData(), $form->get('Meals')->getData(), $product
+            );
 
-            /* Get data counting via grammage */
-            $grammarValues = $this->entryDataProvider->getGrammageValues($form->get('Grammage')->getData(), $product);
-
-            /* Save entry */
-            $this->factory->new($user, $form->get('Meals')->getData(), $grammarValues['grammage'], $product, $grammarValues['energy'], $grammarValues['protein'], $grammarValues['fat'], $grammarValues['carbohydrates']);
+            $command = new AddEntryCommand($entryDTO, $user);
+            $this->commandBus->dispatch($command);
             $this->addFlash('success', 'Dodano wpis do dziennika');
 
             return $this->redirectToRoute('showEntries');
@@ -95,7 +95,7 @@ class DailyController extends AbstractController
 
             return $this->redirectToRoute('showEntries');
         } else {
-            return $this->render('User/Daily/index.html.twig', []);
+            return $this->render('User/Daily/index.html.twig');
         }
     }
 
@@ -104,15 +104,21 @@ class DailyController extends AbstractController
     {
         $entry = $this->getDoctrine()->getRepository(UsersEntries::class)->find(array('id' => $id,));
         $product = null;
+
         foreach ($entry->getFood() as $productDetails) {
             $product = $productDetails;
         }
+
         $form = $this->createForm(ProductDetailsType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $grammarValues = $this->entryDataProvider->getGrammageValues($form->get('Grammage')->getData(), $product);
-            $this->factory->edit($entry, $form->get('Meals')->getData(), $grammarValues['grammage'], $grammarValues['energy'], $grammarValues['protein'], $grammarValues['fat'], $grammarValues['carbohydrates']);
+            $entryDTO = new EntryDTO(
+                $form->get('Grammage')->getData(), $form->get('Meals')->getData(), $product
+            );
+
+            $command = new EditEntryCommand($entryDTO, $entry);
+            $this->commandBus->dispatch($command);
 
             return $this->redirectToRoute('showEntries');
         }
