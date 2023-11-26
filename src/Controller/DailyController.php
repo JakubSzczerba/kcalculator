@@ -12,35 +12,32 @@ namespace App\Controller;
 
 use App\Command\Daily\AddEntryCommand;
 use App\Command\Daily\EditEntryCommand;
-use App\Dictionary\Entry\MealTypeDictionary;
 use App\DTO\EntryDTO;
 use App\Entity\User;
+use App\Query\Daily\DailyEntriesQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ProductRepository;
-use App\Repository\EntriesRepository;
 use App\Entity\UsersEntries;
 use App\Entity\Products;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProductDetailsType;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DailyController extends AbstractController
 {
     private ProductRepository $productRepository;
 
-    private EntriesRepository $entriesRepository;
-
     private EntityManagerInterface $entityManager;
 
     private MessageBusInterface $commandBus;
 
-    public function __construct(ProductRepository $productRepository, EntriesRepository $entriesRepository, EntityManagerInterface $entityManager, MessageBusInterface $commandBus)
+    public function __construct(ProductRepository $productRepository, EntityManagerInterface $entityManager, MessageBusInterface $commandBus)
     {
         $this->productRepository = $productRepository;
-        $this->entriesRepository = $entriesRepository;
         $this->entityManager = $entityManager;
         $this->commandBus = $commandBus;
     }
@@ -132,30 +129,22 @@ class DailyController extends AbstractController
     #[Route('/wpisy', name: 'showEntries', methods: ['GET|POST'])]
     public function showEntries(Request $request): Response
     {
-        $id = $this->getUser()->getId();
-
-        if ($request->get('dataTocheckDaily')) {
-            $datetime = new \DateTime($request->get('dataTocheckDaily'));
+        if ($request->get('dataToCheckDaily')) {
+            $dateTime = new \DateTime($request->get('dataToCheckDaily'));
         } else {
-            $datetime = new \DateTime('@' . strtotime('now'));
+            $dateTime = new \DateTime('@' . strtotime('now'));
         }
 
-        return $this->render('User/Daily/index.html.twig', [
-                'entry' => $this->entriesRepository->displayEntry($datetime, $id), //all entries per day, but products are not grouping in one row (meal),
-                'snack' => $this->entriesRepository->ShowSnack($datetime, $id, MealTypeDictionary::SNACK), // try to fetch all entries per day for row -> Przękąski
-                'breakfast' => $this->entriesRepository->ShowBreakfast($datetime, $id, MealTypeDictionary::BREAKFAST), // the same way ^ but with Śnaidanie!,
-                'lunch' => $this->entriesRepository->ShowLunch($datetime, $id, MealTypeDictionary::SECOND_BREAFAST), // DRUGIE ŚNAIDANIE,
-                'dinner' => $this->entriesRepository->ShowDinner($datetime, $id, MealTypeDictionary::LUNCH), // OBIAD
-                'tea' => $this->entriesRepository->ShowTea($datetime, $id, MealTypeDictionary::TEA), // Podwieczorek
-                'supper' => $this->entriesRepository->ShowSupper($datetime, $id, MealTypeDictionary::DINNER), // Koalcja
-                'snackcal' => $this->entriesRepository->SummSnacksKcal($datetime, $id, MealTypeDictionary::SNACK), // {{ snackcal|number_format }}
-                'breakcal' => $this->entriesRepository->SummBreakfast($datetime, $id, MealTypeDictionary::BREAKFAST), //  {{ breakcal|number_format }}
-                'lunchkcal' => $this->entriesRepository->SummLunch($datetime, $id, MealTypeDictionary::SECOND_BREAFAST), // {{ lunchkcal|number_format }}
-                'dinnerkcal' => $this->entriesRepository->SummDinner($datetime, $id, MealTypeDictionary::LUNCH), // {{ dinnerkcal|number_format }}
-                'teakcal' => $this->entriesRepository->SummTea($datetime, $id, MealTypeDictionary::TEA), // {{ teakcal|number_format }}
-                'supperkcal' => $this->entriesRepository->SummSupper($datetime, $id, MealTypeDictionary::DINNER), // {{ supperkcal|number_format }}
-                'dataTest' => $datetime,
-            ]
-        );
+        try {
+            $query = new DailyEntriesQuery($dateTime, $this->getUser()->getId());
+            $envelope = $this->commandBus->dispatch($query);
+            $handledStamp = $envelope->last(HandledStamp::class);
+
+            return $this->render('User/Daily/index.html.twig',
+                $handledStamp->getResult()
+            );
+        } catch (\Exception $e) {
+            return $this->render('User/Daily/index.html.twig');
+        }
     }
 }

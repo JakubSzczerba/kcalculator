@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block body %} {# <div class="row"><h1 class="mt-5"> Dziennik</h1></div><br><br><br> #}
+{% block body %}
 <div class="row" id="content">
     <div lass="col-lg-12">
         <br>
@@ -10,7 +10,7 @@
             <h3><h1><span style="color: blue"> {{ dateOfEntry }} </span></h3>
             <p>
             <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
-                <input type="date" id="date" name="dataTocheckDaily">
+                <input type="date" id="date" name="dataToCheckDaily">
                 <button type="submit" name="dateCheck" class="btn btn-dark">pokaż</button>
             </form>
 
@@ -285,7 +285,7 @@
                             </h3>
                             <p>
                             <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
-                                <input type="date" id="date" name="dataTocheckDaily">
+                                <input type="date" id="date" name="dataToCheckDaily">
                                 <button type="submit" name="dateCheck" class="btn btn-dark">pokaż</button>
                             </form>
 
