@@ -13,11 +13,14 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements
+    UserInterface,
+    PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Column(type="integer")
@@ -45,6 +48,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=4096)
+     * @var string The hashed password
      */
     private string $password;
 
@@ -111,23 +115,12 @@ class User implements UserInterface
         $this->roles = $roles;
     }
 
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * {@inheritdoc}
-     */
-    public function getSalt(): ?string
-    {
-        // We're using bcrypt in security.yaml to encode the password, so
-        // the salt value is built-in and and you don't have to generate one
-        // See https://en.wikipedia.org/wiki/Bcrypt
-
-        return null;
     }
 
     public function getUsername(): string
@@ -140,18 +133,19 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function eraseCredentials()
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
     {
-        // TODO: Implement eraseCredentials() method.
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
-    /**
-     * @param string $password
-     * @return User
-     */
-    public function setPassword(string $password): self
+    public function setPassword(string $password): static
     {
         $this->password = $password;
+
         return $this;
     }
 
@@ -195,5 +189,15 @@ class User implements UserInterface
     public function setUerWeightHistory(Collection $userWeightHistory): void
     {
         $this->userWeightHistory = $userWeightHistory;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string)$this->email;
     }
 }

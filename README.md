@@ -14,8 +14,8 @@
 My project of application for helthy lifestyle and calorie counting. Web aplication for everyone who wants to take care of health.
 
 ## Technologies
-* PHP - version 8.2.6
-* Symfony - version 5.4.24
+* PHP - version 8.3
+* Symfony - version 6.4
 * MariaDB - version 10.5
 
 ## Local Setup

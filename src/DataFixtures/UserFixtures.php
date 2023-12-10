@@ -14,23 +14,25 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture 
+class UserFixtures extends Fixture
 {
-  private UserPasswordEncoderInterface $encoder;
+    private UserPasswordHasherInterface $passwordHasher;
 
-  private EntityManagerInterface $em;
+    private EntityManagerInterface $em;
 
-  public function __construct(UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
-  {
-    $this->encoder = $encoder;
-    $this->em = $em;
-  }
-  
-  public function load(ObjectManager $manager): void
+    public function __construct(
+        UserPasswordHasherInterface $passwordHasher,
+        EntityManagerInterface $em
+    ) {
+        $this->passwordHasher = $passwordHasher;
+        $this->em = $em;
+    }
+
+    public function load(ObjectManager $manager): void
     {
-      $this->loadUsers();
+        $this->loadUsers();
     }
 
     private function loadUsers(): void
@@ -40,7 +42,11 @@ class UserFixtures extends Fixture
             $user->setFullName($fullName);
             $user->setUsername($username);
             $user->setEmail($email);
-            $user->setPassword($this->encoder->encodePassword($user, $password));
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                $password
+            );
+            $user->setPassword($hashedPassword);
             $user->setRoles($roles);
             $this->em->persist($user);
         }
