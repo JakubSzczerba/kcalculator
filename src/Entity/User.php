@@ -48,7 +48,6 @@ class User implements
 
     /**
      * @ORM\Column(type="string", length=4096)
-     * @var string The hashed password
      */
     private string $password;
 
@@ -115,9 +114,6 @@ class User implements
         $this->roles = $roles;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
