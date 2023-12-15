@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Preference;
+namespace Kcalculator\Services\Preference;
 
-use App\DTO\PreferentionDTO;
-use App\Entity\UserPreferention;
+use Kcalculator\DTO\PreferentionDTO;
+use Kcalculator\Entity\UserPreferention;
 use Symfony\Component\Form\FormInterface;
 
 class FormDataExtractor

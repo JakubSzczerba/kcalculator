@@ -8,11 +8,11 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Kcalculator\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\ProfileRepository;
+use Kcalculator\Repository\ProfileRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController extends AbstractController

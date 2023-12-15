@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace App\Command;
+namespace Kcalculator\Command;
 
-use App\Entity\Products;
+use Kcalculator\Entity\Products;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -42,7 +42,7 @@ class CsvImportCommand extends Command
         $io->title('Attempting to import the feed');
 
         $reader = Reader::createFromPath('%kernel.root_dir%/../src/Data/MOCK_DATA.csv');
-        $results = $reader->fetchAssoc();
+        $results = $reader->getRecords();
 
         foreach ($results as $row) {
             $products = new Products();
@@ -57,6 +57,6 @@ class CsvImportCommand extends Command
         $this->em->flush();
         $io->success('Everything went well');
 
-        return 1;
+        return self::SUCCESS;
     }
 }

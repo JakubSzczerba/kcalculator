@@ -8,12 +8,12 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Admin;
+namespace Kcalculator\Controller\Admin;
 
-use App\Entity\UserPreferention;
-use App\Entity\User;
-use App\Entity\UsersEntries;
-use App\Entity\Products;
+use Kcalculator\Entity\UserPreferention;
+use Kcalculator\Entity\User;
+use Kcalculator\Entity\UsersEntries;
+use Kcalculator\Entity\Products;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;

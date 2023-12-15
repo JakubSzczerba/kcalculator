@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace Kcalculator\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -28,7 +28,7 @@ class Products
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\UsersEntries", mappedBy="food")"
+     * @ORM\ManyToMany(targetEntity="Kcalculator\Entity\UsersEntries", mappedBy="food")"
      *
      */
     private Collection $entries;

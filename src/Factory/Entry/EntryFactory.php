@@ -8,11 +8,11 @@
 
 declare(strict_types=1);
 
-namespace App\Factory\Entry;
+namespace Kcalculator\Factory\Entry;
 
-use App\Entity\Products;
-use App\Entity\User;
-use App\Entity\UsersEntries;
+use Kcalculator\Entity\Products;
+use Kcalculator\Entity\User;
+use Kcalculator\Entity\UsersEntries;
 use Doctrine\ORM\EntityManagerInterface;
 
 class EntryFactory

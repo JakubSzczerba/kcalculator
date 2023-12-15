@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace Kcalculator\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Kcalculator\Repository\UserRepository")
  */
 class User implements
     UserInterface,
@@ -59,17 +59,17 @@ class User implements
     private array $roles = [];
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\UserPreferention", mappedBy="users")
+     * @ORM\OneToOne(targetEntity="Kcalculator\Entity\UserPreferention", mappedBy="users")
      */
     private UserPreferention $preferentions;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UsersEntries", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Kcalculator\Entity\UsersEntries", mappedBy="user")
      */
     private Collection $entry;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserWeightHistory", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Kcalculator\Entity\UserWeightHistory", mappedBy="user")
      */
     private Collection $userWeightHistory;
 

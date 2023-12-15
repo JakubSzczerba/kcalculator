@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace Kcalculator\Repository;
 
-use App\Entity\UserPreferention;
+use Kcalculator\Entity\UserPreferention;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -30,7 +30,7 @@ class ProfileRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('p');
 
         $qb->select('u.username', 'u.email', 'p.gender', 'p.weight', 'p.height', 'p.age', 'p.activity', 'p.caloric_requirement', 'p.intentions', 'p.kcal_day', 'p.id', 'p.proteinPerDay', 'p.fatPerDay', 'p.carboPerDay' )
-            ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = p.users')            
+            ->innerJoin('Kcalculator\Entity\User', 'u', Join::WITH, 'u = p.users')
             ->where('u.id = :users')
             ->setParameter('users', $id);
             

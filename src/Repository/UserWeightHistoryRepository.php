@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace Kcalculator\Repository;
 
-use App\Entity\UserWeightHistory;
+use Kcalculator\Entity\UserWeightHistory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

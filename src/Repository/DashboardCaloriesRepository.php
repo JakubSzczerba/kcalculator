@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace Kcalculator\Repository;
 
-use App\Entity\UserPreferention;
+use Kcalculator\Entity\UserPreferention;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -30,7 +30,7 @@ class DashboardCaloriesRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('p');
 
         $qb->select('p.kcal_day, p.proteinPerDay, p.fatPerDay, p.carboPerDay, p.intentions')
-            ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u = p.users')
+            ->innerJoin('Kcalculator\Entity\User', 'u', Join::WITH, 'u = p.users')
             ->where('p.kcal_day IS NOT NULL')
             ->andWhere('u.id like :users')
             ->setParameter('users', $id);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Twig;
+namespace Kcalculator\Twig;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

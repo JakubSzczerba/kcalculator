@@ -8,21 +8,21 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Kcalculator\Controller;
 
-use App\Command\Daily\AddEntryCommand;
-use App\Command\Daily\EditEntryCommand;
-use App\DTO\EntryDTO;
-use App\Entity\User;
-use App\Query\Daily\DailyEntriesQuery;
+use Kcalculator\Command\Daily\AddEntryCommand;
+use Kcalculator\Command\Daily\EditEntryCommand;
+use Kcalculator\DTO\EntryDTO;
+use Kcalculator\Entity\User;
+use Kcalculator\Query\Daily\DailyEntriesQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\ProductRepository;
-use App\Entity\UsersEntries;
-use App\Entity\Products;
+use Kcalculator\Repository\ProductRepository;
+use Kcalculator\Entity\UsersEntries;
+use Kcalculator\Entity\Products;
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\ProductDetailsType;
+use Kcalculator\Form\ProductDetailsType;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Symfony\Component\Routing\Annotation\Route;

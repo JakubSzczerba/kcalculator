@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace Kcalculator\Repository;
 
-use App\Entity\UsersEntries;
+use Kcalculator\Entity\UsersEntries;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

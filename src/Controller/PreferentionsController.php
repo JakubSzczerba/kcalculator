@@ -8,18 +8,18 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Kcalculator\Controller;
 
-use App\Command\Preferention\EditPreferentionCommand;
-use App\Command\Preferention\SetPreferentionCommand;
-use App\Services\Preference\FormDataExtractor;
+use Kcalculator\Command\Preferention\EditPreferentionCommand;
+use Kcalculator\Command\Preferention\SetPreferentionCommand;
+use Kcalculator\Services\Preference\FormDataExtractor;
 use Symfony\Component\Messenger\MessageBusInterface;
-use App\Entity\User;
-use App\Form\PreferentionsType;
+use Kcalculator\Entity\User;
+use Kcalculator\Form\PreferentionsType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\UserPreferention;
+use Kcalculator\Entity\UserPreferention;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

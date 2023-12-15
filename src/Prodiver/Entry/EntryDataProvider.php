@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace App\Prodiver\Entry;
+namespace Kcalculator\Prodiver\Entry;
 
-use App\Entity\Products;
+use Kcalculator\Entity\Products;
 
 class EntryDataProvider
 {

@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace App\Prodiver\Chart\Dashboard;
+namespace Kcalculator\Prodiver\Chart\Dashboard;
 
 class MacronutrientsProvider
 {

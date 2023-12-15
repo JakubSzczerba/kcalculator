@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace Kcalculator\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,7 +28,7 @@ class UserPreferention
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="preferentions")
+     * @ORM\OneToOne(targetEntity="Kcalculator\Entity\User", inversedBy="preferentions")
      * @ORM\JoinColumn(name="users_id", nullable=false, referencedColumnName="id")
      */
     private User $users;

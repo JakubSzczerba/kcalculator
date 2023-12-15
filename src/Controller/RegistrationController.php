@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Kcalculator\Controller;
 
-use App\Entity\User;
-use App\Form\UserType;
+use Kcalculator\Entity\User;
+use Kcalculator\Form\UserType;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,20 +19,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'registration')]
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, Session $session): Response
+    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, Session $session): Response
     {
         $form = $this->createForm(UserType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = new User($form->get('fullName')->getData(), $form->get('username')->getData(), $form->get('email')->getData());
-            $password = $passwordEncoder->encodePassword($user, $form->get('password')->getData());
-            $user->setPassword($password);
+            $hashedPassword = $passwordHasher->hashPassword(
+                $user,
+                $form->get('password')->getData()
+            );
+            $user->setPassword($hashedPassword);
             $user->setRoles($user->getRoles());
             try {
                 $entityManager->persist($user);

@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Preference;
+namespace Kcalculator\Services\Preference;
 
-use App\Dictionary\Preference\BasalMetabolicRateDictionary;
+use Kcalculator\Dictionary\Preference\BasalMetabolicRateDictionary;
 
 /* BMR calculation */
 class BasalMetabolicRateAlgorithm

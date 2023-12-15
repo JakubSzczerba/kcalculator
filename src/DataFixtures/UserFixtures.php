@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures;
+namespace Kcalculator\DataFixtures;
 
-use App\Entity\User;
+use Kcalculator\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;

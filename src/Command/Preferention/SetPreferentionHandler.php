@@ -8,11 +8,11 @@
 
 declare(strict_types=1);
 
-namespace App\Command\Preferention;
+namespace Kcalculator\Command\Preferention;
 
-use App\Factory\Preference\PreferenceFactory;
-use App\Factory\Preference\UserWeightHistoryFactory;
-use App\Services\Preference\BasalMetabolicRateAlgorithm;
+use Kcalculator\Factory\Preference\PreferenceFactory;
+use Kcalculator\Factory\Preference\UserWeightHistoryFactory;
+use Kcalculator\Services\Preference\BasalMetabolicRateAlgorithm;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

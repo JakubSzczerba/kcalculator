@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace Kcalculator\Controller\Admin;
 
-use App\Entity\UserPreferention;
+use Kcalculator\Entity\UserPreferention;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class UserPreferentionCrudController extends AbstractCrudController

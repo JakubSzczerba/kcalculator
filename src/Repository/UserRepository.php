@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace Kcalculator\Repository;
 
-use App\Entity\User;
+use Kcalculator\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

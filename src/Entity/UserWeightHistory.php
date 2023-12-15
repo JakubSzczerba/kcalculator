@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace Kcalculator\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,7 +27,7 @@ class UserWeightHistory
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userWeightHistory")
+     * @ORM\ManyToOne(targetEntity="Kcalculator\Entity\User", inversedBy="userWeightHistory")
      * @ORM\JoinColumn(name="user_id", nullable=false, referencedColumnName="id")
      */
     private User $user;

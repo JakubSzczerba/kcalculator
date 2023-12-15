@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace App\Command\Daily;
+namespace Kcalculator\Command\Daily;
 
-use App\DTO\EntryDTO;
-use App\Entity\User;
+use Kcalculator\DTO\EntryDTO;
+use Kcalculator\Entity\User;
 
 class AddEntryCommand
 {

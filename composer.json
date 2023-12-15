@@ -27,7 +27,7 @@
         "symfony/proxy-manager-bridge": "6.4.x-dev",
         "symfony/security-bundle": "6.*",
         "symfony/twig-bundle": "6.4.*",
-        "symfony/ux-chartjs": "2.*",
+        "symfony/ux-chartjs": "^2.13",
         "symfony/validator": "6.4.*",
         "symfony/webpack-encore-bundle": "v2.1.1",
         "symfony/yaml": "6.4.*",
@@ -52,12 +52,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "Kcalculator\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "Kcalculator\\Tests\\": "tests/"
         }
     },
     "replace": {

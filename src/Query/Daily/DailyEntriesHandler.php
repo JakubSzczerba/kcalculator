@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace App\Query\Daily;
+namespace Kcalculator\Query\Daily;
 
-use App\Prodiver\Entry\MealsDataProvider;
+use Kcalculator\Prodiver\Entry\MealsDataProvider;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

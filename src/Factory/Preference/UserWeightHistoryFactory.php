@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace App\Factory\Preference;
+namespace Kcalculator\Factory\Preference;
 
-use App\Entity\User;
-use App\Entity\UserWeightHistory;
+use Kcalculator\Entity\User;
+use Kcalculator\Entity\UserWeightHistory;
 use Doctrine\ORM\EntityManagerInterface;
 
 class UserWeightHistoryFactory

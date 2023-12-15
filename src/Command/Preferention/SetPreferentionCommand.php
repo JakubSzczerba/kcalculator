@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace App\Command\Preferention;
+namespace Kcalculator\Command\Preferention;
 
-use App\DTO\PreferentionDTO;
-use App\Entity\User;
+use Kcalculator\DTO\PreferentionDTO;
+use Kcalculator\Entity\User;
 
 class SetPreferentionCommand
 {

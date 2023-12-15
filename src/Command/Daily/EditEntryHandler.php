@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace App\Command\Daily;
+namespace Kcalculator\Command\Daily;
 
-use App\Factory\Entry\EntryFactory;
-use App\Prodiver\Entry\EntryDataProvider;
+use Kcalculator\Factory\Entry\EntryFactory;
+use Kcalculator\Prodiver\Entry\EntryDataProvider;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

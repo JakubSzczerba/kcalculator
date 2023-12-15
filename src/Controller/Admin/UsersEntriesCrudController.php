@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace Kcalculator\Controller\Admin;
 
-use App\Entity\UsersEntries;
+use Kcalculator\Entity\UsersEntries;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 

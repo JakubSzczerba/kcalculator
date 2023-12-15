@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace App\DTO;
+namespace Kcalculator\DTO;
 
-use App\Entity\Products;
+use Kcalculator\Entity\Products;
 
 class EntryDTO
 {

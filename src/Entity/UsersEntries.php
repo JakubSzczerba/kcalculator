@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace Kcalculator\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,7 +29,7 @@ class UsersEntries
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="entry")
+     * @ORM\ManyToOne(targetEntity="Kcalculator\Entity\User", inversedBy="entry")
      * @ORM\JoinColumn(name="user_id", nullable=false, referencedColumnName="id")
      */
     private User $user;
@@ -70,7 +70,7 @@ class UsersEntries
     private float $carboXgram;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Products", inversedBy="entries")"
+     * @ORM\ManyToMany(targetEntity="Kcalculator\Entity\Products", inversedBy="entries")"
      * @JoinTable(name="entry_product")
      */
     private Collection $food;

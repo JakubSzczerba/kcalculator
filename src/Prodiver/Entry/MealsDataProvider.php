@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace App\Prodiver\Entry;
+namespace Kcalculator\Prodiver\Entry;
 
-use App\Dictionary\Entry\MealTypeDictionary;
-use App\Repository\EntriesRepository;
+use Kcalculator\Dictionary\Entry\MealTypeDictionary;
+use Kcalculator\Repository\EntriesRepository;
 
 class MealsDataProvider
 {

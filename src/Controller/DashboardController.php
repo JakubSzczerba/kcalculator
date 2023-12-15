@@ -8,16 +8,16 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Kcalculator\Controller;
 
-use App\Prodiver\Chart\Dashboard\MacronutrientsProvider;
-use App\Prodiver\Chart\Dashboard\WeightProvider;
+use Kcalculator\Prodiver\Chart\Dashboard\MacronutrientsProvider;
+use Kcalculator\Prodiver\Chart\Dashboard\WeightProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\DashboardCaloriesRepository;
-use App\Repository\EntriesRepository;
-use App\Repository\UserWeightHistoryRepository;
+use Kcalculator\Repository\DashboardCaloriesRepository;
+use Kcalculator\Repository\EntriesRepository;
+use Kcalculator\Repository\UserWeightHistoryRepository;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 
