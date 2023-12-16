@@ -10,19 +10,19 @@ declare(strict_types=1);
 
 namespace Kcalculator\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Kcalculator\Command\Daily\AddEntryCommand;
 use Kcalculator\Command\Daily\EditEntryCommand;
+use Kcalculator\Domain\Product\Entity\Product;
 use Kcalculator\DTO\EntryDTO;
 use Kcalculator\Entity\User;
-use Kcalculator\Query\Daily\DailyEntriesQuery;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityManagerInterface;
-use Kcalculator\Repository\ProductRepository;
 use Kcalculator\Entity\UsersEntries;
-use Kcalculator\Entity\Products;
-use Symfony\Component\HttpFoundation\Request;
 use Kcalculator\Form\ProductDetailsType;
+use Kcalculator\Query\Daily\DailyEntriesQuery;
+use Kcalculator\Repository\ProductRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,10 +55,10 @@ class DailyController extends AbstractController
     }
 
     #[Route('/product/{id}', name: 'addEntry', methods: ['GET|POST'])]
-    public function addEntry(Request $request, Products $product, int $id): Response
+    public function addEntry(Request $request, Product $product, int $id): Response
     {
         $user = $this->entityManager->getRepository(User::class)->find($this->getUser()->getId());
-        $product = $this->entityManager->getRepository(Products::class)->find($id);
+        $product = $this->entityManager->getRepository(Product::class)->find($id);
 
         $form = $this->createForm(ProductDetailsType::class);
         $form->handleRequest($request);

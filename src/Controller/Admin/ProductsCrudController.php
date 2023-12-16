@@ -2,14 +2,14 @@
 
 namespace Kcalculator\Controller\Admin;
 
-use Kcalculator\Entity\Products;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Kcalculator\Domain\Product\Entity\Product;
 
 class ProductsCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Products::class;
+        return Product::class;
     }
 
     /*

@@ -8,17 +8,16 @@
 
 declare(strict_types=1);
 
-namespace Kcalculator\Entity;
+namespace Kcalculator\Domain\Product\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="products")
  */
-class Products
+class Product
 {
     /**
      * @ORM\Column(type="integer")

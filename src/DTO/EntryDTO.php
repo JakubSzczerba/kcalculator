@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Kcalculator\DTO;
 
-use Kcalculator\Entity\Products;
+use Kcalculator\Domain\Product\Entity\Product;
 
 class EntryDTO
 {
@@ -18,9 +18,9 @@ class EntryDTO
 
     private string $meal;
 
-    private  Products $product;
+    private  Product $product;
 
-    public function __construct(string $grammage, string $meal, Products $product)
+    public function __construct(string $grammage, string $meal, Product $product)
     {
         $this->grammage = (float)$grammage;
         $this->meal = $meal;
@@ -38,7 +38,7 @@ class EntryDTO
     }
 
 
-    public function getProduct(): Products
+    public function getProduct(): Product
     {
         return $this->product;
     }

@@ -8,15 +8,15 @@
 
 declare(strict_types=1);
 
-namespace Kcalculator\Command;
+namespace Kcalculator\Domain\Product\Command;
 
-use Kcalculator\Entity\Products;
 use Doctrine\ORM\EntityManagerInterface;
+use Kcalculator\Domain\Product\Entity\Product;
+use League\Csv\Reader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use League\Csv\Reader;
 
 class CsvImportCommand extends Command
 {
@@ -32,7 +32,7 @@ class CsvImportCommand extends Command
     protected function configure()
     {
         $this->setName('csv:import');
-        $this->setDescription('Imports a mock CSV file');
+        $this->setDescription('Imports a products');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -45,7 +45,7 @@ class CsvImportCommand extends Command
         $results = $reader->getRecords();
 
         foreach ($results as $row) {
-            $products = new Products();
+            $products = new Product();
             $products->setProduct($row['product']);
             $products->setEnergy($row['energy']);
             $products->setProtein($row['protein']);

@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace Kcalculator\Factory\Entry;
 
-use Kcalculator\Entity\Products;
+use Doctrine\ORM\EntityManagerInterface;
+use Kcalculator\Domain\Product\Entity\Product;
 use Kcalculator\Entity\User;
 use Kcalculator\Entity\UsersEntries;
-use Doctrine\ORM\EntityManagerInterface;
 
 class EntryFactory
 {
@@ -24,7 +24,7 @@ class EntryFactory
         $this->em = $em;
     }
 
-    public function new(User $user, string $mealType, float $grammage, Products $product, float $energy, float $protein, float $fat, float $carbohydrates): UsersEntries
+    public function new(User $user, string $mealType, float $grammage, Product $product, float $energy, float $protein, float $fat, float $carbohydrates): UsersEntries
     {
         $entry = new UsersEntries();
         $entry->setUser($user);

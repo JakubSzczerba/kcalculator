@@ -10,20 +10,18 @@ declare(strict_types=1);
 
 namespace Kcalculator\Repository;
 
-use Kcalculator\Entity\Products;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Kcalculator\Domain\Product\Entity\Product;
+use Kcalculator\Domain\Product\ProductRepositoryInterface;
 
-class ProductRepository extends ServiceEntityRepository
+class ProductRepository extends ServiceEntityRepository implements ProductRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Products::class);
+        parent::__construct($registry, Product::class);
     }
 
-    /**
-     * @return products[]
-     */
     public function findProducts(string $product): array
     {
         $qb = $this->createQueryBuilder('p');

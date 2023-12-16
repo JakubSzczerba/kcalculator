@@ -11,8 +11,8 @@ declare(strict_types=1);
 namespace Kcalculator\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Kcalculator\Domain\Product\Entity\Product;
 
 /**
  * @ORM\Entity()
@@ -70,7 +70,7 @@ class UsersEntries
     private float $carboXgram;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Kcalculator\Entity\Products", inversedBy="entries")"
+     * @ORM\ManyToMany(targetEntity="Kcalculator\Domain\Product\Entity\Products", inversedBy="entries")"
      * @JoinTable(name="entry_product")
      */
     private Collection $food;
@@ -172,7 +172,7 @@ class UsersEntries
         return $this->food;
     }
 
-    public function setFood(?Products $food): self
+    public function setFood(?Product $food): self
     {
         $this->food[] = $food;
         return $this;

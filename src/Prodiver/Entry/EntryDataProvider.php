@@ -10,11 +10,11 @@ declare(strict_types=1);
 
 namespace Kcalculator\Prodiver\Entry;
 
-use Kcalculator\Entity\Products;
+use Kcalculator\Domain\Product\Entity\Product;
 
 class EntryDataProvider
 {
-    public function getGrammageValues(float $grammage, Products $product): array
+    public function getGrammageValues(float $grammage, Product $product): array
     {
         $energy = $product->getEnergy() * $grammage;
         $protein = $product->getProtein() * $grammage;
