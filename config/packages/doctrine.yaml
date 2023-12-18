@@ -11,9 +11,33 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            Kcalculator:
+            User:
+                type: attribute
                 is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'Kcalculator\Entity'
+                dir: '%kernel.project_dir%/src/Domain/User/Entity'
+                prefix: 'Kcalculator\Domain\User\Entity'
+                alias: Kcalculator
+            Product:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Domain/Product/Entity'
+                prefix: 'Kcalculator\Domain\Product\Entity'
+                alias: Kcalculator
+            UserPreference:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Domain/Preference/Entity'
+                prefix: 'Kcalculator\Domain\Preference\Entity'
+                alias: Kcalculator
+            UserEntry:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Domain/Entry/Entity'
+                prefix: 'Kcalculator\Domain\Entry\Entity'
+                alias: Kcalculator
+            UserWeightHistory:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Domain/WeightHistory/Entity'
+                prefix: 'Kcalculator\Domain\WeightHistory\Entity'
                 alias: Kcalculator

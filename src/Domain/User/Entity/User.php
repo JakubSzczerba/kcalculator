@@ -14,63 +14,40 @@ use Doctrine\Common\Collections\Collection;
 use Kcalculator\Domain\Preference\Entity\UserPreference;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="Kcalculator\Repository\UserRepository")
- */
+#[ORM\Entity]
 class User implements
     UserInterface,
     PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: "string", nullable: false)]
     private string $fullName;
 
-    /**
-     * @ORM\Column(type="string", length=128, unique=true)
-     */
+    #[ORM\Column(type: "string", length: 128, unique: true, nullable: false)]
     private string $username;
 
-    /**
-     * @ORM\Column(type="string", length=128, unique=true)
-     */
+    #[ORM\Column(type: "string", length: 128, unique: true, nullable: false)]
     private string $email;
 
-    /**
-     * @ORM\Column(type="string", length=4096)
-     */
+    #[ORM\Column(type: "string", length: 4096, unique: true, nullable: false)]
     private string $password;
 
-    /**
-     * @var array
-     *
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: "json")]
     private array $roles = [];
 
-    /**
-     * @ORM\OneToOne(targetEntity="Kcalculator\Entity\UserPreferention", mappedBy="users")
-     */
+    #[ORM\OneToOne(mappedBy: "users", targetEntity: "Kcalculator\Domain\Preference\Entity\UserPreference")]
     private UserPreference $preferentions;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Kcalculator\Entity\UsersEntries", mappedBy="user")
-     */
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: "Kcalculator\Domain\Entry\Entity\UserEntry")]
     private Collection $entry;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Kcalculator\Entity\UserWeightHistory", mappedBy="user")
-     */
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: "Kcalculator\Domain\WeightHistory\Entity\UserWeightHistory")]
     private Collection $userWeightHistory;
 
     public function __construct(string $fullName, string $username, string $email)
@@ -95,9 +72,6 @@ class User implements
         return $this->fullName;
     }
 
-    /**
-     * Returns the roles or permissions granted to the user for security.
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -129,9 +103,6 @@ class User implements
         return $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
@@ -194,6 +165,6 @@ class User implements
      */
     public function getUserIdentifier(): string
     {
-        return (string)$this->email;
+        return $this->username;
     }
 }

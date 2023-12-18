@@ -12,54 +12,38 @@ namespace Kcalculator\Domain\Product\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="products")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'products')]
 class Product
 {
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private $id;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Kcalculator\Entity\UsersEntries", mappedBy="food")"
-     *
-     */
+    #[ORM\ManyToMany(targetEntity: "Kcalculator\Domain\Entry\Entity\UserEntry", mappedBy: "food")]
     private Collection $entries;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: "string", nullable: false)]
     private string $product;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $energy;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $protein;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $fat;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $carbo;
 
     public function __construct()
     {
-        $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->entries = new ArrayCollection();
     }
 
     public function getId()

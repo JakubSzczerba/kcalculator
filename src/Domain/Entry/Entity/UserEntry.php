@@ -14,66 +14,44 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Kcalculator\Domain\Product\Entity\Product;
 use Kcalculator\Domain\User\Entity\User;
+use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="users_entries")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'users_entries')]
 class UserEntry
 {
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Kcalculator\Entity\User", inversedBy="entry")
-     * @ORM\JoinColumn(name="user_id", nullable=false, referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: "Kcalculator\Domain\User\Entity\User", inversedBy: "entry")]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: 'id', nullable: false)]
     private User $user;
 
-    /**
-     * @ORM\Column(type="date")
-     */
+    #[ORM\Column]
     private \DateTime $datetime;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: "string", nullable: false)]
     private string $meal_type;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $grammage;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $energyXgram;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $proteinXgram;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $fatXgram;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $carboXgram;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Kcalculator\Domain\Product\Entity\Products", inversedBy="entries")"
-     * @JoinTable(name="entry_product")
-     */
+    #[ORM\ManyToMany(targetEntity: "Kcalculator\Domain\Product\Entity\Product", inversedBy: "entries")]
+    #[ORM\JoinTable(name: "entry_product")]
     private Collection $food;
 
     public function __construct()

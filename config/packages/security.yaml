@@ -1,11 +1,11 @@
 security:
     password_hashers:
-        Kcalculator\Entity\User:
+        Kcalculator\Domain\User\Entity\User:
             algorithm: bcrypt
     providers:
         db_provider:
             entity:
-                class: Kcalculator\Entity\User
+                class: Kcalculator\Domain\User\Entity\User
                 property: username
     firewalls:
         dev:

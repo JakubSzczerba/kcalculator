@@ -11,81 +11,52 @@ declare(strict_types=1);
 namespace Kcalculator\Domain\Preference\Entity;
 
 use Kcalculator\Domain\User\Entity\User;
+use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="user_preferention")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'user_preferention')]
 class UserPreference
 {
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Kcalculator\Entity\User", inversedBy="preferentions")
-     * @ORM\JoinColumn(name="users_id", nullable=false, referencedColumnName="id")
-     */
+    #[ORM\OneToOne(inversedBy: "preferentions", targetEntity: "Kcalculator\Domain\User\Entity\User")]
+    #[ORM\JoinColumn(name: "users_id", referencedColumnName: 'id', nullable: false)]
     private User $users;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: "string", nullable: false)]
     private string $gender;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $weight;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $height;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer", nullable: false)]
     private int $age;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: "string", nullable: false)]
     private string $activity;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer", nullable: false)]
     public int $caloric_requirement;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: "string", nullable: false)]
     private string $intentions;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer", nullable: false)]
     public int $kcal_day;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer", nullable: false)]
     public int $proteinPerDay;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer", nullable: false)]
     public int $fatPerDay;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer", nullable: false)]
     public int $carboPerDay;
 
     public function getId()

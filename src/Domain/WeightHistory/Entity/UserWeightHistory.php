@@ -11,35 +11,25 @@ declare(strict_types=1);
 namespace Kcalculator\Domain\WeightHistory\Entity;
 
 use Kcalculator\Domain\User\Entity\User;
+use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="user_weightHistory")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'user_weightHistory')]
 class UserWeightHistory
 {
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Kcalculator\Entity\User", inversedBy="userWeightHistory")
-     * @ORM\JoinColumn(name="user_id", nullable=false, referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: "Kcalculator\Domain\User\Entity\User", inversedBy: "userWeightHistory")]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: 'id', nullable: false)]
     private User $user;
 
-    /**
-     * @ORM\Column(type="date")
-     */
+    #[ORM\Column]
     private \DateTime $datetime;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: "float", nullable: false)]
     private float $userWeight;
 
     public function __construct()
