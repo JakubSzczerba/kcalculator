@@ -14,15 +14,15 @@ use Kcalculator\Domain\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'user_weightHistory')]
-class UserWeightHistory
+#[ORM\Table(name: 'weight_history')]
+class WeightHistory
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: "Kcalculator\Domain\User\Entity\User", inversedBy: "userWeightHistory")]
+    #[ORM\ManyToOne(targetEntity: "Kcalculator\Domain\User\Entity\User", inversedBy: "weightHistory")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: 'id', nullable: false)]
     private User $user;
 

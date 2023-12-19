@@ -3,13 +3,13 @@
 namespace Kcalculator\Application\Controller\Admin;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use Kcalculator\Domain\Preference\Entity\UserPreference;
+use Kcalculator\Domain\Preference\Entity\Preference;
 
-class UserPreferentionCrudController extends AbstractCrudController
+class PreferenceCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return UserPreference::class;
+        return Preference::class;
     }
 
     /*

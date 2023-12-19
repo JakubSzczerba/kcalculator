@@ -12,9 +12,9 @@ namespace Kcalculator\Application\Controller;
 
 use Kcalculator\Application\Prodiver\Chart\Dashboard\MacronutrientsProvider;
 use Kcalculator\Application\Prodiver\Chart\Dashboard\WeightProvider;
-use Kcalculator\Infrastructure\Repository\UserPreferenceRepository;
-use Kcalculator\Infrastructure\Repository\UserEntryRepository;
-use Kcalculator\Infrastructure\Repository\UserWeightHistoryRepository;
+use Kcalculator\Infrastructure\Repository\PreferenceRepository;
+use Kcalculator\Infrastructure\Repository\EntryRepository;
+use Kcalculator\Infrastructure\Repository\WeightHistoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,11 +23,11 @@ use Symfony\UX\Chartjs\Model\Chart;
 
 class DashboardController extends AbstractController
 {
-    private UserPreferenceRepository $dashboardCaloriesRepository;
+    private PreferenceRepository $dashboardCaloriesRepository;
 
-    private UserEntryRepository $entriesRepository;
+    private EntryRepository $entriesRepository;
 
-    private UserWeightHistoryRepository $userWeightHistoryRepository;
+    private WeightHistoryRepository $userWeightHistoryRepository;
 
     private ChartBuilderInterface $chartBuilder;
 
@@ -35,7 +35,7 @@ class DashboardController extends AbstractController
 
     private WeightProvider $weightProvider;
 
-    public function __construct(UserPreferenceRepository $dashboardCaloriesRepository, UserEntryRepository $entriesRepository, UserWeightHistoryRepository $userWeightHistoryRepository, ChartBuilderInterface $chartBuilder, MacronutrientsProvider $macronutrientsProvider, WeightProvider $weightProvider)
+    public function __construct(PreferenceRepository $dashboardCaloriesRepository, EntryRepository $entriesRepository, WeightHistoryRepository $userWeightHistoryRepository, ChartBuilderInterface $chartBuilder, MacronutrientsProvider $macronutrientsProvider, WeightProvider $weightProvider)
     {
         $this->dashboardCaloriesRepository = $dashboardCaloriesRepository;
         $this->entriesRepository = $entriesRepository;

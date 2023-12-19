@@ -18,7 +18,7 @@ use Kcalculator\Application\Form\ProductDetailsType;
 use Kcalculator\Application\Query\Daily\DailyEntriesQuery;
 use Kcalculator\Domain\Product\Entity\Product;
 use Kcalculator\Domain\User\Entity\User;
-use Kcalculator\Domain\Entry\Entity\UserEntry;
+use Kcalculator\Domain\Entry\Entity\Entry;
 use Kcalculator\Infrastructure\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,7 +84,7 @@ class DailyController extends AbstractController
     #[Route('/wpisy/delete/{id}', name: 'deleteEntry')]
     public function deleteEntry(int $id): Response
     {
-        $entry = $this->getDoctrine()->getRepository(UserEntry::class)->find($id);
+        $entry = $this->entityManager->getRepository(Entry::class)->find($id);
 
         if ($id) {
             $this->entityManager->remove($entry);
@@ -99,7 +99,7 @@ class DailyController extends AbstractController
     #[Route('/wpisy/edit/{id}', name: 'editEntry', methods: ['GET|POST'])]
     public function editEntry(Request $request, int $id): Response
     {
-        $entry = $this->getDoctrine()->getRepository(UserEntry::class)->find(array('id' => $id,));
+        $entry = $this->entityManager->getRepository(Entry::class)->find(array('id' => $id,));
         $product = null;
 
         foreach ($entry->getFood() as $productDetails) {

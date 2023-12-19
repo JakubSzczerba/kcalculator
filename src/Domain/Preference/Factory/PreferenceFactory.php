@@ -12,7 +12,7 @@ namespace Kcalculator\Domain\Preference\Factory;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Kcalculator\Domain\User\Entity\User;
-use Kcalculator\Domain\Preference\Entity\UserPreference;
+use Kcalculator\Domain\Preference\Entity\Preference;
 
 class PreferenceFactory implements PreferenceFactoryInterface
 {
@@ -23,13 +23,25 @@ class PreferenceFactory implements PreferenceFactoryInterface
         $this->em = $em;
     }
 
-    public function new(User $user, string $gender, float $weight, float $height, int $age, string $activity, int $caloric_requirement, string $intentions, int $kcal_day, int $protein, int $fat, int $carbohydrates): UserPreference
-    {
-        $preferention = new UserPreference();
-        $preferention->setUsers($user);
+    public function new(
+        User $user,
+        string $gender,
+        float $weight,
+        float $height,
+        int $age,
+        string $activity,
+        int $caloric_requirement,
+        string $intentions,
+        int $kcal_day,
+        int $protein,
+        int $fat,
+        int $carbohydrates
+    ): Preference {
+        $preference = new Preference();
+        $preference->setUser($user);
 
         $this->setValues(
-            $preferention,
+            $preference,
             $gender,
             $weight,
             $height,
@@ -43,16 +55,28 @@ class PreferenceFactory implements PreferenceFactoryInterface
             $carbohydrates
         );
 
-        $this->em->persist($preferention);
+        $this->em->persist($preference);
         $this->em->flush();
 
-        return $preferention;
+        return $preference;
     }
 
-    public function edit(UserPreference $userPreferention, string $gender, float $weight, float $height, int $age, string $activity, int $caloric_requirement, string $intentions, int $kcal_day, int $protein, int $fat, int $carbohydrates): UserPreference
-    {
+    public function edit(
+        Preference $preference,
+        string $gender,
+        float $weight,
+        float $height,
+        int $age,
+        string $activity,
+        int $caloric_requirement,
+        string $intentions,
+        int $kcal_day,
+        int $protein,
+        int $fat,
+        int $carbohydrates
+    ): Preference {
         $this->setValues(
-            $userPreferention,
+            $preference,
             $gender,
             $weight,
             $height,
@@ -68,11 +92,11 @@ class PreferenceFactory implements PreferenceFactoryInterface
 
         $this->em->flush();
 
-        return $userPreferention;
+        return $preference;
     }
 
     private function setValues(
-        UserPreference $preferention,
+        Preference $preference,
         string         $gender,
         float          $weight,
         float          $height,
@@ -85,16 +109,16 @@ class PreferenceFactory implements PreferenceFactoryInterface
         int            $fat,
         int $carbohydrates
     ): void {
-        $preferention->setGender($gender);
-        $preferention->setWeight($weight);
-        $preferention->setHeight($height);
-        $preferention->setAge($age);
-        $preferention->setActivity($activity);
-        $preferention->setKcal($caloric_requirement);
-        $preferention->setIntentions($intentions);
-        $preferention->setKcalDay($kcal_day);
-        $preferention->setProteinPerDay($protein);
-        $preferention->setFatPerDay($fat);
-        $preferention->setCarboPerDay($carbohydrates);
+        $preference->setGender($gender);
+        $preference->setWeight($weight);
+        $preference->setHeight($height);
+        $preference->setAge($age);
+        $preference->setActivity($activity);
+        $preference->setKcal($caloric_requirement);
+        $preference->setIntentions($intentions);
+        $preference->setKcalDay($kcal_day);
+        $preference->setProteinPerDay($protein);
+        $preference->setFatPerDay($fat);
+        $preference->setCarboPerDay($carbohydrates);
     }
 }

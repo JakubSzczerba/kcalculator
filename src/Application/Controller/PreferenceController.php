@@ -11,19 +11,19 @@ declare(strict_types=1);
 namespace Kcalculator\Application\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Kcalculator\Application\Command\Preferention\EditPreferentionCommand;
-use Kcalculator\Application\Command\Preferention\SetPreferentionCommand;
-use Kcalculator\Application\Form\PreferentionsType;
+use Kcalculator\Application\Command\Preferention\EditPreferenceCommand;
+use Kcalculator\Application\Command\Preferention\SetPreferenceCommand;
+use Kcalculator\Application\Form\PreferenceType;
 use Kcalculator\Application\Services\Preference\FormDataExtractor;
 use Kcalculator\Domain\User\Entity\User;
-use Kcalculator\Domain\Preference\Entity\UserPreference;
+use Kcalculator\Domain\Preference\Entity\Preference;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PreferentionsController extends AbstractController
+class PreferenceController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
 
@@ -42,13 +42,13 @@ class PreferentionsController extends AbstractController
     public function setPreferention(Request $request): Response
     {
         $user = $this->entityManager->getRepository(User::class)->find($this->getUser()->getId());
-        $form = $this->createForm(PreferentionsType::class);
+        $form = $this->createForm(PreferenceType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $preferentionDTO = $this->formDataExtractor->extractPreferentionDTO($form);
 
-            $command = new SetPreferentionCommand($user, $preferentionDTO);
+            $command = new SetPreferenceCommand($user, $preferentionDTO);
             $this->commandBus->dispatch($command);
             $this->addFlash('success', 'Obliczono dziennie zapotrzebowanie kaloryczne');
 
@@ -63,14 +63,14 @@ class PreferentionsController extends AbstractController
     #[Route('/preferention/{id}/edit', name: 'editPreferentions', methods: ['GET|POST'])]
     public function editPreferentions(Request $request, int $id): Response
     {
-        $preferention = $this->entityManager->getRepository(UserPreference::class)->find(['id' => $id]);
-        $form = $this->createForm(PreferentionsType::class, $preferention);
+        $preferention = $this->entityManager->getRepository(Preference::class)->find(['id' => $id]);
+        $form = $this->createForm(PreferenceType::class, $preferention);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $preferentionDTO = $this->formDataExtractor->extractPreferentionDTO($form);
 
-            $command = new EditPreferentionCommand($preferention, $preferentionDTO);
+            $command = new EditPreferenceCommand($preferention, $preferentionDTO);
             $this->commandBus->dispatch($command);
             $this->addFlash('success', 'Edytowano dziennie zapotrzebowanie kaloryczne');
 

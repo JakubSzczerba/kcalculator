@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace Kcalculator\Domain\User\Entity;
 
 use Doctrine\Common\Collections\Collection;
-use Kcalculator\Domain\Preference\Entity\UserPreference;
+use Kcalculator\Domain\Preference\Entity\Preference;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -41,14 +41,14 @@ class User implements
     #[ORM\Column(type: "json")]
     private array $roles = [];
 
-    #[ORM\OneToOne(mappedBy: "users", targetEntity: "Kcalculator\Domain\Preference\Entity\UserPreference")]
-    private UserPreference $preferentions;
+    #[ORM\OneToOne(mappedBy: "user", targetEntity: "Kcalculator\Domain\Preference\Entity\Preference")]
+    private Preference $preference;
 
-    #[ORM\OneToMany(mappedBy: "user", targetEntity: "Kcalculator\Domain\Entry\Entity\UserEntry")]
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: "Kcalculator\Domain\Entry\Entity\Entry")]
     private Collection $entry;
 
-    #[ORM\OneToMany(mappedBy: "user", targetEntity: "Kcalculator\Domain\WeightHistory\Entity\UserWeightHistory")]
-    private Collection $userWeightHistory;
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: "Kcalculator\Domain\WeightHistory\Entity\WeightHistory")]
+    private Collection $weightHistory;
 
     public function __construct(string $fullName, string $username, string $email)
     {
@@ -128,14 +128,14 @@ class User implements
         return $this;
     }
 
-    public function getPreferention(): ?UserPreference
+    public function getPreference(): ?Preference
     {
-        return $this->preferentions;
+        return $this->preference;
     }
 
-    public function setPreferention($preferentions): void
+    public function setPreference($preference): void
     {
-        $this->preferentions = $preferentions;
+        $this->preference = $preference;
     }
 
     public function getEntries(): ?Collection
@@ -148,14 +148,14 @@ class User implements
         $this->entry = $entry;
     }
 
-    public function getUerWeightHistory(): ?Collection
+    public function getWeightHistory(): ?Collection
     {
-        return $this->userWeightHistory;
+        return $this->weightHistory;
     }
 
-    public function setUerWeightHistory(Collection $userWeightHistory): void
+    public function setUerWeightHistory(Collection $weightHistory): void
     {
-        $this->userWeightHistory = $userWeightHistory;
+        $this->weightHistory = $weightHistory;
     }
 
     /**

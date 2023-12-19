@@ -12,9 +12,9 @@ namespace Kcalculator\Domain\WeightHistory\Factory;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Kcalculator\Domain\User\Entity\User;
-use Kcalculator\Domain\WeightHistory\Entity\UserWeightHistory;
+use Kcalculator\Domain\WeightHistory\Entity\WeightHistory;
 
-class UserWeightHistoryFactory
+class WeightHistoryFactory implements WeightHistoryFactoryInterface
 {
     private EntityManagerInterface $em;
 
@@ -23,17 +23,17 @@ class UserWeightHistoryFactory
         $this->em = $em;
     }
 
-    public function new(User $user, float $weight): UserWeightHistory
+    public function new(User $user, float $weight): WeightHistory
     {
-        $userWeightHistory = new UserWeightHistory();
-        $userWeightHistory->setUsers($user);
-        $userWeightHistory->setUserWeight($weight);
-        $userWeightHistory->setDateTime(new \DateTime());
+        $weightHistory = new WeightHistory();
+        $weightHistory->setUsers($user);
+        $weightHistory->setUserWeight($weight);
+        $weightHistory->setDateTime(new \DateTime());
 
-        $this->em->persist($userWeightHistory);
+        $this->em->persist($weightHistory);
         $this->em->flush();
 
-        return $userWeightHistory;
+        return $weightHistory;
     }
 
 }

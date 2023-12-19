@@ -11,19 +11,19 @@ declare(strict_types=1);
 namespace Kcalculator\Application\Command\Daily;
 
 use Kcalculator\Application\DTO\EntryDTO;
-use Kcalculator\Domain\Entry\Entity\UserEntry;
+use Kcalculator\Domain\Entry\Entity\Entry;
 
 class EditEntryCommand
 {
     private EntryDTO $entryDTO;
 
-    private UserEntry $userEntry;
+    private Entry $entry;
 
 
-    public function __construct(EntryDTO $entryDTO, UserEntry $userEntry)
+    public function __construct(EntryDTO $entryDTO, Entry $entry)
     {
         $this->entryDTO = $entryDTO;
-        $this->userEntry = $userEntry;
+        $this->entry = $entry;
     }
 
     public function getEntryDTO(): EntryDTO
@@ -31,8 +31,8 @@ class EditEntryCommand
         return $this->entryDTO;
     }
 
-    public function getUserEntry(): UserEntry
+    public function getEntry(): Entry
     {
-        return $this->userEntry;
+        return $this->entry;
     }
 }

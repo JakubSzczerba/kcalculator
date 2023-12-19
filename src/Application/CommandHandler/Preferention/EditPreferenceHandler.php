@@ -10,31 +10,31 @@ declare(strict_types=1);
 
 namespace Kcalculator\Application\CommandHandler\Preferention;
 
-use Kcalculator\Application\Command\Preferention\EditPreferentionCommand;
+use Kcalculator\Application\Command\Preferention\EditPreferenceCommand;
 use Kcalculator\Application\Services\Preference\BasalMetabolicRateAlgorithm;
 use Kcalculator\Domain\Preference\Factory\PreferenceFactory;
-use Kcalculator\Domain\WeightHistory\Factory\UserWeightHistoryFactory;
+use Kcalculator\Domain\WeightHistory\Factory\WeightHistoryFactory;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-class EditPreferentionHandler
+class EditPreferenceHandler
 {
     private BasalMetabolicRateAlgorithm $basalMetabolicRateAlgorithm;
 
     private PreferenceFactory $preferenceFactory;
 
-    private UserWeightHistoryFactory $userWeightHistoryFactory;
+    private WeightHistoryFactory $userWeightHistoryFactory;
 
-    public function __construct(BasalMetabolicRateAlgorithm $basalMetabolicRateAlgorithm, PreferenceFactory $preferenceFactory, UserWeightHistoryFactory $userWeightHistoryFactory)
+    public function __construct(BasalMetabolicRateAlgorithm $basalMetabolicRateAlgorithm, PreferenceFactory $preferenceFactory, WeightHistoryFactory $userWeightHistoryFactory)
     {
         $this->basalMetabolicRateAlgorithm = $basalMetabolicRateAlgorithm;
         $this->preferenceFactory = $preferenceFactory;
         $this->userWeightHistoryFactory = $userWeightHistoryFactory;
     }
 
-    public function __invoke(EditPreferentionCommand $command): void
+    public function __invoke(EditPreferenceCommand $command): void
     {
-        $preferentionDTO = $command->getPreferentionDTO();
+        $preferentionDTO = $command->getPreferenceDTO();
 
         /* Calculate Basal Metabolic Rate per user */
         $BMR = $this->basalMetabolicRateAlgorithm->calculate(
@@ -48,7 +48,7 @@ class EditPreferentionHandler
 
         /* Edit preferentions */
         $this->preferenceFactory->edit(
-            $command->getUserPreferention(),
+            $command->getPreference(),
             $preferentionDTO->getGender(),
             $preferentionDTO->getWeight(),
             $preferentionDTO->getHeight(),

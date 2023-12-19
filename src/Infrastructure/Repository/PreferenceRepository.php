@@ -13,14 +13,14 @@ namespace Kcalculator\Infrastructure\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
-use Kcalculator\Domain\Preference\Entity\UserPreference;
+use Kcalculator\Domain\Preference\Entity\Preference;
 use Kcalculator\Domain\Preference\UserPreferenceRepositoryInterface;
 
-class UserPreferenceRepository extends ServiceEntityRepository implements UserPreferenceRepositoryInterface
+class PreferenceRepository extends ServiceEntityRepository implements UserPreferenceRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserPreference::class);
+        parent::__construct($registry, Preference::class);
     }
 
     public function showKcalPerDay(int $id): array

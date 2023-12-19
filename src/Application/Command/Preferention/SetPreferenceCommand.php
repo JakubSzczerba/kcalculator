@@ -10,19 +10,19 @@ declare(strict_types=1);
 
 namespace Kcalculator\Application\Command\Preferention;
 
-use Kcalculator\Application\DTO\PreferentionDTO;
+use Kcalculator\Application\DTO\PreferenceDTO;
 use Kcalculator\Domain\User\Entity\User;
 
-class SetPreferentionCommand
+class SetPreferenceCommand
 {
     private User $user;
 
-    private PreferentionDTO $preferentionDTO;
+    private PreferenceDTO $preferenceDTO;
 
-    public function __construct(User $user, PreferentionDTO $preferentionDTO)
+    public function __construct(User $user, PreferenceDTO $preferenceDTO)
     {
         $this->user = $user;
-        $this->preferentionDTO = $preferentionDTO;
+        $this->preferenceDTO = $preferenceDTO;
     }
 
     public function getUser(): User
@@ -30,8 +30,8 @@ class SetPreferentionCommand
         return $this->user;
     }
 
-    public function getPreferentionDTO(): PreferentionDTO
+    public function getPreferenceDTO(): PreferenceDTO
     {
-        return $this->preferentionDTO;
+        return $this->preferenceDTO;
     }
 }

@@ -11,9 +11,9 @@ declare(strict_types=1);
 namespace Kcalculator\Domain\WeightHistory\Factory;
 
 use Kcalculator\Domain\User\Entity\User;
-use Kcalculator\Domain\WeightHistory\Entity\UserWeightHistory;
+use Kcalculator\Domain\WeightHistory\Entity\WeightHistory;
 
-interface UserWeightHistoryFactoryInterface
+interface WeightHistoryFactoryInterface
 {
-    public function new(User $user, float $weight): UserWeightHistory;
+    public function new(User $user, float $weight): WeightHistory;
 }

@@ -14,17 +14,17 @@ use Kcalculator\Domain\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'user_preferention')]
-class UserPreference
+#[ORM\Table(name: 'preferences')]
+class Preference
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private $id;
 
-    #[ORM\OneToOne(inversedBy: "preferentions", targetEntity: "Kcalculator\Domain\User\Entity\User")]
+    #[ORM\OneToOne(inversedBy: "preference", targetEntity: "Kcalculator\Domain\User\Entity\User")]
     #[ORM\JoinColumn(name: "users_id", referencedColumnName: 'id', nullable: false)]
-    private User $users;
+    private User $user;
 
     #[ORM\Column(type: "string", nullable: false)]
     private string $gender;
@@ -64,14 +64,14 @@ class UserPreference
         return $this->id;
     }
 
-    public function getUsers(): ?User
+    public function getUser(): ?User
     {
-        return $this->users;
+        return $this->user;
     }
 
-    public function setUsers(?User $users): self
+    public function setUser(?User $user): self
     {
-        $this->users = $users;
+        $this->user = $user;
         return $this;
     }
 

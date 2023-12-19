@@ -37,7 +37,7 @@ class EditEntryHandler
 
         /* Edit entry */
         $this->entryFactory->edit(
-            $command->getUserEntry(),
+            $command->getEntry(),
             $entryDTO->getMeal(),
             $grammarValues['grammage'],
             $grammarValues['energy'],

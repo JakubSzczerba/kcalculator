@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Kcalculator\Application\DTO;
 
-class PreferentionDTO
+class PreferenceDTO
 {
     private string $gender;
     private float $weight;

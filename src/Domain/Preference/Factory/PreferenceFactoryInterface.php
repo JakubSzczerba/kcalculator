@@ -10,13 +10,13 @@ declare(strict_types=1);
 
 namespace Kcalculator\Domain\Preference\Factory;
 
+use Kcalculator\Domain\Preference\Entity\Preference;
 use Kcalculator\Domain\User\Entity\User;
-use Kcalculator\Domain\Preference\Entity\UserPreference;
 
 interface PreferenceFactoryInterface
 {
-    public function new(User $user, string $gender, float $weight, float $height, int $age, string $activity, int $caloric_requirement, string $intentions, int $kcal_day, int $protein, int $fat, int $carbohydrates): UserPreference;
+    public function new(User $user, string $gender, float $weight, float $height, int $age, string $activity, int $caloric_requirement, string $intentions, int $kcal_day, int $protein, int $fat, int $carbohydrates): Preference;
 
-    public function edit(UserPreference $userPreferention, string $gender, float $weight, float $height, int $age, string $activity, int $caloric_requirement, string $intentions, int $kcal_day, int $protein, int $fat, int $carbohydrates): UserPreference;
+    public function edit(Preference $userPreferention, string $gender, float $weight, float $height, int $age, string $activity, int $caloric_requirement, string $intentions, int $kcal_day, int $protein, int $fat, int $carbohydrates): Preference;
 
 }

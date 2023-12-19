@@ -11,13 +11,13 @@ declare(strict_types=1);
 namespace Kcalculator\Application\Prodiver\Entry;
 
 use Kcalculator\Application\Dictionary\Entry\MealTypeDictionary;
-use Kcalculator\Infrastructure\Repository\UserEntryRepository;
+use Kcalculator\Infrastructure\Repository\EntryRepository;
 
 class MealsDataProvider
 {
-    private UserEntryRepository $entriesRepository;
+    private EntryRepository $entriesRepository;
 
-    public function __construct(UserEntryRepository $entriesRepository)
+    public function __construct(EntryRepository $entriesRepository)
     {
         $this->entriesRepository = $entriesRepository;
     }

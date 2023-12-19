@@ -10,22 +10,22 @@ declare(strict_types=1);
 
 namespace Kcalculator\Application\CommandHandler\Preferention;
 
-use Kcalculator\Application\Command\Preferention\SetPreferentionCommand;
+use Kcalculator\Application\Command\Preferention\SetPreferenceCommand;
 use Kcalculator\Application\Services\Preference\BasalMetabolicRateAlgorithm;
 use Kcalculator\Domain\Preference\Factory\PreferenceFactory;
-use Kcalculator\Domain\WeightHistory\Factory\UserWeightHistoryFactory;
+use Kcalculator\Domain\WeightHistory\Factory\WeightHistoryFactory;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-class SetPreferentionHandler
+class SetPreferenceHandler
 {
     private BasalMetabolicRateAlgorithm $basalMetabolicRateAlgorithm;
 
     private PreferenceFactory $preferenceFactory;
 
-    private UserWeightHistoryFactory $userWeightHistoryFactory;
+    private WeightHistoryFactory $userWeightHistoryFactory;
 
-    public function __construct(BasalMetabolicRateAlgorithm $basalMetabolicRateAlgorithm, PreferenceFactory $preferenceFactory, UserWeightHistoryFactory $userWeightHistoryFactory)
+    public function __construct(BasalMetabolicRateAlgorithm $basalMetabolicRateAlgorithm, PreferenceFactory $preferenceFactory, WeightHistoryFactory $userWeightHistoryFactory)
     {
         $this->basalMetabolicRateAlgorithm = $basalMetabolicRateAlgorithm;
         $this->preferenceFactory = $preferenceFactory;
@@ -33,9 +33,9 @@ class SetPreferentionHandler
     }
 
 
-    public function __invoke(SetPreferentionCommand $command): void
+    public function __invoke(SetPreferenceCommand $command): void
     {
-        $preferentionDTO = $command->getPreferentionDTO();
+        $preferentionDTO = $command->getPreferenceDTO();
 
         /* Calculate Basal Metabolic Rate per user */
         $BMR = $this->basalMetabolicRateAlgorithm->calculate(

@@ -12,13 +12,13 @@ namespace Kcalculator\Infrastructure\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Kcalculator\Domain\Entry\Entity\UserEntry;
+use Kcalculator\Domain\Entry\Entity\Entry;
 
-class UserEntryRepository extends ServiceEntityRepository
+class EntryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserEntry::class);
+        parent::__construct($registry, Entry::class);
     }
 
     public function displayEntry(\DateTime $datetime, int $id)
@@ -211,9 +211,6 @@ class UserEntryRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * @return tea_kcal[]
-     */
     public function SummTea(\DateTime $datetime, int $id, string $meal5)
     {       
         $qb = $this->createQueryBuilder('e');
@@ -229,9 +226,6 @@ class UserEntryRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * @return supper_kcal[]
-     */
     public function SummSupper(\DateTime $datetime, int $id, string $meal6)
     {       
         $qb = $this->createQueryBuilder('e');
@@ -247,9 +241,6 @@ class UserEntryRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * @return editEntry[]
-     */
     public function editEntry(int $id)
     {       
         $qb = $this->createQueryBuilder('e');
@@ -263,9 +254,6 @@ class UserEntryRepository extends ServiceEntityRepository
         return $qb->getQuery()->getArrayResult();
     }   
 
-    /**
-     * @return entried_Proteins[]
-     */
     public function SummEntriedProteins(\DateTime $datetime, int $id)
     {      
         $qb = $this->createQueryBuilder('e');
@@ -279,9 +267,6 @@ class UserEntryRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * @return entried_Fats[]
-     */
     public function SummEntriedFats(\DateTime $datetime, int $id)
     {       
         $qb = $this->createQueryBuilder('e');
@@ -295,9 +280,6 @@ class UserEntryRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * @return entried_Carbo[]
-     */
     public function SummEntriedCarbo(\DateTime $datetime, int $id)
     {        
         $qb = $this->createQueryBuilder('e');

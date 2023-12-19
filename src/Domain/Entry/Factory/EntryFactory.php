@@ -13,7 +13,7 @@ namespace Kcalculator\Domain\Entry\Factory;
 use Doctrine\ORM\EntityManagerInterface;
 use Kcalculator\Domain\Product\Entity\Product;
 use Kcalculator\Domain\User\Entity\User;
-use Kcalculator\Domain\Entry\Entity\UserEntry;
+use Kcalculator\Domain\Entry\Entity\Entry;
 
 class EntryFactory implements EntryFactoryInterface
 {
@@ -24,9 +24,9 @@ class EntryFactory implements EntryFactoryInterface
         $this->em = $em;
     }
 
-    public function new(User $user, string $mealType, float $grammage, Product $product, float $energy, float $protein, float $fat, float $carbohydrates): UserEntry
+    public function new(User $user, string $mealType, float $grammage, Product $product, float $energy, float $protein, float $fat, float $carbohydrates): Entry
     {
-        $entry = new UserEntry();
+        $entry = new Entry();
         $entry->setUser($user);
         $entry->setDateTime(new \DateTime());
         $entry->setMealType($mealType);
@@ -43,7 +43,7 @@ class EntryFactory implements EntryFactoryInterface
         return $entry;
     }
 
-    public function edit(UserEntry $entry, string $mealType, float $grammage, float $energy, float $protein, float $fat, float $carbohydrates): UserEntry
+    public function edit(Entry $entry, string $mealType, float $grammage, float $energy, float $protein, float $fat, float $carbohydrates): Entry
     {
         $entry->setMealType($mealType);
         $entry->setGrammage($grammage);

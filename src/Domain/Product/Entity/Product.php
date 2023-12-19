@@ -23,7 +23,7 @@ class Product
     #[ORM\Column]
     private $id;
 
-    #[ORM\ManyToMany(targetEntity: "Kcalculator\Domain\Entry\Entity\UserEntry", mappedBy: "food")]
+    #[ORM\ManyToMany(targetEntity: "Kcalculator\Domain\Entry\Entity\Entry", mappedBy: "food")]
     private Collection $entries;
 
     #[ORM\Column(type: "string", nullable: false)]

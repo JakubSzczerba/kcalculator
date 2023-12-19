@@ -3,14 +3,14 @@
 namespace Kcalculator\Application\Controller\Admin;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use Kcalculator\Domain\Entry\Entity\UserEntry;
+use Kcalculator\Domain\Entry\Entity\Entry;
 
 
-class UsersEntriesCrudController extends AbstractCrudController
+class EntryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return UserEntry::class;
+        return Entry::class;
     }
 
     /*

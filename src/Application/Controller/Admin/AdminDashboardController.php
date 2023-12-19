@@ -15,8 +15,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Kcalculator\Domain\Product\Entity\Product;
 use Kcalculator\Domain\User\Entity\User;
-use Kcalculator\Domain\Entry\Entity\UserEntry;
-use Kcalculator\Domain\Preference\Entity\UserPreference;
+use Kcalculator\Domain\Entry\Entity\Entry;
+use Kcalculator\Domain\Preference\Entity\Preference;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -46,8 +46,8 @@ class AdminDashboardController extends AbstractDashboardController
         yield MenuItem::section('Menu');
 
         yield MenuItem::linkToCrud('User', 'icon class', User::class);
-        yield MenuItem::linkToCrud('UserPreferention', 'icon class', UserPreference::class);
-        yield MenuItem::linkToCrud('UsersEntries', 'icon class', UserEntry::class);
+        yield MenuItem::linkToCrud('UserPreferention', 'icon class', Preference::class);
+        yield MenuItem::linkToCrud('UsersEntries', 'icon class', Entry::class);
         yield MenuItem::linkToCrud('Products', 'icon class', Product::class);
     }
 

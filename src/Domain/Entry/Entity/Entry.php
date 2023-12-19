@@ -17,8 +17,8 @@ use Kcalculator\Domain\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'users_entries')]
-class UserEntry
+#[ORM\Table(name: 'entries')]
+class Entry
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -51,7 +51,7 @@ class UserEntry
     private float $carboXgram;
 
     #[ORM\ManyToMany(targetEntity: "Kcalculator\Domain\Product\Entity\Product", inversedBy: "entries")]
-    #[ORM\JoinTable(name: "entry_product")]
+    #[ORM\JoinTable(name: "entries_products")]
     private Collection $food;
 
     public function __construct()

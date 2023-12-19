@@ -10,17 +10,17 @@ declare(strict_types=1);
 
 namespace Kcalculator\Application\Services\Preference;
 
-use Kcalculator\Application\DTO\PreferentionDTO;
-use Kcalculator\Domain\Preference\Entity\UserPreference;
+use Kcalculator\Application\DTO\PreferenceDTO;
+use Kcalculator\Domain\Preference\Entity\Preference;
 use Symfony\Component\Form\FormInterface;
 
 class FormDataExtractor
 {
-    public function extractPreferentionDTO(FormInterface $form): PreferentionDTO
+    public function extractPreferentionDTO(FormInterface $form): PreferenceDTO
     {
         $data = $form->getData();
 
-        if ($data instanceof UserPreference) {
+        if ($data instanceof Preference) {
             $gender = $data->getGender();
             $weight = $data->getWeight();
             $height = (string)$data->getHeight();
@@ -36,7 +36,7 @@ class FormDataExtractor
             $intentions = $data['intentions'];
         }
 
-        return new PreferentionDTO(
+        return new PreferenceDTO(
             $gender,
             $weight,
             $height,
