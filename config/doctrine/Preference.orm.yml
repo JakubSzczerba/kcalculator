@@ -1,0 +1,53 @@
+Kcalculator\Domain\Preference\Entity\Preference:
+  type: entity
+  table: preferences
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    gender:
+      type: string
+      length: 255
+      nullable: false
+    weight:
+      type: float
+      nullable: false
+    height:
+      type: float
+      nullable: false
+    age:
+      type: integer
+      nullable: false
+    activity:
+      type: string
+      length: 255
+      nullable: false
+    caloric_requirement:
+      type: integer
+      nullable: false
+    intentions:
+      type: string
+      length: 255
+      nullable: false
+    kcal_day:
+      type: integer
+      nullable: false
+    proteinPerDay:
+      type: integer
+      nullable: false
+    fatPerDay:
+      type: integer
+      nullable: false
+    carboPerDay:
+      type: integer
+      nullable: false
+  oneToOne:
+    user:
+      targetEntity: Kcalculator\Domain\User\Entity\User
+      inversedBy: preference
+      joinColumn:
+        name: users_id
+        referencedColumnName: id
+        nullable: false

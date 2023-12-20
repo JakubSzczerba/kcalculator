@@ -1,0 +1,23 @@
+Kcalculator\Domain\WeightHistory\Entity\WeightHistory:
+  type: entity
+  table: weight_history
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    datetime:
+      type: datetime
+      nullable: false
+    userWeight:
+      type: float
+      nullable: false
+  manyToOne:
+    user:
+      targetEntity: Kcalculator\Domain\User\Entity\User
+      inversedBy: weightHistory
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+        nullable: false

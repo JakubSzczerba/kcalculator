@@ -14,40 +14,27 @@ use Doctrine\Common\Collections\Collection;
 use Kcalculator\Domain\Preference\Entity\Preference;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
 class User implements
     UserInterface,
     PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
     private $id;
 
-    #[ORM\Column(type: "string", nullable: false)]
     private string $fullName;
 
-    #[ORM\Column(type: "string", length: 128, unique: true, nullable: false)]
     private string $username;
 
-    #[ORM\Column(type: "string", length: 128, unique: true, nullable: false)]
     private string $email;
 
-    #[ORM\Column(type: "string", length: 4096, unique: true, nullable: false)]
     private string $password;
 
-    #[ORM\Column(type: "json")]
     private array $roles = [];
 
-    #[ORM\OneToOne(mappedBy: "user", targetEntity: "Kcalculator\Domain\Preference\Entity\Preference")]
     private Preference $preference;
 
-    #[ORM\OneToMany(mappedBy: "user", targetEntity: "Kcalculator\Domain\Entry\Entity\Entry")]
     private Collection $entry;
 
-    #[ORM\OneToMany(mappedBy: "user", targetEntity: "Kcalculator\Domain\WeightHistory\Entity\WeightHistory")]
     private Collection $weightHistory;
 
     public function __construct(string $fullName, string $username, string $email)

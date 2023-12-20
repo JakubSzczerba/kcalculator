@@ -11,52 +11,33 @@ declare(strict_types=1);
 namespace Kcalculator\Domain\Preference\Entity;
 
 use Kcalculator\Domain\User\Entity\User;
-use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
-#[ORM\Table(name: 'preferences')]
 class Preference
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
     private $id;
 
-    #[ORM\OneToOne(inversedBy: "preference", targetEntity: "Kcalculator\Domain\User\Entity\User")]
-    #[ORM\JoinColumn(name: "users_id", referencedColumnName: 'id', nullable: false)]
     private User $user;
 
-    #[ORM\Column(type: "string", nullable: false)]
     private string $gender;
 
-    #[ORM\Column(type: "float", nullable: false)]
     private float $weight;
 
-    #[ORM\Column(type: "float", nullable: false)]
     private float $height;
 
-    #[ORM\Column(type: "integer", nullable: false)]
     private int $age;
 
-    #[ORM\Column(type: "string", nullable: false)]
     private string $activity;
 
-    #[ORM\Column(type: "integer", nullable: false)]
     public int $caloric_requirement;
 
-    #[ORM\Column(type: "string", nullable: false)]
     private string $intentions;
 
-    #[ORM\Column(type: "integer", nullable: false)]
     public int $kcal_day;
 
-    #[ORM\Column(type: "integer", nullable: false)]
     public int $proteinPerDay;
 
-    #[ORM\Column(type: "integer", nullable: false)]
     public int $fatPerDay;
 
-    #[ORM\Column(type: "integer", nullable: false)]
     public int $carboPerDay;
 
     public function getId()

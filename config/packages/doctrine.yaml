@@ -2,42 +2,38 @@ doctrine:
     dbal:
         override_url: true
         url: '%env(resolve:DATABASE_URL)%'
-
-        # IMPORTANT: You MUST configure your server version,
-        # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '13'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
             User:
-                type: attribute
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Domain/User/Entity'
+                type: yml
+                dir: '%kernel.project_dir%/config/doctrine'
                 prefix: 'Kcalculator\Domain\User\Entity'
                 alias: Kcalculator
             Product:
-                type: attribute
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Domain/Product/Entity'
+                type: yml
+                dir: '%kernel.project_dir%/config/doctrine'
                 prefix: 'Kcalculator\Domain\Product\Entity'
                 alias: Kcalculator
             Preference:
-                type: attribute
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Domain/Preference/Entity'
+                type: yml
+                dir: '%kernel.project_dir%/config/doctrine'
                 prefix: 'Kcalculator\Domain\Preference\Entity'
                 alias: Kcalculator
             Entry:
-                type: attribute
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Domain/Entry/Entity'
+                type: yml
+                dir: '%kernel.project_dir%/config/doctrine'
                 prefix: 'Kcalculator\Domain\Entry\Entity'
                 alias: Kcalculator
             WeightHistory:
-                type: attribute
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Domain/WeightHistory/Entity'
+                type: yml
+                dir: '%kernel.project_dir%/config/doctrine'
                 prefix: 'Kcalculator\Domain\WeightHistory\Entity'
                 alias: Kcalculator
