@@ -140,7 +140,7 @@ class User implements
         return $this->weightHistory;
     }
 
-    public function setUerWeightHistory(Collection $weightHistory): void
+    public function setUserWeightHistory(Collection $weightHistory): void
     {
         $this->weightHistory = $weightHistory;
     }

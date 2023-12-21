@@ -8,32 +8,22 @@ doctrine:
         auto_mapping: true
         mappings:
             User:
-                is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/config/doctrine'
+                dir: '%kernel.project_dir%/config/doctrine/user'
                 prefix: 'Kcalculator\Domain\User\Entity'
-                alias: Kcalculator
             Product:
-                is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/config/doctrine'
+                dir: '%kernel.project_dir%/config/doctrine/product'
                 prefix: 'Kcalculator\Domain\Product\Entity'
-                alias: Kcalculator
             Preference:
-                is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/config/doctrine'
+                dir: '%kernel.project_dir%/config/doctrine/preference'
                 prefix: 'Kcalculator\Domain\Preference\Entity'
-                alias: Kcalculator
             Entry:
-                is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/config/doctrine'
+                dir: '%kernel.project_dir%/config/doctrine/entry'
                 prefix: 'Kcalculator\Domain\Entry\Entity'
-                alias: Kcalculator
             WeightHistory:
-                is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/config/doctrine'
+                dir: '%kernel.project_dir%/config/doctrine/weight_history'
                 prefix: 'Kcalculator\Domain\WeightHistory\Entity'
-                alias: Kcalculator
