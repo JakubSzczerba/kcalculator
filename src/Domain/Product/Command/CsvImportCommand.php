@@ -39,23 +39,23 @@ class CsvImportCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $io->title('Attempting to import the feed');
+        $io->title('Attempting to import the products');
 
-        $reader = Reader::createFromPath('%kernel.root_dir%/../src/Data/MOCK_DATA.csv');
-        $results = $reader->getRecords();
+        $reader = Reader::createFromPath('%kernel.root_dir%/../src/Application/Data/Products.csv');
+        $reader->setHeaderOffset(0);
 
-        foreach ($results as $row) {
+        foreach ($reader as $row) {
             $products = new Product();
             $products->setProduct($row['product']);
-            $products->setEnergy($row['energy']);
-            $products->setProtein($row['protein']);
-            $products->setFat($row['fat']);
-            $products->setCarbo($row['carbo']);
+            $products->setEnergy((float)$row['energy']);
+            $products->setProtein((float)$row['protein']);
+            $products->setFat((float)$row['fat']);
+            $products->setCarbo((float)$row['carbo']);
 
             $this->em->persist($products);
         }
         $this->em->flush();
-        $io->success('Everything went well');
+        $io->success('Products has been imported');
 
         return self::SUCCESS;
     }

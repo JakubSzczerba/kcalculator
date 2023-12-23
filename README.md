@@ -23,9 +23,6 @@ My project of application for helthy lifestyle and calorie counting. Web aplicat
 docker compose up -d
 ```
 ```
-docker compose exec php composer install
-```
-```
 docker compose run --rm encore yarn build
 ```
 ```

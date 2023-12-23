@@ -28,7 +28,7 @@ class PreferenceRepository extends ServiceEntityRepository implements UserPrefer
         $qb = $this->createQueryBuilder('p');
 
         $qb->select('p.kcal_day, p.proteinPerDay, p.fatPerDay, p.carboPerDay, p.intentions')
-            ->innerJoin('Kcalculator\Domain\User\Entity\User', 'u', Join::WITH, 'u = p.users')
+            ->innerJoin('Kcalculator\Domain\User\Entity\User', 'u', Join::WITH, 'u = p.user')
             ->where('p.kcal_day IS NOT NULL')
             ->andWhere('u.id like :users')
             ->setParameter('users', $id);
