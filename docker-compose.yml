@@ -34,7 +34,7 @@ services:
     depends_on:
       - php
   encore:
-    image: node:10-alpine
+    image: node:12.13-alpine
     volumes:
       - .:/app
     ports:

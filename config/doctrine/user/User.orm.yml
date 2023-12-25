@@ -1,0 +1,36 @@
+Kcalculator\Domain\User\Entity\User:
+  type: entity
+  table: users
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    fullName:
+      type: string
+      length: 255
+    username:
+      type: string
+      length: 128
+      unique: true
+    email:
+      type: string
+      length: 128
+      unique: true
+    password:
+      type: string
+      length: 4096
+    roles:
+      type: json
+  oneToOne:
+    preference:
+      targetEntity: Kcalculator\Domain\Preference\Entity\Preference
+      mappedBy: user
+  oneToMany:
+    entry:
+      targetEntity: Kcalculator\Domain\Entry\Entity\Entry
+      mappedBy: user
+    weightHistory:
+      targetEntity: Kcalculator\Domain\WeightHistory\Entity\WeightHistory
+      mappedBy: user

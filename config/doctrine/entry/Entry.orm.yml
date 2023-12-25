@@ -1,0 +1,44 @@
+Kcalculator\Domain\Entry\Entity\Entry:
+  type: entity
+  table: entries
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    datetime:
+      type: datetime
+    meal_type:
+      type: string
+      length: 255
+      nullable: false
+    grammage:
+      type: float
+      nullable: false
+    energyXgram:
+      type: float
+      nullable: false
+    proteinXgram:
+      type: float
+      nullable: false
+    fatXgram:
+      type: float
+      nullable: false
+    carboXgram:
+      type: float
+      nullable: false
+  manyToOne:
+    user:
+      targetEntity: Kcalculator\Domain\User\Entity\User
+      inversedBy: entry
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+        nullable: false
+  manyToMany:
+    food:
+      targetEntity: Kcalculator\Domain\Product\Entity\Product
+      inversedBy: entries
+      joinTable:
+        name: entries_products
