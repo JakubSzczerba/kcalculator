@@ -7,40 +7,38 @@
         "php": ">=8.2.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "composer/package-versions-deprecated": "1.11.99.1",
-        "doctrine/annotations": "^1.12",
+        "composer/package-versions-deprecated": "1.11.99.5",
+        "doctrine/annotations": "2.0.1",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
-        "easycorp/easyadmin-bundle": "^3.3",
-        "friendsofsymfony/elastica-bundle": "^6.3",
-        "league/csv": "^8.0",
-        "sensio/framework-extra-bundle": "^6.1",
-        "symfony/asset": "5.4.*",
-        "symfony/console": "5.4.*",
-        "symfony/dotenv": "5.4.*",
-        "symfony/flex": "^1.3.1",
-        "symfony/form": "5.4.*",
-        "symfony/framework-bundle": "5.4.*",
-        "symfony/http-kernel": "5.4.*",
+        "easycorp/easyadmin-bundle": "4.*",
+        "friendsofsymfony/elastica-bundle": "6.*",
+        "league/csv": "9.12.0",
+        "symfony/asset": "6.4.x",
+        "symfony/console": "6.4.*",
+        "symfony/dotenv": "6.4.*",
+        "symfony/flex": "^2",
+        "symfony/form": "6.4.*",
+        "symfony/framework-bundle": "6.4.*",
+        "symfony/http-kernel": "6.*",
         "symfony/maker-bundle": "^1.30",
-        "symfony/messenger": "5.4.*",
-        "symfony/proxy-manager-bridge": "5.4.*",
-        "symfony/security-bundle": "5.4.*",
-        "symfony/twig-bundle": "5.4.*",
-        "symfony/ux-chartjs": "1.2.0",
-        "symfony/validator": "5.4.*",
-        "symfony/webpack-encore-bundle": "^1.15",
-        "symfony/yaml": "5.4.*",
+        "symfony/messenger": "6.4.*",
+        "symfony/proxy-manager-bridge": "6.4.x-dev",
+        "symfony/security-bundle": "6.*",
+        "symfony/twig-bundle": "6.4.*",
+        "symfony/ux-chartjs": "^2.13",
+        "symfony/validator": "6.4.*",
+        "symfony/webpack-encore-bundle": "v2.1.1",
+        "symfony/yaml": "6.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
-        "symfony/debug-bundle": "5.4.*",
-        "symfony/stopwatch": "5.4.*",
-        "symfony/web-profiler-bundle": "5.4.*",
-        "symfony/web-server-bundle": "^4.4.2"
+        "symfony/debug-bundle": "6.4.*",
+        "symfony/stopwatch": "6.4.*",
+        "symfony/web-profiler-bundle": "6.4.*"
     },
     "config": {
         "optimize-autoloader": true,
@@ -54,12 +52,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "Kcalculator\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "Kcalculator\\Tests\\": "tests/"
         }
     },
     "replace": {
@@ -85,7 +83,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.4.*"
+            "require": "6.4.*"
         }
     }
 }

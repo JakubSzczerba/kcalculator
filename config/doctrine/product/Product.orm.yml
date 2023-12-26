@@ -1,0 +1,28 @@
+Kcalculator\Domain\Product\Entity\Product:
+  type: entity
+  table: products
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    product:
+      type: string
+      nullable: false
+    energy:
+      type: float
+      nullable: false
+    protein:
+      type: float
+      nullable: false
+    fat:
+      type: float
+      nullable: false
+    carbo:
+      type: float
+      nullable: false
+  manyToMany:
+    entries:
+      targetEntity: Kcalculator\Domain\Entry\Entity\Entry
+      mappedBy: food

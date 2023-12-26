@@ -288,6 +288,12 @@ body {
     }
 }
 
+.macroChart canvas {
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .changesizeChart {
     width: 910px;
     margin-left: auto;
