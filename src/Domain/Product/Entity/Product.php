@@ -12,33 +12,21 @@ namespace Kcalculator\Domain\Product\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
-#[ORM\Table(name: 'products')]
 class Product
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
     private $id;
 
-    #[ORM\ManyToMany(targetEntity: "Kcalculator\Domain\Entry\Entity\Entry", mappedBy: "food")]
     private Collection $entries;
 
-    #[ORM\Column(type: "string", nullable: false)]
     private string $product;
 
-    #[ORM\Column(type: "float", nullable: false)]
     private float $energy;
 
-    #[ORM\Column(type: "float", nullable: false)]
     private float $protein;
 
-    #[ORM\Column(type: "float", nullable: false)]
     private float $fat;
 
-    #[ORM\Column(type: "float", nullable: false)]
     private float $carbo;
 
     public function __construct()
