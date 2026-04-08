@@ -17,9 +17,9 @@ use Kcalculator\Application\DTO\EntryDTO;
 use Kcalculator\Application\Form\ProductDetailsType;
 use Kcalculator\Application\Query\Daily\DailyEntriesQuery;
 use Kcalculator\Domain\Product\Entity\Product;
+use Kcalculator\Domain\Product\ProductRepositoryInterface;
 use Kcalculator\Domain\User\Entity\User;
 use Kcalculator\Domain\Entry\Entity\Entry;
-use Kcalculator\Infrastructure\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,13 +29,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DailyController extends AbstractController
 {
-    private ProductRepository $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     private EntityManagerInterface $entityManager;
 
     private MessageBusInterface $commandBus;
 
-    public function __construct(ProductRepository $productRepository, EntityManagerInterface $entityManager, MessageBusInterface $commandBus)
+    public function __construct(ProductRepositoryInterface $productRepository, EntityManagerInterface $entityManager, MessageBusInterface $commandBus)
     {
         $this->productRepository = $productRepository;
         $this->entityManager = $entityManager;

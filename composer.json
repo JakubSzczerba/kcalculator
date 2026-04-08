@@ -35,7 +35,9 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "behat/behat": "^3.29",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "phpunit/phpunit": "^10.5",
         "symfony/debug-bundle": "6.4.*",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*"
@@ -70,6 +72,8 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
+        "test:unit": "phpunit",
+        "test:behat": "behat --colors",
         "post-install-cmd": [
             "@auto-scripts"
         ],
