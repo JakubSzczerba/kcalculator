@@ -11,7 +11,7 @@
 
 1. Brak testow automatycznych.
 2. Niespojne runtime'y lokalne i kontenerowe.
-3. Stare zaleznosci frontendowe oraz legacy jQuery w layoutach.
+3. Stare zaleznosci frontendowe i niespojny toolchain assetow.
 4. Pakiety i konfiguracja wymagajace przegladu przed skokiem major:
    - `composer/package-versions-deprecated`
    - `doctrine/annotations`
@@ -39,7 +39,8 @@
 
 - zaktualizowac constrainty `symfony/*` do `^8.0`,
 - przejrzec Doctrine i EasyAdmin pod kompatybilnosc,
-- zdecydowac, czy Encore zostaje tymczasowo, czy przechodzimy na AssetMapper/Vite.
+- zdecydowac, czy Encore zostaje tymczasowo, czy przechodzimy na AssetMapper/Vite,
+- usunac warning kompatybilnosci miedzy `@symfony/stimulus-bridge` i aktualna wersja Encore.
 
 ### Etap D - Runtime 8.5
 
@@ -50,4 +51,3 @@
 ## Zasada wykonawcza
 
 Target produkcyjny pozostaje `PHP 8.5`, ale pierwsza fala zmian ma doprowadzic kod do zgodnosci `PHP 8.4+ / Symfony 8`, bo to zmniejsza ryzyko i nie blokuje bieżącego refaktoru domenowego.
-

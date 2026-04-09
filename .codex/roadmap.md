@@ -44,7 +44,7 @@ Cele:
 
 ## Faza 4 - Meal Journal
 
-Status: not started
+Status: in progress
 
 Cele:
 
@@ -64,7 +64,7 @@ Cele:
 
 ## Faza 6 - UI Modernization
 
-Status: not started
+Status: in progress
 
 Cele:
 
@@ -93,7 +93,7 @@ Cele:
 
 Priorytety:
 
-1. Dalszy refaktor `Nutrition Catalog` i rozpoczecie wydzielania `Meal Journal`.
-2. Odciecie kontrolerow od `EntityManagerInterface` i przeniesienie logiki do use case'ow.
-3. Rozszerzenie testow o pierwszy scenariusz biznesowy dla dodawania wpisu posilku.
-4. Przygotowanie backlogu modernizacji Dockera pod PHP 8.5 i nowszy toolchain JS.
+1. Domknac frontend dla `Homepage`, `Login` i `Register`, zeby shell aplikacji byl spojny end-to-end.
+2. Dodac stany aktywne, puste i bledow dla glownego flow formularzy oraz wyszukiwarki.
+3. Po frontendzie wrocic do backendowego cleanupu `Meal Journal`: `editEntry` i `deleteEntry` przez porty i handlery.
+4. Rozpisac techniczny plan uporzadkowania toolchainu frontendowego: Encore, Stimulus Bridge i runtime Node w Dockerze.

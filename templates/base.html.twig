@@ -2,14 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
           integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
           crossorigin="anonymous">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <title>{% block title %}Kcalculator{% endblock %}</title>
 
@@ -17,123 +14,102 @@
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
-<body>
-<div id="navbar1">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            {% if app.user %}
-                <a class="navbar-brand" href="{{ path('dashboard') }}">
-                    <div id="mylogo">
-                        <img class="mylogo" src="{{ asset('build/images/logo.png') }}" alt="LOGO">
-
-                    </div>
-                </a>
-            {% else %}
-                <a class="navbar-brand" href="{{ path('home') }}">
-                    <div id="mylogo">
-                        <img class="mylogo" src="{{ asset('build/images/logo.png') }}" alt="LOGO">
-                    </div>
-                </a>
-            {% endif %}
-            {% if app.user %}
-                <div id="searchingField">
-                    <form action="{{ path('findFood') }}" method="POST" class="d-flex">
-
-                        <input type="search" name="search" class="form-control me-2"
-                               placeholder="Wpisz nazwę produktu, aby dodać go do dziennika" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Szukaj</button>
-
-                    </form>
-                </div>
-            {% endif %}
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    {% if app.user %}
-                        <li id="navbarIcons" class="nav-item">
-                            <a id="changeBGC" class="nav-link" href="#">
-                                <ion-icon name="moon-sharp"></ion-icon>
-                            </a>
-                        </li>
-                        <li id="navbarIcons">
-                            <a class="nav-link" href="#">
-                                <ion-icon name="notifications-sharp"></ion-icon>
-                            </a>
-                        </li>
-                        <li id="navbarIcons">
-                            <a class="nav-link" href="{{ path('profile') }}">
-                                <ion-icon name="person-circle-sharp"></ion-icon>
-                            </a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('home') }}">Strona główna</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="{{ path('login') }}">Zaloguj się</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="{{ path('registration') }}">Zrejestruj się</a>
-                        </li>
-                    {% endif %}
-                </ul>
+<body class="{% if app.user %}has-sidebar{% endif %} {% block body_class %}{% endblock %}">
+<div class="app-shell">
+    <header class="topbar">
+        <div class="topbar__inner">
+            <div class="topbar__brand-group">
+                {% if app.user %}
+                    <button type="button" class="icon-button mobile-only" data-sidebar-toggle aria-label="Przełącz menu">
+                        <ion-icon name="menu-sharp"></ion-icon>
+                    </button>
+                    <a class="brand-link" href="{{ path('dashboard') }}">
+                        <img class="brand-link__logo" src="{{ asset('build/images/logo.png') }}" alt="Kcalculator">
+                    </a>
+                {% else %}
+                    <a class="brand-link" href="{{ path('home') }}">
+                        <img class="brand-link__logo" src="{{ asset('build/images/logo.png') }}" alt="Kcalculator">
+                    </a>
+                {% endif %}
             </div>
-        </div>
-    </nav>
-</div>
 
-{% if app.user %}
-    <div id="wrapper">
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#menu-toggle" id="menu-toggle">
-                        <ion-icon name="calculator-sharp"></ion-icon>
-                        Ukryj menu
+            {% if app.user %}
+                <form action="{{ path('findFood') }}" method="POST" class="topbar-search" role="search">
+                    <label class="sr-only" for="product-search">Wyszukaj produkt</label>
+                    <input
+                        id="product-search"
+                        type="search"
+                        name="search"
+                        class="topbar-search__input"
+                        placeholder="Wpisz nazwę produktu, aby dodać go do dziennika"
+                        aria-label="Wyszukaj produkt"
+                    >
+                    <button class="topbar-search__button" type="submit">Szukaj</button>
+                </form>
+
+                <nav class="topbar-actions" aria-label="Akcje użytkownika">
+                    <button type="button" class="icon-button" data-theme-toggle aria-label="Przełącz motyw">
+                        <ion-icon name="contrast-sharp"></ion-icon>
+                    </button>
+                    <a class="icon-button" href="{{ path('profile') }}" aria-label="Profil użytkownika">
+                        <ion-icon name="person-circle-sharp"></ion-icon>
                     </a>
-                </li>
-                <li>
-                    <a href="{{ path('dashboard') }}">
-                        <ion-icon name="home-sharp"></ion-icon>
-                        Panel główny
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('showEntries') }}">
-                        <ion-icon name="calendar-number-sharp"></ion-icon>
-                        Dziennik
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('profile') }}">
-                        <ion-icon name="person-sharp"></ion-icon>
-                        {{ app.user.username }}
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('showEntries') }}">
-                        <ion-icon name="pie-chart-sharp"></ion-icon>
-                        Analiza
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('logout') }}">
-                        <ion-icon name="log-out-sharp"></ion-icon>
-                        Wyloguj się
-                    </a>
-                </li>
-            </ul>
+                </nav>
+            {% else %}
+                <nav class="topbar-public-nav" aria-label="Nawigacja główna">
+                    <a href="{{ path('home') }}">Strona główna</a>
+                    <a href="{{ path('login') }}">Zaloguj się</a>
+                    <a href="{{ path('registration') }}">Zarejestruj się</a>
+                </nav>
+            {% endif %}
         </div>
-    </div>
-{% endif %}
-<div class="container">
-    <div class="col-md-12">
-        {% for type, messages in app.session.flashbag.all() %}
-            {% for message in messages %}
-                <div class="alert alert-{{ type }}">{{ message }}</div>
+    </header>
+
+    {% if app.user %}
+        <aside class="sidebar" data-sidebar>
+            <div class="sidebar__header">
+                <span class="sidebar__eyebrow">Nawigacja</span>
+                <button type="button" class="icon-button desktop-only" data-sidebar-toggle aria-label="Zwiń menu">
+                    <ion-icon name="chevron-back-sharp"></ion-icon>
+                </button>
+            </div>
+
+            <nav class="sidebar__nav" aria-label="Główne menu">
+                <a class="sidebar__link" href="{{ path('dashboard') }}">
+                    <ion-icon name="home-sharp"></ion-icon>
+                    <span>Panel główny</span>
+                </a>
+                <a class="sidebar__link" href="{{ path('showEntries') }}">
+                    <ion-icon name="calendar-number-sharp"></ion-icon>
+                    <span>Dziennik</span>
+                </a>
+                <a class="sidebar__link" href="{{ path('profile') }}">
+                    <ion-icon name="person-sharp"></ion-icon>
+                    <span>{{ app.user.username }}</span>
+                </a>
+                <a class="sidebar__link" href="{{ path('showEntries') }}">
+                    <ion-icon name="pie-chart-sharp"></ion-icon>
+                    <span>Analiza</span>
+                </a>
+                <a class="sidebar__link" href="{{ path('logout') }}">
+                    <ion-icon name="log-out-sharp"></ion-icon>
+                    <span>Wyloguj się</span>
+                </a>
+            </nav>
+        </aside>
+    {% endif %}
+
+    <main class="page-shell">
+        <div class="page-shell__inner">
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-message flash-message--{{ type }}">{{ message }}</div>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-    </div>
-    {% block body %}{% endblock %}
+
+            {% block body %}{% endblock %}
+        </div>
+    </main>
 </div>
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
@@ -141,31 +117,5 @@
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-<script>
-    $(document).ready(function () {
-        const sidebarWrapper = $("#sidebar-wrapper");
-        const wrapper = $("#wrapper");
-        let sidebarVisible = localStorage.getItem("sidebarVisible");
-
-        if (sidebarVisible !== null && sidebarVisible === "false") {
-            sidebarWrapper.addClass("hidden");
-            wrapper.addClass("toggled");
-        }
-
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            sidebarWrapper.toggleClass("hidden");
-            wrapper.toggleClass("toggled");
-
-            if (sidebarWrapper.hasClass("hidden")) {
-                sidebarVisible = "false";
-            } else {
-                sidebarVisible = "true";
-            }
-
-            localStorage.setItem("sidebarVisible", sidebarVisible);
-        });
-    });
-</script>
 </body>
 </html>

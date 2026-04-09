@@ -11,15 +11,15 @@ declare(strict_types=1);
 namespace Kcalculator\Application\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Kcalculator\Application\Command\Daily\AddEntryCommand;
 use Kcalculator\Application\Command\Daily\EditEntryCommand;
 use Kcalculator\Application\DTO\EntryDTO;
 use Kcalculator\Application\Form\ProductDetailsType;
 use Kcalculator\Application\Query\Daily\DailyEntriesQuery;
-use Kcalculator\Domain\Product\Entity\Product;
 use Kcalculator\Domain\Product\ProductRepositoryInterface;
 use Kcalculator\Domain\User\Entity\User;
 use Kcalculator\Domain\Entry\Entity\Entry;
+use Kcalculator\MealJournal\Application\Command\AddMealEntryCommand;
+use Kcalculator\MealJournal\Application\Port\FoodProductLookup;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,13 +31,21 @@ class DailyController extends AbstractController
 {
     private ProductRepositoryInterface $productRepository;
 
+    private FoodProductLookup $foodProductLookup;
+
     private EntityManagerInterface $entityManager;
 
     private MessageBusInterface $commandBus;
 
-    public function __construct(ProductRepositoryInterface $productRepository, EntityManagerInterface $entityManager, MessageBusInterface $commandBus)
+    public function __construct(
+        ProductRepositoryInterface $productRepository,
+        FoodProductLookup $foodProductLookup,
+        EntityManagerInterface $entityManager,
+        MessageBusInterface $commandBus
+    )
     {
         $this->productRepository = $productRepository;
+        $this->foodProductLookup = $foodProductLookup;
         $this->entityManager = $entityManager;
         $this->commandBus = $commandBus;
     }
@@ -55,20 +63,31 @@ class DailyController extends AbstractController
     }
 
     #[Route('/product/{id}', name: 'addEntry', methods: ['GET|POST'])]
-    public function addEntry(Request $request, Product $product, int $id): Response
+    public function addEntry(Request $request, int $id): Response
     {
-        $user = $this->entityManager->getRepository(User::class)->find($this->getUser()->getId());
-        $product = $this->entityManager->getRepository(Product::class)->find($id);
+        $product = $this->foodProductLookup->findById($id);
+
+        if ($product === null) {
+            throw $this->createNotFoundException(sprintf('Product with id %d was not found.', $id));
+        }
+
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException('Authenticated user is required to add a meal entry.');
+        }
 
         $form = $this->createForm(ProductDetailsType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entryDTO = new EntryDTO(
-                $form->get('Grammage')->getData(), $form->get('Meals')->getData(), $product
+            $command = new AddMealEntryCommand(
+                $user->getId(),
+                $product->getId(),
+                (string) $form->get('Meals')->getData(),
+                (float) $form->get('Grammage')->getData(),
             );
 
-            $command = new AddEntryCommand($entryDTO, $user);
             $this->commandBus->dispatch($command);
             $this->addFlash('success', 'Dodano wpis do dziennika');
 

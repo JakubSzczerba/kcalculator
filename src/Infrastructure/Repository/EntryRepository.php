@@ -21,7 +21,10 @@ class EntryRepository extends ServiceEntityRepository
         parent::__construct($registry, Entry::class);
     }
 
-    public function displayEntry(\DateTime $datetime, int $id)
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public function findEntriesForDay(\DateTimeInterface $datetime, int $id): array
     {        
         $qb = $this->createQueryBuilder('e');
 
@@ -31,7 +34,8 @@ class EntryRepository extends ServiceEntityRepository
             ->where('e.user = :user') 
             ->andWhere('e.datetime = :datetime')     
             ->setParameter('user', $id)
-            ->setParameter('datetime', $datetime->format('Y-m-d'));
+            ->setParameter('datetime', $datetime->format('Y-m-d'))
+            ->orderBy('e.id', 'ASC');
             
         return $qb->getQuery()->getArrayResult();
     }
@@ -293,4 +297,3 @@ class EntryRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 } 
-

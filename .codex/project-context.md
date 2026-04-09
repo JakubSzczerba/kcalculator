@@ -11,8 +11,9 @@ Najwazniejsze obserwacje:
 - encje domenowe sa w praktyce anemiczne i wystawiaja settery zamiast pilnowac inwariantow,
 - nazewnictwo jest niespojne (`Preferention`, `Prodiver`, mieszanie polskiego i angielskiego),
 - dane produktowe nadal pochodza z `src/Application/Data/Products.csv`, ale import zostal juz odklejony od komendy i schowany za portem,
-- frontend opiera sie o Twig, stare CDN-y i wiele wersji jQuery,
-- w repo sa juz pierwsze testy jednostkowe i smoke scenariusz Behat,
+- frontend nadal opiera sie o Twig, ale glowny shell aplikacji i kluczowe ekrany dziennika/dashboardu/profilu zostaly juz odswiezone i przeniesione do wspolnego asset pipeline,
+- z layoutu usunieto wielokrotne CDN-y jQuery i inline JS; pozostaje do domkniecia porzadek na ekranach auth/home oraz zgodnosc toolchainu frontendowego,
+- w repo sa juz testy jednostkowe oraz scenariusze Behat dla smoke i `Meal Journal`,
 - praca developerska i weryfikacja powinny byc prowadzone przez Docker, nie przez lokalne PHP hosta.
 
 ## Ryzyka techniczne
@@ -21,7 +22,7 @@ Najwazniejsze obserwacje:
 - podniesienie do PHP 8.5 bez szerszego pokrycia testami nadal nie da wiarygodnej informacji o stabilnosci,
 - obecny model produktow nie wspiera wielu zrodel danych, wersjonowania ani identyfikatorow zewnetrznych,
 - brak warstwy integracyjnej utrudni podpiecie inteligentnych wag,
-- UI jest trudne do rozwijania i podatne na regresje przez inline JS i mieszane zaleznosci CDN,
+- UI nadal ma debt na ekranach auth/home i w starych formularzach, ale glowny flow dziennika nie jest juz blokowany przez inline JS i mieszane CDN-y,
 - obecny Dockerfile ciagnie legacy Node 18 i wymaga modernizacji rownolegle z backendem.
 
 ## Zalozenia architektoniczne
@@ -46,3 +47,11 @@ Najwazniejsze obserwacje:
 - `DailyController` zalezy od `ProductRepositoryInterface`, a nie od repozytorium infrastrukturalnego,
 - PHPUnit 10.5 zostal wybrany jako wersja przejsciowa ze wzgledu na konflikt `symfony/maker-bundle` z `nikic/php-parser 5.x`,
 - Behat jest skonfigurowany i ma pierwszy scenariusz smoke.
+
+## Stan po sesji 2026-04-09
+
+- `MealJournal` dostal pierwszy nowy command side (`AddMealEntry`) i read side dla widoku dziennego,
+- `DailyController::addEntry()` nie korzysta juz z `EntityManagerInterface`,
+- zniknal legacy `MealsDataProvider`; dziennik korzysta z `DailyMealJournalViewReader`,
+- frontend shell, dziennik, dashboard i profil zostaly zmodernizowane bez zmiany kontraktow backendowych,
+- asset build przechodzi w Dockerze, ale pozostaje warning zgodnosci `@symfony/stimulus-bridge` z obecna wersja Encore.

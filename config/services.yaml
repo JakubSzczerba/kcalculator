@@ -19,6 +19,15 @@ services:
     Kcalculator\Domain\Product\ProductRepositoryInterface:
         alias: Kcalculator\Infrastructure\Repository\ProductRepository
 
+    Kcalculator\MealJournal\Application\Port\FoodProductLookup:
+        alias: Kcalculator\MealJournal\Infrastructure\Catalog\DoctrineFoodProductLookup
+
+    Kcalculator\MealJournal\Application\Port\MealEntryRepository:
+        alias: Kcalculator\MealJournal\Infrastructure\Persistence\DoctrineMealEntryRepository
+
+    Kcalculator\MealJournal\Application\Port\DailyMealJournalViewReader:
+        alias: Kcalculator\MealJournal\Infrastructure\Persistence\DoctrineDailyMealJournalViewReader
+
     Kcalculator\NutritionCatalog\Application\Port\FoodCatalogImportSource:
         alias: Kcalculator\NutritionCatalog\Infrastructure\Import\CsvFoodCatalogImportSource
 

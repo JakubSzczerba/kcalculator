@@ -10,22 +10,22 @@ declare(strict_types=1);
 
 namespace Kcalculator\Application\QueryHandler\Daily;
 
-use Kcalculator\Application\Prodiver\Entry\MealsDataProvider;
 use Kcalculator\Application\Query\Daily\DailyEntriesQuery;
+use Kcalculator\MealJournal\Application\Port\DailyMealJournalViewReader;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
 class DailyEntriesHandler
 {
-    private MealsDataProvider $mealsDataProvider;
+    private DailyMealJournalViewReader $dailyMealJournalViewReader;
 
-    public function __construct(MealsDataProvider $mealsDataProvider)
+    public function __construct(DailyMealJournalViewReader $dailyMealJournalViewReader)
     {
-        $this->mealsDataProvider = $mealsDataProvider;
+        $this->dailyMealJournalViewReader = $dailyMealJournalViewReader;
     }
 
     public function __invoke(DailyEntriesQuery $query): array
     {
-        return $this->mealsDataProvider->getData($query->getDateTime(), $query->getUserId());
+        return $this->dailyMealJournalViewReader->getForDay($query->getDateTime(), $query->getUserId());
     }
 }
