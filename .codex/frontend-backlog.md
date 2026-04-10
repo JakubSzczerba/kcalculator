@@ -1,6 +1,6 @@
 # Frontend Backlog
 
-Data: 2026-04-09
+Data: 2026-04-10
 
 ## Co jest juz zrobione
 
@@ -8,27 +8,19 @@ Data: 2026-04-09
 - nowy styling i tokeny UI w `assets/styles/app.css`,
 - interakcje shellu przeniesione do `assets/app.js`,
 - przebudowane ekrany:
+  - `Homepage/homepage.html.twig`
+  - `User/Account/Login/index.html.twig`
+  - `User/Account/Register/index.html.twig`
   - `User/Daily/index.html.twig`
   - `User/Daily/Products/searchedProducts.html.twig`
   - `User/Daily/Products/productDetails.html.twig`
   - `User/Dashboard/index.html.twig`
   - `User/Profile/index.html.twig`
+- zasady design systemu zapisane w `.codex/frontend-design-system.md`
 
 ## Najblizsze ekrany do domkniecia
 
 ### P1
-
-- `templates/Homepage/homepage.html.twig`
-- `templates/User/Account/Login/index.html.twig`
-- `templates/User/Account/Register/index.html.twig`
-
-Cel:
-
-- ujednolicic onboarding i auth z nowym shellem wizualnym,
-- usunac stare spacingi i inline style,
-- dopracowac mobile-first layout dla formularzy i CTA.
-
-### P2
 
 - `templates/User/Preferentions/index.html.twig`
 
@@ -38,11 +30,16 @@ Cel:
 - poprawic czytelnosc pol formularza i stanow walidacyjnych,
 - przygotowac UX pod przyszle kroki domenowe `Metabolism & Goals`.
 
-### P3
+### P2
 
 - dopisac aktywne stany i komunikaty dla wyszukiwarki produktu,
 - dodac lepsza prezentacje empty state i bledow formularzy,
 - ograniczyc zaleznosc od starego Bootstrapa do czasu decyzji o docelowym stacku.
+
+### P3
+
+- techniczny spike: Node LTS, Encore i zgodnosc `@symfony/stimulus-bridge`
+- decyzja o przyszlosci stacku assetow przed runtime upgrade
 
 ## Debt techniczny frontendu
 

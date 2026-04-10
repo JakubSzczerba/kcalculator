@@ -6,13 +6,13 @@ Repo jest prototypem aplikacji fitness/nutrition zbudowanym jako klasyczne Symfo
 
 Najwazniejsze obserwacje:
 
-- kontrolery sa grube i korzystaja bezposrednio z `EntityManagerInterface` oraz konkretnych repozytoriow infrastruktury,
+- kontrolery sa nadal dosc grube, ale `Meal Journal` i dashboard zostaly juz czesciowo odciete od bezposredniego dostepu do infrastruktury,
 - CQRS jest tylko czesciowe; ten sam Messenger obsluguje command/query bez jasnych kontraktow modulowych,
 - encje domenowe sa w praktyce anemiczne i wystawiaja settery zamiast pilnowac inwariantow,
 - nazewnictwo jest niespojne (`Preferention`, `Prodiver`, mieszanie polskiego i angielskiego),
 - dane produktowe nadal pochodza z `src/Application/Data/Products.csv`, ale import zostal juz odklejony od komendy i schowany za portem,
-- frontend nadal opiera sie o Twig, ale glowny shell aplikacji i kluczowe ekrany dziennika/dashboardu/profilu zostaly juz odswiezone i przeniesione do wspolnego asset pipeline,
-- z layoutu usunieto wielokrotne CDN-y jQuery i inline JS; pozostaje do domkniecia porzadek na ekranach auth/home oraz zgodnosc toolchainu frontendowego,
+- frontend nadal opiera sie o Twig, ale glowny shell aplikacji oraz ekrany dziennika, dashboardu, profilu, homepage i auth zostaly juz odswiezone i przeniesione do wspolnego asset pipeline,
+- z layoutu usunieto wielokrotne CDN-y jQuery i inline JS; pozostaje do domkniecia glownie zgodnosc toolchainu frontendowego oraz dalsze porzadkowanie legacy formularzy,
 - w repo sa juz testy jednostkowe oraz scenariusze Behat dla smoke i `Meal Journal`,
 - praca developerska i weryfikacja powinny byc prowadzone przez Docker, nie przez lokalne PHP hosta.
 
@@ -22,7 +22,7 @@ Najwazniejsze obserwacje:
 - podniesienie do PHP 8.5 bez szerszego pokrycia testami nadal nie da wiarygodnej informacji o stabilnosci,
 - obecny model produktow nie wspiera wielu zrodel danych, wersjonowania ani identyfikatorow zewnetrznych,
 - brak warstwy integracyjnej utrudni podpiecie inteligentnych wag,
-- UI nadal ma debt na ekranach auth/home i w starych formularzach, ale glowny flow dziennika nie jest juz blokowany przez inline JS i mieszane CDN-y,
+- UI nadal ma debt w starych formularzach, ekranie preferencji i w zaleznosci od legacy Bootstrapa, ale public/auth shell nie blokuje juz glownego flow,
 - obecny Dockerfile ciagnie legacy Node 18 i wymaga modernizacji rownolegle z backendem.
 
 ## Zalozenia architektoniczne
@@ -55,3 +55,15 @@ Najwazniejsze obserwacje:
 - zniknal legacy `MealsDataProvider`; dziennik korzysta z `DailyMealJournalViewReader`,
 - frontend shell, dziennik, dashboard i profil zostaly zmodernizowane bez zmiany kontraktow backendowych,
 - asset build przechodzi w Dockerze, ale pozostaje warning zgodnosci `@symfony/stimulus-bridge` z obecna wersja Encore.
+
+## Stan po sesji 2026-04-10
+
+- `MealJournal` dostal kolejne command side: `EditMealEntry` i `DeleteMealEntry`,
+- `DailyController` nie zalezy juz od `EntityManagerInterface` w sciezkach dziennika,
+- dashboardowe agregaty zostaly wydzielone do osobnego read modelu `DailyNutritionSummaryReader`,
+- `EntryRepository` zostal uproszczony do metod nalezacych bezposrednio do dziennika wpisow,
+- odczyt dzienny wpisow korzysta z zakresu `start/end of day`, zamiast porownania `datetime` do stringa z data,
+- `Homepage`, `Login` i `Register` zostaly przeniesione do wspolnego shellu public/auth,
+- zasady frontendowego design systemu zostaly zapisane w `.codex/frontend-design-system.md`,
+- testy przechodza w Dockerze: PHPUnit `13 tests, 46 assertions`, Behat `5 scenarios, 5 passed`, `lint:container` oraz Twig lint sa zielone,
+- glownym technicznym debt pozostaje Dockerowy frontend runtime i warning zgodnosci `@symfony/stimulus-bridge` z Encore.

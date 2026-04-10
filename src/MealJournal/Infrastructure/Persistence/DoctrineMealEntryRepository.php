@@ -38,4 +38,26 @@ final class DoctrineMealEntryRepository implements MealEntryRepository
         $this->entityManager->persist($entry);
         $this->entityManager->flush();
     }
+
+    public function update(
+        Entry $entry,
+        string $mealType,
+        float $grammage,
+        CalculatedNutrition $nutrition,
+    ): void {
+        $entry->setMealType($mealType);
+        $entry->setGrammage($grammage);
+        $entry->setEnergyXgram($nutrition->getEnergy());
+        $entry->setProteinXgram($nutrition->getProtein());
+        $entry->setFatXgram($nutrition->getFat());
+        $entry->setCarboXgram($nutrition->getCarbohydrates());
+
+        $this->entityManager->flush();
+    }
+
+    public function remove(Entry $entry): void
+    {
+        $this->entityManager->remove($entry);
+        $this->entityManager->flush();
+    }
 }

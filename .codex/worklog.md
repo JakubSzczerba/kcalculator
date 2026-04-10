@@ -113,3 +113,51 @@ Rekomendowany nastepny krok:
 1. Domknac frontend dla ekranow logowania, rejestracji i homepage, zeby shell aplikacji byl juz spojny end-to-end.
 2. Doliczyc frontendowe stany aktywne/blad dla wyszukiwarki i formularzy.
 3. Potem wracac do backendowego cleanupu `edit/delete` w `MealJournal`.
+
+## 2026-04-10
+
+Wykonane:
+
+- przejrzano roadmape, backlogi i zapisany stan projektu,
+- zapisano proponowana kolejnosc kolejnej implementacji w `.codex/next-implementation-plan.md`,
+- dodano drugi command slice `MealJournal` dla `EditMealEntry` i `DeleteMealEntry`,
+- dodano port `MealEntryLookup` oraz adapter Doctrine oparty o `EntryRepository`,
+- rozszerzono port `MealEntryRepository` o aktualizacje i usuwanie wpisu,
+- przepieto `DailyController::editEntry()` i `DailyController::deleteEntry()` na nowy modul `MealJournal`,
+- usunieto bezposrednia zaleznosc `DailyController` od `EntityManagerInterface`,
+- dodano testy jednostkowe dla handlerow `EditMealEntryHandler` i `DeleteMealEntryHandler`,
+- dodano scenariusze Behat dla edycji i usuwania wpisu,
+- wydzielono read model `DailyNutritionSummaryReader` dla dashboardowych agregatow dziennych,
+- przepieto `DashboardController` z `EntryRepository` na nowy reader,
+- uproszczono `EntryRepository` do metod nalezacych bezposrednio do dziennika wpisow,
+- zmieniono odczyt dnia na zakres `start/end of day`, zamiast porownywania `datetime` do stringa z data,
+- przebudowano `Homepage`, `Login` i `Register` do wspolnego shellu public/auth,
+- dopisano zasady design systemu do `.codex/frontend-design-system.md`.
+
+Decyzje robocze:
+
+- ownership wpisu jest sprawdzany w lookupie i brak dostepu jest traktowany jak `not found`,
+- obecna encja `Entry` oraz formularz `ProductDetailsType` pozostaja adapterem przejsciowym,
+- dashboardowe sumy zostaly wyjete z `EntryRepository` do osobnego read modelu zamiast dokladania kolejnych metod do repo,
+- odczyt dzienny uzywa jawnego zakresu czasu, co lepiej odpowiada semantyce wpisow zapisywanych z pelnym `datetime`.
+
+Weryfikacja w Dockerze:
+
+- `docker compose run --rm --no-deps php vendor/bin/phpunit --configuration phpunit.dist.xml --testsuite Unit`
+- `docker compose run --rm --no-deps php vendor/bin/behat --config=behat.yml.dist --colors`
+- `docker compose run --rm --no-deps php php bin/console lint:container`
+- `docker compose run --rm --no-deps php php bin/console lint:twig templates/Homepage/homepage.html.twig templates/User/Account/Login/index.html.twig templates/User/Account/Register/index.html.twig`
+- `docker compose run --rm encore yarn build`
+
+Wynik:
+
+- PHPUnit: `13 tests, 46 assertions`,
+- Behat: `5 scenarios, 5 passed`,
+- `lint:container` przechodzi,
+- Twig lint: `All 3 Twig files contain valid syntax`,
+- Encore: `webpack compiled successfully` z pozostajacym warningiem `@symfony/stimulus-bridge`.
+
+Rekomendowany nastepny krok:
+
+1. Wejsc w techniczny spike toolchainu frontendowego: Node LTS, Encore i warning `@symfony/stimulus-bridge`.
+2. Potem zdecydowac, czy nastepny backendowy cleanup dotyczy `WeightHistory`/dashboardu, czy zaczynamy przygotowanie pod runtime upgrade.

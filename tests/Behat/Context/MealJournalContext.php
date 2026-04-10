@@ -5,11 +5,18 @@ declare(strict_types=1);
 namespace Kcalculator\Tests\Behat\Context;
 
 use Behat\Behat\Context\Context;
+use Kcalculator\Domain\Entry\Entity\Entry;
 use Kcalculator\Domain\Product\Entity\Product;
 use Kcalculator\MealJournal\Application\Command\AddMealEntryCommand;
+use Kcalculator\MealJournal\Application\Command\DeleteMealEntryCommand;
+use Kcalculator\MealJournal\Application\Command\EditMealEntryCommand;
 use Kcalculator\MealJournal\Application\Exception\FoodProductNotFound;
+use Kcalculator\MealJournal\Application\Exception\MealEntryNotFound;
 use Kcalculator\MealJournal\Application\Handler\AddMealEntryHandler;
+use Kcalculator\MealJournal\Application\Handler\DeleteMealEntryHandler;
+use Kcalculator\MealJournal\Application\Handler\EditMealEntryHandler;
 use Kcalculator\MealJournal\Application\Port\FoodProductLookup;
+use Kcalculator\MealJournal\Application\Port\MealEntryLookup;
 use Kcalculator\MealJournal\Application\Port\MealEntryRepository;
 use Kcalculator\MealJournal\Application\Service\CalculatedNutrition;
 use Kcalculator\MealJournal\Application\Service\NutritionCalculator;
@@ -19,14 +26,14 @@ final class MealJournalContext implements Context
 {
     private InMemoryFoodProductLookup $foodProductLookup;
 
-    private InMemoryMealEntryRepository $mealEntryRepository;
+    private InMemoryMealEntryStore $mealEntryStore;
 
     private ?\Throwable $caughtException = null;
 
     public function __construct()
     {
         $this->foodProductLookup = new InMemoryFoodProductLookup();
-        $this->mealEntryRepository = new InMemoryMealEntryRepository();
+        $this->mealEntryStore = new InMemoryMealEntryStore();
     }
 
     /**
@@ -62,7 +69,7 @@ final class MealJournalContext implements Context
         $handler = new AddMealEntryHandler(
             $this->foodProductLookup,
             new NutritionCalculator(),
-            $this->mealEntryRepository,
+            $this->mealEntryStore,
         );
 
         $this->caughtException = null;
@@ -87,7 +94,7 @@ final class MealJournalContext implements Context
             throw new RuntimeException($this->caughtException->getMessage(), 0, $this->caughtException);
         }
 
-        $entry = $this->mealEntryRepository->lastAddedEntry();
+        $entry = $this->mealEntryStore->lastAddedEntry();
 
         if ($entry === null) {
             throw new RuntimeException('No meal entry was stored.');
@@ -110,6 +117,126 @@ final class MealJournalContext implements Context
             throw new RuntimeException('Expected FoodProductNotFound exception.');
         }
     }
+
+    /**
+     * @Given the meal journal contains an entry :entryId for user :userId with product :productId as :mealType with portion multiplier :grammage
+     */
+    public function theMealJournalContainsAnEntryForUserWithProductAsWithPortionMultiplier(
+        int $entryId,
+        int $userId,
+        int $productId,
+        string $mealType,
+        float $grammage,
+    ): void {
+        $product = $this->foodProductLookup->findById($productId);
+
+        if ($product === null) {
+            throw new RuntimeException(sprintf('Product %d must exist before seeding an entry.', $productId));
+        }
+
+        $this->mealEntryStore->seedEntry(
+            $entryId,
+            $userId,
+            $mealType,
+            $grammage,
+            $product,
+            (new NutritionCalculator())->calculate($product, $grammage),
+        );
+    }
+
+    /**
+     * @When user :userId edits the entry :entryId to :mealType with portion multiplier :grammage
+     */
+    public function userEditsTheEntryToWithPortionMultiplier(
+        int $userId,
+        int $entryId,
+        string $mealType,
+        float $grammage,
+    ): void {
+        $handler = new EditMealEntryHandler(
+            $this->mealEntryStore,
+            new NutritionCalculator(),
+            $this->mealEntryStore,
+        );
+
+        $this->caughtException = null;
+
+        try {
+            $handler(new EditMealEntryCommand($userId, $entryId, $mealType, $grammage));
+        } catch (\Throwable $exception) {
+            $this->caughtException = $exception;
+        }
+    }
+
+    /**
+     * @Then the meal entry :entryId should be stored as :mealType with :energy kcal, :protein protein, :fat fat and :carbohydrates carbohydrates
+     */
+    public function theMealEntryShouldBeStoredAsWithNutrition(
+        int $entryId,
+        string $mealType,
+        float $energy,
+        float $protein,
+        float $fat,
+        float $carbohydrates,
+    ): void {
+        if ($this->caughtException !== null) {
+            throw new RuntimeException($this->caughtException->getMessage(), 0, $this->caughtException);
+        }
+
+        $entry = $this->mealEntryStore->getEntry($entryId);
+
+        if ($entry === null) {
+            throw new RuntimeException(sprintf('Meal entry %d does not exist.', $entryId));
+        }
+
+        if ($entry['mealType'] !== $mealType
+            || $entry['energy'] !== $energy
+            || $entry['protein'] !== $protein
+            || $entry['fat'] !== $fat
+            || $entry['carbohydrates'] !== $carbohydrates) {
+            throw new RuntimeException('Stored meal entry has unexpected data after edit.');
+        }
+    }
+
+    /**
+     * @When user :userId deletes the entry :entryId
+     */
+    public function userDeletesTheEntry(int $userId, int $entryId): void
+    {
+        $handler = new DeleteMealEntryHandler($this->mealEntryStore, $this->mealEntryStore);
+
+        $this->caughtException = null;
+
+        try {
+            $handler(new DeleteMealEntryCommand($userId, $entryId));
+        } catch (\Throwable $exception) {
+            $this->caughtException = $exception;
+        }
+    }
+
+    /**
+     * @Then the meal entry :entryId should no longer exist
+     */
+    public function theMealEntryShouldNoLongerExist(int $entryId): void
+    {
+        if ($this->caughtException !== null) {
+            throw new RuntimeException($this->caughtException->getMessage(), 0, $this->caughtException);
+        }
+
+        if ($this->mealEntryStore->getEntry($entryId) !== null) {
+            throw new RuntimeException(sprintf('Meal entry %d still exists.', $entryId));
+        }
+    }
+
+    /**
+     * @Then editing or deleting the meal entry should fail because the entry does not exist
+     */
+    public function editingOrDeletingTheMealEntryShouldFailBecauseTheEntryDoesNotExist(): void
+    {
+        if (!$this->caughtException instanceof MealEntryNotFound) {
+            throw new RuntimeException('Expected MealEntryNotFound exception.');
+        }
+    }
 }
 
 final class InMemoryFoodProductLookup implements FoodProductLookup
@@ -128,10 +255,15 @@ final class InMemoryFoodProductLookup implements FoodProductLookup
     }
 }
 
-final class InMemoryMealEntryRepository implements MealEntryRepository
+final class InMemoryMealEntryStore implements MealEntryRepository, MealEntryLookup
 {
-    /** @var list<array<string, float|int|string>> */
+    /** @var array<int, Entry> */
     private array $entries = [];
+
+    /** @var array<int, int> */
+    private array $entryOwners = [];
+
+    private int $nextId = 1;
 
     public function add(
         int $userId,
@@ -140,20 +272,113 @@ final class InMemoryMealEntryRepository implements MealEntryRepository
         Product $product,
         CalculatedNutrition $nutrition,
     ): void {
-        $this->entries[] = [
-            'userId' => $userId,
-            'mealType' => $mealType,
-            'grammage' => $grammage,
-            'energy' => $nutrition->getEnergy(),
-            'protein' => $nutrition->getProtein(),
-            'fat' => $nutrition->getFat(),
-            'carbohydrates' => $nutrition->getCarbohydrates(),
-        ];
+        $entry = new Entry();
+        $entry->setMealType($mealType);
+        $entry->setGrammage($grammage);
+        $entry->setFood($product);
+        $entry->setEnergyXgram($nutrition->getEnergy());
+        $entry->setProteinXgram($nutrition->getProtein());
+        $entry->setFatXgram($nutrition->getFat());
+        $entry->setCarboXgram($nutrition->getCarbohydrates());
+
+        $entryId = $this->nextId++;
+        $this->entries[$entryId] = $entry;
+        $this->entryOwners[$entryId] = $userId;
+    }
+
+    public function update(
+        Entry $entry,
+        string $mealType,
+        float $grammage,
+        CalculatedNutrition $nutrition,
+    ): void {
+        $entry->setMealType($mealType);
+        $entry->setGrammage($grammage);
+        $entry->setEnergyXgram($nutrition->getEnergy());
+        $entry->setProteinXgram($nutrition->getProtein());
+        $entry->setFatXgram($nutrition->getFat());
+        $entry->setCarboXgram($nutrition->getCarbohydrates());
+    }
+
+    public function remove(Entry $entry): void
+    {
+        foreach ($this->entries as $entryId => $storedEntry) {
+            if ($storedEntry === $entry) {
+                unset($this->entries[$entryId], $this->entryOwners[$entryId]);
+
+                return;
+            }
+        }
+    }
+
+    public function findOwnedById(int $entryId, int $userId): ?Entry
+    {
+        if (($this->entryOwners[$entryId] ?? null) !== $userId) {
+            return null;
+        }
+
+        return $this->entries[$entryId] ?? null;
+    }
+
+    public function seedEntry(
+        int $entryId,
+        int $userId,
+        string $mealType,
+        float $grammage,
+        Product $product,
+        CalculatedNutrition $nutrition,
+    ): void {
+        $entry = new Entry();
+        $entry->setMealType($mealType);
+        $entry->setGrammage($grammage);
+        $entry->setFood($product);
+        $entry->setEnergyXgram($nutrition->getEnergy());
+        $entry->setProteinXgram($nutrition->getProtein());
+        $entry->setFatXgram($nutrition->getFat());
+        $entry->setCarboXgram($nutrition->getCarbohydrates());
+
+        $this->entries[$entryId] = $entry;
+        $this->entryOwners[$entryId] = $userId;
+        $this->nextId = max($this->nextId, $entryId + 1);
     }
 
     /** @return array<string, float|int|string>|null */
     public function lastAddedEntry(): ?array
     {
-        return $this->entries === [] ? null : $this->entries[array_key_last($this->entries)];
+        if ($this->entries === []) {
+            return null;
+        }
+
+        $entryId = array_key_last($this->entries);
+        $entry = $this->entries[$entryId];
+
+        return $this->normalizeEntry($entryId, $entry);
+    }
+
+    /** @return array<string, float|int|string>|null */
+    public function getEntry(int $entryId): ?array
+    {
+        $entry = $this->entries[$entryId] ?? null;
+
+        if (!$entry instanceof Entry) {
+            return null;
+        }
+
+        return $this->normalizeEntry($entryId, $entry);
+    }
+
+    /** @return array<string, float|int|string> */
+    private function normalizeEntry(int $entryId, Entry $entry): array
+    {
+        return [
+            'entryId' => $entryId,
+            'userId' => $this->entryOwners[$entryId],
+            'mealType' => $entry->getMealType(),
+            'grammage' => $entry->getGrammage(),
+            'energy' => $entry->getEnergyXgram(),
+            'protein' => $entry->getProteinXgram(),
+            'fat' => $entry->getFatXgram(),
+            'carbohydrates' => $entry->getCarboXgram(),
+        ];
     }
 }

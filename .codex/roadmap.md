@@ -93,7 +93,7 @@ Cele:
 
 Priorytety:
 
-1. Domknac frontend dla `Homepage`, `Login` i `Register`, zeby shell aplikacji byl spojny end-to-end.
-2. Dodac stany aktywne, puste i bledow dla glownego flow formularzy oraz wyszukiwarki.
-3. Po frontendzie wrocic do backendowego cleanupu `Meal Journal`: `editEntry` i `deleteEntry` przez porty i handlery.
-4. Rozpisac techniczny plan uporzadkowania toolchainu frontendowego: Encore, Stimulus Bridge i runtime Node w Dockerze.
+1. Wejsc w techniczny spike toolchainu frontendowego: Dockerowy Node runtime, Encore i warning `@symfony/stimulus-bridge`.
+2. Zdecydowac, czy tymczasowo zostaje Encore, czy przygotowujemy migracje do nowszego stacku assetow.
+3. Doprecyzowac plan runtime upgrade do Symfony 8 / PHP 8.5 na bazie uporzadkowanego backendu `Meal Journal`.
+4. Po spike'u wrocic do kolejnych ekranow legacy UI, zaczynajac od `templates/User/Preferentions/index.html.twig`.

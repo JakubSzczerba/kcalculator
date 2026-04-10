@@ -1,24 +1,82 @@
 {% extends 'base.html.twig' %}
+{% block title %}Rejestracja | Kcalculator{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+
 {% block body %}
-    <div class="row" id="login">
-        <div class="col-lg-12">
-            <h1 class="mt-5">Stwórz nowe konto</h1><br>
-            <div class="col-lg-6">
-                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-                {{ form_label(form.fullName) }}
-                {{ form_widget(form.fullName, {'attr': {'class': 'form-control'}}) }}
-                {{ form_label(form.username) }}
-                {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
-                {{ form_label(form.email) }}
-                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                {{ form_label(form.password.first) }}
-                {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
-                {{ form_label(form.password.second) }}
-                {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
-                <br>
-                <input type="submit" value="Stwórz" class="btn btn-success">
-                {{ form_end(form) }}
+    <section class="auth-layout auth-layout--wide">
+        <article class="page-card auth-panel auth-panel--content">
+            <p class="eyebrow">Nowe konto</p>
+            <h1>Załóż konto i zacznij od pierwszego dnia.</h1>
+            <p class="page-card__lead">
+                Rejestracja otwiera dostęp do planu kalorii, dziennika posiłków i kolejnych modułów rozwijanych w projekcie.
+            </p>
+
+            <div class="auth-support-list">
+                <div>
+                    <strong>Codzienny bilans</strong>
+                    <span>Porównuj cel z aktualnym spożyciem bez ręcznego liczenia kalorii.</span>
+                </div>
+                <div>
+                    <strong>Lepsza historia dnia</strong>
+                    <span>Buduj dziennik, który da się później połączyć z pomiarami i urządzeniami.</span>
+                </div>
+                <div>
+                    <strong>Bezpieczny start</strong>
+                    <span>Najpierw prosty profil, potem preferencje i dalsze bounded contexts.</span>
+                </div>
             </div>
-        </div>
-    </div>
+        </article>
+
+        <article class="page-card auth-panel auth-panel--form">
+            <header class="auth-panel__header">
+                <p class="eyebrow">Rejestracja</p>
+                <h2>Stwórz nowe konto</h2>
+            </header>
+
+            {{ form_start(form, {'attr': {'class': 'auth-form', 'novalidate': 'novalidate'}}) }}
+                {% if form.vars.errors|length > 0 %}
+                    <div class="inline-alert inline-alert--danger">
+                        {{ form_errors(form) }}
+                    </div>
+                {% endif %}
+
+                <div class="form-field">
+                    {{ form_label(form.fullName) }}
+                    {{ form_widget(form.fullName, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.fullName) }}
+                </div>
+
+                <div class="form-field">
+                    {{ form_label(form.username) }}
+                    {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.username) }}
+                </div>
+
+                <div class="form-field">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.email) }}
+                </div>
+
+                <div class="form-field">
+                    {{ form_label(form.password.first) }}
+                    {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.password.first) }}
+                </div>
+
+                <div class="form-field">
+                    {{ form_label(form.password.second) }}
+                    {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.password.second) }}
+                </div>
+
+                <button type="submit" class="primary-button">Stwórz konto</button>
+            {{ form_end(form) }}
+
+            <p class="auth-panel__footer">
+                Masz już konto?
+                <a href="{{ path('login') }}" class="text-link">Zaloguj się</a>
+            </p>
+        </article>
+    </section>
 {% endblock %}
