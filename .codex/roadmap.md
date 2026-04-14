@@ -93,7 +93,7 @@ Cele:
 
 Priorytety:
 
-1. Wejsc w techniczny spike toolchainu frontendowego: Dockerowy Node runtime, Encore i warning `@symfony/stimulus-bridge`.
-2. Zdecydowac, czy tymczasowo zostaje Encore, czy przygotowujemy migracje do nowszego stacku assetow.
-3. Doprecyzowac plan runtime upgrade do Symfony 8 / PHP 8.5 na bazie uporzadkowanego backendu `Meal Journal`.
-4. Po spike'u wrocic do kolejnych ekranow legacy UI, zaczynajac od `templates/User/Preferentions/index.html.twig`.
+1. Domknac `templates/User/Preferentions/index.html.twig` w nowym design systemie, razem ze stanami formularza i walidacji.
+2. Doprecyzowac plan runtime upgrade do Symfony 8 / PHP 8.5 na bazie ustabilizowanego backendu `Meal Journal` i asset pipeline.
+3. Rozpisac drobny maintenance task dla `Browserslist/caniuse-lite`.
+4. Po preferencjach zdecydowac, czy kolejny cleanup obejmuje `WeightHistory` / dashboard, czy przygotowanie stricte pod upgrade.

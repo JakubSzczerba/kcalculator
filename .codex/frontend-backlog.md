@@ -38,15 +38,14 @@ Cel:
 
 ### P3
 
-- techniczny spike: Node LTS, Encore i zgodnosc `@symfony/stimulus-bridge`
+- maintenance task: `Browserslist/caniuse-lite`
 - decyzja o przyszlosci stacku assetow przed runtime upgrade
 
 ## Debt techniczny frontendu
 
-1. Ostrzezenie builda: `@symfony/stimulus-bridge` jest nowsze niz zakres wspierany przez obecne Encore.
-2. Dockerowy serwis `encore` nadal bazuje na starym obrazie Node.
-3. Bootstrap z CDN pozostaje tymczasowym fundamentem layoutu.
-4. W repo sa jeszcze stare nazwy klas i fragmenty markupu po legacy warstwie.
+1. Build zgłasza maintenance warning `Browserslist: caniuse-lite is outdated`.
+2. Bootstrap z CDN pozostaje tymczasowym fundamentem layoutu.
+3. W repo sa jeszcze stare nazwy klas i fragmenty markupu po legacy warstwie.
 
 ## Zasady na kolejna sesje
 

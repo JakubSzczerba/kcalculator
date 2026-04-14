@@ -1,6 +1,6 @@
 # Session Handoff
 
-Data: 2026-04-10
+Data: 2026-04-14
 
 ## Co jest zrobione
 
@@ -16,13 +16,26 @@ Data: 2026-04-10
 - `Homepage`, `Login` i `Register` zostaly przeniesione do wspolnego shellu public/auth,
 - zasady design systemu zostaly zapisane w `.codex/frontend-design-system.md`,
 - zapisano dalsza kolejnosc implementacji w `.codex/next-implementation-plan.md`,
-- PHPUnit, Behat i `lint:container` przechodza w Dockerze.
+- PHPUnit, Behat i `lint:container` przechodza w Dockerze,
+- wykonano spike toolchainu frontendowego i zapisano wynik w `.codex/frontend-toolchain-spike-2026-04-14.md`,
+- `docker-compose.yml` podnosi serwis `encore` do Node 20,
+- `docker/php/Dockerfile` zostal zrownany do Node 20 i uproszczony,
+- wykonano kontrolowany update zaleznosci JS: `@symfony/webpack-encore 4.7.0`, `webpack 5.106.1`, `webpack-cli 5.1.4`,
+- usunieto tymczasowy `NODE_OPTIONS=--openssl-legacy-provider`,
+- usunieto legacy pakiet `stimulus`, poprawiono import w `assets/controllers/hello_controller.js` i przypieto `chart.js` do `3.8.0`.
 
 ## Najwazniejsze zmienione obszary
 
 - `.codex/worklog.md`
 - `.codex/next-implementation-plan.md`
 - `.codex/frontend-design-system.md`
+- `.codex/frontend-toolchain-spike-2026-04-14.md`
+- `docker-compose.yml`
+- `docker/php/Dockerfile`
+- `package.json`
+- `webpack.config.js`
+- `assets/controllers/hello_controller.js`
+- `yarn.lock`
 - `src/MealJournal/*`
 - `src/Application/Controller/DailyController.php`
 - `src/Application/Controller/DashboardController.php`
@@ -41,6 +54,9 @@ Data: 2026-04-10
 
 Uruchomione komendy:
 
+- `docker compose build php`
+- `docker compose run --rm encore node -v`
+- `docker compose run --rm encore yarn install`
 - `docker compose run --rm --no-deps php vendor/bin/phpunit --configuration phpunit.dist.xml --testsuite Unit`
 - `docker compose run --rm --no-deps php vendor/bin/behat --config=behat.yml.dist --colors`
 - `docker compose run --rm --no-deps php php bin/console lint:container`
@@ -49,41 +65,46 @@ Uruchomione komendy:
 
 Wynik:
 
+- `php` image buduje sie poprawnie po przejsciu na Node 20,
+- `encore` dziala na `v20.20.2`,
+- `encore` buduje assets na `@symfony/webpack-encore 4.7.0` bez warningu `stimulus-bridge`,
 - PHPUnit: `13 tests, 46 assertions`,
 - Behat: `5 scenarios, 5 passed`,
 - `lint:container` przechodzi,
 - Twig lint: `All 3 Twig files contain valid syntax`,
-- Encore: `webpack compiled successfully` z pozostajacym warningiem `@symfony/stimulus-bridge`.
+- Encore: `webpack compiled successfully`,
+- pozostaje maintenance warning `Browserslist: caniuse-lite is outdated`.
 
 ## Otwarte problemy
 
-1. Docker nadal opiera frontend na legacy Node 12/18 sciezce i starym Encore.
-2. Build zgłasza warning zgodnosci miedzy `@symfony/stimulus-bridge` i aktualna wersja Encore.
+1. Build zgłasza maintenance warning `Browserslist: caniuse-lite is outdated`.
+2. Encore pozostaje stackiem przejsciowym do czasu runtime upgrade i decyzji o docelowym asset pipeline.
 
 ## Priorytety na nowa sesje
 
 ### P1
 
-- przygotowac techniczny spike toolchainu frontendowego,
-- zrownac Dockerowy frontend z wspieranym Node LTS,
-- zdecydowac o przyszlosci Encore vs nowszy stack assetow.
+- wrocic do `templates/User/Preferentions/index.html.twig`,
+- dopiac stany formularza, walidacje i UX zgodnie z design systemem,
+- utrzymac jeszcze Encore jako stack przejsciowy do czasu runtime upgrade.
 
 ### P2
 
-- doprecyzowac backlog runtime upgrade pod PHP 8.5 / Symfony 8,
+- doprecyzowac backlog runtime upgrade pod PHP 8.5 / Symfony 8 na bazie ustabilizowanego runtime'u Node i asset builda,
 - zdecydowac, czy kolejny backendowy cleanup obejmie `WeightHistory` / dashboard, czy juz przygotowanie pod upgrade.
 
 ### P3
 
-- rozważyć kolejny cleanup backendowy wokol `Dashboard` i `WeightHistory`, jesli po spike'u frontendowym nadal bedzie potrzeba dalszej modularyzacji read side.
+- rozpisac drobny maintenance task dla `browserslist/caniuse-lite`,
+- rozważyć kolejny cleanup backendowy wokol `Dashboard` i `WeightHistory`, jesli nadal bedzie potrzeba dalszej modularyzacji read side.
 
 ## Zalecany punkt wejscia
 
 1. Przeczytac `AGENTS.md`.
 2. Przeczytac `.codex/session-handoff.md` i `.codex/worklog.md`.
-3. Otworzyc `.codex/next-implementation-plan.md`, `.codex/roadmap.md`, `.codex/frontend-backlog.md` i `.codex/frontend-design-system.md`.
+3. Otworzyc `.codex/frontend-toolchain-spike-2026-04-14.md`, `.codex/next-implementation-plan.md`, `.codex/roadmap.md`, `.codex/frontend-backlog.md` i `.codex/frontend-design-system.md`.
 4. Wejsc w `docker-compose.yml`, `docker/php/Dockerfile` oraz `package.json`.
-5. Kontynuowac od spike'a toolchainu frontendowego.
+5. Kontynuowac od `templates/User/Preferentions/index.html.twig`.
 
 ## Zasady operacyjne
 

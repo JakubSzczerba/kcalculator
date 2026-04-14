@@ -23,7 +23,7 @@ Najwazniejsze obserwacje:
 - obecny model produktow nie wspiera wielu zrodel danych, wersjonowania ani identyfikatorow zewnetrznych,
 - brak warstwy integracyjnej utrudni podpiecie inteligentnych wag,
 - UI nadal ma debt w starych formularzach, ekranie preferencji i w zaleznosci od legacy Bootstrapa, ale public/auth shell nie blokuje juz glownego flow,
-- obecny Dockerfile ciagnie legacy Node 18 i wymaga modernizacji rownolegle z backendem.
+- asset pipeline pozostaje przejsciowo na Encore, ale runtime Node i dependency graph sa juz ustabilizowane na poziomie potrzeb biezacej migracji.
 
 ## Zalozenia architektoniczne
 
@@ -67,3 +67,14 @@ Najwazniejsze obserwacje:
 - zasady frontendowego design systemu zostaly zapisane w `.codex/frontend-design-system.md`,
 - testy przechodza w Dockerze: PHPUnit `13 tests, 46 assertions`, Behat `5 scenarios, 5 passed`, `lint:container` oraz Twig lint sa zielone,
 - glownym technicznym debt pozostaje Dockerowy frontend runtime i warning zgodnosci `@symfony/stimulus-bridge` z Encore.
+
+## Stan po sesji 2026-04-14
+
+- frontendowy toolchain zostal ustabilizowany i opisany w `.codex/frontend-toolchain-spike-2026-04-14.md`,
+- `docker-compose.yml` podnosi serwis `encore` do Node 20, a `docker/php/Dockerfile` jest zrownany do tej samej linii runtime,
+- dependency graph JS zostal zaktualizowany do `@symfony/webpack-encore 4.7.0`, `webpack 5.106.1` i `webpack-cli 5.1.4`,
+- build assetow przechodzi w Dockerze bez warningu zgodnosci `@symfony/stimulus-bridge` i bez obejscia `NODE_OPTIONS=--openssl-legacy-provider`,
+- usunieto legacy pakiet `stimulus`; lokalne kontrolery uzywaja `@hotwired/stimulus`,
+- `chart.js` zostal przypiety do `3.8.0`, zgodnie z zakresem wspieranym przez `symfony/ux-chartjs`,
+- pozostajacym drobnym debt po stronie assetow jest maintenance warning `Browserslist: caniuse-lite is outdated`,
+- po domknieciu toolchainu kolejnym sensownym frontendowym slice'em jest `templates/User/Preferentions/index.html.twig`.

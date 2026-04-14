@@ -161,3 +161,46 @@ Rekomendowany nastepny krok:
 
 1. Wejsc w techniczny spike toolchainu frontendowego: Node LTS, Encore i warning `@symfony/stimulus-bridge`.
 2. Potem zdecydowac, czy nastepny backendowy cleanup dotyczy `WeightHistory`/dashboardu, czy zaczynamy przygotowanie pod runtime upgrade.
+
+## 2026-04-14
+
+Wykonane:
+
+- przeprowadzono techniczny spike frontendowego toolchainu i zapisano wynik w `.codex/frontend-toolchain-spike-2026-04-14.md`,
+- potwierdzono, ze `docker compose run --rm encore yarn build` przechodzi, ale reprodukuje warning kompatybilnosci `@symfony/stimulus-bridge 3.2.2` z `@symfony/webpack-encore 1.5.0`,
+- potwierdzono, ze warning pochodzi z samego pakietu Encore, a nie z lokalnej konfiguracji `webpack.config.js`,
+- zidentyfikowano rozjazd runtime'ow Node miedzy serwisem `encore` i obrazem PHP,
+- podniesiono runtime Node do linii 20 w `docker-compose.yml` i `docker/php/Dockerfile`,
+- po podniesieniu Node wykryto blad OpenSSL w starym `webpack 5.45`, dlatego skrypty `yarn` dostaly tymczasowy `NODE_OPTIONS=--openssl-legacy-provider`.
+- wykonano kontrolowany update zaleznosci JS: `@symfony/webpack-encore 4.7.0`, `webpack 5.106.1`, `webpack-cli 5.1.4`,
+- usunieto tymczasowy `NODE_OPTIONS=--openssl-legacy-provider`,
+- usunieto legacy pakiet `stimulus`, poprawiono import w `assets/controllers/hello_controller.js` i przypieto `chart.js` do `3.8.0`, zgodnie z zakresem `symfony/ux-chartjs`.
+
+Decyzje robocze:
+
+- tymczasowo zostajemy przy Encore i nie laczymy tego kroku z migracja na inny stack assetow,
+- kontrolowany update dependency graphu JS zostal wykonany bez zmiany architektury assetow,
+- wynik spike'a ma sluzyc jako wejscie do runtime upgrade, a nie jako pretekst do rozszerzenia scope.
+
+Weryfikacja:
+
+- `docker compose build php`
+- `docker compose run --rm encore node -v`
+- `docker compose run --rm encore yarn install`
+- `docker compose run --rm encore yarn build`
+
+Wynik:
+
+- Node w kontenerze `encore` przed zmiana: `v12.13.1`,
+- Node w kontenerze `encore` po zmianie: `v20.20.2`,
+- obraz `php` przebudowal sie poprawnie po przejsciu na Node 20,
+- po update zaleznosci warning `Webpack Encore requires version ^1.1.0 || ^2.0.0 of @symfony/stimulus-bridge` zniknal,
+- build przechodzi na Node 20 bez obejscia `NODE_OPTIONS=--openssl-legacy-provider`,
+- lockfile odswiezyl sie poprawnie i nie zgłasza juz peer warningu `chart.js` vs `symfony/ux-chartjs`,
+- build zwraca tez maintenance warning `Browserslist: caniuse-lite is outdated`.
+
+Rekomendowany nastepny krok:
+
+1. Wrocic do `templates/User/Preferentions/index.html.twig`.
+2. Przy okazji kolejnej sesji frontendowej rozważyć maintenance task dla `browserslist/caniuse-lite`.
+3. Potem wracac do backlogu runtime upgrade albo kolejnych cleanupow read side.

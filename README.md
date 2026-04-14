@@ -17,6 +17,7 @@ My project of application for helthy lifestyle and calorie counting. Web aplicat
 * PHP - version 8.3
 * Symfony - version 6.4
 * MariaDB - version 10.5
+* Node.js - version 20 for Docker asset build
 
 ## Local Setup
 ```
