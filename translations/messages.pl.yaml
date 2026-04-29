@@ -5,8 +5,8 @@ preferentions:
   intension3: Przybranie masy mięśniowej
 # aktywność
   activity1: Siedzący tryb życia, praca przy biurku
-  activity2: Tryb życia o średniej aktywności fizczynej
-  activity3: Tryb życia o wysokiej aktywności fizczynej
+  activity2: Tryb życia o średniej aktywności fizycznej
+  activity3: Tryb życia o wysokiej aktywności fizycznej
 # płeć
   man: Mężczyzna
   woman: Kobieta

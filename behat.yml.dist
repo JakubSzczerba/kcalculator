@@ -6,3 +6,4 @@ default:
             contexts:
                 - Kcalculator\Tests\Behat\Context\SmokeContext
                 - Kcalculator\Tests\Behat\Context\MealJournalContext
+                - Kcalculator\Tests\Behat\Context\PreferenceContext

@@ -425,6 +425,7 @@ body.has-sidebar.sidebar-collapsed .page-shell {
 
 .dashboard-shell,
 .profile-shell,
+.preferences-shell,
 .public-shell,
 .auth-layout {
     display: flex;
@@ -815,6 +816,12 @@ body.has-sidebar.sidebar-collapsed .page-shell {
     color: var(--text-muted);
 }
 
+.form-help {
+    margin: 0.45rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+}
+
 .form-control,
 .form-control-lg {
     min-height: 50px;
@@ -823,6 +830,10 @@ body.has-sidebar.sidebar-collapsed .page-shell {
     background: var(--surface-strong);
     color: var(--text);
     transition: border-color 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+}
+
+.form-control--error {
+    border-color: rgba(183, 71, 42, 0.5);
 }
 
 .topbar-search__input:focus,
@@ -960,6 +971,86 @@ body.has-sidebar.sidebar-collapsed .page-shell {
     border-color: rgba(183, 71, 42, 0.18);
     color: var(--danger);
     background: rgba(183, 71, 42, 0.08);
+}
+
+.form-field ul,
+.preferences-form ul {
+    margin: 0.45rem 0 0;
+    padding-left: 1rem;
+    color: var(--danger);
+}
+
+.preferences-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.85fr);
+    gap: 1rem;
+}
+
+.preferences-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.preferences-hero h1,
+.preferences-card__header h2 {
+    margin: 0;
+}
+
+.preferences-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3vw, 3.2rem);
+    line-height: 1;
+}
+
+.preferences-hero__actions,
+.preferences-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.preferences-card {
+    min-height: 100%;
+}
+
+.preferences-card__header {
+    margin-bottom: 1rem;
+}
+
+.preferences-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.preferences-form .primary-button {
+    width: 100%;
+    margin-top: 1.35rem;
+}
+
+.preferences-note-list,
+.preferences-summary-grid {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.preferences-note-list div {
+    padding: 1rem 1.05rem;
+    border-radius: 18px;
+    background: var(--surface-muted);
+    border: 1px solid var(--line);
+}
+
+.preferences-note-list strong,
+.preferences-note-list p {
+    display: block;
+    margin: 0;
+}
+
+.preferences-note-list p {
+    margin-top: 0.35rem;
+    color: var(--text-muted);
 }
 
 .text-link {
@@ -1265,6 +1356,8 @@ body.has-sidebar.sidebar-collapsed .page-shell {
     .product-details__layout,
     .dashboard-hero,
     .profile-hero,
+    .preferences-grid,
+    .preferences-hero,
     .public-hero,
     .auth-layout {
         grid-template-columns: 1fr;
@@ -1336,7 +1429,8 @@ body.has-sidebar.sidebar-collapsed .page-shell {
     }
 
     .profile-hero__actions,
-    .profile-metric-grid {
+    .profile-metric-grid,
+    .preferences-hero__actions {
         grid-template-columns: 1fr;
         width: 100%;
     }

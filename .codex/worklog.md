@@ -1,5 +1,49 @@
 # Worklog
 
+## 2026-04-28
+
+Wykonane:
+
+- przejrzano `AGENTS.md`, roadmapy i artefakty `.codex/` po sesjach z 2026-04-08 do 2026-04-14,
+- porownano zapisany backlog z aktualnym stanem kodu dla `Preferentions`, `Dashboard` i `WeightHistory`,
+- zapisano nowy plan dalszej implementacji w `.codex/implementation-plan-2026-04-28.md`.
+- zaimplementowano pierwszy slice `Metabolism & Goals` dla `Preferentions`,
+- przebudowano ekran preferencji do wspolnego design systemu,
+- poprawiono flow `PreferenceController`: create dziala na `GET/POST`, edit ma poprawne metody HTTP, a create przekierowuje do edit przy istniejacych preferencjach,
+- dodano walidacje i help texty w `PreferenceType`,
+- doprecyzowano typy `PreferenceDTO` i `FormDataExtractor`,
+- handlery preferencji przeszly na interfejsy fabryk zamiast zaleznosci do konkretnych klas,
+- dodano testy jednostkowe dla algorytmu BMR i handlerow preferencji,
+- dodano scenariusze Behat dla tworzenia i edycji preferencji,
+- zapisano decyzje slice'u w `.codex/metabolism-goals-preferences-slice-2026-04-28.md`.
+
+Najwazniejsze wnioski:
+
+- `Metabolism & Goals` pozostaje najblizszym bezpiecznym slice'em, ale wymaga nie tylko liftu UI, lecz takze uporzadkowania flow i testow wokol preferencji,
+- `Measurements & Devices` powinno wejsc jako maly read-side slice dashboardowy przez wydzielenie historii wagi z legacy repo/controller flow,
+- wlasciwy tor runtime upgrade do Symfony 8 / PHP 8.5 powinien ruszyc dopiero po domknieciu dwoch powyzszych debt areas i aktualizacji backlogu upgrade.
+
+Rekomendowana kolejnosc:
+
+1. `Preferentions` jako pierwszy slice `Metabolism & Goals`.
+2. `WeightHistory` / dashboard jako pierwszy slice `Measurements & Devices`.
+3. Osobny spike i backlog runtime upgrade.
+
+Weryfikacja w Dockerze:
+
+- `docker compose run --rm --no-deps php vendor/bin/phpunit --configuration phpunit.dist.xml --testsuite Unit`
+- `docker compose run --rm --no-deps php vendor/bin/behat --config=behat.yml.dist --colors`
+- `docker compose run --rm --no-deps php php bin/console lint:twig templates/User/Preferentions/index.html.twig templates/User/Profile/index.html.twig`
+- `docker compose run --rm encore yarn build`
+
+Wynik:
+
+- PHPUnit: `17 tests, 54 assertions`,
+- Behat: `7 scenarios, 7 passed`,
+- Twig lint: `All 2 Twig files contain valid syntax`,
+- Encore: `webpack compiled successfully`,
+- pozostaje maintenance warning `Browserslist: caniuse-lite is outdated`.
+
 ## 2026-04-08
 
 Wykonane:

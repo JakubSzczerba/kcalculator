@@ -10,13 +10,13 @@ declare(strict_types=1);
 
 namespace Kcalculator\Application\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Kcalculator\Application\Command\Preferention\EditPreferenceCommand;
 use Kcalculator\Application\Command\Preferention\SetPreferenceCommand;
 use Kcalculator\Application\Form\PreferenceType;
 use Kcalculator\Application\Services\Preference\FormDataExtractor;
-use Kcalculator\Domain\User\Entity\User;
 use Kcalculator\Domain\Preference\Entity\Preference;
+use Kcalculator\Domain\User\Entity\User;
+use Kcalculator\Infrastructure\Repository\PreferenceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,23 +25,34 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PreferenceController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
+    private PreferenceRepository $preferenceRepository;
 
     private FormDataExtractor $formDataExtractor;
 
     private MessageBusInterface $commandBus;
 
-    public function __construct(EntityManagerInterface $entityManager, FormDataExtractor $formDataExtractor, MessageBusInterface $commandBus)
+    public function __construct(PreferenceRepository $preferenceRepository, FormDataExtractor $formDataExtractor, MessageBusInterface $commandBus)
     {
-        $this->entityManager = $entityManager;
+        $this->preferenceRepository = $preferenceRepository;
         $this->formDataExtractor = $formDataExtractor;
         $this->commandBus = $commandBus;
     }
 
-    #[Route('/preferention', name: 'preferention', methods: ['POST'])]
+    #[Route('/preferention', name: 'preferention', methods: ['GET', 'POST'])]
     public function setPreferention(Request $request): Response
     {
-        $user = $this->entityManager->getRepository(User::class)->find($this->getUser()->getId());
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException('Authenticated user is required to manage preferences.');
+        }
+
+        $existingPreference = $this->preferenceRepository->findOneBy(['user' => $user]);
+
+        if ($existingPreference instanceof Preference) {
+            return $this->redirectToRoute('editPreferentions', ['id' => $existingPreference->getId()]);
+        }
+
         $form = $this->createForm(PreferenceType::class);
         $form->handleRequest($request);
 
@@ -55,15 +66,27 @@ class PreferenceController extends AbstractController
             return $this->redirectToRoute('dashboard');
         }
 
-        return $this->render('User/Preferentions/index.html.twig', [
-            'form' => $form->createView()
-        ]);
+        return $this->renderPreferenceForm($form->createView(), false);
     }
 
-    #[Route('/preferention/{id}/edit', name: 'editPreferentions', methods: ['GET|POST'])]
+    #[Route('/preferention/{id}/edit', name: 'editPreferentions', methods: ['GET', 'POST'])]
     public function editPreferentions(Request $request, int $id): Response
     {
-        $preferention = $this->entityManager->getRepository(Preference::class)->find(['id' => $id]);
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException('Authenticated user is required to manage preferences.');
+        }
+
+        $preferention = $this->preferenceRepository->findOneBy([
+            'id' => $id,
+            'user' => $user,
+        ]);
+
+        if (!$preferention instanceof Preference) {
+            throw $this->createNotFoundException('Preference profile was not found.');
+        }
+
         $form = $this->createForm(PreferenceType::class, $preferention);
         $form->handleRequest($request);
 
@@ -77,8 +100,15 @@ class PreferenceController extends AbstractController
             return $this->redirectToRoute('dashboard');
         }
 
+        return $this->renderPreferenceForm($form->createView(), true, $preferention);
+    }
+
+    private function renderPreferenceForm(mixed $formView, bool $isEditMode, ?Preference $preference = null): Response
+    {
         return $this->render('User/Preferentions/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $formView,
+            'isEditMode' => $isEditMode,
+            'preference' => $preference,
         ]);
     }
 }

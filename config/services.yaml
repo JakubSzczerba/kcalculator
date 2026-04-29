@@ -19,6 +19,12 @@ services:
     Kcalculator\Domain\Product\ProductRepositoryInterface:
         alias: Kcalculator\Infrastructure\Repository\ProductRepository
 
+    Kcalculator\Domain\Preference\Factory\PreferenceFactoryInterface:
+        alias: Kcalculator\Domain\Preference\Factory\PreferenceFactory
+
+    Kcalculator\Domain\WeightHistory\Factory\WeightHistoryFactoryInterface:
+        alias: Kcalculator\Domain\WeightHistory\Factory\WeightHistoryFactory
+
     Kcalculator\MealJournal\Application\Port\FoodProductLookup:
         alias: Kcalculator\MealJournal\Infrastructure\Catalog\DoctrineFoodProductLookup
 

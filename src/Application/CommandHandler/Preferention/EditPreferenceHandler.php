@@ -12,8 +12,8 @@ namespace Kcalculator\Application\CommandHandler\Preferention;
 
 use Kcalculator\Application\Command\Preferention\EditPreferenceCommand;
 use Kcalculator\Application\Services\Preference\BasalMetabolicRateAlgorithm;
-use Kcalculator\Domain\Preference\Factory\PreferenceFactory;
-use Kcalculator\Domain\WeightHistory\Factory\WeightHistoryFactory;
+use Kcalculator\Domain\Preference\Factory\PreferenceFactoryInterface;
+use Kcalculator\Domain\WeightHistory\Factory\WeightHistoryFactoryInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
@@ -21,11 +21,11 @@ class EditPreferenceHandler
 {
     private BasalMetabolicRateAlgorithm $basalMetabolicRateAlgorithm;
 
-    private PreferenceFactory $preferenceFactory;
+    private PreferenceFactoryInterface $preferenceFactory;
 
-    private WeightHistoryFactory $userWeightHistoryFactory;
+    private WeightHistoryFactoryInterface $userWeightHistoryFactory;
 
-    public function __construct(BasalMetabolicRateAlgorithm $basalMetabolicRateAlgorithm, PreferenceFactory $preferenceFactory, WeightHistoryFactory $userWeightHistoryFactory)
+    public function __construct(BasalMetabolicRateAlgorithm $basalMetabolicRateAlgorithm, PreferenceFactoryInterface $preferenceFactory, WeightHistoryFactoryInterface $userWeightHistoryFactory)
     {
         $this->basalMetabolicRateAlgorithm = $basalMetabolicRateAlgorithm;
         $this->preferenceFactory = $preferenceFactory;
