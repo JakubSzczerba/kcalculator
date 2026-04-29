@@ -20,6 +20,7 @@ Najwazniejsze wnioski:
 - `WeightHistory` moze pozostac przejsciowym adapterem zapisu, o ile read-side jest juz odseparowany kontraktem,
 - temat ingestii urzadzen nadal powinien pozostac poza zakresem do czasu osobnego slice'u `Measurements & Devices`.
 - po domknieciu `Preferentions` i pierwszego read-side `Measurements` nastepny logiczny tor prac przesuwa sie na audit runtime upgrade, a nie na kolejny slice domenowy.
+- w ramach audytu runtime upgrade przestawiono routing z loadera `annotation` na `attribute` i ujednolicono importy `Route` w kontrolerach.
 
 ## 2026-04-28
 
