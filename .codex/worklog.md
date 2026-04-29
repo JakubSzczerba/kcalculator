@@ -19,6 +19,7 @@ Najwazniejsze wnioski:
 - dashboard nie musi znac shape'u legacy wynikow Doctrine, wystarczy mu gotowy model trendu,
 - `WeightHistory` moze pozostac przejsciowym adapterem zapisu, o ile read-side jest juz odseparowany kontraktem,
 - temat ingestii urzadzen nadal powinien pozostac poza zakresem do czasu osobnego slice'u `Measurements & Devices`.
+- po domknieciu `Preferentions` i pierwszego read-side `Measurements` nastepny logiczny tor prac przesuwa sie na audit runtime upgrade, a nie na kolejny slice domenowy.
 
 ## 2026-04-28
 

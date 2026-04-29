@@ -1,53 +1,76 @@
 # Upgrade Backlog
 
-## Stan na 2026-04-08
+## Stan na 2026-04-29
 
-- repo deklaruje Symfony 6.4 i PHP `>=8.2`,
+- repo deklaruje Symfony `6.4.*` i PHP `>=8.2`,
 - Docker buduje sie na `php:8.3-fpm`,
-- lokalny workspace uruchamia CLI na PHP 8.2.26,
+- lokalny workspace uruchamia CLI na PHP `8.2.26`,
 - target projektu: Symfony 8.x + PHP 8.5.
+
+Postep od 2026-04-08:
+
+- PHPUnit i Behat sa juz obecne i przechodza w Dockerze,
+- `MealJournal`, `Preferentions` i dashboardowa historia wagi maja juz osobne kontrakty read/write lub read-side,
+- frontendowy toolchain zostal ustabilizowany na Node 20 i `@symfony/webpack-encore 4.7.0`,
+- pozostaje maintenance warning `Browserslist: caniuse-lite is outdated`.
 
 ## Krytyczne blokery
 
-1. Brak testow automatycznych.
-2. Niespojne runtime'y lokalne i kontenerowe.
-3. Stare zaleznosci frontendowe i niespojny toolchain assetow.
-4. Pakiety i konfiguracja wymagajace przegladu przed skokiem major:
+1. Runtime nadal nie jest na sciezce docelowej:
+   - Docker: `php:8.3-fpm`,
+   - host CLI: `8.2.26`,
+   - target: `8.5`.
+2. Constrainty aplikacji nadal siedza na linii Symfony `6.4.*` i `php >=8.2`.
+3. Dependency graph wymaga audytu kompatybilnosci przed `Symfony 8`:
    - `composer/package-versions-deprecated`
    - `doctrine/annotations`
+   - `doctrine/orm ^2.8`
    - `symfony/proxy-manager-bridge`
    - `symfony/maker-bundle`
    - `symfony/webpack-encore-bundle`
    - `friendsofsymfony/elastica-bundle`
+4. Nadal istnieja miejsca mocniej przyklejone do legacy warstwy frameworkowej:
+   - stare namespace i nazewnictwo `Preferention`,
+   - czesc encji Doctrine z luźnym typowaniem,
+   - kontrolery i formularze oparte o legacy shape danych.
 
 ## Zalecana sekwencja
 
-### Etap A - Bezpieczna baza
+### Etap A - Audit i mapa blockerow
 
-- dodac PHPUnit i Behat,
-- uporzadkowac nazewnictwo i katalogi,
-- odpalic aplikacje na "clean" Symfony 6.4 latest patch,
-- zrobic audit deprecations.
+- przejrzec `composer.json`, Docker i config Symfony po ostatnich slice'ach,
+- wypisac realne blokery dla `php 8.5` i `symfony 8.x`,
+- przypisac blokery do malych krokow wykonawczych,
+- zdecydowac, czy Encore zostaje tymczasowo do konca upgrade.
 
-### Etap B - Przygotowanie pod Symfony 8
+### Etap B - Przygotowanie kodu i pakietow
 
 - podniesc kod do kompatybilnosci z PHP 8.4+,
 - usunac API i praktyki oznaczone jako deprecated,
-- odkleic logike od warstw frameworkowych tam, gdzie utrudnia upgrade.
+- odkleic pozostale miejsca, gdzie logika nadal trzyma sie legacy kontrolerow i formularzy,
+- rozbroic pierwszy pakiet lub constraint blokujacy `Symfony 8`.
 
-### Etap C - Upgrade zaleznosci
+### Etap C - Runtime alignment
 
-- zaktualizowac constrainty `symfony/*` do `^8.0`,
-- przejrzec Doctrine i EasyAdmin pod kompatybilnosc,
-- zdecydowac, czy Encore zostaje tymczasowo, czy przechodzimy na AssetMapper/Vite,
-- usunac warning kompatybilnosci miedzy `@symfony/stimulus-bridge` i aktualna wersja Encore.
+- przygotowac przejscie obrazu Dockerowego z `php:8.3-fpm` na kolejna linie zgodna z planem upgrade,
+- zrownac deklaracje PHP z realnym wspieranym runtime,
+- utrzymac zielone testy i `lint:container` po kazdym malym kroku.
 
-### Etap D - Runtime 8.5
+### Etap D - Skok frameworka
 
-- ustawic obraz PHP 8.5 w Dockerze,
-- zrownac lokalne i CI runtime,
-- uruchomic komplet testow, smoke i scenariusze Behat.
+- zaktualizowac constrainty `symfony/*` do docelowej linii,
+- przejrzec Doctrine, EasyAdmin i FOS Elastica pod finalna kompatybilnosc,
+- odpalic komplet testow, smoke i scenariusze Behat po zmianie.
+
+## Najblizszy rekomendowany slice
+
+Najblizsza sesja powinna domknac Etap A:
+
+1. audit blockerow,
+2. odswiezenie backlogu upgrade,
+3. zapis konkretnej sekwencji malych commitow/slice'ow,
+4. bez ruszania jeszcze docelowego PHP 8.5 w Dockerze.
 
 ## Zasada wykonawcza
 
-Target produkcyjny pozostaje `PHP 8.5`, ale pierwsza fala zmian ma doprowadzic kod do zgodnosci `PHP 8.4+ / Symfony 8`, bo to zmniejsza ryzyko i nie blokuje bieżącego refaktoru domenowego.
+Target produkcyjny pozostaje `PHP 8.5`, ale wykonawczo najpierw trzeba przygotowac kod i dependency graph do bezpiecznego wejscia w `Symfony 8`. Upgrade ma byc seria malych, weryfikowalnych krokow, a nie jednym skokiem.

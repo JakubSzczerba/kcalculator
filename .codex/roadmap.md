@@ -54,7 +54,7 @@ Cele:
 
 ## Faza 5 - Measurements & Devices
 
-Status: not started
+Status: in progress
 
 Cele:
 
@@ -93,7 +93,7 @@ Cele:
 
 Priorytety:
 
-1. Domknac `templates/User/Preferentions/index.html.twig` w nowym design systemie, razem ze stanami formularza i walidacji.
-2. Doprecyzowac plan runtime upgrade do Symfony 8 / PHP 8.5 na bazie ustabilizowanego backendu `Meal Journal` i asset pipeline.
-3. Rozpisac drobny maintenance task dla `Browserslist/caniuse-lite`.
-4. Po preferencjach zdecydowac, czy kolejny cleanup obejmuje `WeightHistory` / dashboard, czy przygotowanie stricte pod upgrade.
+1. Zrobic audit runtime upgrade do Symfony 8 / PHP 8.5 na bazie ustabilizowanych slice'ow `MealJournal`, `Preferentions` i dashboardowego read-side historii wagi.
+2. Odswiezyc `.codex/upgrade-backlog.md` i rozpisac blokery na male kroki wykonawcze.
+3. Zdecydowac pierwszy techniczny slice: pakiety blokujace, kompatybilnosc PHP albo runtime Dockerowy.
+4. Rozpisac drobny maintenance task dla `Browserslist/caniuse-lite` bez rozszerzania scope glownej sesji.

@@ -1,83 +1,116 @@
 # Next Implementation Plan
 
-Data: 2026-04-14
+Data: 2026-04-29
 
 ## Cel
 
-Wybrac kolejny bezpieczny slice implementacyjny po domknieciu:
+Wyznaczyc kolejny tor prac po domknieciu dwoch bezpiecznych slice'ow:
 
-- command side `Meal Journal` dla `add/edit/delete`,
-- read-side cleanup dziennika i dashboardu,
-- public/auth UI dla `Homepage`, `Login` i `Register`.
+- `Metabolism & Goals` dla `Preferentions`,
+- pierwszego read-side `Measurements & Devices` dla dashboardowej historii wagi.
 
-Najblizsza sesja ma wrocic do kolejnego bezpiecznego slice'u UI po domknieciu frontendowego toolchainu i przygotowac grunt pod runtime upgrade.
+Kolejna sesja powinna przejsc z modularyzacji widocznych debt areas do przygotowania technicznego pod `Symfony 8 / PHP 8.5` bez mieszania tego z nowym slice'em domenowym.
 
 ## Aktualna diagnoza
 
-Stan zapisany w backlogach potwierdza sie w kodzie:
+Stan repo po zmianach z 2026-04-28 i 2026-04-29:
 
-- `DailyController` i dashboard zostaly juz odciete od legacy zaleznosci krytycznych dla ostatnich slice'ow,
-- `EntryRepository` zostal uproszczony do metod dziennika, a agregaty dashboardu maja osobny reader,
-- public/auth UI nie jest juz legacy bottleneckiem,
-- aktywne ryzyko toolchainu frontendowego zostalo zredukowane: Node 20 jest zrownany w Dockerze, `Encore` zostal podniesiony do `4.7.0`, a build przechodzi bez warningu `stimulus-bridge`,
-- pozostajacym drobnym maintenance taskiem po stronie assetow jest `Browserslist/caniuse-lite`,
-- po uporzadkowaniu toolchainu sensowny jest juz kolejny krok UI albo doprecyzowanie runtime upgrade.
+- `NutritionCatalog`, `MealJournal`, `Preferentions` i dashboardowa historia wagi maja juz pierwsze kontrakty, testy i artefakty `.codex/`,
+- `DashboardController` nie zalezy juz od legacy agregatow wpisow ani od surowego `WeightHistoryRepository`,
+- frontendowy shell, auth/public UI i ekran preferencji zostaly uporzadkowane,
+- test harness dziala w Dockerze: PHPUnit, Behat i `lint:container` przechodza,
+- glowny pozostaly tor ryzyka to runtime i dependency graph:
+  - Docker nadal siedzi na `php:8.3-fpm`,
+  - `composer.json` nadal deklaruje `php >=8.2` i `symfony 6.4.*`,
+  - backlog nadal zawiera pakiety wymagajace audytu przed `Symfony 8`.
 
 ## Rekomendowana kolejnosc
 
-### 1. P1: `Preferentions` UI
+### 1. P1: runtime upgrade prep
+
+To powinien byc najblizszy glowny slice.
 
 Zakres:
 
-- przepisac `templates/User/Preferentions/index.html.twig` do design systemu,
-- uporzadkowac walidacje, stany bledow i czytelnosc formularza,
-- nie wprowadzac nowego inline JS ani nowych zaleznosci frontendowych.
+- odswiezyc `.codex/upgrade-backlog.md` na bazie realnego stanu po ostatnich slice'ach,
+- zrobic audit blockerow w `composer.json` i configu pod:
+  - `php 8.5`,
+  - `symfony 8.x`,
+  - `doctrine/*`,
+  - `easycorp/easyadmin-bundle`,
+  - `friendsofsymfony/elastica-bundle`,
+  - `symfony/maker-bundle`,
+  - `symfony/webpack-encore-bundle`,
+- rozpisac male kroki wykonawcze zamiast jednego skoku major.
 
-Kryteria akceptacji:
+Minimalny wynik:
 
-- ekran preferencji korzysta ze wspolnego shellu i tokenow design systemu,
-- walidacje i stany formularza sa czytelne na desktopie i mobile,
-- slice nie doklada nowego debt do legacy Bootstrapa i inline JS.
+- nowy plan upgrade z konkretnymi blockerami,
+- przypisanie blockerow do kolejnych slice'ow,
+- decyzja, czy asset pipeline zostaje na Encore przez caly upgrade Symfony.
 
-### 2. P2: runtime upgrade prep
+### 2. P2: runtime alignment
 
-To powinien byc osobny spike techniczny, nie laczony z refaktorem domenowym.
-
-Zakres:
-
-- doprecyzowac backlog upgrade do Symfony 8 / PHP 8.5 przy zalozeniu, ze asset pipeline pozostaje tymczasowo na Encore,
-- zdecydowac, czy kolejny backendowy cleanup obejmuje `WeightHistory` / dashboard, czy juz przygotowanie pod upgrade,
-- wydzielic maintenance task dla `Browserslist/caniuse-lite`.
-
-### 3. P3: dalszy frontend cleanup
-
-Po preferencjach wrocic do pozostalych aktywnych stanow UI.
+Po audycie wejsc w pierwszy techniczny slice przygotowawczy.
 
 Zakres:
 
-- dopisac aktywne stany i komunikaty dla wyszukiwarki produktu,
-- dodac lepsza prezentacje empty state i bledow formularzy,
-- ograniczac zaleznosc od starego Bootstrapa bez rozszerzania scope do pelnej migracji stacku.
+- zdecydowac, czy najpierw podnosimy deklaracje PHP i kompatybilnosc kodu, czy czyscimy pakiety blokujace `Symfony 8`,
+- przygotowac osobny plan dla przejscia z `php:8.3-fpm` do linii docelowej,
+- nie laczyc tego jeszcze z nowym bounded context.
 
-## Proponowany najblizszy slice do implementacji
+### 3. P3: maintenance i follow-up
 
-Jesli celem ma byc najlepszy zwrot z kolejnej sesji, nastepna implementacja powinna objac:
+Male zadania po glownej sciezce:
 
-1. przepisanie `templates/User/Preferentions/index.html.twig` do wspolnego design systemu
-2. uporzadkowanie stanów formularza i walidacji
-3. weryfikacje przez `docker compose run --rm encore yarn build` i `lint:twig`
-4. zapis wyniku i decyzji w `.codex/`
-5. dopiero po tym runtime upgrade prep albo kolejny cleanup UI
+- rozpisac maintenance task dla `Browserslist/caniuse-lite`,
+- rozstrzygnac, czy po upgrade prep wracamy do rename debt `Preferention`, czy do write-side `Measurements`.
 
-## Dlaczego taka kolejnosc
+## Proponowane 3 najblizsze sesje
 
-- Projekt deklaruje, ze najpierw porzadkujemy granice modulow i testy, a dopiero potem migracje frameworka.
-- Ostatnie slice'y zamknely najpilniejsze debt areas `Meal Journal`, auth/home UI i frontendowy toolchain.
-- Kolejnym widocznym frontendowym debt area jest ekran preferencji, ktory nadal siedzi blisko starego markupu i formularzy.
-- Runtime upgrade ma teraz lepsza baze, ale nie powinien byc mieszany z refaktorem widoku w jednym kroku.
+### Sesja 1
+
+Cel:
+
+- audit i backlog runtime upgrade.
+
+Kroki:
+
+1. przejrzec `composer.json`, obrazy Dockerowe i zaleznosci Symfony/Doctrine,
+2. wypisac blokery i miejsca sprzezone z frameworkiem,
+3. zaktualizowac `.codex/upgrade-backlog.md`,
+4. zapisac decyzje wykonawcze w osobnym artefakcie `.codex/`.
+
+### Sesja 2
+
+Cel:
+
+- pierwszy techniczny slice pod upgrade.
+
+Kroki:
+
+1. usunac lub odizolowac pierwszy konkretny blocker z dependency graphu,
+2. utrzymac zielone testy i `lint:container`,
+3. dopisac wynik do worklogu i backlogu upgrade.
+
+### Sesja 3
+
+Cel:
+
+- przygotowac runtime alignment Docker/PHP.
+
+Kroki:
+
+1. zdecydowac docelowy krok po `php:8.3-fpm`,
+2. sprawdzic konsekwencje dla zaleznosci i narzedzi developerskich,
+3. dopiero potem planowac faktyczne podniesienie runtime'u.
 
 ## Ryzyka
 
-- ekran preferencji nadal siedzi blisko starego modelu aplikacyjnego, wiec warto rozdzielic UI cleanup od wiekszego refaktoru domenowego,
-- maintenance task `Browserslist/caniuse-lite` nie powinien rozszerzyc scope kolejnego slice'u,
-- zbyt wczesna decyzja o migracji asset stacku nadal moze rozszerzyc scope przed runtime upgrade.
+1. Zbyt szybkie wejscie w podnoszenie wersji bez audytu pakietow rozszerzy scope i utrudni cofanie zmian.
+2. Mieszanie cleanupu dependency graphu z nowym slice'em domenowym znowu rozmyje priorytety.
+3. Przedwczesne wejscie w write-side `Measurements & Devices` otworzy osobny, wiekszy strumien prac zanim runtime bedzie gotowy.
+
+## Rekomendacja wykonawcza
+
+Najblizsza implementacja powinna byc juz techniczna, nie domenowa: audit runtime upgrade i rozpisanie blockerow na male, wykonywalne kroki. Dopiero po tym warto decydowac, czy pierwszy ruch idzie w pakiety, kompatybilnosc PHP, czy obraz Dockerowy.
