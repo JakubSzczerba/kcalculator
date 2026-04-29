@@ -40,6 +40,9 @@ services:
     Kcalculator\MealJournal\Application\Port\DailyNutritionSummaryReader:
         alias: Kcalculator\MealJournal\Infrastructure\Persistence\DoctrineDailyNutritionSummaryReader
 
+    Kcalculator\Measurements\Application\Port\WeightHistoryChartReader:
+        alias: Kcalculator\Measurements\Infrastructure\Persistence\DoctrineWeightHistoryChartReader
+
     Kcalculator\NutritionCatalog\Application\Port\FoodCatalogImportSource:
         alias: Kcalculator\NutritionCatalog\Infrastructure\Import\CsvFoodCatalogImportSource
 

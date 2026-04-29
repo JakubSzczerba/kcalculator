@@ -1,5 +1,25 @@
 # Worklog
 
+## 2026-04-29
+
+Wykonane:
+
+- zacommitowano slice `Metabolism & Goals` dla `Preferentions` jako `125f862 Add preferences slice for metabolism goals`,
+- przeanalizowano aktualne sprzezenia `DashboardController` z `WeightHistoryRepository`,
+- zapisano nowy artefakt slice'u w `.codex/measurements-dashboard-slice-2026-04-29.md`,
+- wydzielono port read-side `WeightHistoryChartReader` dla trendu wagi,
+- dodano view model `WeightHistoryChart` oraz factory normalizujace etykiety dat i wartosci wag,
+- dodano adapter `DoctrineWeightHistoryChartReader` oparty o aktualna encje `WeightHistory`,
+- przepieto `DashboardController` z legacy repozytorium na nowy reader,
+- usunieto dashboardowe helpery z `WeightHistoryRepository`,
+- dodano test jednostkowy dla factory read modelu historii wagi.
+
+Najwazniejsze wnioski:
+
+- dashboard nie musi znac shape'u legacy wynikow Doctrine, wystarczy mu gotowy model trendu,
+- `WeightHistory` moze pozostac przejsciowym adapterem zapisu, o ile read-side jest juz odseparowany kontraktem,
+- temat ingestii urzadzen nadal powinien pozostac poza zakresem do czasu osobnego slice'u `Measurements & Devices`.
+
 ## 2026-04-28
 
 Wykonane:

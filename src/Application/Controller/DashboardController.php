@@ -13,9 +13,9 @@ namespace Kcalculator\Application\Controller;
 use Kcalculator\Application\Prodiver\Chart\Dashboard\MacronutrientsProvider;
 use Kcalculator\Application\Prodiver\Chart\Dashboard\WeightProvider;
 use Kcalculator\Infrastructure\Repository\PreferenceRepository;
-use Kcalculator\Infrastructure\Repository\WeightHistoryRepository;
-use Kcalculator\MealJournal\Application\Port\DailyNutritionSummaryReader;
 use Kcalculator\Domain\User\Entity\User;
+use Kcalculator\MealJournal\Application\Port\DailyNutritionSummaryReader;
+use Kcalculator\Measurements\Application\Port\WeightHistoryChartReader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,7 +27,7 @@ class DashboardController extends AbstractController
     public function __construct(
         private readonly PreferenceRepository $dashboardCaloriesRepository,
         private readonly DailyNutritionSummaryReader $dailyNutritionSummaryReader,
-        private readonly WeightHistoryRepository $userWeightHistoryRepository,
+        private readonly WeightHistoryChartReader $weightHistoryChartReader,
         private readonly ChartBuilderInterface $chartBuilder,
         private readonly MacronutrientsProvider $macronutrientsProvider,
         private readonly WeightProvider $weightProvider,
@@ -44,14 +44,11 @@ class DashboardController extends AbstractController
         }
 
         $id = $user->getId();
-        $datetime = new \DateTime('@' . strtotime('now'));
+        $datetime = new \DateTimeImmutable('now');
 
         $preferention = $this->dashboardCaloriesRepository->showKcalPerDay($id);
         $nutritionSummary = $this->dailyNutritionSummaryReader->getForDay($datetime, $id);
-
-        // charts queries
-        $showHistory = $this->userWeightHistoryRepository->showHistory($id);
-        $monthHistory = $this->userWeightHistoryRepository->monthHistory($id);
+        $weightHistoryChart = $this->weightHistoryChartReader->getForUser($id);
 
         // Chart for MACRO implementation:
         $chartMacro = $this->chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
@@ -61,25 +58,12 @@ class DashboardController extends AbstractController
             $nutritionSummary->getCarbohydrates(),
         ));
 
-        //get weight from user's history and fetch in a single array
-        $results = [];
-        foreach ($showHistory as $weight) {
-            foreach ($weight as $value) {
-                $results[] = $value;
-            }
-        }
-        //get datetime from user's history, format all datetime for only name of month and fetch in a single array
-        $months = [];
-        foreach ($monthHistory as $month) {
-            foreach ($month as $value) {
-                $x = $value->format('d.m');
-                $months[] = $x;
-            }
-        }
-
         // Chart for Weight implementations:
         $chartWeight = $this->chartBuilder->createChart(Chart::TYPE_LINE);
-        $chartWeight->setData($this->weightProvider->getData($months, $results));
+        $chartWeight->setData($this->weightProvider->getData(
+            $weightHistoryChart->getLabels(),
+            $weightHistoryChart->getWeights(),
+        ));
 
         return $this->render('User/Dashboard/index.html.twig', [
                 'preferentions' => $preferention,

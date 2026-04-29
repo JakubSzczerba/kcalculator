@@ -20,26 +20,4 @@ class WeightHistoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, WeightHistory::class);
     }
-
-    public function showHistory(int $id)
-    {      
-        $qb = $this->createQueryBuilder('w');
-
-        $qb->select('w.userWeight')
-            ->where('w.user = :user')     
-            ->setParameter('user', $id);
-    
-        return $qb->getQuery()->getResult();
-    }
-
-    public function monthHistory(int $id)
-    {       
-        $qb = $this->createQueryBuilder('w');
-
-        $qb->select('w.datetime')
-            ->where('w.user = :user')     
-            ->setParameter('user', $id);
- 
-        return $qb->getQuery()->getResult();
-    }
 }
