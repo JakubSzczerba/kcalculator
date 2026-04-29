@@ -21,6 +21,7 @@ Najwazniejsze wnioski:
 - temat ingestii urzadzen nadal powinien pozostac poza zakresem do czasu osobnego slice'u `Measurements & Devices`.
 - po domknieciu `Preferentions` i pierwszego read-side `Measurements` nastepny logiczny tor prac przesuwa sie na audit runtime upgrade, a nie na kolejny slice domenowy.
 - w ramach audytu runtime upgrade przestawiono routing z loadera `annotation` na `attribute` i ujednolicono importy `Route` w kontrolerach.
+- usunieto z rootowych zaleznosci `composer/package-versions-deprecated` oraz `doctrine/annotations` bez regresji w testach i kontenerze DI.
 
 ## 2026-04-28
 

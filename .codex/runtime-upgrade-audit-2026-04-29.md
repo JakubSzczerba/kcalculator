@@ -32,8 +32,6 @@ Wniosek:
 
 Zidentyfikowane w `composer.json` / `composer.lock`:
 
-- `composer/package-versions-deprecated`
-- `doctrine/annotations`
 - `doctrine/orm` `2.17.1`
 - `doctrine/doctrine-bundle` `2.11.1`
 - `doctrine/doctrine-migrations-bundle` `3.3.0`
@@ -47,6 +45,19 @@ Zidentyfikowane w `composer.json` / `composer.lock`:
 Wniosek:
 
 - najpierw trzeba ustalic, ktore z tych pakietow maja bezposrednia sciezke do Symfony 8, a ktore trzeba zaktualizowac lub odizolowac w osobnych slice'ach.
+
+### 2a. Pakiety zdjete od razu po audycie
+
+Udalo sie usunac bez regresji:
+
+- `composer/package-versions-deprecated`
+- `doctrine/annotations`
+
+Powod:
+
+- repo nie mialo lokalnych uzyc tych pakietow,
+- Doctrine mapping jest prowadzone przez YAML,
+- routing zostal juz przestawiony na atrybuty.
 
 ### 3. Legacy praktyki frameworkowe
 
@@ -88,8 +99,6 @@ Zakres:
 Kandydaci:
 
 - `symfony/proxy-manager-bridge`,
-- `composer/package-versions-deprecated`,
-- `doctrine/annotations`,
 - `symfony/maker-bundle` i jego relacja do `nikic/php-parser`.
 
 ### Slice 3: runtime alignment

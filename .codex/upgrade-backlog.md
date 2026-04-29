@@ -22,8 +22,6 @@ Postep od 2026-04-08:
    - target: `8.5`.
 2. Constrainty aplikacji nadal siedza na linii Symfony `6.4.*` i `php >=8.2`.
 3. Dependency graph wymaga audytu kompatybilnosci przed `Symfony 8`:
-   - `composer/package-versions-deprecated`
-   - `doctrine/annotations`
    - `doctrine/orm ^2.8`
    - `symfony/proxy-manager-bridge`
    - `symfony/maker-bundle`
@@ -70,6 +68,12 @@ Najblizsza sesja powinna domknac Etap A:
 2. odswiezenie backlogu upgrade,
 3. zapis konkretnej sekwencji malych commitow/slice'ow,
 4. bez ruszania jeszcze docelowego PHP 8.5 w Dockerze.
+
+Wykonane juz po audycie:
+
+- usunieto `composer/package-versions-deprecated`,
+- usunieto `doctrine/annotations`,
+- routing przestawiono z loadera `annotation` na `attribute`.
 
 ## Zasada wykonawcza
 
