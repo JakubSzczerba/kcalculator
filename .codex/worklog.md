@@ -22,6 +22,7 @@ Najwazniejsze wnioski:
 - po domknieciu `Preferentions` i pierwszego read-side `Measurements` nastepny logiczny tor prac przesuwa sie na audit runtime upgrade, a nie na kolejny slice domenowy.
 - w ramach audytu runtime upgrade przestawiono routing z loadera `annotation` na `attribute` i ujednolicono importy `Route` w kontrolerach.
 - usunieto z rootowych zaleznosci `composer/package-versions-deprecated` oraz `doctrine/annotations` bez regresji w testach i kontenerze DI.
+- usunieto z rootowych zaleznosci `symfony/proxy-manager-bridge`, co zdjelo tez `friendsofphp/proxy-manager-lts` i `laminas/laminas-code`.
 
 ## 2026-04-28
 

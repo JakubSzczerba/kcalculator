@@ -52,6 +52,9 @@ Udalo sie usunac bez regresji:
 
 - `composer/package-versions-deprecated`
 - `doctrine/annotations`
+- `symfony/proxy-manager-bridge`
+- `friendsofphp/proxy-manager-lts`
+- `laminas/laminas-code`
 
 Powod:
 
@@ -98,7 +101,6 @@ Zakres:
 
 Kandydaci:
 
-- `symfony/proxy-manager-bridge`,
 - `symfony/maker-bundle` i jego relacja do `nikic/php-parser`.
 
 ### Slice 3: runtime alignment

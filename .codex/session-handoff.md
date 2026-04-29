@@ -29,6 +29,7 @@ Data: 2026-04-29
 - usunieto tymczasowy `NODE_OPTIONS=--openssl-legacy-provider`,
 - usunieto legacy pakiet `stimulus`, poprawiono import w `assets/controllers/hello_controller.js` i przypieto `chart.js` do `3.8.0`.
 - usunieto z rootowych zaleznosci `composer/package-versions-deprecated` i `doctrine/annotations`,
+- usunieto z rootowych zaleznosci `symfony/proxy-manager-bridge`,
 - routing zostal przestawiony z `annotation` na `attribute`.
 
 ## Najwazniejsze zmienione obszary
@@ -91,7 +92,7 @@ Wynik:
 1. Build zgłasza maintenance warning `Browserslist: caniuse-lite is outdated`.
 2. Encore pozostaje stackiem przejsciowym do czasu runtime upgrade i decyzji o docelowym asset pipeline.
 3. Docker nadal siedzi na `php:8.3-fpm`, a `composer.json` nadal deklaruje `php >=8.2` i Symfony `6.4.*`.
-4. W `composer.json` pozostaja pakiety wymagajace osobnego audytu przed `Symfony 8`, ale `composer/package-versions-deprecated` i `doctrine/annotations` zostaly juz zdjete.
+4. W `composer.json` pozostaja pakiety wymagajace osobnego audytu przed `Symfony 8`, ale `composer/package-versions-deprecated`, `doctrine/annotations` i `symfony/proxy-manager-bridge` zostaly juz zdjete.
 
 ## Priorytety na nowa sesje
 

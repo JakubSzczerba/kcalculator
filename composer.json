@@ -22,7 +22,6 @@
         "symfony/http-kernel": "6.*",
         "symfony/maker-bundle": "^1.30",
         "symfony/messenger": "6.4.*",
-        "symfony/proxy-manager-bridge": "6.4.x-dev",
         "symfony/security-bundle": "6.*",
         "symfony/twig-bundle": "6.4.*",
         "symfony/ux-chartjs": "^2.13",

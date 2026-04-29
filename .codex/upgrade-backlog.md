@@ -23,7 +23,6 @@ Postep od 2026-04-08:
 2. Constrainty aplikacji nadal siedza na linii Symfony `6.4.*` i `php >=8.2`.
 3. Dependency graph wymaga audytu kompatybilnosci przed `Symfony 8`:
    - `doctrine/orm ^2.8`
-   - `symfony/proxy-manager-bridge`
    - `symfony/maker-bundle`
    - `symfony/webpack-encore-bundle`
    - `friendsofsymfony/elastica-bundle`
@@ -73,6 +72,7 @@ Wykonane juz po audycie:
 
 - usunieto `composer/package-versions-deprecated`,
 - usunieto `doctrine/annotations`,
+- usunieto `symfony/proxy-manager-bridge` wraz z `friendsofphp/proxy-manager-lts` i `laminas/laminas-code`,
 - routing przestawiono z loadera `annotation` na `attribute`.
 
 ## Zasada wykonawcza

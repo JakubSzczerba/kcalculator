@@ -91,9 +91,6 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.3"
-    },
     "friendsofsymfony/elastica-bundle": {
         "version": "6.3",
         "recipe": {
@@ -102,9 +99,6 @@
             "version": "5.0",
             "ref": "46c9cd2c1e07f0fcfd97e96f12b03b2e0845c4cd"
         }
-    },
-    "laminas/laminas-code": {
-        "version": "4.1.0"
     },
     "league/csv": {
         "version": "8.2.3"
@@ -300,9 +294,6 @@
         "version": "v5.2.4"
     },
     "symfony/property-info": {
-        "version": "v5.2.4"
-    },
-    "symfony/proxy-manager-bridge": {
         "version": "v5.2.4"
     },
     "symfony/routing": {
