@@ -15,12 +15,14 @@ Ten plik jest glownym kontekstem operacyjnym dla osob i agentow pracujacych nad 
 
 - backend: Symfony 6.4, PHP deklarowane jako `>=8.2`, Docker na `php:8.3-fpm`,
 - lokalne CLI w tym workspace dziala na PHP 8.2.26,
-- frontend: Twig + jQuery + Encore,
+- frontend: Twig + Stimulus/Encore na Node 20; pozostaja lokalne fragmenty legacy jQuery,
 - persistence: Doctrine ORM z mapowaniem YAML,
 - dane produktowe: nadal seed z CSV, ale import zostal juz ukryty za portem `FoodCatalogImportSource`,
-- istnieje zalazek bounded context `NutritionCatalog`,
-- projekt ma juz bazowy harness testowy: PHPUnit 10.5 i Behat,
-- brak warstwy API, a wiekszosc starej logiki nadal siedzi w klasycznym ukladzie `Application/Domain/Infrastructure`.
+- istnieja pierwsze moduly i kontrakty dla `NutritionCatalog`, `MealJournal`, `Metabolism & Goals` oraz read-side `Measurements`,
+- projekt ma harness testowy PHPUnit 10.5 i Behat; aktualny baseline to 19 testow / 58 asercji oraz 7 scenariuszy BDD,
+- dashboard i dziennik zostaly odciete od najwazniejszych bezposrednich zaleznosci do legacy repozytoriow,
+- security baseline zaleznosci jest czysty: `composer audit --locked` nie zglasza advisory,
+- brak warstwy API, a pozostala legacy logika nadal siedzi w klasycznym ukladzie `Application/Domain/Infrastructure`.
 
 ## Docelowy kierunek
 
@@ -54,28 +56,30 @@ Szczegoly znajduja sie w `.codex/bounded-contexts.md`.
 
 ## Kolejnosc prac
 
-1. Zapisac kontekst, plan i decyzje architektoniczne.
-2. Dodac fundament testow i reguly TDD/BDD.
-3. Wydzielic pierwszy modul domenowy: katalog produktow i dziennik posilkow.
-4. Przygotowac migracje runtime do Symfony 8 / PHP 8.5.
-5. Zmodernizowac UI oraz przygotowac kontrakty pod urzadzenia.
+1. Podniesc runtime Dockerowy z PHP 8.3 do PHP 8.5 bez zmiany majorow frameworka.
+2. Domknac dependency baseline na Symfony 6.4: FOS Elastica 7.2, EncoreBundle 2.x i deprecations.
+3. Wykonac osobny major slice Doctrine ORM 3 / DBAL 4 / DoctrineBundle 3.
+4. Przejsc kolejno przez Symfony 7.4 i Symfony 8.x.
+5. Po runtime upgrade wrocic do write-side `Measurements & Devices` i dalszej modularyzacji.
 
-## Stan po sesji 2026-04-08
+## Stan po sesji 2026-07-18
 
 Wykonane:
 
-- zapisano kontekst projektu i roadmape w `.codex/`,
-- dodano `food-catalog:import` z aliasem `csv:import`,
-- wprowadzono `NutritionCatalog` jako pierwszy nowy modul,
-- dodano PHPUnit i Behat oraz pierwsze testy smoke/unit,
-- zweryfikowano nowe zmiany w kontenerze PHP.
+- domknieto audit zaleznosci pod Symfony 8 / PHP 8.5,
+- MakerBundle podniesiono do `1.67.0`, a PHP Parser do `5.8.0`,
+- zaktualizowano podatne patche EasyAdmin, Twig i Symfony 6.4,
+- `composer audit --locked` zostal doprowadzony do zera,
+- zapisano macierz `.codex/runtime-upgrade-dependency-matrix-2026-07-18.md`,
+- pelna regresja przechodzi przez `docker.exe compose`: PHPUnit, Behat, DI lint, Twig lint i Encore build.
 
 Otwarte blokery:
 
-- Docker nadal siedzi na `php:8.3-fpm` i legacy Node 18,
-- `symfony/maker-bundle` blokuje przejscie na `phpunit 11`,
-- stare kontrolery i encje nadal sa mocno sprzezone z infrastruktura,
-- `Meal Journal` nie zostal jeszcze wydzielony.
+- Docker nadal siedzi na `php:8.3-fpm`,
+- FOS Elastica 6.3 blokuje Symfony 7.4,
+- Doctrine major wymaga migracji ORM 2 -> 3 i DBAL 3 -> 4,
+- DoctrineMigrationsBundle wymaga ponownego audytu przed finalnym Symfony 8,
+- pozostaja legacy namespace `Preferention` i luzno typowane encje.
 
 ## Kanoniczne pliki projektowe
 
@@ -84,3 +88,4 @@ Otwarte blokery:
 - `.codex/bounded-contexts.md`
 - `.codex/worklog.md`
 - `.codex/session-handoff.md`
+- `.codex/runtime-upgrade-dependency-matrix-2026-07-18.md`

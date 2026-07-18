@@ -74,7 +74,7 @@ Cele:
 
 ## Faza 7 - Runtime Upgrade
 
-Status: not started
+Status: in progress
 
 Cele:
 
@@ -93,7 +93,7 @@ Cele:
 
 Priorytety:
 
-1. Zrobic audit runtime upgrade do Symfony 8 / PHP 8.5 na bazie ustabilizowanych slice'ow `MealJournal`, `Preferentions` i dashboardowego read-side historii wagi.
-2. Odswiezyc `.codex/upgrade-backlog.md` i rozpisac blokery na male kroki wykonawcze.
-3. Zdecydowac pierwszy techniczny slice: pakiety blokujace, kompatybilnosc PHP albo runtime Dockerowy.
-4. Rozpisac drobny maintenance task dla `Browserslist/caniuse-lite` bez rozszerzania scope glownej sesji.
+1. Podniesc runtime Dockerowy z PHP 8.3 do PHP 8.5 bez zmiany majorow Symfony i Doctrine.
+2. Przygotowac dependency baseline: FOS Elastica 7.2, aktualny EncoreBundle 2.x i deprecations Symfony 6.4.
+3. Dopiero potem wejsc w Doctrine ORM 3 / DBAL 4 / DoctrineBundle 3.
+4. Przejsc kolejno przez Symfony 7.4 i Symfony 8.x.

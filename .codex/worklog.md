@@ -1,5 +1,47 @@
 # Worklog
 
+## 2026-07-18
+
+Wykonane:
+
+- dokonczono audit kompatybilnosci zaleznosci pod Symfony 8 / PHP 8.5,
+- zapisano macierz `.codex/runtime-upgrade-dependency-matrix-2026-07-18.md`,
+- zaktualizowano `symfony/maker-bundle` z `1.52.0` do `1.67.0`,
+- zaktualizowano `nikic/php-parser` z `4.19.5` do `5.8.0`,
+- zaktualizowano EasyAdmin, Twig i podatne komponenty Symfony 6.4 bez zmiany majorow,
+- doprowadzono `composer audit --locked` z 32 advisory dla 9 pakietow do zera,
+- zainstalowano lockfile i wykonano pelna regresje w kontenerach,
+- odswiezono `AGENTS.md`, kontekst projektu, roadmap, plan wykonawczy i handoff,
+- zsynchronizowano notatki Obsidiana w `01 Projekty/kcalculator` i zmieniono status projektu z `archived` na `active`.
+
+Najwazniejsze wnioski:
+
+- MakerBundle nie jest juz blockerem Symfony 8 ani PHP Parser 5,
+- target Symfony 8 wymaga najpierw runtime PHP 8.4+, a projekt pozostaje przy docelowym PHP 8.5,
+- bezpieczna kolejnosc to PHP 8.5, dependency baseline, Doctrine major, Symfony 7.4 i dopiero Symfony 8.x,
+- FOS Elastica 6.3 blokuje juz Symfony 7.4 i musi przejsc na linie 7.2,
+- DoctrineBundle 3.1+ wspiera Symfony 8, ale wymaga PHP 8.4, DBAL 4, Persistence 4 i ORM 3,
+- DoctrineMigrationsBundle wymaga ponownego audytu przed finalnym Symfony 8, bo aktualna stabilna linia nadal ogranicza `http-kernel` do 7.x.
+
+Weryfikacja:
+
+- `composer audit --locked`: zero advisory,
+- instalacja lockfile w kontenerze: sukces,
+- PHPUnit: `19 tests, 58 assertions`,
+- Behat: `7 scenarios, 7 passed`,
+- `lint:container`: sukces,
+- Twig lint: wszystkie 10 szablonow poprawne,
+- Encore production build: sukces, pozostaje warning `Browserslist: caniuse-lite is outdated`,
+- Composer validate: sukces z dwoma istniejacymi warningami constraintow,
+- `git diff --check`: sukces,
+- Docker Desktop uruchomiono przez `docker.exe compose`, poniewaz linuksowy wrapper `docker` nie jest dostepny.
+
+Rekomendowany nastepny krok:
+
+1. Podniesc obraz Dockerowy do PHP 8.5 jako osobny slice.
+2. Utrzymac Symfony 6.4 i obecne majory Doctrine podczas runtime alignment.
+3. Po zielonej regresji wejsc w dependency baseline.
+
 ## 2026-04-29
 
 Wykonane:

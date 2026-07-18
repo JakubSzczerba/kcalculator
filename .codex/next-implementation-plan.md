@@ -1,116 +1,108 @@
 # Next Implementation Plan
 
-Data: 2026-04-29
+Data: 2026-07-18
 
 ## Cel
 
-Wyznaczyc kolejny tor prac po domknieciu dwoch bezpiecznych slice'ow:
+Kontynuowac migracje techniczna do PHP 8.5 / Symfony 8.x malymi slice'ami, bez mieszania runtime upgrade z nowym bounded context ani z Doctrine major w jednym kroku.
 
-- `Metabolism & Goals` dla `Preferentions`,
-- pierwszego read-side `Measurements & Devices` dla dashboardowej historii wagi.
+Audit, security baseline, pierwszy pakietowy slice i regresja Dockerowa sa zakonczone.
 
-Kolejna sesja powinna przejsc z modularyzacji widocznych debt areas do przygotowania technicznego pod `Symfony 8 / PHP 8.5` bez mieszania tego z nowym slice'em domenowym.
+## Aktualny baseline
 
-## Aktualna diagnoza
+- aplikacja: Symfony `6.4.*`,
+- deklaracja PHP: `>=8.2`,
+- Docker: `php:8.3-fpm`,
+- frontend: Node 20, Encore 4.7, Webpack 5,
+- testy: PHPUnit `19 tests, 58 assertions`,
+- BDD: Behat `7 scenarios, 7 passed`,
+- `lint:container`: zielony,
+- Twig lint: 10 szablonow poprawnych,
+- Encore production build: zielony,
+- `composer audit --locked`: zero advisory.
 
-Stan repo po zmianach z 2026-04-28 i 2026-04-29:
+## Slice 1 - PHP 8.5 runtime alignment
 
-- `NutritionCatalog`, `MealJournal`, `Preferentions` i dashboardowa historia wagi maja juz pierwsze kontrakty, testy i artefakty `.codex/`,
-- `DashboardController` nie zalezy juz od legacy agregatow wpisow ani od surowego `WeightHistoryRepository`,
-- frontendowy shell, auth/public UI i ekran preferencji zostaly uporzadkowane,
-- test harness dziala w Dockerze: PHPUnit, Behat i `lint:container` przechodza,
-- glowny pozostaly tor ryzyka to runtime i dependency graph:
-  - Docker nadal siedzi na `php:8.3-fpm`,
-  - `composer.json` nadal deklaruje `php >=8.2` i `symfony 6.4.*`,
-  - backlog nadal zawiera pakiety wymagajace audytu przed `Symfony 8`.
-
-## Rekomendowana kolejnosc
-
-### 1. P1: runtime upgrade prep
-
-To powinien byc najblizszy glowny slice.
+Status: next
 
 Zakres:
 
-- odswiezyc `.codex/upgrade-backlog.md` na bazie realnego stanu po ostatnich slice'ach,
-- zrobic audit blockerow w `composer.json` i configu pod:
-  - `php 8.5`,
-  - `symfony 8.x`,
-  - `doctrine/*`,
-  - `easycorp/easyadmin-bundle`,
-  - `friendsofsymfony/elastica-bundle`,
-  - `symfony/maker-bundle`,
-  - `symfony/webpack-encore-bundle`,
-- rozpisac male kroki wykonawcze zamiast jednego skoku major.
+1. zmienic baze obrazu na `php:8.5-fpm`,
+2. przebudowac obraz od zera,
+3. nie zmieniac jeszcze constraintow Symfony ani majorow Doctrine,
+4. naprawic wylacznie problemy kompatybilnosci PHP i rozszerzen,
+5. po zielonej regresji podniesc deklaracje PHP w `composer.json`,
+6. zapisac wynik w `.codex/`.
 
-Minimalny wynik:
+Definition of Done:
 
-- nowy plan upgrade z konkretnymi blockerami,
-- przypisanie blockerow do kolejnych slice'ow,
-- decyzja, czy asset pipeline zostaje na Encore przez caly upgrade Symfony.
+- obraz PHP 8.5 buduje sie powtarzalnie,
+- `composer install` przechodzi w kontenerze,
+- PHPUnit, Behat, `lint:container`, Twig lint i Encore build sa zielone,
+- `composer audit --locked` nadal zwraca zero advisory,
+- brak nieudokumentowanych zmian majorow.
 
-### 2. P2: runtime alignment
-
-Po audycie wejsc w pierwszy techniczny slice przygotowawczy.
+## Slice 2 - dependency baseline na Symfony 6.4
 
 Zakres:
 
-- zdecydowac, czy najpierw podnosimy deklaracje PHP i kompatybilnosc kodu, czy czyscimy pakiety blokujace `Symfony 8`,
-- przygotowac osobny plan dla przejscia z `php:8.3-fpm` do linii docelowej,
-- nie laczyc tego jeszcze z nowym bounded context.
+- FOS Elastica `6.3` -> `7.2`,
+- WebpackEncoreBundle do aktualnego patcha linii 2.x,
+- pozostale bezpieczne patche Symfony 6.4,
+- jawny check deprecations,
+- maintenance `Browserslist/caniuse-lite` jako osobny maly task.
 
-### 3. P3: maintenance i follow-up
+## Slice 3 - Doctrine major
 
-Male zadania po glownej sciezce:
+Zakres:
 
-- rozpisac maintenance task dla `Browserslist/caniuse-lite`,
-- rozstrzygnac, czy po upgrade prep wracamy do rename debt `Preferention`, czy do write-side `Measurements`.
+- Doctrine ORM `2` -> `3`,
+- DBAL `3` -> `4`,
+- DoctrineBundle `2` -> `3.1+`,
+- Persistence `3` -> `4`,
+- FixturesBundle `3` -> `4`,
+- weryfikacja mapowan YAML, migracji, repozytoriow i EasyAdmin.
 
-## Proponowane 3 najblizsze sesje
+Ten slice nie moze byc laczony ze skokiem Symfony major.
 
-### Sesja 1
+## Slice 4 - Symfony 7.4
 
-Cel:
+Zakres:
 
-- audit i backlog runtime upgrade.
+- usunac deprecations Symfony 6.4,
+- przestawic wszystkie komponenty Symfony na jedna linie 7.4,
+- zaktualizowac recipes,
+- wykonac pelna regresje.
 
-Kroki:
+## Slice 5 - Symfony 8.x
 
-1. przejrzec `composer.json`, obrazy Dockerowe i zaleznosci Symfony/Doctrine,
-2. wypisac blokery i miejsca sprzezone z frameworkiem,
-3. zaktualizowac `.codex/upgrade-backlog.md`,
-4. zapisac decyzje wykonawcze w osobnym artefakcie `.codex/`.
+Zakres:
 
-### Sesja 2
+- ponowic audit DoctrineMigrationsBundle i innych bundle,
+- usunac deprecations Symfony 7.4,
+- przestawic komponenty na jedna wspierana linie 8.x,
+- wykonac pelna regresje i security audit.
 
-Cel:
+## Po runtime upgrade
 
-- pierwszy techniczny slice pod upgrade.
+Kolejny tor domenowy:
 
-Kroki:
+1. write-side `Measurements & Devices`,
+2. model pomiaru i sesji wazenia,
+3. port ingestii urzadzen,
+4. adapter inteligentnej wagi,
+5. oddzielenie raw payload, interpretacji i zatwierdzenia przez uzytkownika.
 
-1. usunac lub odizolowac pierwszy konkretny blocker z dependency graphu,
-2. utrzymac zielone testy i `lint:container`,
-3. dopisac wynik do worklogu i backlogu upgrade.
+Debt do zaplanowania osobno:
 
-### Sesja 3
+- rename `Preferention`,
+- luzne typowanie legacy encji,
+- dalsze usuwanie jQuery,
+- docelowa decyzja o asset pipeline.
 
-Cel:
+## Dokumenty powiazane
 
-- przygotowac runtime alignment Docker/PHP.
-
-Kroki:
-
-1. zdecydowac docelowy krok po `php:8.3-fpm`,
-2. sprawdzic konsekwencje dla zaleznosci i narzedzi developerskich,
-3. dopiero potem planowac faktyczne podniesienie runtime'u.
-
-## Ryzyka
-
-1. Zbyt szybkie wejscie w podnoszenie wersji bez audytu pakietow rozszerzy scope i utrudni cofanie zmian.
-2. Mieszanie cleanupu dependency graphu z nowym slice'em domenowym znowu rozmyje priorytety.
-3. Przedwczesne wejscie w write-side `Measurements & Devices` otworzy osobny, wiekszy strumien prac zanim runtime bedzie gotowy.
-
-## Rekomendacja wykonawcza
-
-Najblizsza implementacja powinna byc juz techniczna, nie domenowa: audit runtime upgrade i rozpisanie blockerow na male, wykonywalne kroki. Dopiero po tym warto decydowac, czy pierwszy ruch idzie w pakiety, kompatybilnosc PHP, czy obraz Dockerowy.
+- `.codex/runtime-upgrade-dependency-matrix-2026-07-18.md`
+- `.codex/upgrade-backlog.md`
+- `.codex/roadmap.md`
+- `.codex/session-handoff.md`

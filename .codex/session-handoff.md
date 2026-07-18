@@ -1,6 +1,17 @@
 # Session Handoff
 
-Data: 2026-04-29
+Data: 2026-07-18
+
+## Najnowsza aktualizacja
+
+- dokonczono audit runtime upgrade i zapisano `.codex/runtime-upgrade-dependency-matrix-2026-07-18.md`,
+- zaktualizowano MakerBundle `1.52.0` -> `1.67.0` oraz PHP Parser `4.19.5` -> `5.8.0`,
+- zaktualizowano podatne patche EasyAdmin, Twig i Symfony 6.4,
+- `composer audit --locked` nie zglasza znanych podatnosci,
+- lockfile zostal zainstalowany w kontenerze,
+- PHPUnit, Behat, `lint:container`, Twig lint i Encore build przechodza,
+- Docker Desktop jest dostepny przez `docker.exe compose`; brakuje tylko linuksowego wrappera `docker`,
+- kontekst, plany i notatki Obsidiana `01 Projekty/kcalculator` sa zsynchronizowane ze stanem repo.
 
 ## Co jest zrobione
 
@@ -92,33 +103,36 @@ Wynik:
 1. Build zgłasza maintenance warning `Browserslist: caniuse-lite is outdated`.
 2. Encore pozostaje stackiem przejsciowym do czasu runtime upgrade i decyzji o docelowym asset pipeline.
 3. Docker nadal siedzi na `php:8.3-fpm`, a `composer.json` nadal deklaruje `php >=8.2` i Symfony `6.4.*`.
-4. W `composer.json` pozostaja pakiety wymagajace osobnego audytu przed `Symfony 8`, ale `composer/package-versions-deprecated`, `doctrine/annotations` i `symfony/proxy-manager-bridge` zostaly juz zdjete.
+4. FOS Elastica 6.3 blokuje Symfony 7.4; kolejna kompatybilna linia to 7.2.
+5. Doctrine ORM 3 / DBAL 4 / DoctrineBundle 3 wymagaja osobnego major slice'u po PHP 8.5.
+6. DoctrineMigrationsBundle wymaga ponownego audytu przed finalnym Symfony 8.
 
 ## Priorytety na nowa sesje
 
 ### P1
 
-- wejsc w audit runtime upgrade do Symfony 8 / PHP 8.5,
-- odswiezyc backlog blockerow na bazie realnego stanu po ostatnich slice'ach,
-- nie mieszac tego z nowym slice'em domenowym.
+- podniesc obraz Dockerowy z PHP 8.3 do PHP 8.5 jako izolowany runtime slice,
+- utrzymac Symfony 6.4 i obecne majory Doctrine w tym samym kroku,
+- wykonac pelna regresje przez `docker.exe compose`.
 
 ### P2
 
-- zdecydowac pierwszy techniczny ruch: pakiety blokujace, kompatybilnosc PHP albo runtime Dockerowy,
-- utrzymac Encore jako stack przejsciowy dopoki nie bedzie decyzji upgrade'owej.
+- podniesc FOS Elastica do 7.2 i domknac dependency baseline,
+- dodac jawny check deprecations Symfony 6.4.
 
 ### P3
 
-- rozpisac drobny maintenance task dla `browserslist/caniuse-lite`,
-- po runtime prep zdecydowac, czy wracamy do debtu `Preferention`, czy zaczynamy write-side `Measurements & Devices`.
+- potem wykonac Doctrine major,
+- przejsc kolejno przez Symfony 7.4 i Symfony 8.x,
+- maintenance `browserslist/caniuse-lite` pozostaje drobnym osobnym zadaniem.
 
 ## Zalecany punkt wejscia
 
 1. Przeczytac `AGENTS.md`.
 2. Przeczytac `.codex/session-handoff.md` i `.codex/worklog.md`.
-3. Otworzyc `.codex/next-implementation-plan.md`, `.codex/upgrade-backlog.md`, `.codex/roadmap.md`, `.codex/metabolism-goals-preferences-slice-2026-04-28.md` i `.codex/measurements-dashboard-slice-2026-04-29.md`.
+3. Otworzyc `.codex/runtime-upgrade-dependency-matrix-2026-07-18.md`, `.codex/next-implementation-plan.md`, `.codex/upgrade-backlog.md` i `.codex/roadmap.md`.
 4. Wejsc w `composer.json`, `docker-compose.yml` oraz `docker/php/Dockerfile`.
-5. Kontynuowac od audytu blockerow runtime upgrade.
+5. Kontynuowac od runtime slice PHP 8.5.
 
 ## Zasady operacyjne
 
