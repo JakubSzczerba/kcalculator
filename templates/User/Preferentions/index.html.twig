@@ -1,26 +1,143 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-    <div class="row" id="login">
-        <div class="col-lg-12">
-            <h1 class="mt-5">Preferencje</h1><br>
-            <div class="col-lg-6">
-                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-                {{ form_label(form.gender) }}
-                {{ form_widget(form.gender, {'attr': {'class': 'form-control'}}) }} <br>
-                {{ form_label(form.weight) }}
-                {{ form_widget(form.weight, {'attr': {'class': 'form-control'}}) }} <br>
-                {{ form_label(form.height) }}
-                {{ form_widget(form.height, {'attr': {'class': 'form-control'}}) }} <br>
-                {{ form_label(form.age) }}
-                {{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }} <br>
-                {{ form_label(form.activity) }}
-                {{ form_widget(form.activity, {'attr': {'class': 'form-control'}}) }} <br>
-                {{ form_label(form.intentions) }}
-                {{ form_widget(form.intentions, {'attr': {'class': 'form-control'}}) }}
-                <br>
-                <input type="submit" value="Wyślij" class="btn btn-success">
-                {{ form_end(form) }}
-            </div>
-        </div>
+{% block title %}{{ isEditMode ? 'Edytuj preferencje' : 'Ustaw preferencje' }} | Kcalculator{% endblock %}
+{% block body_class %}preferences-page{% endblock %}
+
+{% macro field(field) %}
+    {% set hasErrors = field.vars.errors|length > 0 %}
+    <div class="form-field">
+        {{ form_label(field) }}
+        {{ form_widget(field, {'attr': {'class': hasErrors ? 'form-control form-control--error' : 'form-control'}}) }}
+        {% if field.vars.help %}
+            <p class="form-help">{{ field.vars.help }}</p>
+        {% endif %}
+        {{ form_errors(field) }}
     </div>
+{% endmacro %}
+
+{% import _self as preferenceForm %}
+
+{% block body %}
+    <section class="preferences-shell">
+        <header class="page-card page-card--wide preferences-hero">
+            <div>
+                <p class="eyebrow">{{ isEditMode ? 'Edycja profilu' : 'Metabolism & Goals' }}</p>
+                <h1>{{ isEditMode ? 'Dopasuj plan do aktualnego rytmu dnia.' : 'Ustaw pierwszy profil metaboliczny.' }}</h1>
+                <p class="page-card__lead">
+                    {{ isEditMode
+                        ? 'Zmienione parametry od razu aktualizują dzienny cel kalorii i makroskładniki widoczne na dashboardzie oraz profilu.'
+                        : 'Ten formularz wylicza bazowe zapotrzebowanie, dzienny limit kalorii i rozkład makroskładników dla dalszych modułów aplikacji.' }}
+                </p>
+            </div>
+
+            <div class="preferences-hero__actions">
+                <a href="{{ path('profile') }}" class="secondary-button">Wróć do profilu</a>
+                <a href="{{ path('dashboard') }}" class="primary-button">Otwórz dashboard</a>
+            </div>
+        </header>
+
+        <section class="preferences-grid">
+            <article class="page-card preferences-card">
+                <header class="preferences-card__header">
+                    <div>
+                        <p class="eyebrow">Preferencje</p>
+                        <h2>{{ isEditMode ? 'Zaktualizuj dane wejściowe' : 'Wprowadź dane startowe' }}</h2>
+                    </div>
+                </header>
+
+                {{ form_start(form, {'attr': {'class': 'preferences-form', 'novalidate': 'novalidate'}}) }}
+                    {% if form.vars.errors|length > 0 %}
+                        <div class="inline-alert inline-alert--danger">
+                            {{ form_errors(form) }}
+                        </div>
+                    {% endif %}
+
+                    {{ preferenceForm.field(form.gender) }}
+                    {{ preferenceForm.field(form.weight) }}
+                    {{ preferenceForm.field(form.height) }}
+                    {{ preferenceForm.field(form.age) }}
+                    {{ preferenceForm.field(form.activity) }}
+                    {{ preferenceForm.field(form.intentions) }}
+
+                    <button type="submit" class="primary-button">
+                        {{ isEditMode ? 'Zapisz zmiany i przelicz plan' : 'Oblicz plan i zapisz preferencje' }}
+                    </button>
+                {{ form_end(form) }}
+            </article>
+
+            <aside class="preferences-stack">
+                <article class="page-card">
+                    <p class="eyebrow">Co ustalasz</p>
+                    <h2>Zakres tego kroku</h2>
+
+                    <div class="preferences-note-list">
+                        <div>
+                            <strong>Kalorie bazowe</strong>
+                            <p>BMR i dzienny cel są liczone na podstawie płci, wieku, wzrostu, masy ciała i aktywności.</p>
+                        </div>
+                        <div>
+                            <strong>Makroskładniki</strong>
+                            <p>Cel zmienia proporcje białka, tłuszczu i węglowodanów widoczne później na dashboardzie.</p>
+                        </div>
+                        <div>
+                            <strong>Historia wagi</strong>
+                            <p>Aktualna waga zapisuje się jako punkt startowy do przyszłego bounded context `Measurements & Devices`.</p>
+                        </div>
+                    </div>
+                </article>
+
+                {% if isEditMode and preference %}
+                    <article class="page-card">
+                        <p class="eyebrow">Aktualny plan</p>
+                        <h2>Obecnie zapisane wartości</h2>
+
+                        <div class="preferences-summary-grid">
+                            <div class="metric-card metric-card--brand">
+                                <span>Dzienne kcal</span>
+                                <strong>{{ preference.kcalDay|e }}</strong>
+                                <small>aktualny limit</small>
+                            </div>
+                            <div class="metric-card">
+                                <span>BMR</span>
+                                <strong>{{ preference.kcal|e }}</strong>
+                                <small>kcal bazowe</small>
+                            </div>
+                            <div class="metric-card">
+                                <span>Aktywność</span>
+                                <strong>{{ ('preferentions.' ~ preference.activity)|trans|e }}</strong>
+                                <small>obecny poziom</small>
+                            </div>
+                            <div class="metric-card">
+                                <span>Cel</span>
+                                <strong>{{ ('preferentions.' ~ preference.intentions)|trans|e }}</strong>
+                                <small>wybrany kierunek</small>
+                            </div>
+                        </div>
+
+                        <div class="macro-summary-grid">
+                            <div class="macro-summary macro-summary--protein">
+                                <span>Białko</span>
+                                <strong>{{ preference.proteinPerDay|e }}</strong>
+                                <small>g / dzień</small>
+                            </div>
+                            <div class="macro-summary macro-summary--fat">
+                                <span>Tłuszcz</span>
+                                <strong>{{ preference.fatPerDay|e }}</strong>
+                                <small>g / dzień</small>
+                            </div>
+                            <div class="macro-summary macro-summary--carbs">
+                                <span>Węglowodany</span>
+                                <strong>{{ preference.carboPerDay|e }}</strong>
+                                <small>g / dzień</small>
+                            </div>
+                        </div>
+                    </article>
+                {% else %}
+                    <article class="page-card empty-state">
+                        <h2>Po zapisaniu zobaczysz gotowy plan</h2>
+                        <p>Nowe preferencje zasilą profil, dashboard i dalsze iteracje kontekstu `Metabolism & Goals` bez ręcznego liczenia.</p>
+                    </article>
+                {% endif %}
+            </aside>
+        </section>
+    </section>
 {% endblock %}

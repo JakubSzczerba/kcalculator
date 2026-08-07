@@ -1,19 +1,4 @@
 {
-    "composer/package-versions-deprecated": {
-        "version": "1.11.99.1"
-    },
-    "doctrine/annotations": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "a2759dd6123694c8d901d0ec80006e044c2e6457"
-        },
-        "files": [
-            "config/routes/annotations.yaml"
-        ]
-    },
     "doctrine/cache": {
         "version": "1.10.2"
     },
@@ -106,9 +91,6 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.3"
-    },
     "friendsofsymfony/elastica-bundle": {
         "version": "6.3",
         "recipe": {
@@ -118,9 +100,6 @@
             "ref": "46c9cd2c1e07f0fcfd97e96f12b03b2e0845c4cd"
         }
     },
-    "laminas/laminas-code": {
-        "version": "4.1.0"
-    },
     "league/csv": {
         "version": "8.2.3"
     },
@@ -129,6 +108,20 @@
     },
     "php": {
         "version": "7.4"
+    },
+    "phpunit/phpunit": {
+        "version": "10.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "10.0",
+            "ref": "bb22cf8d8c554a623b427d5f3416b538f5525233"
+        },
+        "files": [
+            ".env.test",
+            "phpunit.dist.xml",
+            "tests/bootstrap.php"
+        ]
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -301,9 +294,6 @@
         "version": "v5.2.4"
     },
     "symfony/property-info": {
-        "version": "v5.2.4"
-    },
-    "symfony/proxy-manager-bridge": {
         "version": "v5.2.4"
     },
     "symfony/routing": {

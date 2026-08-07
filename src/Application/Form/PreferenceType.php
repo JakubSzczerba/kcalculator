@@ -12,8 +12,8 @@ namespace Kcalculator\Application\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -27,47 +27,81 @@ class PreferenceType extends AbstractType
                     'Mężczyzna' => 'man',
                     'Kobieta' => 'woman'
                 ],
-                'label' => 'Płeć'
+                'label' => 'Płeć',
+                'placeholder' => 'Wybierz płeć',
+                'help' => 'Ta wartość wpływa na wyliczenie podstawowej przemiany materii.',
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'Wybierz płeć.']),
+                ],
             ])
             ->add('weight', NumberType::class, [
                 'label' => 'Waga (kg)',
                 'attr' => [
-                    'placeholder' => '68.5'
-                ]
+                    'placeholder' => '68.5',
+                    'step' => '0.1',
+                    'min' => '25',
+                    'max' => '400',
+                ],
+                'help' => 'Aktualna masa ciała posłuży do wyliczenia celu oraz zapisze pierwszy wpis w historii wagi.',
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'Podaj aktualną wagę.']),
+                    new Assert\Positive(['message' => 'Waga musi być większa od zera.']),
+                    new Assert\Range([
+                        'min' => 25,
+                        'max' => 400,
+                        'notInRangeMessage' => 'Waga musi mieścić się w zakresie od {{ min }} do {{ max }} kg.',
+                    ]),
+                ],
             ])
-            ->add('height', TextType::class, [
+            ->add('height', NumberType::class, [
                 'label' => 'Wzrost (cm)',
                 'attr' => [
-                    'placeholder' => '153'
+                    'placeholder' => '173',
+                    'step' => '0.1',
+                    'min' => '100',
+                    'max' => '250',
                 ],
+                'help' => 'Wzrost w centymetrach. W razie potrzeby możesz użyć jednego miejsca po przecinku.',
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'To pole nie może być puste.']),
-                    new Assert\Regex([
-                        'pattern' => '/^\d+(\.\d{1,2})?$/',
-                        'message' => 'Wprowadź poprawny wzrost (np. 153 lub 153.5).'
+                    new Assert\NotBlank(['message' => 'Podaj wzrost.']),
+                    new Assert\Positive(['message' => 'Wzrost musi być większy od zera.']),
+                    new Assert\Range([
+                        'min' => 100,
+                        'max' => 250,
+                        'notInRangeMessage' => 'Wzrost musi mieścić się w zakresie od {{ min }} do {{ max }} cm.',
                     ]),
                 ]
             ])
-            ->add('age', TextType::class, [
+            ->add('age', IntegerType::class, [
                 'label' => 'Wiek',
                 'attr' => [
-                    'placeholder' => '31'
+                    'placeholder' => '31',
+                    'min' => '13',
+                    'max' => '120',
                 ],
+                'help' => 'Wiek wpływa na wyliczenie zapotrzebowania bazowego.',
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'To pole nie może być puste.']),
-                    new Assert\Regex([
-                        'pattern' => '/^\d+$/',
-                        'message' => 'Wprowadź poprawny wiek.'
+                    new Assert\NotBlank(['message' => 'Podaj wiek.']),
+                    new Assert\Positive(['message' => 'Wiek musi być większy od zera.']),
+                    new Assert\Range([
+                        'min' => 13,
+                        'max' => 120,
+                        'notInRangeMessage' => 'Wiek musi mieścić się w zakresie od {{ min }} do {{ max }} lat.',
                     ]),
                 ],
             ])
             ->add('activity', ChoiceType::class, [
                 'choices' => [
-                    'Siedzący tryb życia, praca przy biurku' => 'activity1',
-                    'Tryb życia o średniej aktywności fizczynej. Praca fizyczna, lub codziennie wykonywanie lekkich ćwiczeń fizycznych w czasie 1 godziny' => 'activity2',
-                    'Tryb życia o wysokiej aktywności fizczynej. Ciężka praca fizyczna, albo codzienny trening o wymiarze minimum 2 godzin z wysoką intesywnością' => 'activity3'
+                    'Siedzący tryb życia i mało ruchu' => 'activity1',
+                    'Umiarkowana aktywność w pracy lub po godzinach' => 'activity2',
+                    'Wysoka aktywność i regularny ciężki trening' => 'activity3'
                 ],
-                'label' => 'Aktywność'
+                'label' => 'Aktywność',
+                'placeholder' => 'Wybierz poziom aktywności',
+                'help' => 'Wybierz poziom, który najlepiej opisuje większość Twoich dni, a nie pojedynczy trening.',
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'Wybierz poziom aktywności.']),
+                ],
             ])
             ->add('intentions', ChoiceType::class, [
                 'choices' => [
@@ -75,7 +109,12 @@ class PreferenceType extends AbstractType
                     'Chcę utrzymać wagę' => 'intension2',
                     'Chcę przybrać masy mięśniowej' => 'intension3'
                 ],
-                'label' => 'Intencje'
+                'label' => 'Cel',
+                'placeholder' => 'Wybierz główny cel',
+                'help' => 'Cel wpływa na końcowy limit kalorii i rozkład makroskładników.',
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'Wybierz główny cel.']),
+                ],
             ]);
     }
 }

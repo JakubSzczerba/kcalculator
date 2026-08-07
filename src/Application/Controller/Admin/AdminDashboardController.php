@@ -18,7 +18,7 @@ use Kcalculator\Domain\User\Entity\User;
 use Kcalculator\Domain\Entry\Entity\Entry;
 use Kcalculator\Domain\Preference\Entity\Preference;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 
 class AdminDashboardController extends AbstractDashboardController

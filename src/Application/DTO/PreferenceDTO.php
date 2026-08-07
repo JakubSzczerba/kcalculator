@@ -19,12 +19,12 @@ class PreferenceDTO
     private string $activity;
     private string $intentions;
 
-    public function __construct(string $gender, float $weight, string $height, string $age, string $activity, string $intentions)
+    public function __construct(string $gender, float $weight, float $height, int $age, string $activity, string $intentions)
     {
         $this->gender = $gender;
         $this->weight = $weight;
-        $this->height = (float)$height;
-        $this->age = (int)$age;
+        $this->height = $height;
+        $this->age = $age;
         $this->activity = $activity;
         $this->intentions = $intentions;
     }

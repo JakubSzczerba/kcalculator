@@ -1,303 +1,81 @@
 {% extends 'base.html.twig' %}
+{% block title %}Dziennik{% endblock %}
+{% block body_class %}daily-index-page{% endblock %}
 
 {% block body %}
-<div class="row" id="content">
-    <div lass="col-lg-12">
-        <br>
-        {% if entry %}
-        {% set dateOfEntry = dataTest|date("d/m/Y") %}
-        <div>
-            <h3><h1><span style="color: blue"> {{ dateOfEntry }} </span></h3>
-            <p>
-            <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
-                <input type="date" id="date" name="dataToCheckDaily">
-                <button type="submit" name="dateCheck" class="btn btn-dark">pokaż</button>
-            </form>
+    {% set dateOfEntry = dataTest is defined ? dataTest|date("d/m/Y") : "dzisiaj" %}
+    {% set sections = [
+        { title: 'Przekąski', entries: snack|default([]), total: snackcal|default(0) },
+        { title: 'Śniadanie', entries: breakfast|default([]), total: breakcal|default(0) },
+        { title: 'Drugie śniadanie', entries: lunch|default([]), total: lunchkcal|default(0) },
+        { title: 'Obiad', entries: dinner|default([]), total: dinnerkcal|default(0) },
+        { title: 'Podwieczorek', entries: tea|default([]), total: teakcal|default(0) },
+        { title: 'Kolacja', entries: supper|default([]), total: supperkcal|default(0) }
+    ] %}
 
-            </p>
-            <div id="daily">
-
-                <br><br>
-                {% if snack %}
-                    <table id="snack" class="table table-striped" style="width: 900px;">
-                        <thead>
-                        <tr>
-                            <th><h3>Przekąski</h3></th>
-
-                            <th><h6></h6></th>
-                            <th><h4>{{ snackcal|number_format }} kcal</h4></th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for snack in snack %}
-                            {% for product in snack.food %}
-                                <tr>
-                                    <td>
-                                        <h5>
-                                            <blold><span
-                                                        style="color: black">{{ product.product|e }}, {{ (snack.grammage|e)*100 }} g</span>
-                                        </h5>
-                                        </bold>
-                                    </td>
-                                    <td>
-                                        <a>{{ snack.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-                                    <td>
-                                        <a href="{{ path('editEntry', {id: snack.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                        <a class="remove" href="{{ path('deleteEntry', {id: snack.id}) }}"
-                                           onclick="return confirm('Jesteś pewny?')"><span
-                                                    style="color: red">Usuń</span></a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <br>
-                {% else %}
-                {% endif %}
-
-                {% if breakfast %}
-                    <table class="table table-striped" style="width: 900px;">
-                        <thead>
-                        <tr>
-                            <th><h3>Śniadanie</h3></th>
-
-                            <th><h6></h6></th>
-                            <th><h4>{{ breakcal|number_format }} kcal</h4></th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for breakfast in breakfast %}
-                            {% for product in breakfast.food %}
-
-                                <tr>
-                                    <td>
-                                        <h5>
-                                            <blold><span
-                                                        style="color: black">{{ product.product|e }}, {{ (breakfast.grammage|e)*100 }} g</span>
-                                        </h5>
-                                        </bold>
-                                    </td>
-
-                                    <td>
-                                        <a>{{ breakfast.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-
-                                    <td>
-                                        <a href="{{ path('editEntry', {id: breakfast.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                        <a href="{{ path('deleteEntry', {id: breakfast.id}) }}"
-                                           onclick="return confirm('Jesteś pewny?')"><span
-                                                    style="color: red">Usuń</span></a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <br>
-                {% else %}
-
-                {% endif %}
-
-                {% if lunch %}
-                    <table class="table table-striped" style="width: 900px;">
-                        <thead>
-                        <tr>
-                            <th><h3>Drugie Śniadanie</h3></th>
-
-                            <th><h6></h6></th>
-                            <th><h4>{{ lunchkcal|number_format }} kcal</h4></th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for lunch in lunch %}
-                            {% for product in lunch.food %}
-
-                                <tr>
-                                    <td>
-                                        <h5>
-                                            <blold><span
-                                                        style="color: black">{{ product.product|e }}, {{ (lunch.grammage|e)*100 }} g</span>
-                                        </h5>
-                                        </bold>
-                                    </td>
-
-                                    <td>
-                                        <a>{{ lunch.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-
-                                    <td>
-                                        <a href="{{ path('editEntry', {id: lunch.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                        <a href="{{ path('deleteEntry', {id: lunch.id}) }}"
-                                           onclick="return confirm('Jesteś pewny?')"><span
-                                                    style="color: red">Usuń</span></a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <br>
-                {% else %}
-
-                {% endif %}
-
-                {% if dinner %}
-                    <table class="table table-striped" style="width: 900px;">
-                        <thead>
-                        <tr>
-                            <th><h3>Obiad</h3></th>
-
-                            <th><h6></h6></th>
-                            <th><h4>{{ dinnerkcal|number_format }} kcal</h4></th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for dinner in dinner %}
-                            {% for product in dinner.food %}
-
-                                <tr>
-                                    <td>
-                                        <h5>
-                                            <blold><span
-                                                        style="color: black">{{ product.product|e }}, {{ (dinner.grammage|e)*100 }} g</span>
-                                        </h5>
-                                        </bold>
-                                    </td>
-
-                                    <td>
-                                        <a>{{ dinner.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-
-                                    <td>
-                                        <a href="{{ path('editEntry', {id: dinner.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                        <a href="{{ path('deleteEntry', {id: dinner.id}) }}"
-                                           onclick="return confirm('Jesteś pewny?')"><span
-                                                    style="color: red">Usuń</span></a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <br>
-                {% else %}
-
-                {% endif %}
-
-                {% if tea %}
-                    <table class="table table-striped" style="width: 900px;">
-                        <thead>
-                        <tr>
-                            <th><h3>Podwieczorek</h3></th>
-
-                            <th><h6></h6></th>
-                            <th><h4>{{ teakcal|number_format }} kcal</h4></th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for tea in tea %}
-                            {% for product in tea.food %}
-
-                                <tr>
-                                    <td>
-                                        <h5>
-                                            <blold><span
-                                                        style="color: black">{{ product.product|e }}, {{ (tea.grammage|e)*100 }} g</span>
-                                        </h5>
-                                        </bold>
-                                    </td>
-
-                                    <td>
-                                        <a>{{ tea.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-
-                                    <td>
-                                        <a href="{{ path('editEntry', {id: tea.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                        <a href="{{ path('deleteEntry', {id: tea.id}) }}"
-                                           onclick="return confirm('Jesteś pewny?')"><span
-                                                    style="color: red">Usuń</span></a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <br>
-                {% else %}
-                {% endif %}
-
-                {% if supper %}
-                    <table class="table table-striped" style="width: 900px;">
-                        <thead>
-                        <tr>
-                            <th><h3>Kolacja</h3></th>
-
-                            <th><h6></h6></th>
-                            <th><h4>{{ supperkcal|number_format }} kcal</h4></th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for supper in supper %}
-                            {% for product in supper.food %}
-
-                                <tr>
-                                    <td>
-                                        <h5>
-                                            <blold><span
-                                                        style="color: black">{{ product.product|e }}, {{ (supper.grammage|e)*100 }} g</span>
-                                        </h5>
-                                        </bold>
-                                    </td>
-
-                                    <td>
-                                        <a>{{ supper.energyXgram|e }} kcal</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-
-                                    <td>
-                                        <a href="{{ path('editEntry', {id: supper.id}) }}">Edytuj</a>&nbsp;&nbsp;
-                                        <a href="{{ path('deleteEntry', {id: supper.id}) }}"
-                                           onclick="return confirm('Jesteś pewny?')"><span
-                                                    style="color: red">Usuń</span></a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <br>
-                {% else %}
-                {% endif %}
-
-                {# DO TĄD #}
-                {% else %}
-                    {% set dateOfEntry = dataTest|date("d/m/Y") %}
-                    <div class="row" id="nonentry">
-                        <div class="col-lg-12">
-                            <h3 class="mt-5"><h1>Brak wpisów dnia <span style="color: blue"> {{ dateOfEntry }} </span>
-                            </h3>
-                            <p>
-                            <form action="{{ path('showEntries') }}" method="POST" class="form-horizontal">
-                                <input type="date" id="date" name="dataToCheckDaily">
-                                <button type="submit" name="dateCheck" class="btn btn-dark">pokaż</button>
-                            </form>
-
-                            </p>
-                        </div>
-                    </div>
-                {% endif %}
+    <section class="page-card page-card--wide daily-page">
+        <header class="page-card__header">
+            <div>
+                <p class="eyebrow">Dziennik</p>
+                <h1>{{ dateOfEntry }}</h1>
+                <p class="page-card__lead">Przeglądaj wpisy z wybranego dnia i szybko przechodź do edycji albo usuwania pozycji.</p>
             </div>
-        </div>
-    </div>
-    {% endblock %}
 
+            <form action="{{ path('showEntries') }}" method="POST" class="date-filter">
+                <label for="date" class="date-filter__label">Wybierz dzień</label>
+                <div class="date-filter__controls">
+                    <input type="date" id="date" name="dataToCheckDaily" class="date-filter__input">
+                    <button type="submit" name="dateCheck" class="secondary-button">Pokaż</button>
+                </div>
+            </form>
+        </header>
 
+        {% if entry|default([]) %}
+            <div class="meal-grid">
+                {% for section in sections %}
+                    {% if section.entries %}
+                        <article class="meal-card">
+                            <header class="meal-card__header">
+                                <div>
+                                    <h2>{{ section.title }}</h2>
+                                    <p>{{ section.entries|length }} wpisów</p>
+                                </div>
+                                <strong>{{ section.total|number_format }} kcal</strong>
+                            </header>
 
+                            <div class="meal-entry-list">
+                                {% for mealEntry in section.entries %}
+                                    {% for product in mealEntry.food %}
+                                        <article class="meal-entry">
+                                            <div class="meal-entry__content">
+                                                <h3>{{ product.product|e }}</h3>
+                                                <p>{{ (mealEntry.grammage * 100)|number_format(0) }} g</p>
+                                            </div>
+
+                                            <div class="meal-entry__meta">
+                                                <span class="meal-entry__kcal">{{ mealEntry.energyXgram|number_format }} kcal</span>
+                                                <div class="meal-entry__actions">
+                                                    <a href="{{ path('editEntry', {id: mealEntry.id}) }}">Edytuj</a>
+                                                    <a
+                                                        href="{{ path('deleteEntry', {id: mealEntry.id}) }}"
+                                                        data-confirm="Czy na pewno chcesz usunąć ten wpis?"
+                                                    >Usuń</a>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </article>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state empty-state--large">
+                <h2>Brak wpisów dla {{ dateOfEntry }}</h2>
+                <p>Dodaj pierwszy produkt z wyszukiwarki w górnym pasku albo sprawdź inny dzień.</p>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
 

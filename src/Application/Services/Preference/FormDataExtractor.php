@@ -23,15 +23,15 @@ class FormDataExtractor
         if ($data instanceof Preference) {
             $gender = $data->getGender();
             $weight = $data->getWeight();
-            $height = (string)$data->getHeight();
-            $age = (string)$data->getAge();
+            $height = $data->getHeight();
+            $age = $data->getAge();
             $activity = $data->getActivity();
             $intentions = $data->getIntentions();
         } else {
             $gender = $data['gender'];
-            $weight = $data['weight'];
-            $height = $data['height'];
-            $age = $data['age'];
+            $weight = (float)$data['weight'];
+            $height = (float)$data['height'];
+            $age = (int)$data['age'];
             $activity = $data['activity'];
             $intentions = $data['intentions'];
         }

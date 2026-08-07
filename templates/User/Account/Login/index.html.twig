@@ -1,23 +1,62 @@
-
 {% extends 'base.html.twig' %}
+{% block title %}Logowanie | Kcalculator{% endblock %}
+{% block body_class %}auth-page{% endblock %}
 
 {% block body %}
-    {% if errors %}
-        {{ errors.messageKey }}
-    {% endif %}
-    <div class="row" id="login">
-        <div class="col-lg-12">
-            <h1 class="mt-5">Logowanie</h1><br>
-            <div class="col-lg-6">
-                <form action="{{ path('login') }}" method="post" class="form-horizontal">
-                    <label for="username">Login:</label>
-                    <input type="text" name="_username" id="username" value="{{ username }}" class="form-control"><br>
-                    <label for="password">Hasło:</label>
-                    <input type="password" name="_password" id="password" class="form-control">
-                    <br>
-                    <button type="submit" class="btn btn-success">Login</button>
-                </form>
+    <section class="auth-layout">
+        <article class="page-card auth-panel auth-panel--content">
+            <p class="eyebrow">Powrót do aplikacji</p>
+            <h1>Logowanie</h1>
+            <p class="page-card__lead">
+                Wejdź do dashboardu, dziennika i ustawień profilu bez powrotu do starego, rozproszonego flow.
+            </p>
+
+            <div class="auth-support-list">
+                <div>
+                    <strong>Dashboard dnia</strong>
+                    <span>Bilans kalorii, makro i trend wagi po zalogowaniu.</span>
+                </div>
+                <div>
+                    <strong>Szybkie dodawanie wpisów</strong>
+                    <span>Wyszukiwarka produktu i dziennik pozostają pod ręką z każdego ekranu.</span>
+                </div>
+                <div>
+                    <strong>Spójny shell UI</strong>
+                    <span>Publiczne i zalogowane flow korzystają już z tego samego design systemu.</span>
+                </div>
             </div>
-        </div>
-    </div>
+        </article>
+
+        <article class="page-card auth-panel auth-panel--form">
+            <header class="auth-panel__header">
+                <p class="eyebrow">Dostęp</p>
+                <h2>Zaloguj się do konta</h2>
+            </header>
+
+            {% if errors %}
+                <div class="inline-alert inline-alert--danger">
+                    {{ errors.messageKey|trans(errors.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            <form action="{{ path('login') }}" method="post" class="auth-form">
+                <div class="form-field">
+                    <label for="username">Login</label>
+                    <input type="text" name="_username" id="username" value="{{ username }}" class="form-control" autocomplete="username">
+                </div>
+
+                <div class="form-field">
+                    <label for="password">Hasło</label>
+                    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="primary-button">Zaloguj się</button>
+            </form>
+
+            <p class="auth-panel__footer">
+                Nie masz jeszcze konta?
+                <a href="{{ path('registration') }}" class="text-link">Zarejestruj się</a>
+            </p>
+        </article>
+    </section>
 {% endblock %}

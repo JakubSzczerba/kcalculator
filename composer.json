@@ -7,8 +7,6 @@
         "php": ">=8.2.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "composer/package-versions-deprecated": "1.11.99.5",
-        "doctrine/annotations": "2.0.1",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
@@ -24,7 +22,6 @@
         "symfony/http-kernel": "6.*",
         "symfony/maker-bundle": "^1.30",
         "symfony/messenger": "6.4.*",
-        "symfony/proxy-manager-bridge": "6.4.x-dev",
         "symfony/security-bundle": "6.*",
         "symfony/twig-bundle": "6.4.*",
         "symfony/ux-chartjs": "^2.13",
@@ -35,7 +32,9 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "behat/behat": "^3.29",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "phpunit/phpunit": "^10.5",
         "symfony/debug-bundle": "6.4.*",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*"
@@ -70,6 +69,8 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
+        "test:unit": "phpunit",
+        "test:behat": "behat --colors",
         "post-install-cmd": [
             "@auto-scripts"
         ],

@@ -17,10 +17,17 @@ My project of application for helthy lifestyle and calorie counting. Web aplicat
 * PHP - version 8.3
 * Symfony - version 6.4
 * MariaDB - version 10.5
+* Node.js - version 20 for Docker asset build
 
 ## Local Setup
 ```
+docker compose build php
+```
+```
 docker compose up -d
+```
+```
+docker compose run --rm --no-deps php composer install
 ```
 ```
 docker compose run --rm encore yarn build
@@ -32,7 +39,15 @@ docker compose exec php bin/console doctrine:migrations:migrate
 docker compose exec php bin/console doctrine:fixtures:load --append
 ```
 ```
-docker compose exec php bin/console csv:import
+docker compose exec php bin/console food-catalog:import
+```
+
+## Tests in Docker
+```
+docker compose run --rm --no-deps php vendor/bin/phpunit --configuration phpunit.dist.xml --testsuite Unit
+```
+```
+docker compose run --rm --no-deps php vendor/bin/behat --colors
 ```
 
 ## Features

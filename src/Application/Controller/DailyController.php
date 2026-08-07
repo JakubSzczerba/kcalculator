@@ -10,36 +10,33 @@ declare(strict_types=1);
 
 namespace Kcalculator\Application\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Kcalculator\Application\Command\Daily\AddEntryCommand;
-use Kcalculator\Application\Command\Daily\EditEntryCommand;
-use Kcalculator\Application\DTO\EntryDTO;
 use Kcalculator\Application\Form\ProductDetailsType;
 use Kcalculator\Application\Query\Daily\DailyEntriesQuery;
-use Kcalculator\Domain\Product\Entity\Product;
-use Kcalculator\Domain\User\Entity\User;
 use Kcalculator\Domain\Entry\Entity\Entry;
-use Kcalculator\Infrastructure\Repository\ProductRepository;
+use Kcalculator\Domain\Product\Entity\Product;
+use Kcalculator\Domain\Product\ProductRepositoryInterface;
+use Kcalculator\Domain\User\Entity\User;
+use Kcalculator\MealJournal\Application\Command\AddMealEntryCommand;
+use Kcalculator\MealJournal\Application\Command\DeleteMealEntryCommand;
+use Kcalculator\MealJournal\Application\Command\EditMealEntryCommand;
+use Kcalculator\MealJournal\Application\Exception\MealEntryNotFound;
+use Kcalculator\MealJournal\Application\Port\FoodProductLookup;
+use Kcalculator\MealJournal\Application\Port\MealEntryLookup;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class DailyController extends AbstractController
 {
-    private ProductRepository $productRepository;
-
-    private EntityManagerInterface $entityManager;
-
-    private MessageBusInterface $commandBus;
-
-    public function __construct(ProductRepository $productRepository, EntityManagerInterface $entityManager, MessageBusInterface $commandBus)
-    {
-        $this->productRepository = $productRepository;
-        $this->entityManager = $entityManager;
-        $this->commandBus = $commandBus;
+    public function __construct(
+        private readonly ProductRepositoryInterface $productRepository,
+        private readonly FoodProductLookup $foodProductLookup,
+        private readonly MealEntryLookup $mealEntryLookup,
+        private readonly MessageBusInterface $commandBus,
+    ) {
     }
 
     #[Route('/product', name: 'findFood', methods: ['POST'])]
@@ -54,21 +51,26 @@ class DailyController extends AbstractController
         ]);
     }
 
-    #[Route('/product/{id}', name: 'addEntry', methods: ['GET|POST'])]
-    public function addEntry(Request $request, Product $product, int $id): Response
+    #[Route('/product/{id}', name: 'addEntry', methods: ['GET', 'POST'])]
+    public function addEntry(Request $request, int $id): Response
     {
-        $user = $this->entityManager->getRepository(User::class)->find($this->getUser()->getId());
-        $product = $this->entityManager->getRepository(Product::class)->find($id);
+        $product = $this->foodProductLookup->findById($id);
+
+        if ($product === null) {
+            throw $this->createNotFoundException(sprintf('Product with id %d was not found.', $id));
+        }
 
         $form = $this->createForm(ProductDetailsType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entryDTO = new EntryDTO(
-                $form->get('Grammage')->getData(), $form->get('Meals')->getData(), $product
+            $command = new AddMealEntryCommand(
+                $this->getAuthenticatedUser()->getId(),
+                $product->getId(),
+                (string) $form->get('Meals')->getData(),
+                (float) $form->get('Grammage')->getData(),
             );
 
-            $command = new AddEntryCommand($entryDTO, $user);
             $this->commandBus->dispatch($command);
             $this->addFlash('success', 'Dodano wpis do dziennika');
 
@@ -84,38 +86,51 @@ class DailyController extends AbstractController
     #[Route('/wpisy/delete/{id}', name: 'deleteEntry')]
     public function deleteEntry(int $id): Response
     {
-        $entry = $this->entityManager->getRepository(Entry::class)->find($id);
+        $user = $this->getAuthenticatedUser();
+        $entry = $this->mealEntryLookup->findOwnedById($id, $user->getId());
 
-        if ($id) {
-            $this->entityManager->remove($entry);
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('showEntries');
-        } else {
-            return $this->render('User/Daily/index.html.twig');
+        if ($entry === null) {
+            throw $this->createNotFoundException(sprintf('Meal entry with id %d was not found.', $id));
         }
+
+        try {
+            $this->commandBus->dispatch(new DeleteMealEntryCommand($user->getId(), $id));
+        } catch (MealEntryNotFound $exception) {
+            throw $this->createNotFoundException($exception->getMessage(), $exception);
+        }
+
+        $this->addFlash('success', 'Usunięto wpis z dziennika');
+
+        return $this->redirectToRoute('showEntries');
     }
 
-    #[Route('/wpisy/edit/{id}', name: 'editEntry', methods: ['GET|POST'])]
+    #[Route('/wpisy/edit/{id}', name: 'editEntry', methods: ['GET', 'POST'])]
     public function editEntry(Request $request, int $id): Response
     {
-        $entry = $this->entityManager->getRepository(Entry::class)->find(array('id' => $id,));
-        $product = null;
+        $user = $this->getAuthenticatedUser();
+        $entry = $this->mealEntryLookup->findOwnedById($id, $user->getId());
 
-        foreach ($entry->getFood() as $productDetails) {
-            $product = $productDetails;
+        if (!$entry instanceof Entry) {
+            throw $this->createNotFoundException(sprintf('Meal entry with id %d was not found.', $id));
         }
 
+        $product = $this->extractProductFromEntry($entry);
         $form = $this->createForm(ProductDetailsType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entryDTO = new EntryDTO(
-                $form->get('Grammage')->getData(), $form->get('Meals')->getData(), $product
-            );
+            try {
+                $this->commandBus->dispatch(new EditMealEntryCommand(
+                    $user->getId(),
+                    $id,
+                    (string) $form->get('Meals')->getData(),
+                    (float) $form->get('Grammage')->getData(),
+                ));
+            } catch (MealEntryNotFound $exception) {
+                throw $this->createNotFoundException($exception->getMessage(), $exception);
+            }
 
-            $command = new EditEntryCommand($entryDTO, $entry);
-            $this->commandBus->dispatch($command);
+            $this->addFlash('success', 'Zaktualizowano wpis w dzienniku');
 
             return $this->redirectToRoute('showEntries');
         }
@@ -126,7 +141,7 @@ class DailyController extends AbstractController
         ]);
     }
 
-    #[Route('/wpisy', name: 'showEntries', methods: ['GET|POST'])]
+    #[Route('/wpisy', name: 'showEntries', methods: ['GET', 'POST'])]
     public function showEntries(Request $request): Response
     {
         if ($request->get('dataToCheckDaily')) {
@@ -136,7 +151,7 @@ class DailyController extends AbstractController
         }
 
         try {
-            $query = new DailyEntriesQuery($dateTime, $this->getUser()->getId());
+            $query = new DailyEntriesQuery($dateTime, $this->getAuthenticatedUser()->getId());
             $envelope = $this->commandBus->dispatch($query);
             $handledStamp = $envelope->last(HandledStamp::class);
 
@@ -146,5 +161,27 @@ class DailyController extends AbstractController
         } catch (\Exception $e) {
             return $this->render('User/Daily/index.html.twig');
         }
+    }
+
+    private function getAuthenticatedUser(): User
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException('Authenticated user is required to manage meal entries.');
+        }
+
+        return $user;
+    }
+
+    private function extractProductFromEntry(Entry $entry): Product
+    {
+        $product = $entry->getFood()?->first();
+
+        if (!$product instanceof Product) {
+            throw new \RuntimeException('Meal entry does not contain a food product.');
+        }
+
+        return $product;
     }
 }

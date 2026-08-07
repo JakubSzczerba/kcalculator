@@ -1,4 +1,5 @@
 parameters:
+    kcalculator.nutrition_catalog.csv_path: '%kernel.project_dir%/src/Application/Data/Products.csv'
 
 services:
     _defaults:
@@ -15,10 +16,36 @@ services:
         resource: '../src/Application/Controller/'
         tags: ['controller.service_arguments']
 
-    console_command.csv_import:
-        class: Kcalculator\Domain\Product\Command\CsvImportCommand
-        arguments:
-            - "@doctrine.orm.entity_manager"
-        tags:
-            - { name: console.command }
+    Kcalculator\Domain\Product\ProductRepositoryInterface:
+        alias: Kcalculator\Infrastructure\Repository\ProductRepository
 
+    Kcalculator\Domain\Preference\Factory\PreferenceFactoryInterface:
+        alias: Kcalculator\Domain\Preference\Factory\PreferenceFactory
+
+    Kcalculator\Domain\WeightHistory\Factory\WeightHistoryFactoryInterface:
+        alias: Kcalculator\Domain\WeightHistory\Factory\WeightHistoryFactory
+
+    Kcalculator\MealJournal\Application\Port\FoodProductLookup:
+        alias: Kcalculator\MealJournal\Infrastructure\Catalog\DoctrineFoodProductLookup
+
+    Kcalculator\MealJournal\Application\Port\MealEntryRepository:
+        alias: Kcalculator\MealJournal\Infrastructure\Persistence\DoctrineMealEntryRepository
+
+    Kcalculator\MealJournal\Application\Port\MealEntryLookup:
+        alias: Kcalculator\MealJournal\Infrastructure\Persistence\DoctrineMealEntryLookup
+
+    Kcalculator\MealJournal\Application\Port\DailyMealJournalViewReader:
+        alias: Kcalculator\MealJournal\Infrastructure\Persistence\DoctrineDailyMealJournalViewReader
+
+    Kcalculator\MealJournal\Application\Port\DailyNutritionSummaryReader:
+        alias: Kcalculator\MealJournal\Infrastructure\Persistence\DoctrineDailyNutritionSummaryReader
+
+    Kcalculator\Measurements\Application\Port\WeightHistoryChartReader:
+        alias: Kcalculator\Measurements\Infrastructure\Persistence\DoctrineWeightHistoryChartReader
+
+    Kcalculator\NutritionCatalog\Application\Port\FoodCatalogImportSource:
+        alias: Kcalculator\NutritionCatalog\Infrastructure\Import\CsvFoodCatalogImportSource
+
+    Kcalculator\NutritionCatalog\Infrastructure\Import\CsvFoodCatalogImportSource:
+        arguments:
+            $csvPath: '%kcalculator.nutrition_catalog.csv_path%'

@@ -1,117 +1,154 @@
 {% extends 'base.html.twig' %}
+{% block title %}Panel główny{% endblock %}
+{% block body_class %}dashboard-page{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="main-body">
+    {% set preference = preferentions|first %}
+    {% set calorieTarget = preference.kcal_day|default(0) %}
+    {% set caloriesLeft = calorieTarget - summKcal %}
 
-        <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
-                <div class="card" style="width: 625px; height: 350px;"> {# ====== modyfikacja kcali ========= #}
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center">
-                            {% if preferentions %}
-                            {% for preferention in preferentions %}
-                            {% set result = preferention.kcal_day - summKcal %}
-                            <div class="mt-3">
-                                <h1 class="mt-5"><span style="color: blue">{{ preferention.kcal_day|e }}</span>
-                                    -
-                                    <span style="color: red">{{ summKcal|number_format }}</span>
-                                    =
-                                    <span style="color: green">{{ result }}</span></h1><br><br>
+    <section class="dashboard-shell">
+        <header class="page-card page-card--wide dashboard-hero">
+            <div>
+                <p class="eyebrow">Panel główny</p>
+                <h1>Dzisiejszy obraz dnia</h1>
+                <p class="page-card__lead">Szybki przegląd kalorii, makroskładników i trendu wagi bez skakania między ekranami.</p>
+            </div>
 
-                                <div style="text-align: left">
-                                    <hr>
-                                    <h5>
-                                        <bold><span style="color: black">Wybrany cel: </span></bold>
-                                        <span style="color: gray">{{ ('preferentions.' ~ preferention.intentions) | trans }}</span>
-                                        <br>
-                                        <hr>
-                                        <span style="color: black">Pozostało do spozycia: </span></bold>
-                                        <span style="color: green"> {{ result }} kcal</span>
-                                    </h5>
-                                    <hr>
-                                </div>
-                                {% endfor %}
+            {% if preference %}
+                <div class="dashboard-hero__balance">
+                    <span>Pozostało</span>
+                    <strong>{{ caloriesLeft|number_format }} kcal</strong>
+                    <small>z celu {{ calorieTarget|number_format }} kcal</small>
+                </div>
+            {% else %}
+                <a href="{{ path('preferention') }}" class="primary-button dashboard-hero__cta">Ustaw preferencje</a>
+            {% endif %}
+        </header>
+
+        {% if preference %}
+            <section class="dashboard-metrics">
+                <article class="metric-card metric-card--brand">
+                    <span>Dzisiejsze spożycie</span>
+                    <strong>{{ summKcal|number_format }}</strong>
+                    <small>kcal zjedzone dzisiaj</small>
+                </article>
+                <article class="metric-card">
+                    <span>Cel dzienny</span>
+                    <strong>{{ calorieTarget|number_format }}</strong>
+                    <small>{{ ('preferentions.' ~ preference.intentions)|trans }}</small>
+                </article>
+                <article class="metric-card">
+                    <span>Białko</span>
+                    <strong>{{ summProtein|number_format }}</strong>
+                    <small>/ {{ preference.proteinPerDay|e }} g</small>
+                </article>
+                <article class="metric-card">
+                    <span>Tłuszcz</span>
+                    <strong>{{ summFat|number_format }}</strong>
+                    <small>/ {{ preference.fatPerDay|e }} g</small>
+                </article>
+                <article class="metric-card">
+                    <span>Węglowodany</span>
+                    <strong>{{ summCarbo|number_format }}</strong>
+                    <small>/ {{ preference.carboPerDay|e }} g</small>
+                </article>
+            </section>
+
+            <section class="dashboard-grid">
+                <article class="page-card dashboard-card">
+                    <header class="dashboard-card__header">
+                        <div>
+                            <p class="eyebrow">Bilans</p>
+                            <h2>Kalorie i cel</h2>
+                        </div>
+                    </header>
+
+                    <div class="balance-equation">
+                        <div class="balance-equation__item">
+                            <span>Cel</span>
+                            <strong>{{ calorieTarget|number_format }}</strong>
+                        </div>
+                        <span class="balance-equation__operator">-</span>
+                        <div class="balance-equation__item">
+                            <span>Spożycie</span>
+                            <strong>{{ summKcal|number_format }}</strong>
+                        </div>
+                        <span class="balance-equation__operator">=</span>
+                        <div class="balance-equation__item balance-equation__item--result">
+                            <span>Pozostało</span>
+                            <strong>{{ caloriesLeft|number_format }}</strong>
+                        </div>
+                    </div>
+
+                    <dl class="dashboard-definition-list">
+                        <div>
+                            <dt>Wybrany cel</dt>
+                            <dd>{{ ('preferentions.' ~ preference.intentions)|trans }}</dd>
+                        </div>
+                        <div>
+                            <dt>Status dnia</dt>
+                            <dd>
+                                {% if caloriesLeft >= 0 %}
+                                    Mieścisz się w planie
                                 {% else %}
-                                    <form action="{{ path('preferention') }}" method="POST" class="form-horizontal">
-                                        <h1 class="mt-5">Oblicz zapotrzebownie kaloryczne :)</h1><br>
-                                        <button type="submit" class="btn btn-success">Dalej</button>
-                                    </form>
+                                    Przekroczono cel o {{ (caloriesLeft * -1)|number_format }} kcal
                                 {% endif %}
-                            </div>
+                            </dd>
+                        </div>
+                    </dl>
+                </article>
+
+                <article class="page-card dashboard-card">
+                    <header class="dashboard-card__header">
+                        <div>
+                            <p class="eyebrow">Makroskładniki</p>
+                            <h2>Rozkład makro</h2>
+                        </div>
+                    </header>
+
+                    <div class="macro-summary-grid">
+                        <div class="macro-summary macro-summary--protein">
+                            <span>Białko</span>
+                            <strong>{{ summProtein|number_format }}</strong>
+                            <small>/ {{ preference.proteinPerDay|e }} g</small>
+                        </div>
+                        <div class="macro-summary macro-summary--fat">
+                            <span>Tłuszcz</span>
+                            <strong>{{ summFat|number_format }}</strong>
+                            <small>/ {{ preference.fatPerDay|e }} g</small>
+                        </div>
+                        <div class="macro-summary macro-summary--carbs">
+                            <span>Węglowodany</span>
+                            <strong>{{ summCarbo|number_format }}</strong>
+                            <small>/ {{ preference.carboPerDay|e }} g</small>
                         </div>
                     </div>
-                </div>
-            </div>
-            {% if preferentions %}
-            {% for preferention in preferentions %}
-            {% set result = preferention.kcal_day - summKcal %}
-            <div class="col-md-8">
-                <div class="card mb-3"
-                     style="width: 410px; float: right; height: 350px"> {# ===== modyfikacja makrosów ====== #}
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col" style="text-align: center">
-                                <h6 class="mb-0"><strong><span style="color: #0099FF">Białko</strong></bold></h6>
-                            </div>
-                            <div class="col" style="text-align: center">
-                                <h6 class="mb-0"><strong><span style="color: #FF6633">Tłuszcz</span></strong></h6>
-                            </div>
-                            <div class="col" style="text-align: center">
-                                <h6 class="mb-0"><strong><span style="color: #663300">Węglowodany</span></strong></h6>
-                            </div>
-                        </div>
-                        <hr>
 
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0"></h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary"></div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col" style="text-align: center">
-                                <h6 class="mb-0"></span></bold>{{ summProtein|number_format }}
-                                    <strong>/{{ preferention.proteinPerDay|e }}</strong></h6>
-                            </div>
-                            <div class="col" style="text-align: center">
-                                <h6 class="mb-0"></span></bold> {{ summFat|number_format }}
-                                    <strong>/{{ preferention.fatPerDay|e }}</strong></h6>
-                            </div>
-                            <div class="col" style="text-align: center">
-                                <h6 class="mb-0"></span></bold> {{ summCarbo|number_format }}
-                                    <strong>/{{ preferention.carboPerDay|e }}</strong></h6>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col macroChart" style="text-align: center; float: auto">
-                                {# <img src="../assets/images/chart.png" alt="Admin" class="rounded-circle"> #}
-                                {{ render_chart(chartMacro) }}
-                            </div>
-                        </div>
-                        <div class="row">
-                        </div>
-                        <hr>
+                    <div class="chart-panel chart-panel--compact">
+                        {{ render_chart(chartMacro) }}
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-3" style="height: 465px;">
-            <div class="col" style="text-align: center">
-                {# <img src="../assets/images/chartWeight.png" alt="Admin" style="height: 375px; width: 800px"> #}
-                <div class="changesizeChart" style="float: auto">
-                    {{ render_chart(chartWeight) }}
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+                </article>
+
+                <article class="page-card page-card--wide dashboard-card">
+                    <header class="dashboard-card__header">
+                        <div>
+                            <p class="eyebrow">Trend</p>
+                            <h2>Historia wagi</h2>
+                        </div>
+                    </header>
+
+                    <div class="chart-panel chart-panel--wide">
+                        {{ render_chart(chartWeight) }}
+                    </div>
+                </article>
+            </section>
         {% else %}
+            <section class="page-card empty-state empty-state--large">
+                <h2>Brakuje preferencji użytkownika</h2>
+                <p>Ustaw podstawowe dane i cel żywieniowy, żeby uruchomić dashboard kalorii, makro i trendów.</p>
+                <a href="{{ path('preferention') }}" class="primary-button">Oblicz zapotrzebowanie</a>
+            </section>
         {% endif %}
-
-    </div>
-    {% endblock %}
-
-
-
+    </section>
+{% endblock %}

@@ -1,45 +1,40 @@
 {% extends 'base.html.twig' %}
+{% block title %}Wyniki wyszukiwania{% endblock %}
+{% block body_class %}daily-search-page{% endblock %}
 
 {% block body %}
+    <section class="page-card page-card--wide search-results-page">
+        <header class="page-card__header">
+            <div>
+                <p class="eyebrow">Katalog produktów</p>
+                <h1>Wyniki dla „{{ nameProduct }}”</h1>
+                <p class="page-card__lead">Wybierz produkt, aby przejść do ustawienia porcji i dodać go do dziennika.</p>
+            </div>
+            {% if products %}
+                <span class="stat-pill">{{ products|length }} wyników</span>
+            {% endif %}
+        </header>
 
-    {% if products %}
-        <div class="row" id="searchingProducts">
-        <div lass="col-lg-12">
-
-            <h3 class="mt-5" style="text-align: center;">Wyniki wyszukiwania dla frazy "{{ nameProduct }}" </h3>
-            <br><br>
-
-            <table class="table table-striped" style="width: 900px;">
-                <tbody>
+        {% if products %}
+            <div class="product-grid">
                 {% for product in products %}
-                    <tr>
-                        <td>
-                            <a href="{{ path('addEntry', {id: product.id}) }}">
-                                <h3>
-                                    <blold>{{ product.product|e }}<h3></bold>
-                            </a>
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            <h4>
-                                <bold>
-                                    <span style="color: #006600">{{ product.energy|e }} kcal &emsp;&nbsp;&nbsp;&emsp;</span>
-                                </bold>
-                            </h4>
-                        </td>
-                    </tr>
+                    <a class="product-result-card" href="{{ path('addEntry', {id: product.id}) }}">
+                        <div class="product-result-card__body">
+                            <h2>{{ product.product|e }}</h2>
+                            <p>Dodaj produkt do dziennika i wybierz wielkość porcji.</p>
+                        </div>
+                        <div class="product-result-card__meta">
+                            <strong>{{ product.energy|e }} kcal</strong>
+                            <span>na 100 g</span>
+                        </div>
+                    </a>
                 {% endfor %}
-
-                </tbody>
-            </table>
-        </div>
-
-    {% else %}
-        <div class="col-lg-12">
-        <h2 class="mt-5">Produkt o nazwie "{{ nameProduct }}" nie istnieje</h2><br>
-    {% endif %}
-    </div>
-    </div>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <h2>Brak wyników</h2>
+                <p>Nie znaleziono produktu o nazwie „{{ nameProduct }}”. Spróbuj krótszej lub bardziej ogólnej frazy.</p>
+            </div>
+        {% endif %}
+    </section>
 {% endblock %}
